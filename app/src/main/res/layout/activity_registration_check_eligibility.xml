@@ -1,0 +1,1099 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="in.co.cioc.i2i.RegistrationCheckEligibility">
+
+    <ScrollView
+        android:id="@+id/registration_form"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/basic_registration_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="30dp"
+                    android:gravity="center_horizontal"
+                    android:text="Check Eligibility" />
+
+
+                <ImageView
+                    android:layout_width="218dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:srcCompat="@drawable/bottom_border" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="348dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/borrow_eligibility_bg" />
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Loan details" />
+
+
+                <ImageView
+                    android:layout_width="218dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/bottom_border2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/money_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/mobileOTP"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Amount"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/date_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Tenure of Loan"
+                            android:textColor="@color/colorAccent" />
+
+                        <Spinner
+                            android:id="@+id/spinner1"
+                            android:layout_width="100dp"
+                            android:layout_height="match_parent"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/date_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Purpose"
+                            android:textColor="@color/colorAccent" />
+
+                        <Spinner
+                            android:id="@+id/spinnerPurpose"
+                            android:layout_width="200dp"
+                            android:layout_height="match_parent"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/description_icon" />
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <MultiAutoCompleteTextView
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:hint="Description"/>
+
+                    </android.support.design.widget.TextInputLayout>
+
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Please describe about you loan requirment which can help you in attracting prospective investors. Click here to see an example" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Personal details" />
+
+
+                <ImageView
+                    android:layout_width="218dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/bottom_border2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/gender_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/radio_single"
+                                android:layout_width="131dp"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClickedMarital"
+                                android:text="Single" />
+
+                            <RadioButton
+                                android:id="@+id/radio_married"
+                                android:layout_width="117dp"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClickedMarital"
+                                android:text="Married" />
+
+
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/date_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <EditText
+                                android:id="@+id/dob"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ems="10"
+                                android:onClick="setDate"
+                                android:hint="Date of birth"
+                                android:cursorVisible="false"
+                                android:focusable="false"
+                                android:focusableInTouchMode="false" />
+                        </android.support.design.widget.TextInputLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/company_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/pincode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Pincode"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/company_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="City"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Employment Details" />
+
+
+                <ImageView
+                    android:layout_width="218dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/bottom_border2" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/date_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Employment Type"
+                            android:textColor="@color/colorAccent" />
+
+                        <Spinner
+                            android:id="@+id/spinnerEmpType"
+                            android:layout_width="155dp"
+                            android:layout_height="match_parent"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/emp_form_salaried"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/company_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="270dp"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:id="@+id/company"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ems="10"
+                                    android:hint="Company" />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/company_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/incomeSalaried"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Monthly Income"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="53dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/employment_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:text="Salary"
+                                android:textColor="@color/colorAccent" />
+
+                            <Spinner
+                                android:id="@+id/spinnerPaymentMode"
+                                android:layout_width="200dp"
+                                android:layout_height="match_parent"
+                                android:spinnerMode="dropdown" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/date_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="270dp"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:id="@+id/workingSince"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ems="10"
+                                    android:onClick="setWorkingSince"
+                                    android:hint="Working Since"
+                                    android:cursorVisible="false"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false" />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/date_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/workExperience"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Work Experience : Years"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/date_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/workExperienceMonth"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Work Experience : Months"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/emp_form_business"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/business_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="270dp"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:id="@+id/professionBusiness"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ems="10"
+                                    android:hint="Business Type" />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/money_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/turnoverBusiness"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Gross Annual Turnover"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/profit_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/profitBusiness"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Gross Annual Profit"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/emp_form_selfEmp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/business_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="270dp"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:id="@+id/professionSelfEmp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ems="10"
+                                    android:hint="Profession Type" />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/money_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/turnoverSelfEmp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Gross Annual Turnover"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/profit_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/profitSelfEmp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Gross Annual Profit"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Financial Details" />
+
+
+                <ImageView
+                    android:layout_width="218dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/bottom_border2" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/city_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="House Type"
+                            android:textColor="@color/colorAccent" />
+
+                        <Spinner
+                            android:id="@+id/spinnerHouseType"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:spinnerMode="dropdown" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/purpose_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/otherIncome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Any Other Monthly Income"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Do you have any loan running"
+                    android:textColor="@color/colorAccent"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/money_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_loan"
+                                android:layout_width="131dp"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClickedMarital"
+                                android:text="Yes" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_loan"
+                                android:layout_width="117dp"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClickedMarital"
+                                android:text="No" />
+
+
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Do you have credit cards"
+                    android:textColor="@color/colorAccent"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/credit_icon" />
+
+                    <LinearLayout
+                        android:layout_width="270dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/radio_yes_creditCard"
+                                android:layout_width="131dp"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClickedMarital"
+                                android:text="Yes" />
+
+                            <RadioButton
+                                android:id="@+id/radio_no_creditCard"
+                                android:layout_width="117dp"
+                                android:layout_height="wrap_content"
+                                android:onClick="onRadioButtonClickedMarital"
+                                android:text="No" />
+
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/credit_score_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/creditScore"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Cibil Score"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginTop="50dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <Button
+                    android:id="@+id/submit_button"
+                    style="?android:textAppearanceSmall"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/roundbutton_orange"
+                    android:text="Check Eligibility"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</android.support.constraint.ConstraintLayout>

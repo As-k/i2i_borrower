@@ -82,7 +82,7 @@
                         android:layout_height="wrap_content">
 
                         <AutoCompleteTextView
-                            android:id="@+id/mobileOTP"
+                            android:id="@+id/amount"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Amount"
@@ -183,6 +183,7 @@
                         android:layout_height="wrap_content">
 
                         <MultiAutoCompleteTextView
+                            android:id="@+id/description"
                             android:layout_width="270dp"
                             android:layout_height="wrap_content"
                             android:text=""
@@ -440,7 +441,7 @@
                                 android:layout_width="270dp"
                                 android:layout_height="wrap_content">
 
-                                <EditText
+                                <AutoCompleteTextView
                                     android:id="@+id/company"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -889,11 +890,99 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/rentForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/purpose_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/monthlyRent"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Monthly rent"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true" />
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="30dp"
+                        android:text="Can you provide gurantor who has own house ?"
+                        android:textColor="@color/colorAccent"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/money_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/canProvideGurantee_yes"
+                                    android:layout_width="131dp"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onRadioButtonClicked"
+                                    android:text="Yes" />
+
+                                <RadioButton
+                                    android:id="@+id/canProvideGurantee_no"
+                                    android:layout_width="117dp"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onRadioButtonClicked"
+                                    android:text="No" />
+
+
+                            </RadioGroup>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
+                    android:layout_marginTop="15dp"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
 
@@ -913,6 +1002,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Any Other Monthly Income"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp"
+                    android:id="@+id/spouseIncomeLayout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/purpose_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/spouseIncome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Spouse Name"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true" />
@@ -958,19 +1078,50 @@
                                 android:id="@+id/radio_yes_loan"
                                 android:layout_width="131dp"
                                 android:layout_height="wrap_content"
-                                android:onClick="onRadioButtonClickedMarital"
+                                android:onClick="onRadioButtonClicked"
                                 android:text="Yes" />
 
                             <RadioButton
                                 android:id="@+id/radio_no_loan"
                                 android:layout_width="117dp"
                                 android:layout_height="wrap_content"
-                                android:onClick="onRadioButtonClickedMarital"
+                                android:onClick="onRadioButtonClicked"
                                 android:text="No" />
 
 
                         </RadioGroup>
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp"
+                    android:id="@+id/loanEmiLayout">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/purpose_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/loanEmi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Total current EMI"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <TextView
@@ -1009,14 +1160,14 @@
                                 android:id="@+id/radio_yes_creditCard"
                                 android:layout_width="131dp"
                                 android:layout_height="wrap_content"
-                                android:onClick="onRadioButtonClickedMarital"
+                                android:onClick="onRadioButtonClicked"
                                 android:text="Yes" />
 
                             <RadioButton
                                 android:id="@+id/radio_no_creditCard"
                                 android:layout_width="117dp"
                                 android:layout_height="wrap_content"
-                                android:onClick="onRadioButtonClickedMarital"
+                                android:onClick="onRadioButtonClicked"
                                 android:text="No" />
 
                         </RadioGroup>
@@ -1025,7 +1176,36 @@
 
 
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp"
+                    android:id="@+id/ccOutstandingLayout">
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/purpose_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/ccOutstanding"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Total Credit Card Amount Outstanding"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
 
 
 

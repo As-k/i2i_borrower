@@ -480,7 +480,7 @@ public class MainActivity extends AppCompatActivity
                             Intent i = new Intent(getApplicationContext(), RegistrationOTP.class);
                             i.putExtras(bundle);
                             startActivity(i);
-                            register_button.setText("Resend");
+//                            register_button.setText("Resend");
                         }
 
                     }

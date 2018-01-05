@@ -3,6 +3,8 @@ package in.co.cioc.i2i;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,24 +25,31 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.yarolegovich.lovelydialog.LovelyProgressDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ArrayList;
+import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
 
 public class RegistrationCheckEligibility extends AppCompatActivity {
 
+    String addressState = "";
     Boolean loading;
     private static AsyncHttpClient client = new AsyncHttpClient();
     Backend backend;
-    Spinner dropdownPurpose , spinnerPaymentMode;
+    Spinner dropdownPurpose , spinnerPaymentMode , spinnerHouseType , dropdownEmpType , dropdown;
     private int year, month, day;
     private Calendar calendar;
-    private EditText bodEditTxt, pincodeEditTxt , cityEditTxt, workingSinceEditTxt;
+    private EditText bodEditTxt, pincodeEditTxt , cityEditTxt, workingSinceEditTxt , stayingSinceEditTxt;
     Drawable successTick;
 
     EditText amountTxt , descriptionTxt;
@@ -47,12 +57,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     EditText professionTypeTxt, turnoverSelfEmpTxt , profitSelfEmpTxt;
     EditText professionBusinessTxt, turnoverBusinessTxt , profitBusinessTxt;
 
-    EditText incomeSalariedTxt , workingSinceTxt, workExperienceTxt , workExperienceMonthTxt;
+    EditText incomeSalariedTxt , workExperienceTxt , workExperienceMonthTxt;
     AutoCompleteTextView companyTxt;
+
+    EditText monthlyRentTxt, monthlyIncomeSalariedTxt, otherIncomeTxt , spouseIncomeTxt;
 
     LinearLayout loanEmiLayout , ccOutstandingLayout , rentForm , spouseIncomeLayout;
 
     EditText loanEmiTxt , ccOutstandingTxt, creditScoreTxt;
+
+    Button submit_button;
 
     public void onRadioButtonClickedMarital(View view) {
         // Is the button now checked?
@@ -83,6 +97,10 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         showDialog(1000);
     }
 
+    public void setStayingSince(View view) {
+        showDialog(1001);
+    }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
@@ -100,6 +118,9 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         }else if (id == 1000) {
             return new DatePickerDialog(this,
                     WorkingSinceListner, year, month, day);
+        }else if (id == 1001) {
+            return new DatePickerDialog(this,
+                    StayingSinceListner, year, month, day);
         }
         return null;
     }
@@ -132,11 +153,41 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             workingSinceEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
             showSuccess(workingSinceEditTxt);
+
+            workExperienceTxt.requestFocus();
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener StayingSinceListner = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0,
+                              int arg1, int arg2, int arg3) {
+            // TODO Auto-generated method stub
+            // arg1 = year
+            // arg2 = month
+            // arg3 = day
+
+            stayingSinceEditTxt.setText(new StringBuilder().append(arg3).append("/")
+                    .append(arg2).append("/").append(arg1));
+            showSuccess(stayingSinceEditTxt);
+
+            otherIncomeTxt.requestFocus();
         }
     };
 
     private void insertIntoDP(Integer amt , String desc , String date , String filePath){
         // insert here
+    }
+
+    private Date strToDate(String dateStr){
+        Date date = null;
+        SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            date = format.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 
     @Override
@@ -151,15 +202,152 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         bodEditTxt = findViewById(R.id.dob);
 
         workingSinceEditTxt = findViewById(R.id.workingSince);
+        stayingSinceEditTxt = findViewById(R.id.stayingSince);
         incomeSalariedTxt = findViewById(R.id.incomeSalaried);
         workExperienceTxt = findViewById(R.id.workExperience);
         workExperienceMonthTxt = findViewById(R.id.workExperienceMonth);
         companyTxt = findViewById(R.id.company);
         companyTxt.setAdapter(new CompanyAutoCompleteAdapter(this,companyTxt.getText().toString()));
 
-        amountTxt = findViewById(R.id.amount);
-        descriptionTxt = findViewById(R.id.description);
 
+
+
+        final LinearLayout selfEmpForm = findViewById(R.id.emp_form_selfEmp);
+        final LinearLayout businessForm = findViewById(R.id.emp_form_business);
+        final LinearLayout salariedForm = findViewById(R.id.emp_form_salaried);
+
+        spouseIncomeLayout = findViewById(R.id.spouseIncomeLayout);
+        spouseIncomeLayout.setVisibility(LinearLayout.GONE);
+
+        selfEmpForm.setVisibility(LinearLayout.GONE);
+        businessForm.setVisibility(LinearLayout.GONE);
+
+        professionTypeTxt = findViewById(R.id.professionSelfEmp);
+        turnoverSelfEmpTxt = findViewById(R.id.turnoverSelfEmp);
+        profitSelfEmpTxt = findViewById(R.id.profitSelfEmp);
+
+        professionTypeTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(professionTypeTxt);
+                }else {
+                    removeSuccess(professionTypeTxt);
+                    professionTypeTxt.setError("Please tell us about the profession type you are in");
+                    professionTypeTxt.requestFocus();
+                }
+            }
+        });
+
+        turnoverSelfEmpTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(turnoverSelfEmpTxt);
+                }else {
+                    removeSuccess(turnoverSelfEmpTxt);
+                    turnoverSelfEmpTxt.setError("What was your turnover last year");
+                    turnoverSelfEmpTxt.requestFocus();
+                }
+            }
+        });
+
+        profitSelfEmpTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(profitSelfEmpTxt);
+                }else {
+                    removeSuccess(profitSelfEmpTxt);
+                    profitSelfEmpTxt.setError("What was the profit you made last year");
+                    profitSelfEmpTxt.requestFocus();
+                }
+            }
+        });
+
+
+
+        professionBusinessTxt = findViewById(R.id.professionBusiness);
+        turnoverBusinessTxt = findViewById(R.id.turnoverBusiness);
+        profitBusinessTxt = findViewById(R.id.profitBusiness);
+
+
+        professionBusinessTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(professionBusinessTxt);
+                }else {
+                    removeSuccess(professionBusinessTxt);
+                    professionBusinessTxt.setError("What is your business type");
+                    professionBusinessTxt.requestFocus();
+                }
+            }
+        });
+
+        turnoverBusinessTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(turnoverBusinessTxt);
+                }else {
+                    removeSuccess(turnoverBusinessTxt);
+                    turnoverBusinessTxt.setError("What was the turnover you had last year");
+                    turnoverBusinessTxt.requestFocus();
+                }
+            }
+        });
+
+        profitBusinessTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(profitBusinessTxt);
+                }else {
+                    removeSuccess(profitBusinessTxt);
+                    profitBusinessTxt.setError("What was the profit you made last year");
+                    profitBusinessTxt.requestFocus();
+                }
+            }
+        });
+
+
+        loanEmiTxt = findViewById(R.id.loanEmi);
+        ccOutstandingTxt = findViewById(R.id.ccOutstanding);
+        creditScoreTxt = findViewById(R.id.creditScore);
+        spouseIncomeTxt = findViewById(R.id.spouseIncome);
+
+        amountTxt = findViewById(R.id.amount);
         amountTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -183,6 +371,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
         });
 
+        descriptionTxt = findViewById(R.id.description);
         descriptionTxt.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -201,6 +390,189 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
         });
 
+        companyTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(companyTxt);
+                }else {
+                    removeSuccess(companyTxt);
+                    companyTxt.setError("Please search and select a company");
+                    companyTxt.requestFocus();
+                }
+            }
+        });
+
+        workExperienceMonthTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(workExperienceMonthTxt);
+                }else {
+                    removeSuccess(workExperienceMonthTxt);
+                    workExperienceMonthTxt.setError("Please tell us your work experience");
+                    workExperienceMonthTxt.requestFocus();
+                }
+            }
+        });
+
+        workExperienceTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(workExperienceTxt);
+                }else {
+                    removeSuccess(workExperienceTxt);
+                    workExperienceTxt.setError("Please tell us your work experience");
+                    workExperienceTxt.requestFocus();
+                }
+            }
+        });
+
+        workExperienceTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(workExperienceTxt);
+                }else {
+                    removeSuccess(workExperienceTxt);
+                    workExperienceTxt.setError("Please tell us your work experience");
+                    workExperienceTxt.requestFocus();
+                }
+            }
+        });
+
+
+
+        monthlyRentTxt = findViewById(R.id.monthlyRent);
+
+        monthlyRentTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(monthlyRentTxt);
+                }else {
+                    removeSuccess(monthlyRentTxt);
+                    monthlyRentTxt.setError("What is your monthly rent amount");
+                    monthlyRentTxt.requestFocus();
+                }
+            }
+        });
+
+        creditScoreTxt = findViewById(R.id.creditScore);
+
+        creditScoreTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(creditScoreTxt);
+                }else {
+                    removeSuccess(creditScoreTxt);
+                }
+            }
+        });
+
+        monthlyIncomeSalariedTxt = findViewById(R.id.incomeSalaried);
+        monthlyIncomeSalariedTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(monthlyIncomeSalariedTxt);
+                }else {
+                    removeSuccess(monthlyIncomeSalariedTxt);
+                    monthlyIncomeSalariedTxt.setError("What is your monthly take home salary");
+                    monthlyIncomeSalariedTxt.requestFocus();
+                }
+            }
+        });
+
+        otherIncomeTxt = findViewById(R.id.otherIncome);
+        otherIncomeTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(otherIncomeTxt);
+                }else {
+                    removeSuccess(otherIncomeTxt);
+                }
+            }
+        });
+
+        loanEmiTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(loanEmiTxt);
+                }else {
+                    removeSuccess(loanEmiTxt);
+                    loanEmiTxt.setError("What is your monthly EMIs on loan");
+                    loanEmiTxt.requestFocus();
+                }
+            }
+        });
+
+        ccOutstandingTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.length() != 0){
+                    showSuccess(ccOutstandingTxt);
+                }else {
+                    removeSuccess(ccOutstandingTxt);
+                    ccOutstandingTxt.setError("What is your existing Credit Card outstanding balance");
+                    ccOutstandingTxt.requestFocus();
+                }
+            }
+        });
 
 
         calendar = Calendar.getInstance();
@@ -209,47 +581,27 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        Spinner dropdown = findViewById(R.id.spinner1);
+        dropdown = findViewById(R.id.spinner1);
         String[] items = new String[]{"3", "6", "9" , "12", "15","18" ,"21","24"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
-        Spinner dropdownEmpType = findViewById(R.id.spinnerEmpType);
+        dropdownEmpType = findViewById(R.id.spinnerEmpType);
         String[] itemsEmpType = new String[]{"Salaried", "Self Employed", "Business" };
         ArrayAdapter<String> adapterEmpType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEmpType);
         dropdownEmpType.setAdapter(adapterEmpType);
 
-        Spinner spinnerPaymentMode = findViewById(R.id.spinnerPaymentMode);
+        spinnerPaymentMode = findViewById(R.id.spinnerPaymentMode);
         String[] itemsPaymentMode = new String[]{"Cash", "Cheque", "Credit to Bank Account" };
         ArrayAdapter<String> adapterPaymentMode = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsPaymentMode);
         spinnerPaymentMode.setAdapter(adapterPaymentMode);
 
-        Spinner spinnerHouseType = findViewById(R.id.spinnerHouseType);
+        spinnerHouseType = findViewById(R.id.spinnerHouseType);
         String[] itemsHouseType = new String[]{"Rented", "Own", "Parental" };
         ArrayAdapter<String> adapterHouseType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsHouseType);
         spinnerHouseType.setAdapter(adapterHouseType);
 
-        final LinearLayout selfEmpForm = findViewById(R.id.emp_form_selfEmp);
-        final LinearLayout businessForm = findViewById(R.id.emp_form_business);
-        final LinearLayout salariedForm = findViewById(R.id.emp_form_salaried);
 
-        spouseIncomeLayout = findViewById(R.id.spouseIncomeLayout);
-        spouseIncomeLayout.setVisibility(LinearLayout.GONE);
-
-        selfEmpForm.setVisibility(LinearLayout.GONE);
-        businessForm.setVisibility(LinearLayout.GONE);
-
-        professionTypeTxt = findViewById(R.id.professionSelfEmp);
-        turnoverSelfEmpTxt = findViewById(R.id.turnoverSelfEmp);
-        profitSelfEmpTxt = findViewById(R.id.profitSelfEmp);
-
-        professionBusinessTxt = findViewById(R.id.professionBusiness);
-        turnoverBusinessTxt = findViewById(R.id.turnoverBusiness);
-        profitBusinessTxt = findViewById(R.id.profitBusiness);
-
-        loanEmiTxt = findViewById(R.id.loanEmi);
-        ccOutstandingTxt = findViewById(R.id.ccOutstanding);
-        creditScoreTxt = findViewById(R.id.creditScore);
 
         loading = true;
 
@@ -379,6 +731,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                             try {
                                 cityEditTxt.setText(response.getString("pin_city"));
+                                addressState = response.getString("pin_state");
                                 showSuccess(cityEditTxt);
                             }catch (JSONException e){
 
@@ -399,6 +752,175 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     View focusView = pincodeEditTxt;
                     focusView.requestFocus();
                 }
+            }
+        });
+
+
+        submit_button = findViewById(R.id.submit_button);
+
+        submit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                try{
+                    Integer desiredAmount = Integer.parseInt(amountTxt.getText().toString());
+                }catch(Exception e){
+
+                }
+
+                String tenure = dropdown.getSelectedItem().toString();
+                String purpose = dropdownPurpose.getSelectedItem().toString();
+
+                Boolean married = false;
+                RadioButton radioMarried = findViewById(R.id.radio_married);
+                RadioButton radioSingle = findViewById(R.id.radio_single);
+
+
+
+                if (radioMarried.isChecked()){
+                    married = true;
+                }else if (radioSingle.isChecked()){
+                    married = false;
+                }
+
+                Date dob = strToDate(bodEditTxt.getText().toString());
+
+                String pincode = pincodeEditTxt.getText().toString();
+                String city = cityEditTxt.getText().toString();
+                String state = addressState;
+
+                String empType = dropdownEmpType.getSelectedItem().toString();
+
+                if (empType == "Business"){
+                    String type = professionBusinessTxt.getText().toString();
+
+                    try{
+                        Integer grossTurnover = Integer.parseInt(turnoverBusinessTxt.getText().toString());
+                        Integer grossAnnualProfit = Integer.parseInt(turnoverBusinessTxt.getText().toString());
+                    }catch ( Exception e){
+
+                    }
+
+
+                }
+
+                if (empType == "Self Employed"){
+                    String type = professionTypeTxt.getText().toString();
+                    try{
+                        Integer grossTurnover = Integer.parseInt(turnoverSelfEmpTxt.getText().toString());
+                        Integer grossAnnualProfit = Integer.parseInt(profitSelfEmpTxt.getText().toString());
+                    }catch ( Exception e){
+
+                    }
+
+                }
+
+                if (empType == "Salaried"){
+                    String compName = companyTxt.getText().toString();
+                    try{
+                        Integer monthlyIncome = Integer.parseInt(incomeSalariedTxt.getText().toString());
+                    }catch (Exception e){
+
+                    }
+
+                    String empPaymentType = spinnerPaymentMode.getSelectedItem().toString();
+                    Date workingSince = strToDate(workingSinceEditTxt.getText().toString());
+                    String expYear = workExperienceTxt.getText().toString();
+                    String expMonth = workExperienceMonthTxt.getText().toString();
+                }
+
+                String houseType = spinnerHouseType.getSelectedItem().toString();
+                try{
+                    Integer otherMonthlyIncome = Integer.parseInt(otherIncomeTxt.getText().toString());
+                }catch (Exception e){
+
+                }
+
+
+                RadioButton yesLoan = findViewById(R.id.radio_yes_loan);
+                RadioButton noLoan = findViewById(R.id.radio_no_loan);
+
+                Boolean loanRunning;
+
+                if (noLoan.isChecked()){
+                    loanRunning = false;
+                }
+                if (yesLoan.isChecked()){
+                    loanRunning = true;
+                    try{
+                        Integer runningLoanEmi = Integer.parseInt(loanEmiTxt.getText().toString());
+                    }catch (Exception e){
+
+                    }
+
+                }
+
+
+                RadioButton yesCC = findViewById(R.id.radio_yes_creditCard);
+                RadioButton noCC = findViewById(R.id.radio_no_creditCard);
+
+                Boolean creditCard;
+
+                if (yesCC.isChecked()){
+                    creditCard = true;
+                }
+                if (noCC.isChecked()){
+                    creditCard = false;
+                    try{
+                        Integer creditCardOutstanding = Integer.parseInt(ccOutstandingTxt.getText().toString());
+                    }catch (Exception e){
+
+                    }
+
+                }
+
+
+
+                Integer cibilScore = Integer.parseInt(creditScoreTxt.getText().toString());
+                if (married){
+                    try{
+                        Integer spouseMonthlyIncome = Integer.parseInt(spouseIncomeTxt.getText().toString());
+                    }catch (Exception e){
+
+                    }
+
+                }
+
+                if (houseType == "Rented"){
+                    Boolean canProvideGurantor;
+
+
+                    RadioButton haveGurantee = findViewById(R.id.canProvideGurantee_yes);
+                    RadioButton noGurantee = findViewById(R.id.canProvideGurantee_no);
+
+                    if (noGurantee.isChecked()){
+                        canProvideGurantor = false;
+                    }
+                    if (haveGurantee.isChecked()){
+                        canProvideGurantor = true;
+                    }
+                    String monthlyRent = monthlyRentTxt.getText().toString();
+                    Date stayingSince = strToDate(stayingSinceEditTxt.getText().toString());
+                }
+
+                LovelyStandardDialog dialog = new LovelyStandardDialog(RegistrationCheckEligibility.this);
+
+                dialog.setIcon(R.drawable.thumsup_icon)
+                    .setTopColorRes(R.color.white)
+                    .setMessage("Congratulations, You are eligible")
+                    .setPositiveButton("Proceed", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(getApplicationContext(), "positive clicked", Toast.LENGTH_SHORT).show();
+
+                            Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
+                            startActivity(i);
+
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .show();
+
             }
         });
 
@@ -450,4 +972,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     public void removeSuccess(EditText edit){
         edit.setCompoundDrawables(null, null, null, null);
     }
+
+
 }

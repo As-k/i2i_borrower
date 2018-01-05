@@ -313,7 +313,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="center"
-                        app:srcCompat="@drawable/company_icon" />
+                        app:srcCompat="@drawable/location_icon" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="270dp"
@@ -343,7 +343,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="center"
-                        app:srcCompat="@drawable/company_icon" />
+                        app:srcCompat="@drawable/city_icon" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="270dp"
@@ -977,6 +977,46 @@
                         </LinearLayout>
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal"
+                        android:paddingRight="20dp">
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/date_icon" />
+
+                        <LinearLayout
+                            android:layout_width="270dp"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <android.support.design.widget.TextInputLayout
+                                android:layout_width="270dp"
+                                android:layout_height="wrap_content">
+
+                                <EditText
+                                    android:id="@+id/stayingSince"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:ems="10"
+                                    android:onClick="setStayingSince"
+                                    android:hint="Staying since at the current residence"
+                                    android:cursorVisible="false"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false" />
+                            </android.support.design.widget.TextInputLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -1265,7 +1305,8 @@
                     android:background="@drawable/roundbutton_orange"
                     android:text="Check Eligibility"
                     android:textColor="#ffffff"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    />
 
             </LinearLayout>
 

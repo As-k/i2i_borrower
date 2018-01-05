@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="in.co.cioc.i2i">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -10,32 +11,36 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden">
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".RegistrationOTP"></activity>
-        <activity android:name=".RegistrationCheckEligibility">
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".RegistrationOTP" />
+        <activity android:name=".RegistrationCheckEligibility"></activity>
+        <activity android:name=".PaymentActivity">
+
+        </activity>
+        <activity android:name=".UserDetails">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".PaymentActivity">
-
         </activity>
     </application>
 

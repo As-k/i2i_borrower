@@ -29,4 +29,5 @@
     </string-array>
 
     <string name="use_live_key_in_production_environment">Please use your live merchant key in production environment</string>
+    <string name="title_activity_employement_details">EmployementDetails</string>
 </resources>

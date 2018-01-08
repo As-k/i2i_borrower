@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         StepView mStepView = (StepView) findViewById(R.id.step_view);
-        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "Documents"});
+        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "DocumentsActivity"});
         mStepView.setSteps(steps);
 
         mStepView.selectedStep(1);

@@ -63,6 +63,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:text="Discount"
+                    android:id="@+id/discountTxt"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
                     android:text="GST @ 18%" />
 
                 <TextView
@@ -86,21 +93,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     android:gravity="end"
+                    android:id="@+id/amount"
                     android:text="500" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="end"
+                    android:id="@+id/discountAmt"
+                    android:text="90" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:gravity="end"
-                    android:text="90" />
+                    android:text="90"
+                    android:id="@+id/gst"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:text="590"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:id="@+id/total"/>
 
 
             </LinearLayout>
@@ -115,7 +132,8 @@
         android:orientation="horizontal"
         android:paddingStart="80dp"
         android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:layout_marginTop="30dp">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="wrap_content"
@@ -124,7 +142,8 @@
             <android.support.design.widget.TextInputEditText
                 android:layout_width="182dp"
                 android:layout_height="wrap_content"
-                android:hint="Coupon code" />
+                android:hint="Coupon code"
+                android:id="@+id/couponCode"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
@@ -156,7 +175,7 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <Button
-                android:id="@+id/submit_button"
+                android:id="@+id/button_pay_now"
                 style="?android:textAppearanceSmall"
                 android:layout_width="224dp"
                 android:layout_height="wrap_content"
@@ -164,8 +183,7 @@
                 android:background="@drawable/roundbutton_orange"
                 android:text="Pay Now"
                 android:textColor="#ffffff"
-                android:textStyle="bold"
-                android:onClick="navigateToBaseActivity" />
+                android:textStyle="bold" />
 
         </LinearLayout>
     </LinearLayout>

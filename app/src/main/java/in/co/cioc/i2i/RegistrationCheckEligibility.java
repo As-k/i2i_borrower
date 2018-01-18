@@ -4,7 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import org.json.JSONArray;
@@ -39,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 public class RegistrationCheckEligibility extends AppCompatActivity {
 
@@ -67,6 +67,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     EditText loanEmiTxt , ccOutstandingTxt, creditScoreTxt;
 
     Button submit_button;
+    SharedPreferences sharedPreferences;
 
     public void onRadioButtonClickedMarital(View view) {
         // Is the button now checked?
@@ -175,9 +176,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         }
     };
 
-    private void insertIntoDP(Integer amt , String desc , String date , String filePath){
-        // insert here
-    }
 
     private Date strToDate(String dateStr){
         Date date = null;
@@ -197,8 +195,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         backend = new Backend();
 
-        insertIntoDP(423, "$32423", "432423" , "432423");
-
         bodEditTxt = findViewById(R.id.dob);
 
         workingSinceEditTxt = findViewById(R.id.workingSince);
@@ -207,7 +203,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         workExperienceTxt = findViewById(R.id.workExperience);
         workExperienceMonthTxt = findViewById(R.id.workExperienceMonth);
         companyTxt = findViewById(R.id.company);
-        companyTxt.setAdapter(new CompanyAutoCompleteAdapter(this,companyTxt.getText().toString()));
+        companyTxt.setAdapter(new AutoCompleteAdapter(this,companyTxt.getText().toString()  , "companySearch" ));
 
 
 
@@ -761,15 +757,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Integer desiredAmount = 0;
                 try{
-                    Integer desiredAmount = Integer.parseInt(amountTxt.getText().toString());
+                    desiredAmount = Integer.parseInt(amountTxt.getText().toString());
                 }catch(Exception e){
 
                 }
 
                 String tenure = dropdown.getSelectedItem().toString();
-                String purpose = dropdownPurpose.getSelectedItem().toString();
+                Integer purpose = dropdownPurpose.getSelectedItemPosition();
+                String description = descriptionTxt.getText().toString();
 
                 Boolean married = false;
                 RadioButton radioMarried = findViewById(R.id.radio_married);
@@ -830,8 +827,9 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }
 
                 String houseType = spinnerHouseType.getSelectedItem().toString();
+                Integer otherMonthlyIncome = 0;
                 try{
-                    Integer otherMonthlyIncome = Integer.parseInt(otherIncomeTxt.getText().toString());
+                    otherMonthlyIncome = Integer.parseInt(otherIncomeTxt.getText().toString());
                 }catch (Exception e){
 
                 }
@@ -840,15 +838,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 RadioButton yesLoan = findViewById(R.id.radio_yes_loan);
                 RadioButton noLoan = findViewById(R.id.radio_no_loan);
 
-                Boolean loanRunning;
+                Boolean loanRunning = false;
 
+                Integer runningLoanEmi = 0;
                 if (noLoan.isChecked()){
                     loanRunning = false;
                 }
                 if (yesLoan.isChecked()){
                     loanRunning = true;
                     try{
-                        Integer runningLoanEmi = Integer.parseInt(loanEmiTxt.getText().toString());
+                        runningLoanEmi = Integer.parseInt(loanEmiTxt.getText().toString());
                     }catch (Exception e){
 
                     }
@@ -859,15 +858,15 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 RadioButton yesCC = findViewById(R.id.radio_yes_creditCard);
                 RadioButton noCC = findViewById(R.id.radio_no_creditCard);
 
-                Boolean creditCard;
-
+                Boolean creditCard = false;
+                Integer creditCardOutstanding = 0;
                 if (yesCC.isChecked()){
                     creditCard = true;
                 }
                 if (noCC.isChecked()){
                     creditCard = false;
                     try{
-                        Integer creditCardOutstanding = Integer.parseInt(ccOutstandingTxt.getText().toString());
+                        creditCardOutstanding = Integer.parseInt(ccOutstandingTxt.getText().toString());
                     }catch (Exception e){
 
                     }
@@ -876,19 +875,28 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
 
 
-                Integer cibilScore = Integer.parseInt(creditScoreTxt.getText().toString());
+                Integer cibilScore = 0;
+
+                try{
+                    cibilScore =Integer.parseInt(creditScoreTxt.getText().toString());
+                }catch (Exception e){
+
+                }
+
+                Integer spouseMonthlyIncome = 0;
                 if (married){
                     try{
-                        Integer spouseMonthlyIncome = Integer.parseInt(spouseIncomeTxt.getText().toString());
+                        spouseMonthlyIncome = Integer.parseInt(spouseIncomeTxt.getText().toString());
                     }catch (Exception e){
 
                     }
 
                 }
 
+                String monthlyRent = "0";
+                Date stayingSince = null;
+                Boolean canProvideGurantor = false;
                 if (houseType == "Rented"){
-                    Boolean canProvideGurantor;
-
 
                     RadioButton haveGurantee = findViewById(R.id.canProvideGurantee_yes);
                     RadioButton noGurantee = findViewById(R.id.canProvideGurantee_no);
@@ -899,27 +907,180 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     if (haveGurantee.isChecked()){
                         canProvideGurantor = true;
                     }
-                    String monthlyRent = monthlyRentTxt.getText().toString();
-                    Date stayingSince = strToDate(stayingSinceEditTxt.getText().toString());
+                    monthlyRent = monthlyRentTxt.getText().toString();
+                    stayingSince = strToDate(stayingSinceEditTxt.getText().toString());
                 }
 
-                LovelyStandardDialog dialog = new LovelyStandardDialog(RegistrationCheckEligibility.this);
 
-                dialog.setIcon(R.drawable.thumsup_icon)
-                    .setTopColorRes(R.color.white)
-                    .setMessage("Congratulations, You are eligible")
-                    .setPositiveButton("Proceed", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(getApplicationContext(), "positive clicked", Toast.LENGTH_SHORT).show();
+/*http://localhost:8080/api/v1/checkEligibility/?csrf_token=XzaphWgrzwWRKtBjLkRneKYaq&session_id=gs7Ix9YWiMtmdNsbeFBYYhJIi
+{
+    "loanDetails": {
+        "desiredAmount": 45000,
+        "tenure": "6",
+        "purpose": "4",
+        "description": "fdfsdfsd"
+    },
+    "personalDetails": {
+        "married": false,
+        "dateOfBirth": "2018-01-11T04:54:00.000Z",
+        "pincode": "201301",
+        "city": "Gautam Buddha Nagar",
+        "state": "UTTAR PRADESH\r"
+    },
+    "empType": "Self Employed",
+    "employementDetails": {
+        "type": "34234",
+        "grossTurnover": 42342,
+        "grossAnnualProfit": 423
+    },
+    "financialDetails": {
+        "houseType": "Own",
+        "otherMonthlyIncome": 323,
+        "loanRunning": false,
+        "runningLoanEmi": 0,
+        "creditCard": false,
+        "creditCardOutstanding": 0,
+        "cibilScore": 23,
+        "spouseMonthlyIncome": 0,
+        "canProvideGurantor": null,
+        "monthlyRent": 0,
+        "stayingSince": null
+        }
+    }
 
-                            Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
-                            startActivity(i);
+*/
+
+                JSONObject jsonParams = new JSONObject();
+
+                JSONObject loanDetails = new JSONObject();
+                JSONObject personalDetails = new JSONObject();
+                JSONObject employementDetails = new JSONObject();
+                JSONObject financialDetails = new JSONObject();
+                try{
+                    loanDetails.put("desiredAmount" , desiredAmount);
+                    loanDetails.put("tenure" , tenure);
+                    loanDetails.put("purpose" , purpose);
+                    loanDetails.put("description" , description);
+                }catch (JSONException e){
+
+                }
+
+                try{
+                    personalDetails.put("married" , married);
+                    personalDetails.put("dateOfBirth" , dob);
+                    personalDetails.put("pincode" , pincode);
+                    personalDetails.put("city" , city);
+                    personalDetails.put("state" , state);
+
+                }catch (JSONException e){
+
+                }
+
+                if (empType == "Salaried"){
+                    try{
+                        employementDetails.put("compName" , married);
+                        employementDetails.put("monthlyIncome" , dob);
+                        employementDetails.put("empType" , pincode);
+                        employementDetails.put("workingSince" , city);
+                        employementDetails.put("expYear" , state);
+                        employementDetails.put("expMonth" , state);
+
+                    }catch (JSONException e){
+
+                    }
+                }else if (empType == "Self Employed" || empType == "Business"){
+                    try{
+                        employementDetails.put("grossTurnover" , married);
+                        employementDetails.put("grossAnnualProfit" , dob);
+                        employementDetails.put("type" , pincode);
+                    }catch (JSONException e){
+
+                    }
+                }
+
+
+                try{
+                    financialDetails.put("houseType" , houseType);
+                    financialDetails.put("otherMonthlyIncome" , otherMonthlyIncome);
+                    financialDetails.put("loanRunning" , loanRunning);
+                    financialDetails.put("runningLoanEmi" , runningLoanEmi);
+                    financialDetails.put("creditCard" , creditCard);
+                    financialDetails.put("creditCardOutstanding" , creditCardOutstanding);
+                    financialDetails.put("cibilScore" , cibilScore);
+                    financialDetails.put("spouseMonthlyIncome" , spouseMonthlyIncome);
+                    financialDetails.put("canProvideGurantor" , canProvideGurantor);
+                    financialDetails.put("monthlyRent" , monthlyRent);
+                    financialDetails.put("stayingSince" , stayingSince);
+                }catch (JSONException e){
+
+                }
+
+                try{
+                    jsonParams.put("loanDetails" , loanDetails);
+                    jsonParams.put("personalDetails" , personalDetails);
+                    jsonParams.put("empType" , empType);
+                    jsonParams.put("employementDetails" , employementDetails);
+                    jsonParams.put("financialDetails" , financialDetails);
+                }catch (JSONException e){
+
+                }
+
+                StringEntity entity = null;
+
+                try{
+                    entity = new StringEntity(jsonParams.toString());
+                }catch(Exception e){
+
+                }
+
+                sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
+
+                String session_id = sharedPreferences.getString("session_id" , null);
+                String csrf_token = sharedPreferences.getString("csrf_token" , null);
+
+                client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/checkEligibility/?csrf_token=" + csrf_token + "&session_id=" + session_id , entity , "application/json", new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        Boolean eligible = false;
+                        try {
+                            eligible = response.getBoolean("eligible");
+                        }catch (JSONException e){
 
                         }
-                    })
-                    .setNegativeButton(android.R.string.no, null)
-                    .show();
+                        String msg = "Sorry, You are not eligible";
+                        Integer icon = R.drawable.thumbsdown_icon;
+                        if (eligible){
+                            icon = R.drawable.thumsup_icon;
+                            msg = "Congratulations, You are eligible";
+                        }
+
+                        LovelyStandardDialog dialog = new LovelyStandardDialog(RegistrationCheckEligibility.this);
+
+                        dialog.setIcon(icon)
+                                .setTopColorRes(R.color.white)
+                                .setMessage(msg)
+                                .setPositiveButton("Proceed", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(getApplicationContext(), "positive clicked", Toast.LENGTH_SHORT).show();
+
+                                        Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
+                                        startActivity(i);
+
+                                    }
+                                })
+                                .setNegativeButton(android.R.string.no, null)
+                                .show();
+
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                    }
+
+                });
 
             }
         });

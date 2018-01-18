@@ -1,5 +1,6 @@
 package in.co.cioc.i2i;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,8 +17,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.payu.india.Extras.PayUChecksum;
 import com.payu.india.Extras.PayUSdkDetails;
 import com.payu.india.Model.PaymentParams;
@@ -43,10 +48,21 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import cz.msebera.android.httpclient.Header;
+
 
 public class PaymentActivity extends AppCompatActivity {
 
-    private Button payBtn;
+    public Button payBtn;
+    TextView discountTxt , discountAmt , gstTxt , totalTxt, amountTxt;
+    Integer amount = 500 , finalPay;
+    EditText couponTxt;
+    Boolean couponValid;
+
+    SharedPreferences sharedPreferences;
+
+    private static AsyncHttpClient client = new AsyncHttpClient();
+    Backend backend = new Backend();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +71,101 @@ public class PaymentActivity extends AppCompatActivity {
 
         Payu.setInstance(this);
 
+        discountAmt = findViewById(R.id.discountAmt);
+        discountTxt = findViewById(R.id.discountTxt);
+        gstTxt = findViewById(R.id.gst);
+        totalTxt = findViewById(R.id.total);
+        amountTxt = findViewById(R.id.amount);
 
+        payBtn = findViewById(R.id.button_pay_now);
+        payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (couponValid){
+                    Intent i = new Intent(getApplicationContext(), UserDetails.class);
+                    startActivity(i);
+                }else {
+                    navigateToBaseActivity(view);
+                }
+            }
+        });
+
+        couponValid = false;
+        Button applyCoupnBtn = findViewById(R.id.couponApply);
+
+        couponTxt = findViewById(R.id.couponCode);
+
+        applyCoupnBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                '/api/v1/checkCoupon/' , {coupon : this.couponForm.code}
+
+                String coupon = couponTxt.getText().toString();
+
+                RequestParams params = new RequestParams();
+                params.put("coupon", coupon);
+
+                client.post(backend.BASE_URL + "/api/v1/checkCoupon/", params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                        super.onSuccess(statusCode, headers, c);
+
+                        couponValid = true;
+                        try {
+                            setDiscount(c.getInt("discount"));
+                        }catch(JSONException e){
+
+                        }
+                    }
+
+                });
+
+            }
+        });
+
+
+        client.get(backend.BASE_URL + "/api/v1/getPaymentMatrix/", new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                super.onSuccess(statusCode, headers, c);
+
+                try {
+                    amount = c.getInt("borrower");
+                    amountTxt.setText(amount.toString());
+
+                }catch (JSONException e) {
+
+                }
+            }
+
+        });
+        hideDiscount();
+
+
+    }
+
+    public void hideDiscount(){
+        discountAmt.setVisibility(TextView.GONE);
+        discountTxt.setVisibility(TextView.GONE);
+        Double gst = amount*0.18;
+        gstTxt.setText(gst.toString());
+        Double total = gst + amount;
+        totalTxt.setText(total.toString());
+    }
+
+    public void setDiscount(Integer percent){
+        if (percent == null){
+            return;
+        }
+        discountAmt.setVisibility(TextView.VISIBLE);
+        discountTxt.setVisibility(TextView.VISIBLE);
+        Double discnt = percent*amount*0.01;
+        discountAmt.setText(discnt.toString());
+        Double gst = amount - discnt;
+        gstTxt.setText(gst.toString());
+
+        Double total = gst + amount - discnt;
+        totalTxt.setText(total.toString());
     }
 
 
@@ -95,6 +205,35 @@ public class PaymentActivity extends AppCompatActivity {
                             }
                         }).show();
 
+
+                sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
+
+                String session_id = sharedPreferences.getString("session_id" , null);
+                String csrf_token = sharedPreferences.getString("csrf_token" , null);
+
+                RequestParams params = new RequestParams();
+//                params.put("coupon", coupon);
+
+                client.post(backend.BASE_URL + "/api/v1/makePayment/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                        super.onSuccess(statusCode, headers, c);
+
+                        try {
+                            if(c.getString("action") == "proceed"){
+                                Intent i = new Intent(getApplicationContext(), UserDetails.class);
+                                startActivity(i);
+                            }else {
+                                pay();
+                            }
+                        }catch(JSONException e){
+
+                        }
+
+                    }
+
+                });
+
             } else {
                 Toast.makeText(this, getString(R.string.could_not_receive_data), Toast.LENGTH_LONG).show();
             }
@@ -106,8 +245,10 @@ public class PaymentActivity extends AppCompatActivity {
      * This method prepares all the payments params to be sent to PayuBaseActivity.java
      */
     public void navigateToBaseActivity(View view) {
+        pay();
+    }
 
-
+    public void pay(){
         // merchantKey="";
         String amount = "1";
         String email = "pkyisky@gmail.com";
@@ -176,9 +317,7 @@ public class PaymentActivity extends AppCompatActivity {
          * */
         String salt = "YVj4MmV1";
         generateHashFromSDK(mPaymentParams, salt);
-
     }
-
     /******************************
      * Client hash generation
      ***********************************/

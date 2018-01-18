@@ -31,7 +31,9 @@ import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventList
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         StepView mStepView = (StepView) findViewById(R.id.step_view);
-        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "DocumentsActivity"});
+        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "Documents"});
         mStepView.setSteps(steps);
 
         mStepView.selectedStep(1);
@@ -622,4 +624,23 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    public static String getMonthInt(Date date) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM");
+        return (dateFormat.format(date));
+    }
+
+    public static String getYearInt(Date date) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        return dateFormat.format(date);
+    }
+
+    public static String getdayInt(Date date) {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
+        return dateFormat.format(date);
+    }
+
 }

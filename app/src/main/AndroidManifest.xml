@@ -23,27 +23,44 @@
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="stateHidden" >
+
+        </activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".RegistrationOTP" />
-        <activity android:name=".RegistrationCheckEligibility" />
-        <activity android:name=".PaymentActivity" />
-        <activity android:name=".UserDetails"></activity>
-        <activity android:name=".EmployementDetails"></activity>
+        <activity android:name=".RegistrationOTP" >
+
+        </activity>
+        <activity android:name=".RegistrationCheckEligibility" >
+
+        </activity>
+        <activity android:name=".PaymentActivity" >
+
+        </activity>
+
+        <activity android:name=".UserDetails">
+
+        </activity>
+        <activity android:name=".EmployementDetails">
+
+        </activity>
         <activity android:name=".EducationalDetails">
+
+        </activity>
+        <activity android:name=".DocumentsActivity">
+
+        </activity>
+        <activity android:name=".AccountActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DocumentsActivity"></activity>
-        <activity android:name=".AccountActivity"></activity>
     </application>
 
 </manifest>

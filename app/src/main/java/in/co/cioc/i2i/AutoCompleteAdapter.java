@@ -7,13 +7,14 @@ import android.app.Activity;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 
-public class CompanyAutoCompleteAdapter extends ArrayAdapter<String> {
-
+public class AutoCompleteAdapter extends ArrayAdapter<String> {
+    String type;
     protected static final String TAG = "SuggestionAdapter";
     private List<String> suggestions;
-    public CompanyAutoCompleteAdapter(Activity context, String nameFilter) {
+    public AutoCompleteAdapter(Activity context, String nameFilter , String typ) {
         super(context, android.R.layout.simple_dropdown_item_1line);
         suggestions = new ArrayList<String>();
+        type = typ;
     }
 
     @Override
@@ -32,7 +33,7 @@ public class CompanyAutoCompleteAdapter extends ArrayAdapter<String> {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults filterResults = new FilterResults();
-                JsonParse jp=new JsonParse();
+                JsonParse jp=new JsonParse(type);
                 if (constraint != null) {
                     // A class that queries a web API, parses the data and
                     // returns an ArrayList<GoEuroGetSet>

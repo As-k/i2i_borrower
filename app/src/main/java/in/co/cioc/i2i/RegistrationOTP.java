@@ -1,6 +1,7 @@
 package in.co.cioc.i2i;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class RegistrationOTP extends AppCompatActivity {
     private Drawable successTick;
     private static AsyncHttpClient client = new AsyncHttpClient();
     Backend backend;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,14 @@ public class RegistrationOTP extends AppCompatActivity {
         int w = successTick.getIntrinsicWidth();
         successTick.setBounds( 0, 0, w, h );
 
+        sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
         try{
             email = extrasBundle.getString("email");
             mobile = extrasBundle.getString("mobile");
         }catch (RuntimeException e){
-
+            email = "fdsfds@dfsd.com";
+            mobile = "3432412645";
         }
 
 
@@ -150,8 +154,45 @@ public class RegistrationOTP extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(getApplicationContext(), RegistrationCheckEligibility.class);
-                startActivity(i);
+//                mobileOTP	884214
+//                emailOTP	306787
+//                emailID	dasdas@sdsf.com
+
+                RequestParams params = new RequestParams();
+                params.put("mobileOTP", mobileOTPEdit.getText().toString());
+                params.put("emailOTP", emailOTPEdit.getText().toString());
+                params.put("emailID", email);
+
+                client.post(backend.BASE_URL + "/api/v1/borrowerRegistration/submitBasic/", params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                        super.onSuccess(statusCode, headers, c);
+
+                        try {
+                            String session_id = c.getString("session_id");
+                            String csrf_token = c.getString("csrf_token");
+
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("session_id", session_id);
+                            editor.putString("csrf_token", csrf_token);
+                            editor.commit();
+                        }catch(JSONException e){
+
+                        }
+
+
+                        Intent i = new Intent(getApplicationContext(), RegistrationCheckEligibility.class);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject c){
+
+                    }
+
+                });
+
             }
         });
 

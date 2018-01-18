@@ -143,103 +143,113 @@
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
-                android:text="Spouse name"
-                android:textColor="@color/colorAccent"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                android:orientation="vertical"
+                android:id="@+id/spouseNameForm">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Spouse name"
+                    android:textColor="@color/colorAccent"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/user_icon" />
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/user_icon" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/firstNameSpouse"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="First Name"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
 
-                </android.support.design.widget.TextInputLayout>
+                        <AutoCompleteTextView
+                            android:id="@+id/firstNameSpouse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="First Name"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/user_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/middleNameSpouse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Middle Name (Optional)"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/user_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/lastNameSpouse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Last Name"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/user_icon" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/middleNameSpouse"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Middle Name (Optional)"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/user_icon" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/lastNameSpouse"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Last Name"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -269,7 +279,7 @@
                         android:textColor="@color/colorAccent" />
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/spinner"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:spinnerMode="dropdown" />
@@ -282,7 +292,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:id="@+id/dependent1Layout">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -312,7 +323,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:id="@+id/dependent2Layout">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -342,7 +354,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
-                android:paddingRight="20dp">
+                android:paddingRight="20dp"
+                android:id="@+id/dependent3Layout">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -530,6 +543,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginStart="30dp"
+                    android:id="@+id/sameAsPerm"
                     android:text="Current Address if same as Permanent Address" />
 
             </LinearLayout>
@@ -537,122 +551,129 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/address_icon" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/currentAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Address"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
-
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/localAddressForm">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/location_icon" />
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/address_icon" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/currentPincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Pincode"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
 
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
+                        <AutoCompleteTextView
+                            android:id="@+id/currentAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Address"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/city_icon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/location_icon" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/currentCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="City"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
 
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
+                        <AutoCompleteTextView
+                            android:id="@+id/currentPincode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Pincode"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/state_icon" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
 
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/city_icon" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/currentState"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="State"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true" />
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
 
-                </android.support.design.widget.TextInputLayout>
+                        <AutoCompleteTextView
+                            android:id="@+id/currentCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="City"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="20dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/state_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/currentState"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="State"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -680,7 +701,7 @@
                     android:layout_weight="1" />
 
                 <Button
-                    android:id="@+id/register_button"
+                    android:id="@+id/next_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="139dp"
                     android:layout_height="wrap_content"

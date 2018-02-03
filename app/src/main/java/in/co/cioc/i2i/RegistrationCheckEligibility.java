@@ -2,14 +2,20 @@ package in.co.cioc.i2i;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -18,11 +24,19 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginBehavior;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
@@ -31,11 +45,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
@@ -68,6 +86,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
     Button submit_button;
     SharedPreferences sharedPreferences;
+
+    ImageView linkedin_connect, fb_connect;
+    ProgressDialog progress;
+
+    private CallbackManager callbackManager;
 
     public void onRadioButtonClickedMarital(View view) {
         // Is the button now checked?
@@ -112,7 +135,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
 
-
         if (id == 999) {
             return new DatePickerDialog(this,
                     myDateListener, year, month, day);
@@ -135,6 +157,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             // arg2 = month
             // arg3 = day
 
+            arg2 +=1;
+
             bodEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
             showSuccess(bodEditTxt);
@@ -150,6 +174,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             // arg1 = year
             // arg2 = month
             // arg3 = day
+
+            arg2 +=1;
 
             workingSinceEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
@@ -167,6 +193,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             // arg1 = year
             // arg2 = month
             // arg3 = day
+
+            arg2 +=1;
 
             stayingSinceEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
@@ -189,13 +217,53 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+;
+
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+
         setContentView(R.layout.activity_registration_check_eligibility);
 
         backend = new Backend();
 
         bodEditTxt = findViewById(R.id.dob);
+
+        linkedin_connect = findViewById(R.id.linkedin_connect);
+        fb_connect = findViewById(R.id.fb_connect);
+
+        progress = new ProgressDialog(this);
+
+        linkedin_connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                progress.setTitle("Please wait");
+                progress.setMessage("Connecting to LinkedIn");
+                progress.setCancelable(false);
+                progress.show();
+
+            }
+        });
+
+        fb_connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                progress.setTitle("Please wait");
+                progress.setMessage("Connecting to Facebook");
+                progress.setCancelable(false);
+                progress.show();
+
+            }
+        });
+
 
         workingSinceEditTxt = findViewById(R.id.workingSince);
         stayingSinceEditTxt = findViewById(R.id.stayingSince);
@@ -578,22 +646,22 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
 
         dropdown = findViewById(R.id.spinner1);
-        String[] items = new String[]{"3", "6", "9" , "12", "15","18" ,"21","24"};
+        String[] items = new String[]{ "Please select" ,"3", "6", "9" , "12", "15","18" ,"21","24"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
         dropdownEmpType = findViewById(R.id.spinnerEmpType);
-        String[] itemsEmpType = new String[]{"Salaried", "Self Employed", "Business" };
+        String[] itemsEmpType = new String[]{"Please select", "Salaried", "Self Employed", "Business" };
         ArrayAdapter<String> adapterEmpType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEmpType);
         dropdownEmpType.setAdapter(adapterEmpType);
 
         spinnerPaymentMode = findViewById(R.id.spinnerPaymentMode);
-        String[] itemsPaymentMode = new String[]{"Cash", "Cheque", "Credit to Bank Account" };
+        String[] itemsPaymentMode = new String[]{"Please select", "Cash", "Cheque", "Credit to Bank Account" };
         ArrayAdapter<String> adapterPaymentMode = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsPaymentMode);
         spinnerPaymentMode.setAdapter(adapterPaymentMode);
 
         spinnerHouseType = findViewById(R.id.spinnerHouseType);
-        String[] itemsHouseType = new String[]{"Rented", "Own", "Parental" };
+        String[] itemsHouseType = new String[]{"Please select", "Rented", "Own", "Parental" };
         ArrayAdapter<String> adapterHouseType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsHouseType);
         spinnerHouseType.setAdapter(adapterHouseType);
 
@@ -664,6 +732,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, response);
                     ArrayList<String> purps = new ArrayList<String>();
 
+                    purps.add("Please select");
 
                     for(int i = 0; i < response.length(); i++)
                     {
@@ -765,7 +834,15 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }
 
                 String tenure = dropdown.getSelectedItem().toString();
+                if (tenure.equals("Please select")){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select a tenure", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Integer purpose = dropdownPurpose.getSelectedItemPosition();
+                if (purpose.equals(0)){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select a purpose", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String description = descriptionTxt.getText().toString();
 
                 Boolean married = false;
@@ -787,6 +864,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 String state = addressState;
 
                 String empType = dropdownEmpType.getSelectedItem().toString();
+
+                if (empType.equals("Please select")){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your employment type", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (empType == "Business"){
                     String type = professionBusinessTxt.getText().toString();

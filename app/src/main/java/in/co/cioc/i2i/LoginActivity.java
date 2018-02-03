@@ -118,15 +118,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        Button registerBtn = (Button) findViewById(R.id.register_button);
-        registerBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(i);
-            }
-        });
-
 
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
@@ -160,6 +151,11 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public void register(View view) {
+        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(i);
     }
 
 

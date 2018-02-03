@@ -125,41 +125,63 @@
         </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:layout_weight="1"
-        android:orientation="horizontal"
-        android:paddingStart="80dp"
-        android:descendantFocusability="beforeDescendants"
-        android:focusableInTouchMode="true"
-        android:layout_marginTop="30dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:orientation="horizontal"
+            android:paddingStart="80dp">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="182dp"
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/couponCode"
+                    android:layout_width="182dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Coupon code" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/couponApply"
+                style="?android:textAppearanceSmall"
+                android:layout_width="82dp"
                 android:layout_height="wrap_content"
-                android:hint="Coupon code"
-                android:id="@+id/couponCode"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/roundbutton_blue"
+                android:text="Apply"
+                android:textColor="#ffffff" />
 
-        <Button
-            android:id="@+id/couponApply"
-            style="?android:textAppearanceSmall"
-            android:layout_width="62dp"
-            android:layout_height="42dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/roundbutton_blue"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:text="Apply"
-            android:textColor="#ffffff" />
+        </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:id="@+id/errorCoupon">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coupon code is Invalid"
+                android:textColor="@color/cb_errorRed"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/successCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Coupon code successfully applied"
+                android:textColor="@color/green"/>
+        </LinearLayout>
 
 
 

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +60,7 @@ public class PaymentActivity extends AppCompatActivity {
     EditText couponTxt;
     Boolean couponValid;
 
+    LinearLayout errorCoupon, successCoupon;
     SharedPreferences sharedPreferences;
 
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -71,6 +73,12 @@ public class PaymentActivity extends AppCompatActivity {
 
         Payu.setInstance(this);
 
+        errorCoupon = findViewById(R.id.errorCoupon);
+        successCoupon = findViewById(R.id.successCoupon);
+
+        errorCoupon.setVisibility(LinearLayout.GONE);
+        successCoupon.setVisibility(LinearLayout.GONE);
+
         discountAmt = findViewById(R.id.discountAmt);
         discountTxt = findViewById(R.id.discountTxt);
         gstTxt = findViewById(R.id.gst);
@@ -81,7 +89,8 @@ public class PaymentActivity extends AppCompatActivity {
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (couponValid){
+
+                if (totalTxt.getText().toString().equals("0.0") && couponValid){
                     Intent i = new Intent(getApplicationContext(), UserDetails.class);
                     startActivity(i);
                 }else {
@@ -111,11 +120,21 @@ public class PaymentActivity extends AppCompatActivity {
                         super.onSuccess(statusCode, headers, c);
 
                         couponValid = true;
+
                         try {
                             setDiscount(c.getInt("discount"));
+                            successCoupon.setVisibility(LinearLayout.VISIBLE);
+                            errorCoupon.setVisibility(LinearLayout.GONE);
                         }catch(JSONException e){
 
                         }
+                    }
+
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        Toast.makeText(PaymentActivity.this, "Invalid Coupon code", Toast.LENGTH_SHORT).show();
+                        errorCoupon.setVisibility(LinearLayout.VISIBLE);
+                        successCoupon.setVisibility(LinearLayout.GONE);
                     }
 
                 });
@@ -161,7 +180,7 @@ public class PaymentActivity extends AppCompatActivity {
         discountTxt.setVisibility(TextView.VISIBLE);
         Double discnt = percent*amount*0.01;
         discountAmt.setText(discnt.toString());
-        Double gst = amount - discnt;
+        Double gst = (amount - discnt)*0.18;
         gstTxt.setText(gst.toString());
 
         Double total = gst + amount - discnt;
@@ -250,10 +269,10 @@ public class PaymentActivity extends AppCompatActivity {
 
     public void pay(){
         // merchantKey="";
-        String amount = "1";
+        String amount = totalTxt.getText().toString();
         String email = "pkyisky@gmail.com";
 
-        userCredentials = merchantKey + ":" + email;
+        userCredentials = PayuConstants.DEFAULT;
 
         //TODO Below are mandatory params for hash genetation
         mPaymentParams = new PaymentParams();
@@ -263,7 +282,7 @@ public class PaymentActivity extends AppCompatActivity {
          */
         mPaymentParams.setKey(merchantKey);
         mPaymentParams.setAmount(amount);
-        mPaymentParams.setProductInfo("product_info");
+        mPaymentParams.setProductInfo("Borrower Registration Fees");
         mPaymentParams.setFirstName("firstname");
         mPaymentParams.setEmail("test@gmail.com");
         mPaymentParams.setPhone("9876543210");
@@ -306,10 +325,7 @@ public class PaymentActivity extends AppCompatActivity {
         //TODO Sets the payment environment in PayuConfig object
         payuConfig = new PayuConfig();
         payuConfig.setEnvironment(PayuConstants.PRODUCTION_ENV);
-        //   payuConfig.setEnvironment(PayuConstants.MOBILE_STAGING_ENV);
         //TODO It is recommended to generate hash from server only. Keep your key and salt in server side hash generation code.
-//        generateHashFromServer(mPaymentParams);
-
         /**
          * Below approach for generating hash is not recommended. However, this approach can be used to test in PRODUCTION_ENV
          * if your server side hash generation code is not completely setup. While going live this approach for hash generation
@@ -418,6 +434,7 @@ public class PaymentActivity extends AppCompatActivity {
         intent.putExtra(PayuConstants.PAYU_CONFIG, payuConfig);
         intent.putExtra(PayuConstants.PAYMENT_PARAMS, mPaymentParams);
         intent.putExtra(PayuConstants.PAYU_HASHES, payuHashes);
+        intent.putExtra(PayuConstants.STORE_ONE_CLICK_HASH,PayuConstants.STORE_ONE_CLICK_HASH_NONE);
 
         //Lets fetch all the one click card tokens first
         startActivityForResult(intent , PayuConstants.PAYU_REQUEST_CODE);

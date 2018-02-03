@@ -21,8 +21,6 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -34,12 +32,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,12 +45,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import static in.co.cioc.i2i.LoginActivity.PREF_EMAIL;
-import static in.co.cioc.i2i.LoginActivity.PREF_ID;
-import static in.co.cioc.i2i.LoginActivity.PREF_LNAME;
-import static in.co.cioc.i2i.LoginActivity.PREF_MNAME;
-import static in.co.cioc.i2i.LoginActivity.PREF_PASSWORD;
-import static in.co.cioc.i2i.LoginActivity.PREF_PHONE;
 import static in.co.cioc.i2i.MainActivity.getMonthInt;
 import static in.co.cioc.i2i.MainActivity.getYearInt;
 import static in.co.cioc.i2i.MainActivity.getdayInt;

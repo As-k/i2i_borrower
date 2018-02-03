@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.githang.stepview.StepView;
 import com.loopj.android.http.AsyncHttpClient;
@@ -41,8 +42,7 @@ import java.util.regex.Pattern;
 import cz.msebera.android.httpclient.Header;
 
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     EditText mPasswordView;
     EditText RePasswordView;
     EditText fName;
@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity
 
     Registration r;
     Backend backend;
+
+    TextView passwordErr, password2Err;
 
     RequestParams requestParams = new RequestParams();;
     private static AsyncHttpClient client = new AsyncHttpClient();
@@ -83,21 +85,11 @@ public class MainActivity extends AppCompatActivity
 
         backend = new Backend();
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        StepView mStepView = (StepView) findViewById(R.id.step_view);
-        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "Documents"});
-        mStepView.setSteps(steps);
-
-        mStepView.selectedStep(1);
+//        StepView mStepView = (StepView) findViewById(R.id.step_view);
+//        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "Documents"});
+//        mStepView.setSteps(steps);
+//
+//        mStepView.selectedStep(1);
 
         fName = findViewById(R.id.firstName);
         mName = findViewById(R.id.middleName);
@@ -392,6 +384,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        passwordErr = findViewById(R.id.passwordErrTxt);
+        password2Err = findViewById(R.id.password2ErrTxt);
+
         mPasswordView.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {}
@@ -403,10 +398,10 @@ public class MainActivity extends AppCompatActivity
 
                 if(s.length() > 7){
                     showSuccess(mPasswordView);
+                    passwordErr.setText("");
+
                 }else{
-                    mPasswordView.setError("Password too short");
-                    View focusView = mPasswordView;
-                    focusView.requestFocus();
+                    passwordErr.setText("Invalid Password");
                 }
             }
         });
@@ -423,10 +418,9 @@ public class MainActivity extends AppCompatActivity
 
                 if(s.toString().equals(pass)){
                     showSuccess(RePasswordView);
+                    password2Err.setText("");
                 }else{
-                    RePasswordView.setError("Password does not match");
-                    View focusView = RePasswordView;
-                    focusView.requestFocus();
+                    password2Err.setText("Password does not matches");
                 }
             }
         });
@@ -494,29 +488,29 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-        KeyboardVisibilityEvent.setEventListener(
-                this,
-                new KeyboardVisibilityEventListener() {
-                    @Override
-                    public void onVisibilityChanged(boolean isOpen) {
-                        // some code depending on keyboard visiblity status
-                        btnLayout = (LinearLayout) findViewById(R.id.linearLayout);
-
-                        if (isOpen){
-                            btnLayout.setVisibility(LinearLayout.GONE);
-                        }else {
-                            new android.os.Handler().postDelayed(
-                                    new Runnable() {
-                                        public void run() {
-                                            btnLayout.setVisibility(LinearLayout.VISIBLE);
-                                        }
-                                    },
-                                    300);
-
-                        }
-
-                    }
-                });
+//        KeyboardVisibilityEvent.setEventListener(
+//                this,
+//                new KeyboardVisibilityEventListener() {
+//                    @Override
+//                    public void onVisibilityChanged(boolean isOpen) {
+//                        // some code depending on keyboard visiblity status
+//                        btnLayout = (LinearLayout) findViewById(R.id.linearLayout);
+//
+//                        if (isOpen){
+//                            btnLayout.setVisibility(LinearLayout.GONE);
+//                        }else {
+//                            new android.os.Handler().postDelayed(
+//                                    new Runnable() {
+//                                        public void run() {
+//                                            btnLayout.setVisibility(LinearLayout.VISIBLE);
+//                                        }
+//                                    },
+//                                    300);
+//
+//                        }
+//
+//                    }
+//                });
 
 
     }
@@ -567,17 +561,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -598,31 +581,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     public static String getMonthInt(Date date) {

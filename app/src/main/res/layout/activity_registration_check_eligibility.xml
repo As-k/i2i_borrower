@@ -48,13 +48,47 @@
                     app:srcCompat="@drawable/borrow_eligibility_bg" />
 
 
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="30dp"
+                    android:text="Connect social accounts" />
+
+
+                <ImageView
+                    android:layout_width="218dp"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@drawable/bottom_border2" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="190dp"
+                        android:id="@+id/linkedin_connect"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/linkedin_connect" />
+
+                    <ImageView
+                        android:layout_width="190dp"
+                        android:id="@+id/fb_connect"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/fb_connect" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
                     android:text="Loan details" />
 
 
@@ -122,7 +156,7 @@
 
                         <Spinner
                             android:id="@+id/spinner1"
-                            android:layout_width="100dp"
+                            android:layout_width="160dp"
                             android:layout_height="match_parent"
                             android:spinnerMode="dropdown" />
                     </LinearLayout>

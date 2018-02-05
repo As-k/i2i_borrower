@@ -166,7 +166,7 @@ public class DocumentsActivity extends AppCompatActivity {
 
         dropdownPerm = findViewById(R.id.permAddressSpinner);
         dropdownCurrent = findViewById(R.id.localAddressSpinner);
-        String[] items = new String[]{"House Tax Receipt", "Electricity Bill", "Registration Document" };
+        String[] items = new String[]{"Please select", "House Tax Receipt", "Electricity Bill", "Registration Document" };
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdownPerm.setAdapter(adapter);
         dropdownCurrent.setAdapter(adapter);
@@ -325,6 +325,13 @@ public class DocumentsActivity extends AppCompatActivity {
         final String csrf_token = sharedPreferences.getString("csrf_token" , null);
 
         RequestParams params = new RequestParams();
+
+        if(dropdownCurrent.getSelectedItem().toString().equals("Please select") ||dropdownPerm.getSelectedItem().toString().equals("Please select") ){
+            Toast.makeText(this, "Please select the address type", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         params.put("permAddressDocType", dropdownPerm.getSelectedItem().toString());
         params.put("currentAddressDocType", dropdownCurrent.getSelectedItem().toString());
         params.put("authorize", true);

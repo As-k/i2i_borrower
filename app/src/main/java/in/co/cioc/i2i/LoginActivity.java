@@ -32,6 +32,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -146,6 +147,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
 
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable e,  JSONObject c) {
+                    super.onFailure(statusCode, headers, e, c);
+
+
+                }
+
             });
         }
 
@@ -160,6 +168,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void attemptLogin() {
+
+        Toast.makeText(this, backend.BASE_URL, Toast.LENGTH_LONG).show();
 
         // Reset errors.
         mEmailView.setError(null);
@@ -181,21 +191,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                 super.onSuccess(statusCode, headers, c);
 
-                try {
-                    String session_id = c.getString("session_id");
-                    String csrf_token = c.getString("csrf_token");
+                directToAccount(c);
 
+            }
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("session_id", session_id);
-                    editor.putString("csrf_token", csrf_token);
-                    editor.commit();
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e,  JSONObject c) {
+                super.onFailure(statusCode, headers, e, c);
 
-                    Intent i = new Intent(getApplicationContext(), AccountActivity.class);
-                    startActivity(i);
-
-                }catch(JSONException e){
-
+                if(statusCode == 401){
+                    directToAccount(c);
                 }
 
             }
@@ -203,6 +208,25 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    void directToAccount(JSONObject c){
+        try {
+            String session_id = c.getString("session_id");
+            String csrf_token = c.getString("csrf_token");
+
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("session_id", session_id);
+            editor.putString("csrf_token", csrf_token);
+            editor.commit();
+
+            Intent i = new Intent(getApplicationContext(), AccountActivity.class);
+            startActivity(i);
+
+        }catch(JSONException e){
+
+        }
     }
 
     private boolean isEmailValid(String email) {

@@ -7,7 +7,6 @@
     tools:context="in.co.cioc.i2i.AccountActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -94,6 +93,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/accountView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -468,60 +468,48 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginBottom="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent">
+                            android:id="@+id/promocodeControls">
 
-                            <Button
-                                android:id="@+id/postBtn"
-                                style="?android:textAppearanceSmall"
-                                android:layout_width="224dp"
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:background="@drawable/roundbutton_green"
-                                android:text="Post Your Loan"
-                                android:textColor="#ffffff"
-                                android:textStyle="bold"
-                                android:onClick="continueRegistration"/>
+                                android:layout_marginTop="20dp"
+                                android:textAlignment="center"
+                                android:text="Do you have a promotional code"
+                                android:layout_gravity="center_horizontal"/>
+
+                            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="30dp"
+                                android:gravity="center_horizontal">
+
+                                <RadioButton
+                                    android:id="@+id/radio_yes"
+                                    android:layout_width="131dp"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onRadioButtonClickedMarital"
+                                    android:text="Yes" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_no"
+                                    android:layout_width="117dp"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="onRadioButtonClickedMarital"
+                                    android:text="No" />
+
+
+                            </RadioGroup>
 
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="Do you have a promotional code"
-                            android:layout_gravity="center_horizontal"/>
-
-                        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_horizontal">
-
-                            <RadioButton
-                                android:id="@+id/radio_yes"
-                                android:layout_width="131dp"
-                                android:layout_height="wrap_content"
-                                android:onClick="onRadioButtonClickedMarital"
-                                android:text="Yes" />
-
-                            <RadioButton
-                                android:id="@+id/radio_no"
-                                android:layout_width="117dp"
-                                android:layout_height="wrap_content"
-                                android:onClick="onRadioButtonClickedMarital"
-                                android:text="No" />
-
-
-                        </RadioGroup>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -555,6 +543,15 @@
                                 android:textColor="#ffffff" />
 
                         </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:layout_marginTop="20dp"
+                            android:id="@+id/couponCodeStatus"
+                            android:visibility="gone"
+                            android:layout_gravity="center_horizontal" />
 
 
                         <LinearLayout
@@ -1562,6 +1559,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:id="@+id/continueLayout"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
                     <LinearLayout
@@ -1589,6 +1587,17 @@
 
                     </LinearLayout>
 
+                    <TextView
+                        android:id="@+id/logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="30dp"
+                        android:text="Logout"
+                        android:layout_gravity="center_horizontal"></TextView>
+
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -1604,16 +1613,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/logout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -246,7 +246,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 progress.setTitle("Please wait");
                 progress.setMessage("Connecting to LinkedIn");
-                progress.setCancelable(false);
+//                progress.setCancelable(false);
                 progress.show();
 
             }
@@ -258,7 +258,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 progress.setTitle("Please wait");
                 progress.setMessage("Connecting to Facebook");
-                progress.setCancelable(false);
+//                progress.setCancelable(false);
                 progress.show();
 
             }

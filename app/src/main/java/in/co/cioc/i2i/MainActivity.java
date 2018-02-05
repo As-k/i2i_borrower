@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.githang.stepview.StepView;
 import com.loopj.android.http.AsyncHttpClient;
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         backend = new Backend();
+
+        Toast.makeText(this, backend.BASE_URL, Toast.LENGTH_LONG).show();
 
 //        StepView mStepView = (StepView) findViewById(R.id.step_view);
 //        List<String> steps = Arrays.asList(new String[]{"Basic", "User", "Employment", "Educational" , "Documents"});
@@ -551,12 +554,9 @@ public class MainActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.radio_male:
                 if (checked)
-
-                    // Pirates are the best
                     break;
             case R.id.radio_female:
                 if (checked)
-                    // Ninjas rule
                     break;
         }
     }

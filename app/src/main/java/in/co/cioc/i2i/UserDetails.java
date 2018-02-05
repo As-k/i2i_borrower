@@ -316,7 +316,7 @@ public class UserDetails extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                save();
+                save(false);
             }
         });
 
@@ -506,6 +506,14 @@ public class UserDetails extends AppCompatActivity {
 
         });
 
+        Button save_btn = findViewById(R.id.save_button);
+        save_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                save(true);
+            }
+        });
+
         ///api/v1/retriveDetails/personal/?csrf_token=XzaphWgrzwWRKtBjLkRneKYaq&session_id=gs7Ix9YWiMtmdNsbeFBYYhJIi
 
 
@@ -547,7 +555,7 @@ public class UserDetails extends AppCompatActivity {
             "married": "S"
     }
     */
-    public void save(){
+    public void save(final Boolean stay){
         String dependentsArr = "[]";
 
         JSONObject permAdd = new JSONObject();
@@ -616,12 +624,23 @@ public class UserDetails extends AppCompatActivity {
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
 
-        client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/userDetails/?next=1&csrf_token=" + csrf_token + "&session_id=" + session_id , entity , "application/json", new JsonHttpResponseHandler() {
+        String url = "/api/v1/borrowerRegistration/userDetails/?csrf_token=" + csrf_token + "&session_id=" + session_id;
+
+        if (!stay){
+            url += "&next=1";
+        }else{
+            url += "&next=0";
+        }
+
+        client.post(getApplicationContext(), backend.BASE_URL + url, entity , "application/json", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
-                Intent i = new Intent(getApplicationContext(), EmployementDetails.class);
-                startActivity(i);
+
+                if (!stay){
+                    Intent i = new Intent(getApplicationContext(), EmployementDetails.class);
+                    startActivity(i);
+                }
             }
 
             @Override

@@ -225,33 +225,153 @@ public class PaymentActivity extends AppCompatActivity {
                         }).show();
 
 
+                String response = data.getStringExtra("payu_response");
                 sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
                 String session_id = sharedPreferences.getString("session_id" , null);
                 String csrf_token = sharedPreferences.getString("csrf_token" , null);
-
                 RequestParams params = new RequestParams();
-//                params.put("coupon", coupon);
+
+                try{
+                    JSONObject responseJson = new JSONObject(response);
+                    params.add("mihpayid" , Integer.toString(responseJson.getInt("id")));
+                    params.add("mode" , responseJson.getString("mode"));
+                    params.add("status" , responseJson.getString("status"));
+                    params.add("unmappedstatus" , responseJson.getString("unmappedstatus"));
+                    params.add("key" , responseJson.getString("key"));
+                    params.add("txnid" ,responseJson.getString("txnid"));
+                    params.add("amount" , responseJson.getString("amount"));
+                    params.add("cardCategory" , responseJson.getString("cardCategory"));
+                    params.add("discount" , responseJson.getString("discount"));
+                    params.add("net_amount_debit" , responseJson.getString("amount"));
+                    params.add("addedon" , responseJson.getString("addedon"));
+                    params.add("productinfo" ,responseJson.getString("productinfo"));
+                    params.add("firstname" , responseJson.getString("firstname"));
+                    params.add("lastname" , "");
+                    params.add("address1" , "");
+                    params.add("address2" , "");
+                    params.add("city" , "");
+                    params.add("state" , "");
+                    params.add("country" , "");
+                    params.add("zipcode" , "");
+                    params.add("email" , responseJson.getString("email"));
+                    params.add("phone" , responseJson.getString("phone"));
+                    params.add("udf1" , "");
+                    params.add("udf2" , "");
+                    params.add("udf3" , "");
+                    params.add("udf4" , "");
+                    params.add("udf5" , "");
+                    params.add("udf6" , "");
+                    params.add("udf7" , "");
+                    params.add("udf8" , "");
+                    params.add("udf9" , "");
+                    params.add("udf10" , "");
+                    params.add("hash" , responseJson.getString("hash"));
+                    params.add("field1" , "");
+                    params.add("field2" , "");
+                    params.add("field3" , "");
+                    params.add("field4" , "");
+                    params.add("field5" , "");
+                    params.add("field6" , "");
+                    params.add("field7" , "");
+                    params.add("field8" , "");
+                    params.add("field9" , responseJson.getString("field9"));
+                    params.add("payment_source" , responseJson.getString("payment_source"));
+                    params.add("PG_TYPE" , responseJson.getString("PG_TYPE"));
+                    params.add("bank_ref_num" , responseJson.getString("bank_ref_no"));
+                    params.add("bankcode" , "");
+                    params.add("error" , responseJson.getString("error_code"));
+                    params.add("error_Message" , responseJson.getString("Error_Message"));
+                    params.add("name_on_card" , responseJson.getString("name_on_card"));
+                    params.add("cardnum" , responseJson.getString("card_no"));
+                    params.add("cardhash" , "");
+
+                }catch (JSONException e){
+
+                }
 
                 client.post(backend.BASE_URL + "/api/v1/makePayment/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                         super.onSuccess(statusCode, headers, c);
+                        Intent i = new Intent(getApplicationContext(), UserDetails.class);
+                        startActivity(i);
 
-                        try {
-                            if(c.getString("action") == "proceed"){
-                                Intent i = new Intent(getApplicationContext(), UserDetails.class);
-                                startActivity(i);
-                            }else {
-                                pay();
-                            }
-                        }catch(JSONException e){
+                        Toast.makeText(PaymentActivity.this, "in success", Toast.LENGTH_SHORT).show();
 
-                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        Intent i = new Intent(getApplicationContext(), UserDetails.class);
+                        startActivity(i);
+                        Toast.makeText(PaymentActivity.this, "in failure", Toast.LENGTH_SHORT).show();
 
                     }
 
                 });
+
+
+
+    //                params.put("coupon", coupon);
+
+    //                addedon	2018-02-04+16:10:31
+    //                address1
+    //                        address2
+    //                amount	1.18
+    //                bank_ref_num	803540020439
+    //                bankcode	CC
+    //                cardCategory	domestic
+    //                cardhash	This+field+is+no+longer+supported+in+postback+params.
+    //                        cardnum	489377XXXXXX5141
+    //                        city
+    //                country
+    //                discount	0.00
+    //                email	das@aaa.com
+    //                error	E000
+    //                error_Message	No+Error
+    //                field1
+    //                field2	071218
+    //                field3
+    //                        field4
+    //                field5	131803579533952
+    //                field6	140121803520434313
+    //                field7
+    //                        field8
+    //                field9	Transaction+Completed+Successfully
+    //                firstname	Fsdf
+    //                hash	4dfafa1a2dbd5fdf761ae858990858cfa7eb1f43b2847578f28640084c7b182df8a0cfb19c0c9c8917e14703704c51687fcc1049bbea346343399173f3829911
+    //                key	r9pHRt
+    //                lastname
+    //                mihpayid	6729537215
+    //                mode	CC
+    //                name_on_card	pradeep+yadav
+    //                net_amount_debit	1.18
+    //                payment_source	payu
+    //                PG_TYPE	UBIFSSPG
+    //                phone	3546543332
+    //                productinfo	Registration+fees
+    //                state
+    //                status	success
+    //                txnid	GOUKzDyQJ2ZbV8i0UVXV
+    //                udf1
+    //                        udf10
+    //                udf2
+    //                        udf3
+    //                udf4
+    //                        udf5
+    //                udf6
+    //                        udf7
+    //                udf8
+    //                        udf9
+    //                unmappedstatus	captured
+    //                zipcode
+
+                //mihpayid=6729537215&mode=CC&status=success&unmappedstatus=captured&key=r9pHRt&txnid=GOUKzDyQJ2ZbV8i0UVXV&amount=1.18&cardCategory=domestic&discount=0.00&net_amount_debit=1.18&addedon=2018-02-04+16%3A10%3A31&productinfo=Registration+fees&firstname=Fsdf&lastname=&address1=&address2=&city=&state=&country=&zipcode=&email=das%40aaa.com&phone=3546543332&udf1=&udf2=&udf3=&udf4=&udf5=&udf6=&udf7=&udf8=&udf9=&udf10=&hash=4dfafa1a2dbd5fdf761ae858990858cfa7eb1f43b2847578f28640084c7b182df8a0cfb19c0c9c8917e14703704c51687fcc1049bbea346343399173f3829911&field1=&field2=071218&field3=&field4=&field5=131803579533952&field6=140121803520434313&field7=&field8=&field9=Transaction+Completed+Successfully&payment_source=payu&PG_TYPE=UBIFSSPG&bank_ref_num=803540020439&bankcode=CC&error=E000&error_Message=No+Error&name_on_card=pradeep+yadav&cardnum=489377XXXXXX5141&cardhash=This+field+is+no+longer+supported+in+postback+params.
+
+
+
 
             } else {
                 Toast.makeText(this, getString(R.string.could_not_receive_data), Toast.LENGTH_LONG).show();
@@ -272,6 +392,7 @@ public class PaymentActivity extends AppCompatActivity {
         String amount = totalTxt.getText().toString();
         String email = "pkyisky@gmail.com";
 
+        amount = "0.5";
         userCredentials = PayuConstants.DEFAULT;
 
         //TODO Below are mandatory params for hash genetation

@@ -684,7 +684,7 @@
                 android:padding="15dp">
 
                 <Button
-                    android:id="@+id/explore_button"
+                    android:id="@+id/save_button"
                     style="?android:textAppearanceSmall"
                     android:layout_width="139dp"
                     android:layout_height="wrap_content"

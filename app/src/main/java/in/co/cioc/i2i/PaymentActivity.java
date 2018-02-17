@@ -222,7 +222,7 @@ public class PaymentActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 dialog.dismiss();
                             }
-                        }).show();
+                        });
 
 
                 String response = data.getStringExtra("payu_response");
@@ -234,6 +234,11 @@ public class PaymentActivity extends AppCompatActivity {
 
                 try{
                     JSONObject responseJson = new JSONObject(response);
+
+                    if (responseJson.getString("unmappedstatus").equals("failure")){
+                        return;
+                    }
+
                     params.add("mihpayid" , Integer.toString(responseJson.getInt("id")));
                     params.add("mode" , responseJson.getString("mode"));
                     params.add("status" , responseJson.getString("status"));
@@ -285,6 +290,7 @@ public class PaymentActivity extends AppCompatActivity {
                     params.add("name_on_card" , responseJson.getString("name_on_card"));
                     params.add("cardnum" , responseJson.getString("card_no"));
                     params.add("cardhash" , "");
+                    params.add("platform" , "mobile");
 
                 }catch (JSONException e){
 
@@ -294,19 +300,18 @@ public class PaymentActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                         super.onSuccess(statusCode, headers, c);
+                        Toast.makeText(PaymentActivity.this, "in success", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), UserDetails.class);
                         startActivity(i);
-
-                        Toast.makeText(PaymentActivity.this, "in success", Toast.LENGTH_SHORT).show();
 
                     }
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
-                        Intent i = new Intent(getApplicationContext(), UserDetails.class);
-                        startActivity(i);
                         Toast.makeText(PaymentActivity.this, "in failure", Toast.LENGTH_SHORT).show();
+
+
 
                     }
 
@@ -390,7 +395,6 @@ public class PaymentActivity extends AppCompatActivity {
     public void pay(){
         // merchantKey="";
         String amount = totalTxt.getText().toString();
-        String email = "pkyisky@gmail.com";
 
         amount = "0.5";
         userCredentials = PayuConstants.DEFAULT;
@@ -401,12 +405,19 @@ public class PaymentActivity extends AppCompatActivity {
          * For Test Environment, merchantKey = please contact mobile.integration@payu.in with your app name and registered email id
 
          */
+
+        sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
+
+        String mobile = sharedPreferences.getString("mobile" , null);
+        String email = sharedPreferences.getString("email" , null);
+
+
         mPaymentParams.setKey(merchantKey);
         mPaymentParams.setAmount(amount);
         mPaymentParams.setProductInfo("Borrower Registration Fees");
-        mPaymentParams.setFirstName("firstname");
-        mPaymentParams.setEmail("test@gmail.com");
-        mPaymentParams.setPhone("9876543210");
+        mPaymentParams.setFirstName("First Name");
+        mPaymentParams.setEmail(email);
+        mPaymentParams.setPhone(mobile);
 
 
         /*

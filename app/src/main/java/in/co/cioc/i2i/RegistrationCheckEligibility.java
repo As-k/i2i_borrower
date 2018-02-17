@@ -285,6 +285,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         selfEmpForm.setVisibility(LinearLayout.GONE);
         businessForm.setVisibility(LinearLayout.GONE);
+        salariedForm.setVisibility(LinearLayout.GONE);
 
         professionTypeTxt = findViewById(R.id.professionSelfEmp);
         turnoverSelfEmpTxt = findViewById(R.id.turnoverSelfEmp);
@@ -691,6 +692,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 // your code here
 
                 if (position == 0){
+                    salariedForm.setVisibility(LinearLayout.GONE);
+                    selfEmpForm.setVisibility(LinearLayout.GONE);
+                    businessForm.setVisibility(LinearLayout.GONE);
+
+                }else if (position == 1){
                     salariedForm.setVisibility(LinearLayout.VISIBLE);
                     selfEmpForm.setVisibility(LinearLayout.GONE);
                     businessForm.setVisibility(LinearLayout.GONE);
@@ -698,13 +704,13 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         companyTxt.requestFocus();
                     }
 
-                }else if (position == 1){
+                }else if (position == 2){
                     salariedForm.setVisibility(LinearLayout.GONE);
                     selfEmpForm.setVisibility(LinearLayout.VISIBLE);
                     businessForm.setVisibility(LinearLayout.GONE);
                     professionTypeTxt.requestFocus();
 
-                }else if (position == 2){
+                }else if (position == 3){
                     salariedForm.setVisibility(LinearLayout.GONE);
                     selfEmpForm.setVisibility(LinearLayout.GONE);
                     businessForm.setVisibility(LinearLayout.VISIBLE);

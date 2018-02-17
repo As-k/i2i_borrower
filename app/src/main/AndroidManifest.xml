@@ -69,7 +69,11 @@
 
         </activity>
         <activity android:name=".RegistrationCheckEligibility" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".PaymentActivity" >
 
@@ -88,11 +92,7 @@
 
         </activity>
         <activity android:name=".AccountActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

@@ -181,6 +181,8 @@ public class RegistrationOTP extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("session_id", session_id);
                             editor.putString("csrf_token", csrf_token);
+                            editor.putString("email", email);
+                            editor.putString("mobile", mobile);
                             editor.commit();
                         }catch(JSONException e){
 

@@ -177,44 +177,57 @@ public class DocumentsActivity extends AppCompatActivity {
 //        password
 //        file
 
-        upload("/storage/emulated/0/Android/data/in.co.cioc.i2i/cache/EasyImage/6ca7818b-0143-4a63-912f-2a82bc046d777339243640262566125.jpg" , "i2i_borrower_document_details||doc_parmanent_add_proof");
+//        upload("/storage/emulated/0/Android/data/in.co.cioc.i2i/cache/EasyImage/6ca7818b-0143-4a63-912f-2a82bc046d777339243640262566125.jpg" , "i2i_borrower_document_details||doc_parmanent_add_proof");
 
         panUpload = findViewById(R.id.panUploadFile);
-        aadharUpload = findViewById(R.id.panUploadFile);
-        permAddress = findViewById(R.id.panUploadFile);
-        currentAddress = findViewById(R.id.panUploadFile);
-        bankStatement = findViewById(R.id.panUploadFile);
-        empSalarySlip1= findViewById(R.id.panUploadFile);
-        empSalarySlip2 = findViewById(R.id.panUploadFile);
-        empSalarySlip3 = findViewById(R.id.panUploadFile);
-        empForm16 = findViewById(R.id.panUploadFile);
-        empHighestDegree = findViewById(R.id.panUploadFile);
-        businessPan = findViewById(R.id.panUploadFile);
-        businessCompanyReg = findViewById(R.id.panUploadFile);
-        businessITR1 = findViewById(R.id.panUploadFile);
-        businessITR2 = findViewById(R.id.panUploadFile);
-        businessITR3 = findViewById(R.id.panUploadFile);
-        selfEmpPan = findViewById(R.id.panUploadFile);
-        selfEmpCompanyReg = findViewById(R.id.panUploadFile);
-        selfEmpITR1= findViewById(R.id.panUploadFile);
-        selfEmpITR2= findViewById(R.id.panUploadFile);
-        selfEmpITR3 = findViewById(R.id.panUploadFile);
-        selfEmpHighestDegree= findViewById(R.id.panUploadFile);
+        aadharUpload = findViewById(R.id.aadharUploadFile);
+        permAddress = findViewById(R.id.permAddressUploadFile);
+        currentAddress = findViewById(R.id.localAddressUploadFile);
+        bankStatement = findViewById(R.id.statement12UploadFile);
+        empSalarySlip1= findViewById(R.id.salarySlipLastUploadFile);
+        empSalarySlip2 = findViewById(R.id.salarySlip2UploadFile);
+        empSalarySlip3 = findViewById(R.id.salarySlip3UploadFile);
+        empForm16 = findViewById(R.id.form16UploadFile);
+        empHighestDegree = findViewById(R.id.markSheetUploadFile);
+        businessPan = findViewById(R.id.businessPANUploadFile);
+        businessCompanyReg = findViewById(R.id.businessRegistrationtUploadFile);
+        businessITR1 = findViewById(R.id.businessIncomeTax1UploadFile);
+        businessITR2 = findViewById(R.id.businessIncomeTax2UploadFile);
+        businessITR3 = findViewById(R.id.businessIncomeTax3UploadFile);
+        selfEmpPan = findViewById(R.id.selfempPANUploadFile);
+        selfEmpCompanyReg = findViewById(R.id.selfempRegistrationtUploadFile);
+        selfEmpITR1= findViewById(R.id.selfempIncomeTax1UploadFile);
+        selfEmpITR2= findViewById(R.id.selfempIncomeTax2UploadFile);
+        selfEmpITR3 = findViewById(R.id.selfempIncomeTax3UploadFile);
+        selfEmpHighestDegree= findViewById(R.id.selfempMarkSheetUploadFile);
 
         View.OnClickListener uploader = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Boolean yes = view.getId() == R.id.panUploadFile;
-
                 openImage(view.getId());
-
-                Toast.makeText(DocumentsActivity.this, "das", Toast.LENGTH_SHORT).show();
             }
         };
 
         panUpload.setOnClickListener(uploader);
-
+        aadharUpload.setOnClickListener(uploader);
+        permAddress.setOnClickListener(uploader);
+        currentAddress.setOnClickListener(uploader);
+        bankStatement.setOnClickListener(uploader);
+        empSalarySlip1.setOnClickListener(uploader);
+        empSalarySlip2.setOnClickListener(uploader);
+        empSalarySlip3.setOnClickListener(uploader);
+        empHighestDegree.setOnClickListener(uploader);
+        businessPan.setOnClickListener(uploader);
+        businessCompanyReg.setOnClickListener(uploader);
+        businessITR1.setOnClickListener(uploader);
+        businessITR2.setOnClickListener(uploader);
+        businessITR3.setOnClickListener(uploader);
+        selfEmpPan.setOnClickListener(uploader);
+        selfEmpCompanyReg.setOnClickListener(uploader);
+        selfEmpITR1.setOnClickListener(uploader);
+        selfEmpITR2.setOnClickListener(uploader);
+        selfEmpITR3.setOnClickListener(uploader);
+        selfEmpHighestDegree.setOnClickListener(uploader);
     }
 
     private void openImage(final Integer elementCode){

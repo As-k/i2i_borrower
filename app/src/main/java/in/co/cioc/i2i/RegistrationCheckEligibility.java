@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -88,6 +89,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     ImageView linkedin_connect, fb_connect;
+    TextView tv_linkined_connect, tv_fb_connect;
     ProgressDialog progress;
 
     private CallbackManager callbackManager;
@@ -228,6 +230,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 ;
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_registration_check_eligibility);
 
@@ -236,7 +239,9 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         bodEditTxt = findViewById(R.id.dob);
 
         linkedin_connect = findViewById(R.id.linkedin_connect);
-        fb_connect = findViewById(R.id.fb_connect);
+//        fb_connect = findViewById(R.id.fb_connect);
+        tv_linkined_connect = findViewById(R.id.tv_linkedin_connect);
+        tv_fb_connect = findViewById(R.id.tv_fb_connect);
 
         progress = new ProgressDialog(this);
 
@@ -252,15 +257,34 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
         });
 
-        fb_connect.setOnClickListener(new View.OnClickListener() {
+//        fb_connect.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                progress.setTitle("Please wait");
+//                progress.setMessage("Connecting to Facebook");
+////                progress.setCancelable(false);
+//                progress.show();
+//
+//            }
+//        });
+        LoginButton loginButton = findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email");
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onClick(View view) {
+            public void onSuccess(LoginResult loginResult) {
+                tv_fb_connect.setVisibility(View.VISIBLE);
+                tv_fb_connect.setText("Connected");
+            }
 
-                progress.setTitle("Please wait");
-                progress.setMessage("Connecting to Facebook");
-//                progress.setCancelable(false);
-                progress.show();
+            @Override
+            public void onCancel() {
+                // App code
+            }
 
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
             }
         });
 

@@ -69,17 +69,51 @@
                     android:orientation="horizontal"
                     android:gravity="center_horizontal">
 
-                    <ImageView
-                        android:layout_width="190dp"
-                        android:id="@+id/linkedin_connect"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/linkedin_connect" />
+                        android:orientation="vertical"
+                        android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="190dp"
-                        android:id="@+id/fb_connect"
+                        <ImageView
+                            android:layout_width="190dp"
+                            android:layout_height="28dp"
+                            android:id="@+id/linkedin_connect"
+                            app:srcCompat="@drawable/linkedin_connect" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_linkedin_connect"
+                            android:text="connect"
+                            android:textSize="14sp"
+                            android:textAlignment="center"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/fb_connect" />
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/login_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:layout_width="190dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tv_fb_connect"
+                            android:text="connect"
+                            android:textSize="14sp"
+                            android:textAlignment="center"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
                 </LinearLayout>
 
 

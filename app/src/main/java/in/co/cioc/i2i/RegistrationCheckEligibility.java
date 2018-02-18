@@ -31,13 +31,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginBehavior;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
@@ -88,11 +93,15 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     Button submit_button;
     SharedPreferences sharedPreferences;
 
-    ImageView linkedin_connect, fb_connect;
+    ImageView linkedin_connect;
+    LoginButton loginButton;
     TextView tv_linkined_connect, tv_fb_connect;
     ProgressDialog progress;
 
     private CallbackManager callbackManager;
+    private AccessToken accessToken;
+    private final String TAG = RegistrationCheckEligibility.this.getClass().getName();
+    private static final String topCardUrl = "https://api.linkedin.com/v1/people/~:(first-name,last-name,email-address,formatted-name,phone-numbers,public-profile-url,picture-url,picture-urls::(original))";
 
     public void onRadioButtonClickedMarital(View view) {
         // Is the button now checked?
@@ -219,18 +228,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 ;
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
 
         setContentView(R.layout.activity_registration_check_eligibility);
 
@@ -240,6 +243,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         linkedin_connect = findViewById(R.id.linkedin_connect);
 //        fb_connect = findViewById(R.id.fb_connect);
+        loginButton = findViewById(R.id.login_button);
         tv_linkined_connect = findViewById(R.id.tv_linkedin_connect);
         tv_fb_connect = findViewById(R.id.tv_fb_connect);
 
@@ -268,7 +272,20 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 //
 //            }
 //        });
-        LoginButton loginButton = findViewById(R.id.login_button);
+        initParameters();
+        initViews();
+        AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(
+                    AccessToken oldAccessToken,
+                    AccessToken currentAccessToken) {
+                if (currentAccessToken == null) {
+                    Log.d(TAG, "User logged out successfully");
+                    tv_fb_connect.setVisibility(View.GONE);
+                }
+            }
+        };
+
         loginButton.setReadPermissions("email");
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -1198,6 +1215,79 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         });
 
 
+    }
+
+    public void initParameters() {
+        accessToken = AccessToken.getCurrentAccessToken();
+        callbackManager = CallbackManager.Factory.create();
+    }
+
+    public void initViews() {
+        loginButton.setReadPermissions(Arrays.asList(new String[]{"email", "user_birthday", "user_hometown"}));
+
+        if (accessToken != null) {
+            getProfileData();
+        } else {
+            tv_fb_connect.setVisibility(View.GONE);
+        }
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "User login successfully");
+                getProfileData();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.d(TAG, "User cancel login");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.d(TAG, "Problem for login");
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void getProfileData() {
+        try {
+            accessToken = AccessToken.getCurrentAccessToken();
+            tv_fb_connect.setVisibility(View.VISIBLE);
+            GraphRequest request = GraphRequest.newMeRequest(
+                    accessToken,
+                    new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(
+                                JSONObject object,
+                                GraphResponse response) {
+                            Log.d(TAG, "Graph Object :" + object);
+                            try {
+                                String name = object.getString("name");
+                                tv_fb_connect.setText("Welcome,  "+ name);
+
+                                Log.d(TAG, "Name : "+ name);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            Bundle parameters = new Bundle();
+            parameters.putString("fields", "id,name,link,birthday,gender,email");
+            request.setParameters(parameters);
+            request.executeAsync();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void onRadioButtonClicked(View view) {

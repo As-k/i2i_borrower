@@ -31,6 +31,8 @@ public class RegistrationOTP extends AppCompatActivity {
 
     private String email = "";
     private String mobile = "";
+    private String mobileOTP = "";
+    private String emailOTP = "";
 
     private CheckBox tncCB;
     private CheckBox personalCB;
@@ -57,11 +59,20 @@ public class RegistrationOTP extends AppCompatActivity {
         int w = successTick.getIntrinsicWidth();
         successTick.setBounds( 0, 0, w, h );
 
+        mobileOTPEdit = findViewById(R.id.mobileOTP);
+        emailOTPEdit = findViewById(R.id.emailOTP);
+
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
         try{
             email = extrasBundle.getString("email");
             mobile = extrasBundle.getString("mobile");
+            mobileOTP = extrasBundle.getString("mobileOTP");
+            emailOTP = extrasBundle.getString("emailOTP");
+
+            mobileOTPEdit.setText(mobileOTP);
+            emailOTPEdit.setText(emailOTP);
+
         }catch (RuntimeException e){
             email = "fdsfds@dfsd.com";
             mobile = "3432412645";
@@ -71,8 +82,6 @@ public class RegistrationOTP extends AppCompatActivity {
         tncCB = findViewById(R.id.tncCheckbox);
         personalCB = findViewById(R.id.personalInfoCheckBox);
 
-        mobileOTPEdit = findViewById(R.id.mobileOTP);
-        emailOTPEdit = findViewById(R.id.emailOTP);
 
         RequestParams requestParams = new RequestParams();
 

@@ -714,7 +714,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         spinnerHouseType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0){
+                if (i == 1){
                     rentForm.setVisibility(LinearLayout.VISIBLE);
                 }else{
                     rentForm.setVisibility(LinearLayout.GONE);

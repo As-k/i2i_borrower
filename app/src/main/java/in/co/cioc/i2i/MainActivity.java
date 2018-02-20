@@ -475,6 +475,12 @@ public class MainActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             bundle.putString("email" , email.getText().toString());
                             bundle.putString("mobile" , mobile.getText().toString());
+                            try {
+                                bundle.putString("mobileOTP" , Integer.toString(c.getInt("mobileOTP")));
+                                bundle.putString("emailOTP" ,  Integer.toString(c.getInt("emailOTP")));
+                            }catch (JSONException e){
+
+                            }
 
                             Intent i = new Intent(getApplicationContext(), RegistrationOTP.class);
                             i.putExtras(bundle);

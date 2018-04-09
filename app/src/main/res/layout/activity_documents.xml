@@ -76,9 +76,6 @@
                         android:id="@+id/pan"
                         android:text="" />
                 </LinearLayout>
-
-
-
             </LinearLayout>
 
             <LinearLayout
@@ -116,6 +113,14 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/panUploadFileErrTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:layout_marginStart="130dp"
+                android:textColor="@color/cb_errorRed"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -217,6 +222,16 @@
 
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/aadharUploadFileErrTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:layout_marginStart="130dp"
+                android:textColor="@color/cb_errorRed"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -330,6 +345,15 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/permAddressUploadFileErrTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:layout_marginStart="130dp"
+                android:textColor="@color/cb_errorRed"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="53dp"
@@ -412,6 +436,15 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/localAddressUploadFileErrTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:layout_marginStart="130dp"
+                android:textColor="@color/cb_errorRed"/>
+
             <!---->
 
             <LinearLayout
@@ -489,6 +522,17 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/statement12UploadFileErrTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text=""
+                android:layout_marginStart="130dp"
+                android:textColor="@color/cb_errorRed"/>
+
+
 
             <LinearLayout
                 android:id="@+id/empl_form"
@@ -572,6 +616,17 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/salarySlipLastUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
+
+
                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -647,6 +702,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/salarySlip2UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -724,6 +788,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/salarySlip3UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
 
@@ -804,6 +877,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/form16UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -869,6 +951,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/markSheetUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
 
@@ -945,6 +1036,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/businessPANUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1009,6 +1109,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/businessRegistrationtUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
                 <LinearLayout
@@ -1076,6 +1185,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/businessIncomeTax1UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1140,6 +1258,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/businessIncomeTax2UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
                 <LinearLayout
@@ -1207,7 +1334,14 @@
 
                 </LinearLayout>
 
-
+                <TextView
+                    android:id="@+id/businessIncomeTax3UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
             </LinearLayout>
 
@@ -1282,6 +1416,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/selfempPANUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1345,6 +1488,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/selfempRegistrationtUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
                 <LinearLayout
@@ -1412,6 +1564,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/selfempIncomeTax1UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -1475,6 +1636,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/selfempIncomeTax2UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
                 <LinearLayout
@@ -1542,6 +1712,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/selfempIncomeTax3UploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
+
 
 
                 <LinearLayout
@@ -1608,6 +1787,15 @@
                     </LinearLayout>
 
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/selfempMarkSheetUploadFileErrTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text=""
+                    android:layout_marginStart="130dp"
+                    android:textColor="@color/cb_errorRed"/>
 
 
             </LinearLayout>

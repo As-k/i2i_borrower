@@ -221,13 +221,31 @@ public class EducationalDetails extends AppCompatActivity {
         JSONObject educationalForm = new JSONObject();
 
         try{
-            educationalForm.put("degree" , degree.getText().toString());
-            educationalForm.put("college" , college.getText().toString());
-            educationalForm.put("specialization" , specialization.getText().toString());
-            educationalForm.put("year" , dropdown.getSelectedItem().toString());
 
-            if (dropdown.getSelectedItem().toString().equals("Please select")){
+            String degr = degree.getText().toString();
+            String colleg = college.getText().toString();
+            String spec = specialization.getText().toString();
+            String yr = dropdown.getSelectedItem().toString();
+            educationalForm.put("degree" , degr);
+            educationalForm.put("college" , colleg);
+            educationalForm.put("specialization" , spec);
+            educationalForm.put("year" , yr );
+
+            if (yr.equals("Please select")){
                 Toast.makeText(this, "Please select the graduation year", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (degr.length() == 0){
+                Toast.makeText(this, "Please enter your Highest degree", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (colleg.length() == 0){
+                Toast.makeText(this, "Please enter your college name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (spec.length() == 0){
+                Toast.makeText(this, "Please enter your specialization", Toast.LENGTH_SHORT).show();
                 return;
             }
 

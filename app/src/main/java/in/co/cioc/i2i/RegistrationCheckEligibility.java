@@ -462,6 +462,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
+                if (s.length() == 0){
+                    amountTxt.setError("Amount can not be Empty");
+                    amountTxt.requestFocus();
+                    return;
+                }
                 Integer i = Integer.parseInt(s.toString());
 
                 if(i<25000 || i > 300000){
@@ -880,6 +885,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 }
 
+                if(desiredAmount<25000 || desiredAmount > 300000){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Amount can not be less then 25000 or greater than 300000", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if(desiredAmount%5000 != 0){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please enter amount in the multiples of 5000", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
                 String tenure = dropdown.getSelectedItem().toString();
                 if (tenure.equals("Please select")){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select a tenure", Toast.LENGTH_SHORT).show();
@@ -892,7 +907,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }
                 String description = descriptionTxt.getText().toString();
 
-                Boolean married = false;
+                if (description.length()==0){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide description for the loan requirement", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Boolean married = null;
                 RadioButton radioMarried = findViewById(R.id.radio_married);
                 RadioButton radioSingle = findViewById(R.id.radio_single);
 
@@ -902,11 +922,25 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     married = true;
                 }else if (radioSingle.isChecked()){
                     married = false;
+                }else{
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your marital status", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
-                Date dob = strToDate(bodEditTxt.getText().toString());
+                String dobStr = bodEditTxt.getText().toString();
+                if (dobStr.length() == 0){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your date of birth", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Date dob = strToDate(dobStr);
 
                 String pincode = pincodeEditTxt.getText().toString();
+
+                if (pincode.length() == 0){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide your pincode", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String city = cityEditTxt.getText().toString();
                 String state = addressState;
 
@@ -917,45 +951,121 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     return;
                 }
 
+                String businessType  = "";
+                Integer grossTurnover = 0;
+                Integer grossAnnualProfit = 0;
                 if (empType == "Business"){
-                    String type = professionBusinessTxt.getText().toString();
+                    businessType = professionBusinessTxt.getText().toString();
+
+                    if (businessType.length()==0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business type", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     try{
-                        Integer grossTurnover = Integer.parseInt(turnoverBusinessTxt.getText().toString());
-                        Integer grossAnnualProfit = Integer.parseInt(turnoverBusinessTxt.getText().toString());
+                        grossTurnover = Integer.parseInt(turnoverBusinessTxt.getText().toString());
+                        grossAnnualProfit = Integer.parseInt(turnoverBusinessTxt.getText().toString());
                     }catch ( Exception e){
 
+                    }
+
+                    if (grossTurnover == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    if (grossAnnualProfit == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        return;
                     }
 
 
                 }
 
                 if (empType == "Self Employed"){
-                    String type = professionTypeTxt.getText().toString();
+                    businessType = professionTypeTxt.getText().toString();
+                    if (businessType.length()==0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business type", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     try{
-                        Integer grossTurnover = Integer.parseInt(turnoverSelfEmpTxt.getText().toString());
-                        Integer grossAnnualProfit = Integer.parseInt(profitSelfEmpTxt.getText().toString());
+                        grossTurnover = Integer.parseInt(turnoverSelfEmpTxt.getText().toString());
+                        grossAnnualProfit = Integer.parseInt(profitSelfEmpTxt.getText().toString());
                     }catch ( Exception e){
 
                     }
 
+                    if (grossTurnover == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    if (grossAnnualProfit == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                 }
 
+                String expYear="0";
+                String expMonth="0";
+                Date workingSince = null;
+                Integer monthlyIncome = null;
+                String compName = "";
                 if (empType == "Salaried"){
-                    String compName = companyTxt.getText().toString();
+                    compName = companyTxt.getText().toString();
+
+                    if (compName.length()== 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your company name", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+
+                    if (compName.length()== 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your company name", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String incomeSalriedTxt = incomeSalariedTxt.getText().toString();
+                    if (incomeSalriedTxt.length()== 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide monthly income", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     try{
-                        Integer monthlyIncome = Integer.parseInt(incomeSalariedTxt.getText().toString());
+                        monthlyIncome = Integer.parseInt(incomeSalriedTxt);
                     }catch (Exception e){
 
                     }
 
                     String empPaymentType = spinnerPaymentMode.getSelectedItem().toString();
-                    Date workingSince = strToDate(workingSinceEditTxt.getText().toString());
-                    String expYear = workExperienceTxt.getText().toString();
-                    String expMonth = workExperienceMonthTxt.getText().toString();
+                    if (empPaymentType.equals("Please select")){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select your payment mode for salary", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String wrkingSinceTxt = workingSinceEditTxt.getText().toString();
+
+                    if (wrkingSinceTxt.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select a date since you are working in your company", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    workingSince = strToDate(wrkingSinceTxt);
+                    expYear = workExperienceTxt.getText().toString();
+                    expMonth = workExperienceMonthTxt.getText().toString();
+
+                    if (expYear.length() == 0 && expMonth.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your experience", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                 }
 
                 String houseType = spinnerHouseType.getSelectedItem().toString();
+                if (houseType.equals("Please select")){
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your residence type", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Integer otherMonthlyIncome = 0;
                 try{
                     otherMonthlyIncome = Integer.parseInt(otherIncomeTxt.getText().toString());
@@ -972,8 +1082,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 Integer runningLoanEmi = 0;
                 if (noLoan.isChecked()){
                     loanRunning = false;
-                }
-                if (yesLoan.isChecked()){
+                }else if (yesLoan.isChecked()){
                     loanRunning = true;
                     try{
                         runningLoanEmi = Integer.parseInt(loanEmiTxt.getText().toString());
@@ -981,6 +1090,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                     }
 
+                    if (runningLoanEmi.equals(0)){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your current EMI", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                }else{
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select if you have any loan running", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
 
@@ -991,15 +1108,23 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 Integer creditCardOutstanding = 0;
                 if (yesCC.isChecked()){
                     creditCard = true;
-                }
-                if (noCC.isChecked()){
-                    creditCard = false;
                     try{
                         creditCardOutstanding = Integer.parseInt(ccOutstandingTxt.getText().toString());
                     }catch (Exception e){
 
                     }
 
+                    if (creditCardOutstanding.equals(0)){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your current credit card outstanding", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                } else if (noCC.isChecked()){
+                    creditCard = false;
+
+
+                }else{
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select if you have any credit card", Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
 
@@ -1032,12 +1157,24 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                     if (noGurantee.isChecked()){
                         canProvideGurantor = false;
-                    }
-                    if (haveGurantee.isChecked()){
+                    }else if (haveGurantee.isChecked()){
                         canProvideGurantor = true;
+                    }else{
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select if you can provide a gurantor who has own house", Toast.LENGTH_SHORT).show();
+                        return;
                     }
+
                     monthlyRent = monthlyRentTxt.getText().toString();
-                    stayingSince = strToDate(stayingSinceEditTxt.getText().toString());
+                    if (monthlyRent.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your monthly rent", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    String stayingSinceEdtTxt = stayingSinceEditTxt.getText().toString();
+                    if (stayingSinceEdtTxt.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select a date since you are living at current residence", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    stayingSince = strToDate(stayingSinceEdtTxt);
                 }
 
 
@@ -1107,21 +1244,21 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 if (empType == "Salaried"){
                     try{
-                        employementDetails.put("compName" , married);
-                        employementDetails.put("monthlyIncome" , dob);
-                        employementDetails.put("empType" , pincode);
-                        employementDetails.put("workingSince" , city);
-                        employementDetails.put("expYear" , state);
-                        employementDetails.put("expMonth" , state);
+                        employementDetails.put("compName" , compName);
+                        employementDetails.put("monthlyIncome" , monthlyIncome);
+                        employementDetails.put("empType" , empType);
+                        employementDetails.put("workingSince" , workingSince);
+                        employementDetails.put("expYear" , expYear);
+                        employementDetails.put("expMonth" , expMonth);
 
                     }catch (JSONException e){
 
                     }
                 }else if (empType == "Self Employed" || empType == "Business"){
                     try{
-                        employementDetails.put("grossTurnover" , married);
-                        employementDetails.put("grossAnnualProfit" , dob);
-                        employementDetails.put("type" , pincode);
+                        employementDetails.put("grossTurnover" , grossTurnover);
+                        employementDetails.put("grossAnnualProfit" , grossAnnualProfit);
+                        employementDetails.put("type" , businessType);
                     }catch (JSONException e){
 
                     }

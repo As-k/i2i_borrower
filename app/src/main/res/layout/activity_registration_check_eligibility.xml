@@ -394,7 +394,8 @@
                             android:hint="Pincode"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:maxLength="6"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -422,9 +423,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="City"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:singleLine="true" />
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

@@ -1,6 +1,7 @@
 package in.co.cioc.i2i;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,8 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ import com.githang.stepview.StepView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.ybs.passwordstrengthmeter.PasswordStrength;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -41,6 +45,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
+import cz.msebera.android.httpclient.entity.StringEntity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -54,19 +59,26 @@ public class MainActivity extends AppCompatActivity {
     EditText email;
     EditText mobile;
 
+    private EditText mobileOTPEdit;
+    private EditText emailOTPEdit;
     RadioButton male;
+    SharedPreferences sharedPreferences;
     RadioButton feMale;
-    LinearLayout btnLayout;
+    LinearLayout btnLayout , otpMasterLayout;
     Drawable successTick;
 
     Registration r;
     Backend backend;
+    private CheckBox tncCB;
+    private CheckBox personalCB;
+    TextView otpView;
+
 
     TextView passwordErr, password2Err;
 
     RequestParams requestParams = new RequestParams();;
     private static AsyncHttpClient client = new AsyncHttpClient();
-    String jsonResponse;
+    String jsonResponse , mobileOtp , emailOtp;
 
     private Pattern pattern;
     private Matcher matcher;
@@ -85,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         backend = new Backend();
+        otpView = findViewById(R.id.otpView);
 
         Toast.makeText(this, backend.BASE_URL, Toast.LENGTH_LONG).show();
 
@@ -93,6 +106,10 @@ public class MainActivity extends AppCompatActivity {
 //        mStepView.setSteps(steps);
 //
 //        mStepView.selectedStep(1);
+        sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
+
+        otpMasterLayout = findViewById(R.id.otpMasterLayout);
+        otpMasterLayout.setVisibility(LinearLayout.GONE);
 
         fName = findViewById(R.id.firstName);
         mName = findViewById(R.id.middleName);
@@ -181,6 +198,10 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if (s.length() > 10){
+                    pan.setText(s.toString().substring(0,10));
+                }
 
                 if(s.length() != 0 && s.length() != 10){
                     // show error message on pan
@@ -399,7 +420,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(s.length() > 7){
+                updatePasswordStrengthView(s.toString());
+
+                if(PasswordStrength.calculateStrength(s.toString()).getText(getApplicationContext()).equals("Strong")){
                     showSuccess(mPasswordView);
                     passwordErr.setText("");
 
@@ -447,9 +470,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                params.put("gender", "M");
                 params.put("aadhar", adhar.getText().toString());
-                params.put("panNumber", adhar.getText().toString());
+                params.put("panNumber", pan.getText().toString());
                 params.put("emailID", email.getText().toString());
                 params.put("password", mPasswordView.getText().toString());
                 params.put("password2", RePasswordView.getText().toString());
@@ -472,19 +494,22 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if (otpSent){
-                            Bundle bundle = new Bundle();
-                            bundle.putString("email" , email.getText().toString());
-                            bundle.putString("mobile" , mobile.getText().toString());
+
                             try {
-                                bundle.putString("mobileOTP" , Integer.toString(c.getInt("mobileOTP")));
-                                bundle.putString("emailOTP" ,  Integer.toString(c.getInt("emailOTP")));
+                                mobileOtp = Integer.toString(c.getInt("mobileOTP"));
+                                emailOtp= Integer.toString(c.getInt("emailOTP"));
+
+                                otpView.setText(mobileOtp + ":" + emailOtp );
+
                             }catch (JSONException e){
 
                             }
 
-                            Intent i = new Intent(getApplicationContext(), RegistrationOTP.class);
-                            i.putExtras(bundle);
-                            startActivity(i);
+                            otpMasterLayout.setVisibility(LinearLayout.VISIBLE);
+
+//                            Intent i = new Intent(getApplicationContext(), RegistrationOTP.class);
+//                            i.putExtras(bundle);
+//                            startActivity(i);
 //                            register_button.setText("Resend");
                         }
 
@@ -492,6 +517,202 @@ public class MainActivity extends AppCompatActivity {
 
                 });
 
+
+            }
+        });
+
+        // related to OTP
+
+        tncCB = findViewById(R.id.tncCheckbox);
+        personalCB = findViewById(R.id.personalInfoCheckBox);
+
+
+        RequestParams requestParams = new RequestParams();
+
+        mobileOTPEdit = findViewById(R.id.mobileOTP);
+        emailOTPEdit = findViewById(R.id.emailOTP);
+
+        mobileOTPEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,  int before, int count) {
+                if(s.length() == 6){
+                    String url = backend.BASE_URL + "/api/v1/checkMobileOTP/" + mobile.getText().toString() +'/' + s.toString() + "/?partner=false";
+                    client.get(url, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                            super.onSuccess(statusCode, headers, c);
+
+                            try {
+                                if (c.getBoolean("valid")){
+                                    showSuccess(mobileOTPEdit);
+                                }
+                            }catch(JSONException e){
+                                removeSuccess(mobileOTPEdit);
+                                mobileOTPEdit.setError("Mobile OTP not correct");
+                                View focusView = mobileOTPEdit;
+                                focusView.requestFocus();
+                            }
+
+                        }
+
+                        public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject obj){
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                        }
+
+                    });
+                }else {
+                    removeSuccess(mobileOTPEdit);
+                    mobileOTPEdit.setError("Mobile OTP not correct");
+                    View focusView = mobileOTPEdit;
+                    focusView.requestFocus();
+                }
+            }
+        });
+
+        emailOTPEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() == 6){
+                    String url = backend.BASE_URL + "/api/v1/checkEmailOTP/" + email.getText().toString()+"/"+ s.toString() +"/?partner=false";
+                    client.get(url, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                            super.onSuccess(statusCode, headers, c);
+                            try {
+                                if (c.getBoolean("valid")){
+                                    showSuccess(emailOTPEdit);
+                                }
+                            }catch(JSONException e){
+                                removeSuccess(emailOTPEdit);
+                                emailOTPEdit.setError("Email OTP not correct");
+                                View focusView = emailOTPEdit;
+                                focusView.requestFocus();
+                            }
+
+                        }
+
+                    });
+                }else {
+                    removeSuccess(emailOTPEdit);
+                    emailOTPEdit.setError("Email OTP not correct");
+                    View focusView = emailOTPEdit;
+                    focusView.requestFocus();
+                }
+            }
+        });
+
+        Button submit_btn = findViewById(R.id.submit_button);
+        submit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//                mobileOTP	884214
+//                emailOTP	306787
+//                emailID	dasdas@sdsf.com
+
+
+                if (!tncCB.isChecked()){
+                    Toast.makeText(MainActivity.this, "Please agree to the terms and conditions", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (!personalCB.isChecked()){
+                    Toast.makeText(MainActivity.this, "Please agree to the privacy policy", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                JSONObject userObj = new JSONObject();
+
+                try{
+                    userObj.put("firstName", fName.getText().toString());
+                    userObj.put("middleName", mName.getText().toString());
+                    userObj.put("lastName", lName.getText().toString());
+
+                    if (male.isChecked()){
+                        userObj.put("gender", "M");
+                    }else if (feMale.isChecked()){
+                        userObj.put("gender", "F");
+                    }else {
+                        return;
+                    }
+
+                    userObj.put("aadhar", adhar.getText().toString());
+                    userObj.put("panNumber", pan.getText().toString());
+                }catch (JSONException e){
+
+                }
+
+                JSONObject jsonParams = new JSONObject();
+                try{
+                    jsonParams.put("mobileOTP", mobileOTPEdit.getText().toString());
+                    jsonParams.put("emailOTP", emailOTPEdit.getText().toString());
+                    jsonParams.put("emailID", email.getText().toString());
+                    jsonParams.put("user", userObj);
+                }catch (JSONException e){
+
+                }
+
+                StringEntity entity = null;
+
+                try{
+                    entity = new StringEntity(jsonParams.toString());
+                }catch(Exception e){
+
+                }
+
+
+                client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/submitBasic/", entity , "application/json", new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                        super.onSuccess(statusCode, headers, c);
+
+                        try {
+                            String session_id = c.getString("session_id");
+                            String csrf_token = c.getString("csrf_token");
+
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("session_id", session_id);
+                            editor.putString("csrf_token", csrf_token);
+                            editor.putString("email", email.getText().toString());
+                            editor.putString("mobile", mobile.getText().toString());
+                            editor.commit();
+                        }catch(JSONException e){
+
+                        }
+
+
+                        Intent i = new Intent(getApplicationContext(), RegistrationCheckEligibility.class);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject c){
+                        System.out.println("Console is: " + "Faild OTP verification");
+                    }
+
+                });
+
+            }
+        });
+
+        SmsReceiver.bindListener(new SmsListener() {
+            @Override
+            public void messageReceived(String messageText) {
+                //Log.d("Text",messageText);
+                String otp = parseCode(messageText);
+                mobileOTPEdit.setText(otp);
 
             }
         });
@@ -524,11 +745,48 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public boolean validateEmail(final String hex) {
 
+    private void updatePasswordStrengthView(String password) {
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        TextView strengthView = (TextView) findViewById(R.id.password_strength);
+        if (TextView.VISIBLE != strengthView.getVisibility())
+            return;
+
+        if (password.isEmpty()) {
+            strengthView.setText("");
+            progressBar.setProgress(0);
+            return;
+        }
+
+        PasswordStrength str = PasswordStrength.calculateStrength(password);
+        strengthView.setText(str.getText(this));
+        strengthView.setTextColor(str.getColor());
+
+        progressBar.getProgressDrawable().setColorFilter(str.getColor(), android.graphics.PorterDuff.Mode.SRC_IN);
+        if (str.getText(this).equals("Weak")) {
+            progressBar.setProgress(25);
+        } else if (str.getText(this).equals("Medium")) {
+            progressBar.setProgress(50);
+        } else if (str.getText(this).equals("Strong")) {
+            progressBar.setProgress(75);
+        } else {
+            progressBar.setProgress(100);
+        }
+    }
+
+    public boolean validateEmail(final String hex) {
         matcher = pattern.matcher(hex);
         return matcher.matches();
-
+    }
+    private String parseCode(String message) {
+        Pattern p = Pattern.compile("\\b\\d{6}\\b");
+        Matcher m = p.matcher(message);
+        String code = "";
+        while (m.find()) {
+            code = m.group(0);
+        }
+        return code;
     }
 
 

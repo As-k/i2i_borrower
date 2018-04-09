@@ -590,6 +590,28 @@ public class UserDetails extends AppCompatActivity {
 
         }
 
+        if (fatherFName.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your father's name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (fatherLName.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your father's last name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (permAddress.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your permanent address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (permPincode.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your permanent pincode", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!sameAsPermCB.isChecked() && localAddress.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your local address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         JSONObject spouseName = new JSONObject();
         try{
             spouseName.put("firstName" ,spouseFName.getText().toString());

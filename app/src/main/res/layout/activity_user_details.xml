@@ -450,7 +450,8 @@
                         android:hint="Pincode"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:maxLength="6"/>
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -609,7 +610,8 @@
                             android:hint="Pincode"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:maxLength="6"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

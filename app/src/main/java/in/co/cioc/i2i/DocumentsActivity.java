@@ -69,6 +69,8 @@ public class DocumentsActivity extends AppCompatActivity {
     private ImageView businessPan , businessCompanyReg , businessITR1 , businessITR2, businessITR3 ;
     private ImageView selfEmpPan , selfEmpCompanyReg, selfEmpITR1 , selfEmpITR2, selfEmpITR3 , selfEmpHighestDegree;
 
+    List<Integer> uploadedFiles = new ArrayList<Integer>();
+
     private TextView pan , aadhar;
     LinearLayout businessForm , salariedForm , selfEmpForm;
     CheckBox agreeCB , authorizeCB;
@@ -148,6 +150,7 @@ public class DocumentsActivity extends AppCompatActivity {
 
                 }
             }
+
 
         });
 
@@ -253,7 +256,7 @@ public class DocumentsActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void upload(String filePath , String table){
+    public void upload(String filePath ,final String table, final int id){
 
 
 
@@ -269,6 +272,94 @@ public class DocumentsActivity extends AppCompatActivity {
 
         }
 
+        uploadedFiles.add(id);
+        TextView errTv;
+        if (id == R.id.panUploadFile){
+            errTv = findViewById(R.id.panUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.aadharUploadFile){
+            errTv = findViewById(R.id.aadharUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.permAddressUploadFile){
+            errTv = findViewById(R.id.permAddressUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.localAddressUploadFile){
+            errTv = findViewById(R.id.localAddressUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.statement12UploadFile){
+            errTv = findViewById(R.id.statement12UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.salarySlipLastUploadFile){
+            errTv = findViewById(R.id.salarySlipLastUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.salarySlip2UploadFile){
+            errTv = findViewById(R.id.salarySlip2UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.salarySlip3UploadFile){
+            errTv = findViewById(R.id.salarySlip3UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.form16UploadFile){
+            errTv = findViewById(R.id.form16UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.markSheetUploadFile){
+            errTv = findViewById(R.id.markSheetUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.businessPANUploadFile){
+            errTv = findViewById(R.id.businessPANUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.businessRegistrationtUploadFile){
+            errTv = findViewById(R.id.businessRegistrationtUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.businessIncomeTax1UploadFile){
+            errTv = findViewById(R.id.businessIncomeTax1UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.businessIncomeTax2UploadFile){
+            errTv = findViewById(R.id.businessIncomeTax2UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.businessIncomeTax3UploadFile){
+            errTv = findViewById(R.id.businessIncomeTax3UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.selfempPANUploadFile){
+            errTv = findViewById(R.id.selfempPANUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.selfempRegistrationtUploadFile){
+            errTv = findViewById(R.id.selfempRegistrationtUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.selfempIncomeTax1UploadFile){
+            errTv = findViewById(R.id.selfempIncomeTax1UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.selfempIncomeTax2UploadFile){
+            errTv = findViewById(R.id.selfempIncomeTax2UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.selfempIncomeTax3UploadFile){
+            errTv = findViewById(R.id.selfempIncomeTax3UploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }else if (id == R.id.selfempMarkSheetUploadFile){
+            errTv = findViewById(R.id.selfempMarkSheetUploadFileErrTxt);
+            errTv.setText("Succfully uploaded");
+            errTv.setTextColor(getResources().getColor(R.color.green));
+        }
+
         client.post(backend.BASE_URL + "/api/v1/saveFile/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
@@ -276,6 +367,11 @@ public class DocumentsActivity extends AppCompatActivity {
 
                 String s ="das";
 
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
 
         });
@@ -292,8 +388,165 @@ public class DocumentsActivity extends AppCompatActivity {
                 filePaths = new ArrayList<>();
                 filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
                 String filePath = filePaths.get(0);
+
+                upload(filePath , "i2i_borrower_document_details||doc_pancard" , R.id.panUploadFile);
+
                 Toast.makeText(DocumentsActivity.this, filePath , Toast.LENGTH_SHORT).show();
                 break;
+
+            case R.id.aadharUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String aadharfilePath = filePaths.get(0);
+                upload(aadharfilePath , "i2i_borrower_document_details||aadhar_card", R.id.aadharUploadFile);
+                Toast.makeText(DocumentsActivity.this, aadharfilePath , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.permAddressUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String permaddfilePath = filePaths.get(0);
+                upload(permaddfilePath , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.permAddressUploadFile);
+                Toast.makeText(DocumentsActivity.this, permaddfilePath , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.localAddressUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String localaddfilePath = filePaths.get(0);
+                upload(localaddfilePath , "i2i_borrower_document_details||doc_current_add_proof" , R.id.localAddressUploadFile);
+                Toast.makeText(DocumentsActivity.this, localaddfilePath , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.statement12UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String statement12UploadFile = filePaths.get(0);
+                upload(statement12UploadFile , "i2i_borrower_document_details||doc_account_statement", R.id.statement12UploadFile);
+                Toast.makeText(DocumentsActivity.this, statement12UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.salarySlipLastUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String salarySlipLastUploadFile = filePaths.get(0);
+                upload(salarySlipLastUploadFile , "i2i_borrower_document_details||doc_sal_last_month", R.id.salarySlipLastUploadFile);
+                Toast.makeText(DocumentsActivity.this, salarySlipLastUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.salarySlip2UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String salarySlip2UploadFile = filePaths.get(0);
+                upload(salarySlip2UploadFile , "i2i_borrower_document_details||doc_sal_2nd_month", R.id.salarySlip2UploadFile);
+                Toast.makeText(DocumentsActivity.this, salarySlip2UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.salarySlip3UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String salarySlip3UploadFile = filePaths.get(0);
+                upload(salarySlip3UploadFile , "i2i_borrower_document_details||doc_sal_3rd_month", R.id.salarySlip3UploadFile);
+                Toast.makeText(DocumentsActivity.this, salarySlip3UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.form16UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String form16UploadFile = filePaths.get(0);
+                Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.markSheetUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String markSheetUploadFile = filePaths.get(0);
+                upload(markSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.markSheetUploadFile);
+                Toast.makeText(DocumentsActivity.this, markSheetUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.businessPANUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String businessPANUploadFile = filePaths.get(0);
+                upload(businessPANUploadFile , "i2i_borrower_document_details||doc_com_pancard", R.id.businessPANUploadFile);
+                Toast.makeText(DocumentsActivity.this, businessPANUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.businessRegistrationtUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String businessRegistrationtUploadFile = filePaths.get(0);
+                upload(businessRegistrationtUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.businessRegistrationtUploadFile);
+                Toast.makeText(DocumentsActivity.this, businessRegistrationtUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.businessIncomeTax1UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String businessIncomeTax1UploadFile = filePaths.get(0);
+                upload(businessIncomeTax1UploadFile , "i2i_borrower_document_details||doc_return_last", R.id.businessIncomeTax1UploadFile);
+                Toast.makeText(DocumentsActivity.this, businessIncomeTax1UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.businessIncomeTax2UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String businessIncomeTax2UploadFile = filePaths.get(0);
+                upload(businessIncomeTax2UploadFile , "i2i_borrower_document_details||doc_return_2nd", R.id.businessIncomeTax2UploadFile);
+                Toast.makeText(DocumentsActivity.this, businessIncomeTax2UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.businessIncomeTax3UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String businessIncomeTax3UploadFile = filePaths.get(0);
+                upload(businessIncomeTax3UploadFile , "i2i_borrower_document_details||doc_return_3rd", R.id.businessIncomeTax3UploadFile);
+                Toast.makeText(DocumentsActivity.this, businessIncomeTax3UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.selfempPANUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String selfempPANUploadFile = filePaths.get(0);
+                //upload(selfempPANUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.businessIncomeTax3UploadFile);
+                Toast.makeText(DocumentsActivity.this, selfempPANUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.selfempRegistrationtUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String selfempRegistrationtUploadFile = filePaths.get(0);
+                upload(selfempRegistrationtUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.selfempRegistrationtUploadFile);
+                Toast.makeText(DocumentsActivity.this, selfempRegistrationtUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.selfempIncomeTax1UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String selfempIncomeTax1UploadFile = filePaths.get(0);
+                upload(selfempIncomeTax1UploadFile , "i2i_borrower_document_details||doc_return_last", R.id.selfempIncomeTax1UploadFile);
+                Toast.makeText(DocumentsActivity.this, selfempIncomeTax1UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.selfempIncomeTax2UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String selfempIncomeTax2UploadFile = filePaths.get(0);
+                upload(selfempIncomeTax2UploadFile , "i2i_borrower_document_details||doc_return_2nd", R.id.selfempIncomeTax2UploadFile);
+                Toast.makeText(DocumentsActivity.this, selfempIncomeTax2UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.selfempIncomeTax3UploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String selfempIncomeTax3UploadFile = filePaths.get(0);
+                upload(selfempIncomeTax3UploadFile , "i2i_borrower_document_details||doc_return_3rd", R.id.selfempIncomeTax3UploadFile);
+                Toast.makeText(DocumentsActivity.this, selfempIncomeTax3UploadFile , Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.selfempMarkSheetUploadFile:
+                filePaths = new ArrayList<>();
+                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+                String selfempMarkSheetUploadFile = filePaths.get(0);
+                upload(selfempMarkSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.selfempMarkSheetUploadFile);
+                Toast.makeText(DocumentsActivity.this, selfempMarkSheetUploadFile , Toast.LENGTH_SHORT).show();
+                break;
+
+
         }
 
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
@@ -302,8 +555,111 @@ public class DocumentsActivity extends AppCompatActivity {
                 switch (type){
                     case R.id.panUploadFile:
                         String filePath = imageFile.getAbsolutePath();
+                        upload(filePath , "i2i_borrower_document_details||doc_pancard", R.id.panUploadFile);
                         Toast.makeText(DocumentsActivity.this, filePath , Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.aadharUploadFile:
+                        String aadharUploadFile = imageFile.getAbsolutePath();
+                        upload(aadharUploadFile , "i2i_borrower_document_details||aadhar_card", R.id.aadharUploadFile);
+                        Toast.makeText(DocumentsActivity.this, aadharUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.permAddressUploadFile:
+                        String permAddressUploadFile = imageFile.getAbsolutePath();
+                        upload(permAddressUploadFile , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.permAddressUploadFile);
+                        Toast.makeText(DocumentsActivity.this, permAddressUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.localAddressUploadFile:
+                        String localAddressUploadFile = imageFile.getAbsolutePath();
+                        upload(localAddressUploadFile , "i2i_borrower_document_details||doc_current_add_proof", R.id.localAddressUploadFile);
+                        Toast.makeText(DocumentsActivity.this, localAddressUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.statement12UploadFile:
+                        String statement12UploadFile = imageFile.getAbsolutePath();
+                        upload(statement12UploadFile , "i2i_borrower_document_details||doc_account_statement", R.id.statement12UploadFile);
+                        Toast.makeText(DocumentsActivity.this, statement12UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.salarySlipLastUploadFile:
+                        String salarySlipLastUploadFile = imageFile.getAbsolutePath();
+                        upload(salarySlipLastUploadFile , "i2i_borrower_document_details||doc_sal_last_month", R.id.salarySlipLastUploadFile);
+                        Toast.makeText(DocumentsActivity.this, salarySlipLastUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.salarySlip2UploadFile:
+                        String salarySlip2UploadFile = imageFile.getAbsolutePath();
+                        upload(salarySlip2UploadFile , "i2i_borrower_document_details||doc_sal_2nd_month", R.id.salarySlip2UploadFile);
+                        Toast.makeText(DocumentsActivity.this, salarySlip2UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.salarySlip3UploadFile:
+                        String salarySlip3UploadFile = imageFile.getAbsolutePath();
+                        upload(salarySlip3UploadFile , "i2i_borrower_document_details||doc_sal_3rd_month", R.id.salarySlip3UploadFile);
+                        Toast.makeText(DocumentsActivity.this, salarySlip3UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.form16UploadFile:
+                        String form16UploadFile = imageFile.getAbsolutePath();
+                        //upload(form16UploadFile , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.form16UploadFile);
+                        Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.markSheetUploadFile:
+                        String markSheetUploadFile = imageFile.getAbsolutePath();
+                        upload(markSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.markSheetUploadFile);
+                        Toast.makeText(DocumentsActivity.this, markSheetUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.businessPANUploadFile:
+                        String businessPANUploadFile = imageFile.getAbsolutePath();
+                        upload(businessPANUploadFile , "i2i_borrower_document_details||doc_com_pancard", R.id.businessPANUploadFile);
+                        Toast.makeText(DocumentsActivity.this, businessPANUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.businessRegistrationtUploadFile:
+                        String businessRegistrationtUploadFile = imageFile.getAbsolutePath();
+                        upload(businessRegistrationtUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.businessRegistrationtUploadFile);
+                        Toast.makeText(DocumentsActivity.this, businessRegistrationtUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.businessIncomeTax1UploadFile:
+                        String businessIncomeTax1UploadFile = imageFile.getAbsolutePath();
+                        upload(businessIncomeTax1UploadFile , "i2i_borrower_document_details||doc_return_last", R.id.businessIncomeTax1UploadFile);
+                        Toast.makeText(DocumentsActivity.this, businessIncomeTax1UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.businessIncomeTax2UploadFile:
+                        String businessIncomeTax2UploadFile = imageFile.getAbsolutePath();
+                        upload(businessIncomeTax2UploadFile , "i2i_borrower_document_details||doc_return_2nd", R.id.businessIncomeTax2UploadFile);
+                        Toast.makeText(DocumentsActivity.this, businessIncomeTax2UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.businessIncomeTax3UploadFile:
+                        String businessIncomeTax3UploadFile = imageFile.getAbsolutePath();
+                        upload(businessIncomeTax3UploadFile , "i2i_borrower_document_details||doc_return_3rd", R.id.businessIncomeTax3UploadFile);
+                        Toast.makeText(DocumentsActivity.this, businessIncomeTax3UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.selfempPANUploadFile:
+                        String selfempPANUploadFile = imageFile.getAbsolutePath();
+                        upload(selfempPANUploadFile , "i2i_borrower_document_details||doc_com_pancard", R.id.selfempPANUploadFile);
+                        Toast.makeText(DocumentsActivity.this, selfempPANUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.selfempRegistrationtUploadFile:
+                        String selfempRegistrationtUploadFile = imageFile.getAbsolutePath();
+                        upload(selfempRegistrationtUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.selfempRegistrationtUploadFile);
+                        Toast.makeText(DocumentsActivity.this, selfempRegistrationtUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case R.id.selfempIncomeTax1UploadFile:
+                        String selfempIncomeTax1UploadFile = imageFile.getAbsolutePath();
+                        upload(selfempIncomeTax1UploadFile , "i2i_borrower_document_details||doc_return_last", R.id.selfempIncomeTax1UploadFile);
+                        Toast.makeText(DocumentsActivity.this, selfempIncomeTax1UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.selfempIncomeTax2UploadFile:
+                        String selfempIncomeTax2UploadFile = imageFile.getAbsolutePath();
+                        upload(selfempIncomeTax2UploadFile , "i2i_borrower_document_details||doc_return_2nd", R.id.selfempIncomeTax2UploadFile);
+                        Toast.makeText(DocumentsActivity.this, selfempIncomeTax2UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.selfempIncomeTax3UploadFile:
+                        String selfempIncomeTax3UploadFile = imageFile.getAbsolutePath();
+                        upload(selfempIncomeTax3UploadFile , "i2i_borrower_document_details||doc_return_3rd", R.id.selfempIncomeTax3UploadFile);
+                        Toast.makeText(DocumentsActivity.this, selfempIncomeTax3UploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.selfempMarkSheetUploadFile:
+                        String selfempMarkSheetUploadFile = imageFile.getAbsolutePath();
+                        upload(selfempMarkSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.selfempMarkSheetUploadFile);
+                        Toast.makeText(DocumentsActivity.this, selfempMarkSheetUploadFile , Toast.LENGTH_SHORT).show();
+                        break;
+
 
                 }
             }
@@ -321,18 +677,33 @@ public class DocumentsActivity extends AppCompatActivity {
 //        showErrors	true
 //        http://localhost:8080/api/v1/borrowerRegistration/finalSubmit/?csrf_token=PvKMr0O9JCGaS1yO52GxSnMtG&session_id=6jJoBMIsZOMsTu47TTZ7jd4Fm
 
+        if (uploadedFiles.size()<10 && empType == "Salaried Employee"){
+            Toast.makeText(this, "Please uploaded all the files", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (uploadedFiles.size()<11 && empType == "Self Employed Professional"){
+            Toast.makeText(this, "Please uploaded all the files", Toast.LENGTH_SHORT).show();
+            return;
+        } else if (uploadedFiles.size()<9){
+            Toast.makeText(this, "Please uploaded all the files", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         if (!agreeCB.isChecked()){
             agreeCB.setError("Please agree to our Terms and Conditions");
             agreeCB.requestFocus();
             return;
+        }else{
+            agreeCB.setError(null);
         }
         if (!authorizeCB.isChecked()){
             authorizeCB.setError("Please authorize us to validate your profile");
             authorizeCB.requestFocus();
             return;
+        }else{
+            authorizeCB.setError(null);
         }
+
 
         final String session_id = sharedPreferences.getString("session_id" , null);
         final String csrf_token = sharedPreferences.getString("csrf_token" , null);

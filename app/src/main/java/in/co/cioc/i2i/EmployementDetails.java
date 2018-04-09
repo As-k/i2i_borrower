@@ -416,7 +416,7 @@ public class EmployementDetails extends AppCompatActivity {
 
                 try {
                     String typ = c.getString("emp_type");
-                    typ =  "Self Employed";
+                    //typ =  "Self Employed";
                     if (typ.equals("Salaried Employee")){
                         empType = "Salaried";
                         selfEmpForm.setVisibility(LinearLayout.GONE);
@@ -425,7 +425,10 @@ public class EmployementDetails extends AppCompatActivity {
                         salariedDesignation.requestFocus();
 
                         salariedDesignation.setText(c.getString("emp_sal_desg"));
-                        salariedEmail.setText(c.getString("emp_official_email"));
+                        String eml = c.getString("emp_official_email");
+                        if (eml.length() >0){
+                            salariedEmail.setText(eml);
+                        }
 
                     }else if(typ.equals("Self Employed Professional")){
                         empType = "Self Employed";
@@ -448,9 +451,14 @@ public class EmployementDetails extends AppCompatActivity {
 
                     }
 
-
-                    businessFormPan.setText(c.getString("emp_comp_pan"));
-                    businessFormTan.setText(c.getString("emp_comp_tan"));
+                    String bPan = c.getString("emp_comp_pan");
+                    if (bPan.length()>0){
+                        businessFormPan.setText(bPan);
+                    }
+                    String bTan = c.getString("emp_comp_tan");
+                    if (bTan.length()>0){
+                        businessFormTan.setText(bTan);
+                    }
 
                    if (c.getString("emp_self_firm_type").equals("Individual")){
                        RadioButton indivBtn = findViewById(R.id.radio_individual);
@@ -488,7 +496,10 @@ public class EmployementDetails extends AppCompatActivity {
 
                     city.setText(addrs.getString("city"));
                     address.setText(addrs.getString("address"));
-                    pincode.setText(addrs.getString("pincode"));
+                    String pin = addrs.getString("pincode");
+                    if (pin.length()>0){
+                        pincode.setText(pin);
+                    }
                     state.setText(addrs.getString("state"));
 
 

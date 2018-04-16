@@ -109,6 +109,9 @@
             </RadioGroup>
 
         </LinearLayout>
+        <TextView
+            android:id="@+id/genderErrTxt"
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -139,6 +142,9 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/fnameErrTxt"
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -199,7 +205,9 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/lnameErrTxt"
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -231,7 +239,9 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/aadharErrTxt"
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -263,7 +273,9 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/panErrTxt"
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -294,7 +306,9 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-
+        <TextView
+            android:id="@+id/emailErrTxt"
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -326,6 +340,9 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/mobileErrTxt"
+            style="@style/error_text_msg"/>
 
 
         <LinearLayout
@@ -384,12 +401,7 @@
         </LinearLayout>
         <TextView
             android:id="@+id/passwordErrTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text=""
-            android:layout_marginStart="130dp"
-            android:textColor="@color/cb_errorRed"/>
+            style="@style/error_text_msg"/>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -430,12 +442,7 @@
 
         <TextView
             android:id="@+id/password2ErrTxt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text=""
-            android:layout_marginStart="130dp"
-            android:textColor="@color/cb_errorRed"/>
+            style="@style/error_text_msg"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -519,7 +526,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
-
+                <TextView
+                    android:id="@+id/mobileOTPErrTxt"
+                    style="@style/error_text_msg"/>
 
 
                 <LinearLayout
@@ -553,6 +562,9 @@
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/emailOTPErrTxt"
+                    style="@style/error_text_msg"/>
 
             </LinearLayout>
 
@@ -578,7 +590,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. ' />
+                    android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. '
+                    android:onClick="tncCB"/>
+
+                <TextView
+                    android:id="@+id/tncCheckboxErrTxt"
+                    style="@style/error_text_msg"
+                    android:layout_marginStart="50dp"/>
 
                 <CheckBox
                     android:id="@+id/personalInfoCheckBox"
@@ -586,7 +604,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:layout_weight="1"
-                    android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com ' />
+                    android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com '
+                    android:onClick="personalCB"/>
+
+                <TextView
+                    android:id="@+id/personalInfoCheckBoxErrTxt"
+                    style="@style/error_text_msg"
+                    android:layout_marginStart="50dp"/>
 
                 <Button
                     android:id="@+id/submit_button"

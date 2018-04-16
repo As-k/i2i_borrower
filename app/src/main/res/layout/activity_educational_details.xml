@@ -80,6 +80,11 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/degreeErrTxt"
+                style="@style/error_text_msg"/>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -115,6 +120,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/collegeErrTxt"
+                style="@style/error_text_msg"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -150,6 +159,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/specializationErrTxt"
+                style="@style/error_text_msg"/>
 
 
             <LinearLayout
@@ -187,9 +199,9 @@
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
+            <TextView
+                android:id="@+id/graduationYrErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +17,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.githang.stepview.StepView;
@@ -40,6 +42,7 @@ public class UserDetails extends AppCompatActivity {
     SharedPreferences sharedPreferences;
 
     Boolean married = false;
+//    Boolean married = true;
 
     LinearLayout spouseNameForm, localAddressForm , depen1LL, depen2LL, depen3LL;
     EditText fatherFName, fatherLName , fatherMName , spouseFName , spouseMName , spouseLName;
@@ -49,6 +52,9 @@ public class UserDetails extends AppCompatActivity {
     Integer noOfDependents = 0;
     EditText depen1 , depen2 , depen3;
     CheckBox sameAsPermCB;
+    TextView fnameErr, lnameErr, fnameSpouseErr, lnameSpouseErr, noOfDeptErr, noOfDept1Err, noOfDept2Err, noOfDept3Err,
+            pAddressErr, pPincodeErr, pCityErr, pStateErr, currentCBErr, cAddressErr, cPincodeErr, cCityErr, cStateErr;
+
 
     Spinner dropdown;
     Drawable successTick;
@@ -80,10 +86,19 @@ public class UserDetails extends AppCompatActivity {
         spouseMName = findViewById(R.id.middleNameSpouse);
         spouseLName= findViewById(R.id.lastNameSpouse);
 
+        findIdErrorText();
+
 
         fatherFName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    fnameErr.setVisibility(View.VISIBLE);
+                    fnameErr.setText("Please enter first name");
+                } else {
+                    fnameErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -101,7 +116,14 @@ public class UserDetails extends AppCompatActivity {
 
         fatherLName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    lnameErr.setVisibility(View.VISIBLE);
+                    lnameErr.setText("Please enter last name");
+                } else {
+                    lnameErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -137,7 +159,14 @@ public class UserDetails extends AppCompatActivity {
 
         spouseFName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    fnameSpouseErr.setVisibility(View.VISIBLE);
+                    fnameSpouseErr.setText("Please enter first name");
+                } else {
+                    fnameSpouseErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -173,7 +202,14 @@ public class UserDetails extends AppCompatActivity {
 
         spouseLName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    lnameSpouseErr.setVisibility(View.VISIBLE);
+                    lnameSpouseErr.setText("Please enter last name");
+                } else {
+                    lnameSpouseErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -208,7 +244,15 @@ public class UserDetails extends AppCompatActivity {
 
         localAddress.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    cAddressErr.setVisibility(View.VISIBLE);
+                    cAddressErr.setText("Please enter address");
+                } else {
+                    cAddressErr.setVisibility(View.GONE);
+                    currentCBErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -226,7 +270,14 @@ public class UserDetails extends AppCompatActivity {
 
         permAddress.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    pAddressErr.setVisibility(View.VISIBLE);
+                    pAddressErr.setText("Please enter address");
+                } else {
+                    pAddressErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -244,7 +295,14 @@ public class UserDetails extends AppCompatActivity {
 
         depen1.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age");
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -261,7 +319,14 @@ public class UserDetails extends AppCompatActivity {
         });
         depen2.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    noOfDept2Err.setVisibility(View.VISIBLE);
+                    noOfDept2Err.setText("Please enter age");
+                } else {
+                    noOfDept2Err.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -278,7 +343,14 @@ public class UserDetails extends AppCompatActivity {
         });
         depen3.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    noOfDept3Err.setVisibility(View.VISIBLE);
+                    noOfDept3Err.setText("Please enter age");
+                } else {
+                    noOfDept3Err.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -323,22 +395,35 @@ public class UserDetails extends AppCompatActivity {
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                noOfDeptErr.setVisibility(View.GONE);
                 if (i == 0){
                     depen1LL.setVisibility(LinearLayout.GONE);
                     depen2LL.setVisibility(LinearLayout.GONE);
                     depen3LL.setVisibility(LinearLayout.GONE);
+                    noOfDept1Err.setVisibility(View.GONE);
+                    noOfDept2Err.setVisibility(View.GONE);
+                    noOfDept3Err.setVisibility(View.GONE);
                 }else if(i == 1){
                     depen1LL.setVisibility(LinearLayout.VISIBLE);
                     depen2LL.setVisibility(LinearLayout.GONE);
                     depen3LL.setVisibility(LinearLayout.GONE);
+                    noOfDept1Err.setVisibility(View.GONE);
+                    noOfDept2Err.setVisibility(View.GONE);
+                    noOfDept3Err.setVisibility(View.GONE);
                 }else if(i == 2){
                     depen1LL.setVisibility(LinearLayout.VISIBLE);
                     depen2LL.setVisibility(LinearLayout.VISIBLE);
                     depen3LL.setVisibility(LinearLayout.GONE);
+                    noOfDept1Err.setVisibility(View.GONE);
+                    noOfDept2Err.setVisibility(View.GONE);
+                    noOfDept3Err.setVisibility(View.GONE);
                 }else if(i == 3){
                     depen1LL.setVisibility(LinearLayout.VISIBLE);
                     depen2LL.setVisibility(LinearLayout.VISIBLE);
                     depen3LL.setVisibility(LinearLayout.VISIBLE);
+                    noOfDept1Err.setVisibility(View.GONE);
+                    noOfDept2Err.setVisibility(View.GONE);
+                    noOfDept3Err.setVisibility(View.GONE);
                 }
 
             }
@@ -356,6 +441,7 @@ public class UserDetails extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b){
                     localAddressForm.setVisibility(LinearLayout.GONE);
+                    currentCBErr.setVisibility(View.GONE);
                 }else {
                     localAddressForm.setVisibility(LinearLayout.VISIBLE);
                 }
@@ -365,7 +451,14 @@ public class UserDetails extends AppCompatActivity {
 
         permPincode.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    pPincodeErr.setVisibility(View.VISIBLE);
+                    pPincodeErr.setText("Please enter pincode");
+                } else {
+                    pPincodeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -386,6 +479,8 @@ public class UserDetails extends AppCompatActivity {
                                 permState.setText(response.getString("pin_state"));
                                 showSuccess(permCity);
                                 showSuccess(permState);
+                                pCityErr.setVisibility(View.GONE);
+                                pStateErr.setVisibility(View.GONE);
                             }catch (JSONException e){
 
                             }
@@ -410,7 +505,14 @@ public class UserDetails extends AppCompatActivity {
 
         localPincode.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    cPincodeErr.setVisibility(View.VISIBLE);
+                    cPincodeErr.setText("Please enter first name");
+                } else {
+                    cPincodeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -431,6 +533,8 @@ public class UserDetails extends AppCompatActivity {
                                 localState.setText(response.getString("pin_state"));
                                 showSuccess(localCity);
                                 showSuccess(localState);
+                                cCityErr.setVisibility(View.GONE);
+                                cPincodeErr.setVisibility(View.GONE);
                             }catch (JSONException e){
 
                             }
@@ -555,7 +659,181 @@ public class UserDetails extends AppCompatActivity {
             "married": "S"
     }
     */
+
+    public void findIdErrorText(){
+        fnameErr = findViewById(R.id.fnameErrTxt);
+        lnameErr = findViewById(R.id.lnameErrTxt);
+        fnameSpouseErr = findViewById(R.id.fnameSpouseErrTxt);
+        lnameSpouseErr = findViewById(R.id.lnameSpouseErrTxt);
+        noOfDeptErr = findViewById(R.id.noofDependentErrTxt);
+        noOfDept1Err = findViewById(R.id.dependent1ErrTxt);
+        noOfDept2Err = findViewById(R.id.dependent2ErrTxt);
+        noOfDept3Err = findViewById(R.id.dependent3ErrTxt);
+        pAddressErr = findViewById(R.id.pAddressErrTxt);
+        pPincodeErr = findViewById(R.id.pPincodeErrTxt);
+        pCityErr = findViewById(R.id.pCityErrTxt);
+        pStateErr = findViewById(R.id.pStateErrTxt);
+        currentCBErr = findViewById(R.id.currentCBErrTxt);
+        cAddressErr = findViewById(R.id.cAddressErrTxt);
+        cPincodeErr = findViewById(R.id.cPincodeErrTxt);
+        cCityErr = findViewById(R.id.cCityErrTxt);
+        cStateErr = findViewById(R.id.cStateErrTxt);
+    }
+
     public void save(final Boolean stay){
+        String ffName = fatherFName.getText().toString().trim();
+        String flName = fatherLName.getText().toString().trim();
+        String sfName = spouseFName.getText().toString().trim();
+        String slName = spouseLName.getText().toString().trim();
+        String dependent1 = depen1.getText().toString().trim();
+        String dependent2 = depen2.getText().toString().trim();
+        String dependent3 = depen3.getText().toString().trim();
+        String pAdd = permAddress.getText().toString().trim();
+        String pPinCode = permPincode.getText().toString().trim();
+        String pCity = permCity.getText().toString().trim();
+        String pState = permState.getText().toString().trim();
+        String cAdd = localAddress.getText().toString().trim();
+        String cPinCode = localPincode.getText().toString().trim();
+        String cCity = localCity.getText().toString().trim();
+        String cState = localState.getText().toString().trim();
+
+        if (ffName.isEmpty()){
+            fnameErr.setVisibility(View.VISIBLE);
+            fnameErr.setText("Please enter first name.");
+        } else {
+            fnameErr.setVisibility(View.GONE);
+        }
+
+        if (flName.isEmpty()){
+            lnameErr.setVisibility(View.VISIBLE);
+            lnameErr.setText("Please enter last name.");
+        } else {
+            lnameErr.setVisibility(View.GONE);
+        }
+
+        if (sfName.isEmpty()){
+            fnameSpouseErr.setVisibility(View.VISIBLE);
+            fnameSpouseErr.setText("Please enter first name.");
+        } else {
+            fnameSpouseErr.setVisibility(View.GONE);
+        }
+
+        if (slName.isEmpty()){
+            lnameSpouseErr.setVisibility(View.VISIBLE);
+            lnameSpouseErr.setText("Please enter last name.");
+        } else {
+            lnameSpouseErr.setVisibility(View.GONE);
+        }
+
+        if (!(dropdown.getSelectedItemPosition()==0)) {
+            noOfDeptErr.setVisibility(View.GONE);
+            if (dropdown.getSelectedItemPosition()==1) {
+                if (dependent1.isEmpty()) {
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age.");
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+            }else if (dropdown.getSelectedItemPosition()==2) {
+                if (dependent1.isEmpty()) {
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age.");
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+                if (dependent2.isEmpty()) {
+                    noOfDept2Err.setVisibility(View.VISIBLE);
+                    noOfDept2Err.setText("Please enter age.");
+                } else {
+                    noOfDept2Err.setVisibility(View.GONE);
+                }
+            } else if (dropdown.getSelectedItemPosition()==3) {
+                if (dependent1.isEmpty()) {
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age.");
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+                if (dependent2.isEmpty()) {
+                    noOfDept2Err.setVisibility(View.VISIBLE);
+                    noOfDept2Err.setText("Please enter age.");
+                } else {
+                    noOfDept2Err.setVisibility(View.GONE);
+                }
+                if (dependent3.isEmpty()) {
+                    noOfDept3Err.setVisibility(View.VISIBLE);
+                    noOfDept3Err.setText("Please enter age.");
+                } else {
+                    noOfDept3Err.setVisibility(View.GONE);
+                }
+            } else Log.e("dropdown","dependents");
+//        } else {
+//            noOfDeptErr.setVisibility(View.VISIBLE);
+//            noOfDeptErr.setText("Please select dependents");
+        }
+
+        if (pAdd.isEmpty()){
+            pAddressErr.setVisibility(View.VISIBLE);
+            pAddressErr.setText("Please enter address.");
+        } else {
+            pAddressErr.setVisibility(View.GONE);
+        }
+
+        if (pPinCode.isEmpty()){
+            pPincodeErr.setVisibility(View.VISIBLE);
+            pPincodeErr.setText("Please enter pincode.");
+        } else {
+            pPincodeErr.setVisibility(View.GONE);
+        }
+
+        if (pCity.isEmpty()){
+            pCityErr.setVisibility(View.VISIBLE);
+            pCityErr.setText("Please enter city.");
+        } else {
+            pCityErr.setVisibility(View.GONE);
+        }
+
+        if (pState.isEmpty()){
+            pStateErr.setVisibility(View.VISIBLE);
+            pStateErr.setText("Please enter state.");
+        } else {
+            pStateErr.setVisibility(View.GONE);
+        }
+
+        if (!sameAsPermCB.isChecked()) {
+            currentCBErr.setVisibility(View.VISIBLE);
+            currentCBErr.setText("Please enter current address");
+            if (cAdd.isEmpty()) {
+                cAddressErr.setVisibility(View.VISIBLE);
+                cAddressErr.setText("Please enter address.");
+            } else {
+                cAddressErr.setVisibility(View.GONE);
+                currentCBErr.setVisibility(View.GONE);
+            }
+            if (cPinCode.isEmpty()) {
+                cPincodeErr.setVisibility(View.VISIBLE);
+                cPincodeErr.setText("Please enter pincode.");
+            } else {
+                cPincodeErr.setVisibility(View.GONE);
+            }
+
+            if (cCity.isEmpty()) {
+                cCityErr.setVisibility(View.VISIBLE);
+                cCityErr.setText("Please enter city.");
+            } else {
+                cCityErr.setVisibility(View.GONE);
+            }
+
+            if (cState.isEmpty()) {
+                cStateErr.setVisibility(View.VISIBLE);
+                cStateErr.setText("Please enter state.");
+            } else {
+                cStateErr.setVisibility(View.GONE);
+            }
+        } else {
+            currentCBErr.setVisibility(View.GONE);
+        }
+
         String dependentsArr = "[]";
 
         JSONObject permAdd = new JSONObject();

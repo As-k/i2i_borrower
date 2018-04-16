@@ -160,6 +160,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/amountErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -195,7 +198,11 @@
                             android:spinnerMode="dropdown" />
                     </LinearLayout>
 
+
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tenureLoanErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -230,6 +237,9 @@
                             android:spinnerMode="dropdown" />
                     </LinearLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/purposeErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,6 +272,10 @@
 
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/descriptionErrTxt"
+                    style="@style/error_text_msg"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -328,6 +342,10 @@
                         </RadioGroup>
                     </LinearLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/genderErrTxt"
+                    style="@style/error_text_msg"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -368,6 +386,10 @@
                     </LinearLayout>
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/dobErrTxt"
+                    style="@style/error_text_msg"/>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -399,6 +421,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/pincodeErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -429,6 +454,10 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/cityErrTxt"
+                    style="@style/error_text_msg"/>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -479,6 +508,9 @@
                             android:spinnerMode="dropdown" />
                     </LinearLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/empTypeErrTxt"
+                    style="@style/error_text_msg"/>
 
 
                 <LinearLayout
@@ -522,6 +554,10 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/companyErrTxt"
+                        style="@style/error_text_msg"/>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -552,6 +588,9 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/incomeSalariedErrTxt"
+                        style="@style/error_text_msg"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -586,8 +625,10 @@
                                 android:layout_height="match_parent"
                                 android:spinnerMode="dropdown" />
                         </LinearLayout>
-
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/paymentModeErrTxt"
+                        style="@style/error_text_msg"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -628,9 +669,9 @@
                         </LinearLayout>
 
                     </LinearLayout>
-
-
-
+                    <TextView
+                        android:id="@+id/workingSinceErrTxt"
+                        style="@style/error_text_msg"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -661,6 +702,9 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/workExperienceErrTxt"
+                        style="@style/error_text_msg"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -691,12 +735,9 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-
-
-
-
-
-
+                    <TextView
+                        android:id="@+id/workExperienceMonthErrTxt"
+                        style="@style/error_text_msg"/>
 
                 </LinearLayout>
 
@@ -741,6 +782,10 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/professionBusinessErrTxt"
+                        style="@style/error_text_msg"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -770,6 +815,10 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/turnoverBusinessErrTxt"
+                        style="@style/error_text_msg"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -799,10 +848,12 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-
-
+                    <TextView
+                        android:id="@+id/profitBusinessErrTxt"
+                        style="@style/error_text_msg"/>
 
                 </LinearLayout>
+
 
                 <LinearLayout
                     android:id="@+id/emp_form_selfEmp"
@@ -845,6 +896,10 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/professionSelfEmpErrTxt"
+                        style="@style/error_text_msg"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -874,6 +929,10 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/turnoverSelfEmpErrTxt"
+                        style="@style/error_text_msg"/>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -903,8 +962,9 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-
-
+                    <TextView
+                        android:id="@+id/profitSelfEmpErrTxt"
+                        style="@style/error_text_msg"/>
 
                 </LinearLayout>
 
@@ -958,6 +1018,10 @@
                     </LinearLayout>
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/houseTypeErrTxt"
+                    style="@style/error_text_msg"/>
+
 
                 <LinearLayout
                     android:id="@+id/rentForm"
@@ -994,6 +1058,9 @@
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/monthlyRentErrTxt"
+                        style="@style/error_text_msg"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -1045,6 +1112,10 @@
                             </RadioGroup>
                         </LinearLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/canProvideGuranteeErrTxt"
+                        style="@style/error_text_msg"/>
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -1085,6 +1156,9 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/stayingSinceErrTxt"
+                        style="@style/error_text_msg"/>
 
                 </LinearLayout>
 
@@ -1117,6 +1191,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/otherIncomeErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1141,14 +1218,16 @@
                             android:id="@+id/spouseIncome"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Spouse Name"
+                            android:hint="Spouse Income"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
-
+                <TextView
+                    android:id="@+id/spouseIncomeErrTxt"
+                    style="@style/error_text_msg"/>
 
 
                 <TextView
@@ -1201,6 +1280,9 @@
                         </RadioGroup>
                     </LinearLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/radioLoanErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1232,6 +1314,10 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/loanEmiErrTxt"
+                    style="@style/error_text_msg"/>
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -1282,8 +1368,9 @@
                         </RadioGroup>
                     </LinearLayout>
                 </LinearLayout>
-
-
+                <TextView
+                    android:id="@+id/radioCCErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1315,12 +1402,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
-
-
-
-
-
-
+                <TextView
+                    android:id="@+id/ccOutstandingErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -1351,6 +1435,10 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/creditScoreErrTxt"
+                    style="@style/error_text_msg"/>
+
             </LinearLayout>
 
 

@@ -14,5 +14,16 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="error_text_msg">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:layout_marginEnd">20dp</item>-->
+        <!--<item name="android:layout_marginBottom">3dp</item>-->
+        <item name="android:layout_marginStart">70dp</item>
+        <item name="android:textColor">@color/cb_errorRed</item>
+        <item name="android:visibility">gone</item>
+        <!--<item name="android:text">text error</item>-->
+    </style>
+
 
 </resources>

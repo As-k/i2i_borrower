@@ -81,6 +81,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/designationErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,6 +152,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/bnameErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -179,6 +185,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/bEYErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -299,6 +308,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/bEmailErrTxt"
+                    style="@style/error_text_msg"/>
 
             </LinearLayout>
 
@@ -361,12 +373,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="Total Professional Experience (Years)"
-                            android:inputType="text"
+                            android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/tpeYearErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -404,6 +419,9 @@
                     </RadioGroup>
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/radio_I_F_ErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -483,6 +501,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/addressErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -514,6 +535,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/pinCodeErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -540,10 +564,16 @@
                         android:hint="City"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/cityErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -570,10 +600,16 @@
                         android:hint="State"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/stateErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -625,7 +661,6 @@
 
 
             </LinearLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"

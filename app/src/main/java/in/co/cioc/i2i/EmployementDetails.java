@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.githang.stepview.StepView;
@@ -41,7 +43,8 @@ public class EmployementDetails extends AppCompatActivity {
     EditText businessFormName , businessFormEstablishedYr, businessFormWebsite, businessFormTan, businessFormPan, businessFormEmail;
     EditText selfEmpWebsite, selfEmpExp, selfEmpEmail;
 
-
+    TextView designationErr, businessNameErr, businessEYErr, businessEmailErr, professionalExpErr, radioIFErr, addressErr, pincodeErr, cityErr, stateErr;
+    RadioButton individual, firm;
 
     Drawable successTick;
     private Pattern pattern;
@@ -67,13 +70,17 @@ public class EmployementDetails extends AppCompatActivity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radio_individual:
-                if (checked)
+                if (checked) {
                     empDetailsSelfEmpType = "individual";
+                    radioIFErr.setVisibility(View.GONE);
                     break;
+                }
             case R.id.radio_firm:
-                if (checked)
+                if (checked) {
                     empDetailsSelfEmpType = "firm";
+                    radioIFErr.setVisibility(View.GONE);
                     break;
+                }
         }
     }
 
@@ -116,6 +123,9 @@ public class EmployementDetails extends AppCompatActivity {
         selfEmpExp = findViewById(R.id.selfEmpExp);
         selfEmpEmail = findViewById(R.id.email);
 
+        individual = findViewById(R.id.radio_individual);
+        firm = findViewById(R.id.radio_firm);
+
         address = findViewById(R.id.address);
         pincode = findViewById(R.id.pincode);
         city = findViewById(R.id.city);
@@ -123,6 +133,8 @@ public class EmployementDetails extends AppCompatActivity {
 
         std = findViewById(R.id.stdCode);
         phone = findViewById(R.id.phoneNum);
+
+        findIdErrorText();
 
         Button save_button = findViewById(R.id.save_button);
         save_button.setOnClickListener(new View.OnClickListener() {
@@ -134,7 +146,9 @@ public class EmployementDetails extends AppCompatActivity {
 
         businessFormPan.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -191,7 +205,12 @@ public class EmployementDetails extends AppCompatActivity {
 
         businessFormName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {if(s.toString().trim().equals("")){
+                businessNameErr.setVisibility(View.VISIBLE);
+                businessNameErr.setText("Please enter name.");
+            } else{
+                businessNameErr.setVisibility(View.GONE);
+            }}
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -210,7 +229,14 @@ public class EmployementDetails extends AppCompatActivity {
 
         businessFormEstablishedYr.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    businessEYErr.setVisibility(View.VISIBLE);
+                    businessEYErr.setText("Please enter established year.");
+                } else{
+                    businessEYErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -248,7 +274,14 @@ public class EmployementDetails extends AppCompatActivity {
 
         businessFormEmail.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    businessEmailErr.setVisibility(View.VISIBLE);
+                    businessEmailErr.setText("Please enter Email ID.");
+                } else{
+                    businessEmailErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -261,6 +294,50 @@ public class EmployementDetails extends AppCompatActivity {
                     businessFormEmail.setError("Invalid Email ID");
                     View focusView = businessFormEmail;
                     focusView.requestFocus();
+                }
+            }
+        });
+
+        selfEmpWebsite.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.toString().length() > 0){
+                    showSuccess(selfEmpWebsite);
+                }else{
+                    selfEmpWebsite.setError("Invalid website address");
+                    View focusView = selfEmpWebsite;
+                    focusView.requestFocus();
+                }
+            }
+        });
+
+        selfEmpExp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    professionalExpErr.setVisibility(View.VISIBLE);
+                    professionalExpErr.setText("Please enter professional exp.");
+                } else{
+                    professionalExpErr.setVisibility(View.GONE);
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(s.length() != 0){
+                    showSuccess(selfEmpExp);
+                }else {
+                    selfEmpExp.setError("Invalid professional exp.");
+                    selfEmpExp.requestFocus();
                 }
             }
         });
@@ -286,7 +363,14 @@ public class EmployementDetails extends AppCompatActivity {
 
         salariedDesignation.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    designationErr.setVisibility(View.VISIBLE);
+                    designationErr.setText("Please enter designation.");
+                } else{
+                    designationErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -338,9 +422,17 @@ public class EmployementDetails extends AppCompatActivity {
                 }
             }
         });
+
         address.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    addressErr.setVisibility(View.VISIBLE);
+                    addressErr.setText("Please enter address.");
+                } else{
+                    addressErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -361,7 +453,14 @@ public class EmployementDetails extends AppCompatActivity {
 
         pincode.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    pincodeErr.setVisibility(View.VISIBLE);
+                    pincodeErr.setText("Please enter pincode.");
+                } else{
+                    pincodeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -382,6 +481,8 @@ public class EmployementDetails extends AppCompatActivity {
                                 state.setText(response.getString("pin_state"));
                                 showSuccess(city);
                                 showSuccess(state);
+                                cityErr.setVisibility(View.GONE);
+                                stateErr.setVisibility(View.GONE);
                             }catch (JSONException e){
 
                             }
@@ -407,6 +508,10 @@ public class EmployementDetails extends AppCompatActivity {
 
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
+//        selfEmpForm.setVisibility(LinearLayout.VISIBLE);
+//        businessForm.setVisibility(LinearLayout.VISIBLE);
+//        salariedForm.setVisibility(LinearLayout.VISIBLE);
+
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
         client.get(backend.BASE_URL + "/api/v1/retriveDetails/employement/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
@@ -416,7 +521,8 @@ public class EmployementDetails extends AppCompatActivity {
 
                 try {
                     String typ = c.getString("emp_type");
-                    //typ =  "Self Employed";
+//                    typ =  "Salaried";
+                    typ =  "Business";
                     if (typ.equals("Salaried Employee")){
                         empType = "Salaried";
                         selfEmpForm.setVisibility(LinearLayout.GONE);
@@ -502,9 +608,6 @@ public class EmployementDetails extends AppCompatActivity {
                     }
                     state.setText(addrs.getString("state"));
 
-
-
-
                 }catch (JSONException e) {
 
                 }
@@ -564,6 +667,107 @@ public class EmployementDetails extends AppCompatActivity {
 
     public void save(final Boolean stay){
 
+
+        String designation = salariedDesignation.getText().toString().trim();
+        String businessName = businessFormName.getText().toString().trim();
+        String businessEY = businessFormEstablishedYr.getText().toString().trim();
+        String businessEmail = businessFormEmail.getText().toString().trim();
+        String professionalExp = selfEmpExp.getText().toString().trim();
+        String address1 = address.getText().toString().trim();
+        String city1 = city.getText().toString().trim();
+        String pinCode = pincode.getText().toString().trim();
+        String state1 = state.getText().toString().trim();
+
+        if (designation.isEmpty()){
+            designationErr.setVisibility(View.VISIBLE);
+            designationErr.setText("Invalid designation");
+        } else {
+            designationErr.setVisibility(View.GONE);
+        }
+
+        if (businessName.isEmpty()){
+            businessNameErr.setVisibility(View.VISIBLE);
+            businessNameErr.setText("Invalid business name");
+        } else {
+            businessNameErr.setVisibility(View.GONE);
+        }
+
+        if (businessEY.isEmpty()){
+            businessEYErr.setVisibility(View.VISIBLE);
+            businessEYErr.setText("Invalid established year");
+        } else {
+            businessEYErr.setVisibility(View.GONE);
+        }
+
+        if (businessEmail.isEmpty()){
+            businessEmailErr.setVisibility(View.VISIBLE);
+            businessEmailErr.setText("Invalid Email-Id");
+        } else {
+            businessEmailErr.setVisibility(View.GONE);
+        }
+
+        if (professionalExp.isEmpty()){
+            professionalExpErr.setVisibility(View.VISIBLE);
+            professionalExpErr.setText("Invalid professional exp.");
+        } else {
+            professionalExpErr.setVisibility(View.GONE);
+        }
+
+        if (address1.isEmpty()){
+            addressErr.setVisibility(View.VISIBLE);
+            addressErr.setText("Invalid address");
+        } else {
+            addressErr.setVisibility(View.GONE);
+        }
+
+        if (pinCode.isEmpty()){
+            pincodeErr.setVisibility(View.VISIBLE);
+            pincodeErr.setText("Invalid pincode");
+        } else {
+            pincodeErr.setVisibility(View.GONE);
+        }
+
+        if (city1.isEmpty()){
+            cityErr.setVisibility(View.VISIBLE);
+            cityErr.setText("Invalid city");
+        } else {
+            cityErr.setVisibility(View.GONE);
+        }
+
+        if (state1.isEmpty()){
+            stateErr.setVisibility(View.VISIBLE);
+            stateErr.setText("Invalid State");
+        } else {
+            stateErr.setVisibility(View.GONE);
+        }
+
+        if (individual.isChecked() || firm.isChecked()){
+            radioIFErr.setVisibility(View.GONE);
+        }else {
+            radioIFErr.setVisibility(View.VISIBLE);
+            radioIFErr.setText("Please choose one.");
+        }
+
+
+        if (address1.length() == 0){
+            Toast.makeText(this, "Please enter address", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (pinCode.length() == 0){
+            Toast.makeText(this, "Please enter pincode", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (city1.length() == 0){
+            Toast.makeText(this, "Please enter city", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (state1.length() == 0){
+            Toast.makeText(this, "Please enter state", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         JSONObject jsonParams = new JSONObject();
         String emp = "Salaried";
         if (empType == "Business"){
@@ -572,9 +776,46 @@ public class EmployementDetails extends AppCompatActivity {
             emp = "Self Employed";
         }
 
+        if (emp.equals("Salaried")){
+            if (designation.length() == 0){
+                Toast.makeText(this, "Please enter your designation", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else if (emp.equals("Business")){
+            if (businessName.length() == 0){
+                Toast.makeText(this, "Please enter business name", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (businessEY.length() == 0){
+                Toast.makeText(this, "Please enter established year", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (businessEmail.length() == 0){
+                Toast.makeText(this, "Please enter business email", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else if (emp.equals("Self Employed")){
+            if (professionalExp.length() == 0){
+                Toast.makeText(this, "Please enter professional experience", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!individual.isChecked()){
+                Toast.makeText(this, "Please choose one in individual & firm", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (!firm.isChecked()){
+                Toast.makeText(this, "Please choose one in individual & firm", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            Log.d("","");
+        }
+
         JSONObject empDetailsSalaried = new JSONObject();
 
         try{
+
             empDetailsSalaried.put("designation" , salariedDesignation.getText().toString());
             empDetailsSalaried.put("emailID" , salariedEmail.getText().toString());
         }catch (JSONException e){
@@ -584,6 +825,8 @@ public class EmployementDetails extends AppCompatActivity {
         JSONObject empDetailsSelfEmp = new JSONObject();
 
         try{
+
+
             empDetailsSelfEmp.put("totalExp" , selfEmpExp.getText().toString());
             empDetailsSelfEmp.put("emailID" , selfEmpEmail.getText().toString());
 
@@ -606,6 +849,7 @@ public class EmployementDetails extends AppCompatActivity {
         JSONObject empDetailsBusiness = new JSONObject();
 
         try{
+
             empDetailsBusiness.put("email" , businessFormEmail.getText().toString());
             empDetailsBusiness.put("name" , businessFormName.getText().toString());
             empDetailsBusiness.put("pan" , businessFormPan.getText().toString());
@@ -704,6 +948,19 @@ public class EmployementDetails extends AppCompatActivity {
 
         });
 
+    }
+
+    public void findIdErrorText(){
+        designationErr = findViewById(R.id.designationErrTxt);
+        businessNameErr = findViewById(R.id.bnameErrTxt);
+        businessEYErr = findViewById(R.id.bEYErrTxt);
+        businessEmailErr = findViewById(R.id.bEmailErrTxt);
+        professionalExpErr = findViewById(R.id.tpeYearErrTxt);
+        radioIFErr = findViewById(R.id.radio_I_F_ErrTxt);
+        addressErr = findViewById(R.id.addressErrTxt);
+        pincodeErr = findViewById(R.id.pinCodeErrTxt);
+        cityErr = findViewById(R.id.cityErrTxt);
+        stateErr = findViewById(R.id.stateErrTxt);
     }
 
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.githang.stepview.StepView;
@@ -35,6 +37,7 @@ public class EducationalDetails extends AppCompatActivity {
     AutoCompleteTextView degree, college , specialization;
     Drawable successTick;
     Spinner dropdown;
+    TextView degreeErr, collegeErr, specializationErr, dropdownErr;
 
     private static AsyncHttpClient client = new AsyncHttpClient();
     Backend backend = new Backend();
@@ -58,12 +61,24 @@ public class EducationalDetails extends AppCompatActivity {
         successTick.setBounds( 0, 0, w, h );
 
 
+        degreeErr = findViewById(R.id.degreeErrTxt);
+        collegeErr = findViewById(R.id.collegeErrTxt);
+        specializationErr = findViewById(R.id.specializationErrTxt);
+        dropdownErr = findViewById(R.id.graduationYrErrTxt);
+
         degree = findViewById(R.id.degree);
         degree.setAdapter(new AutoCompleteAdapter(this, degree.getText().toString() , "degreeSearch"));
 
         degree.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    degreeErr.setVisibility(View.VISIBLE);
+                    degreeErr.setText("Please enter highest degree");
+                } else {
+                    degreeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -84,7 +99,14 @@ public class EducationalDetails extends AppCompatActivity {
 
         college.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    collegeErr.setVisibility(View.VISIBLE);
+                    collegeErr.setText("Please enter college name");
+                } else {
+                    collegeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -105,7 +127,14 @@ public class EducationalDetails extends AppCompatActivity {
 
         specialization.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    specializationErr.setVisibility(View.VISIBLE);
+                    specializationErr.setText("Please enter specialization");
+                } else {
+                    specializationErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -126,6 +155,17 @@ public class EducationalDetails extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                dropdownErr.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         Button nextBtn = findViewById(R.id.next_button);
         nextBtn.setOnClickListener(new View.OnClickListener() {
@@ -218,14 +258,43 @@ public class EducationalDetails extends AppCompatActivity {
 
     public void save(final Boolean stay){
 
+        if (dropdown.getSelectedItemPosition() == 0){
+            dropdownErr.setVisibility(View.VISIBLE);
+            dropdownErr.setText("Please select year.");
+        } else {
+            dropdownErr.setVisibility(View.GONE);
+        }
+
+        String degr = degree.getText().toString().trim();
+        String colleg = college.getText().toString().trim();
+        String spec = specialization.getText().toString().trim();
+        String yr = dropdown.getSelectedItem().toString().trim();
+
+        if (degr.isEmpty()){
+            degreeErr.setVisibility(View.VISIBLE);
+            degreeErr.setText("Please enter highest degree.");
+        } else {
+            degreeErr.setVisibility(View.GONE);
+        }
+
+        if (colleg.isEmpty()){
+            collegeErr.setVisibility(View.VISIBLE);
+            collegeErr.setText("Please enter college name.");
+        } else {
+            collegeErr.setVisibility(View.GONE);
+        }
+
+        if (spec.isEmpty()){
+            specializationErr.setVisibility(View.VISIBLE);
+            specializationErr.setText("Please enter your specialization.");
+        } else {
+            specializationErr.setVisibility(View.GONE);
+        }
+
+
         JSONObject educationalForm = new JSONObject();
 
         try{
-
-            String degr = degree.getText().toString();
-            String colleg = college.getText().toString();
-            String spec = specialization.getText().toString();
-            String yr = dropdown.getSelectedItem().toString();
             educationalForm.put("degree" , degr);
             educationalForm.put("college" , colleg);
             educationalForm.put("specialization" , spec);

@@ -82,6 +82,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/fnameErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -142,6 +145,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/lnameErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -187,6 +193,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/fnameSpouseErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -247,7 +256,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
-
+                <TextView
+                    android:id="@+id/lnameSpouseErrTxt"
+                    style="@style/error_text_msg"/>
             </LinearLayout>
 
 
@@ -286,6 +297,9 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/noofDependentErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -317,6 +331,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/dependent1ErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -348,7 +365,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/dependent2ErrTxt"
+                style="@style/error_text_msg"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -379,6 +398,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/dependent3ErrTxt"
+                style="@style/error_text_msg"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -424,6 +446,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/pAddressErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -455,6 +480,9 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/pPincodeErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -481,10 +509,16 @@
                         android:hint="City"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/pCityErrTxt"
+                style="@style/error_text_msg"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -511,10 +545,16 @@
                         android:hint="State"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/pStateErrTxt"
+                style="@style/error_text_msg"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -549,7 +589,9 @@
 
             </LinearLayout>
 
-
+            <TextView
+                android:id="@+id/currentCBErrTxt"
+                style="@style/error_text_msg"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -584,6 +626,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/cAddressErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -615,6 +660,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/cPincodeErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -641,10 +689,16 @@
                             android:hint="City"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/cCityErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -671,10 +725,16 @@
                             android:hint="State"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false" />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/cStateErrTxt"
+                    style="@style/error_text_msg"/>
 
             </LinearLayout>
 

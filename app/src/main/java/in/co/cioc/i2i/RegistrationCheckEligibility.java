@@ -73,10 +73,13 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     Spinner dropdownPurpose , spinnerPaymentMode , spinnerHouseType , dropdownEmpType , dropdown;
     private int year, month, day;
     private Calendar calendar;
-    private EditText bodEditTxt, pincodeEditTxt , cityEditTxt, workingSinceEditTxt , stayingSinceEditTxt;
+    private EditText dobEditTxt, pincodeEditTxt , cityEditTxt, workingSinceEditTxt , stayingSinceEditTxt;
     Drawable successTick;
 
     EditText amountTxt , descriptionTxt;
+
+    TextView amountErr, tenureLoneErr, purposeErr, descriptionErr, genderErr, dobErr, pincodeErr, cityErr, empTypeErr, companyErr, monthlyIncomeErr, salaryErr, workSinceErr, workEYErr, workEMErr, ccRadioErr, ccAmountErr;
+    TextView businessTypeErr, bGrossATOErr, bGrossAPErr, professionTypeErr, pGrossATOErr, pGrossAPErr, houseTypeErr, monthlyRentErr, gurantorRadiodErr, stayingSinceErr, otherMIErr, spouseErr, loanRadioErr, emiErr, sibilScoreErr;
 
     EditText professionTypeTxt, turnoverSelfEmpTxt , profitSelfEmpTxt;
     EditText professionBusinessTxt, turnoverBusinessTxt , profitBusinessTxt;
@@ -89,6 +92,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     LinearLayout loanEmiLayout , ccOutstandingLayout , rentForm , spouseIncomeLayout;
 
     EditText loanEmiTxt , ccOutstandingTxt, creditScoreTxt;
+
+    RadioButton single, married, gurantor_yes, gurantor_no, loan_yes, loan_no, cc_yes, cc_no;
 
     Button submit_button;
     SharedPreferences sharedPreferences;
@@ -110,14 +115,20 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radio_single:
-                if (checked)
-
+                if (checked) {
+                    genderErr.setVisibility(View.GONE);
+                    spouseErr.setVisibility(View.GONE);
+                    spouseIncomeLayout.setVisibility(View.GONE);
                     // Pirates are the best
                     break;
+                }
             case R.id.radio_married:
-                if (checked)
+                if (checked) {
+                    genderErr.setVisibility(View.GONE);
+                    spouseIncomeLayout.setVisibility(View.VISIBLE);
                     // Ninjas rule
                     break;
+                }
         }
     }
 
@@ -170,9 +181,10 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
             arg2 +=1;
 
-            bodEditTxt.setText(new StringBuilder().append(arg3).append("/")
+            dobEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
-            showSuccess(bodEditTxt);
+            showSuccess(dobEditTxt);
+            dobErr.setVisibility(View.GONE);
         }
     };
 
@@ -191,7 +203,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             workingSinceEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
             showSuccess(workingSinceEditTxt);
-
+            workSinceErr.setVisibility(View.GONE);
             workExperienceTxt.requestFocus();
         }
     };
@@ -210,7 +222,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             stayingSinceEditTxt.setText(new StringBuilder().append(arg3).append("/")
                     .append(arg2).append("/").append(arg1));
             showSuccess(stayingSinceEditTxt);
-
+            stayingSinceErr.setVisibility(View.GONE);
             otherIncomeTxt.requestFocus();
         }
     };
@@ -231,7 +243,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-;
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
@@ -239,7 +250,9 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         backend = new Backend();
 
-        bodEditTxt = findViewById(R.id.dob);
+        errorTextFindID();
+
+        dobEditTxt = findViewById(R.id.dob);
 
         linkedin_connect = findViewById(R.id.linkedin_connect);
 //        fb_connect = findViewById(R.id.fb_connect);
@@ -315,6 +328,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         companyTxt.setAdapter(new AutoCompleteAdapter(this,companyTxt.getText().toString()  , "companySearch" ));
 
 
+        single = findViewById(R.id.radio_single);
+        married = findViewById(R.id.radio_married);
+        gurantor_yes = findViewById(R.id.canProvideGurantee_yes);
+        gurantor_no = findViewById(R.id.canProvideGurantee_no);
+        loan_yes = findViewById(R.id.radio_yes_loan);
+        loan_no = findViewById(R.id.radio_no_loan);
+        cc_yes = findViewById(R.id.radio_yes_creditCard);
+        cc_no = findViewById(R.id.radio_no_creditCard);
+
+
 
 
         final LinearLayout selfEmpForm = findViewById(R.id.emp_form_selfEmp);
@@ -334,7 +357,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         professionTypeTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    professionTypeErr.setVisibility(View.VISIBLE);
+                    professionTypeErr.setText("Please select profession type");
+                } else {
+                    professionTypeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -352,7 +382,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         turnoverSelfEmpTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    pGrossATOErr.setVisibility(View.VISIBLE);
+                    pGrossATOErr.setText("Please enter your turnover last year");
+                } else {
+                    pGrossATOErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -370,7 +407,13 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         profitSelfEmpTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    pGrossAPErr.setVisibility(View.VISIBLE);
+                    pGrossAPErr.setText("Please enter the profit you made last year ");
+                } else {
+                    pGrossAPErr.setVisibility(View.GONE);
+                }}
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -395,7 +438,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         professionBusinessTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    businessTypeErr.setVisibility(View.VISIBLE);
+                    businessTypeErr.setText("Please select business type");
+                } else {
+                    businessTypeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -413,7 +463,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         turnoverBusinessTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    bGrossATOErr.setVisibility(View.VISIBLE);
+                    bGrossATOErr.setText("Please enter the turnover you had last year");
+                } else {
+                    bGrossATOErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -431,7 +488,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         profitBusinessTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    bGrossAPErr.setVisibility(View.VISIBLE);
+                    bGrossAPErr.setText("Please enter the turnover you had last year");
+                } else {
+                    bGrossAPErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -447,16 +511,17 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
         });
 
-
-        loanEmiTxt = findViewById(R.id.loanEmi);
-        ccOutstandingTxt = findViewById(R.id.ccOutstanding);
-        creditScoreTxt = findViewById(R.id.creditScore);
-        spouseIncomeTxt = findViewById(R.id.spouseIncome);
-
         amountTxt = findViewById(R.id.amount);
         amountTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    amountErr.setVisibility(View.VISIBLE);
+                    amountErr.setText("Please enter amount");
+                } else {
+                    amountErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -485,7 +550,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         descriptionTxt = findViewById(R.id.description);
         descriptionTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    descriptionErr.setVisibility(View.VISIBLE);
+                    descriptionErr.setText("Please enter description");
+                } else {
+                    descriptionErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -503,7 +575,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         companyTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    companyErr.setVisibility(View.VISIBLE);
+                    companyErr.setText("Please select company name");
+                } else {
+                    companyErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -521,7 +600,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         workExperienceMonthTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    workEMErr.setVisibility(View.VISIBLE);
+                    workEMErr.setText("Please enter experience in month");
+                } else {
+                    workEMErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -539,7 +625,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         workExperienceTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    workEYErr.setVisibility(View.VISIBLE);
+                    workEYErr.setText("Please enter experience in year");
+                } else {
+                    workEYErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -555,9 +648,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
         });
 
-        workExperienceTxt.addTextChangedListener(new TextWatcher() {
+        workingSinceEditTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    workSinceErr.setVisibility(View.VISIBLE);
+                    workSinceErr.setText("Please enter when work started");
+                } else {
+                    workSinceErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -579,7 +679,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         monthlyRentTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    monthlyRentErr.setVisibility(View.VISIBLE);
+                    monthlyRentErr.setText("Please enter your monthly rent amount");
+                } else {
+                    monthlyRentErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -599,7 +706,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         creditScoreTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    sibilScoreErr.setVisibility(View.VISIBLE);
+                    sibilScoreErr.setText("Please enter credit score amount");
+                } else {
+                    sibilScoreErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -616,7 +730,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         monthlyIncomeSalariedTxt = findViewById(R.id.incomeSalaried);
         monthlyIncomeSalariedTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    monthlyIncomeErr.setVisibility(View.VISIBLE);
+                    monthlyIncomeErr.setText("Please enter your monthly take home salary");
+                } else {
+                    monthlyIncomeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -635,7 +756,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         otherIncomeTxt = findViewById(R.id.otherIncome);
         otherIncomeTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    otherMIErr.setVisibility(View.VISIBLE);
+                    otherMIErr.setText("Please enter other income");
+                } else {
+                    otherMIErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -649,9 +777,45 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
         });
 
+        loanEmiTxt = findViewById(R.id.loanEmi);
+        ccOutstandingTxt = findViewById(R.id.ccOutstanding);
+        spouseIncomeTxt = findViewById(R.id.spouseIncome);
+        spouseIncomeTxt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(charSequence.length() != 0){
+                    showSuccess(spouseIncomeTxt);
+                }else {
+                    removeSuccess(spouseIncomeTxt);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().trim().equals("")){
+                    spouseErr.setVisibility(View.VISIBLE);
+                    spouseErr.setText("Please enter spouse income");
+                } else {
+                    spouseErr.setVisibility(View.GONE);
+                }
+            }
+        });
+
         loanEmiTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    emiErr.setVisibility(View.VISIBLE);
+                    emiErr.setText("Please enter your monthly EMIs on loan");
+                } else {
+                    emiErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -669,7 +833,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         ccOutstandingTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    ccAmountErr.setVisibility(View.VISIBLE);
+                    ccAmountErr.setText("Please enter your existing Credit Card outstanding balance");
+                } else {
+                    ccAmountErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start,int count, int after) {}
             @Override
@@ -697,6 +868,18 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
 
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                tenureLoneErr.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         dropdownEmpType = findViewById(R.id.spinnerEmpType);
         String[] itemsEmpType = new String[]{"Please select", "Salaried", "Self Employed", "Business" };
         ArrayAdapter<String> adapterEmpType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsEmpType);
@@ -707,18 +890,29 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         ArrayAdapter<String> adapterPaymentMode = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsPaymentMode);
         spinnerPaymentMode.setAdapter(adapterPaymentMode);
 
+        spinnerPaymentMode.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                salaryErr.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         spinnerHouseType = findViewById(R.id.spinnerHouseType);
         String[] itemsHouseType = new String[]{"Please select", "Rented", "Own", "Parental" };
         ArrayAdapter<String> adapterHouseType = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsHouseType);
         spinnerHouseType.setAdapter(adapterHouseType);
-
-
 
         loading = true;
 
         spinnerHouseType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                houseTypeErr.setVisibility(View.GONE);
                 if (i == 1){
                     rentForm.setVisibility(LinearLayout.VISIBLE);
                 }else{
@@ -737,6 +931,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
+                empTypeErr.setVisibility(View.GONE);
                 if (position == 0){
                     salariedForm.setVisibility(LinearLayout.GONE);
                     selfEmpForm.setVisibility(LinearLayout.GONE);
@@ -775,9 +970,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         dropdownPurpose = findViewById(R.id.spinnerPurpose);
 
 
-
-
-
         client.get(backend.BASE_URL + "/api/v1/loanPurpose" , new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -803,6 +995,19 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                     ArrayAdapter<String> adapterPurpose = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, purps);
                     dropdownPurpose.setAdapter(adapterPurpose);
+
+                    dropdownPurpose.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                purposeErr.setVisibility(View.GONE);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
             }
 
             @Override
@@ -830,7 +1035,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
         pincodeEditTxt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                if (s.toString().trim().equals("")){
+                    pincodeErr.setVisibility(View.VISIBLE);
+                    pincodeErr.setText("Please enter pincode");
+                } else {
+                    pincodeErr.setVisibility(View.GONE);
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -850,6 +1062,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                 cityEditTxt.setText(response.getString("pin_city"));
                                 addressState = response.getString("pin_state");
                                 showSuccess(cityEditTxt);
+                                cityErr.setVisibility(View.GONE);
                             }catch (JSONException e){
 
                             }
@@ -878,6 +1091,256 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         submit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String amount = amountTxt.getText().toString().trim();
+                String description = descriptionTxt.getText().toString().trim();
+                String dobStr = dobEditTxt.getText().toString().trim();
+                String pincode = pincodeEditTxt.getText().toString().trim();
+                String city = cityEditTxt.getText().toString().trim();
+                String company = companyTxt.getText().toString().trim();
+                String miSalary = monthlyIncomeSalariedTxt.getText().toString().trim();
+                String workingSince_et = workingSinceEditTxt.getText().toString().trim();
+                String workingExperience = workExperienceTxt.getText().toString().trim();
+                String workEM = workExperienceMonthTxt.getText().toString().trim();
+                String businessType_et = professionBusinessTxt.getText().toString().trim();
+                String bTurnover = turnoverBusinessTxt.getText().toString().trim();
+                String bProfit = profitBusinessTxt.getText().toString().trim();
+                String professionType = professionTypeTxt.getText().toString().trim();
+                String sTurnover = turnoverSelfEmpTxt.getText().toString().trim();
+                String sProfit = profitSelfEmpTxt.getText().toString().trim();
+                String monthlyRent_et = monthlyRentTxt.getText().toString().trim();
+                String stayingSince_et = stayingSinceEditTxt.getText().toString().trim();
+                String otherIncome = otherIncomeTxt.getText().toString().trim();
+                String spouseIncome = spouseIncomeTxt.getText().toString().trim();
+                String loanEmi = loanEmiTxt.getText().toString().trim();
+                String ccOutstanding = ccOutstandingTxt.getText().toString().trim();
+                String creditScore = creditScoreTxt.getText().toString().trim();
+
+                if (amount.isEmpty()){
+                    amountErr.setVisibility(View.VISIBLE);
+                    amountErr.setText("Please enter amount.");
+                } else {
+                    amountErr.setVisibility(View.GONE);
+                }
+                if (description.isEmpty()){
+                    descriptionErr.setVisibility(View.VISIBLE);
+                    descriptionErr.setText("Please enter description.");
+                } else {
+                    descriptionErr.setVisibility(View.GONE);
+                }
+                if (dobStr.isEmpty()){
+                    dobErr.setVisibility(View.VISIBLE);
+                    dobErr.setText("Please enter dob.");
+                } else {
+                    dobErr.setVisibility(View.GONE);
+                }
+                if (pincode.isEmpty()){
+                    pincodeErr.setVisibility(View.VISIBLE);
+                    pincodeErr.setText("Please enter pincode.");
+                } else {
+                    pincodeErr.setVisibility(View.GONE);
+                }
+
+                if (city.isEmpty()){
+                    cityErr.setVisibility(View.VISIBLE);
+                    cityErr.setText("Please enter city.");
+                } else {
+                    cityErr.setVisibility(View.GONE);
+                }
+
+                if (otherIncome.isEmpty()) {
+                    otherMIErr.setVisibility(View.VISIBLE);
+                    otherMIErr.setText("Please enter other income amount.");
+                } else {
+                    otherIncomeTxt.setVisibility(View.GONE);
+                }
+                if (creditScore.isEmpty()){
+                    sibilScoreErr.setVisibility(View.VISIBLE);
+                    sibilScoreErr.setText("Please enter credit score.");
+                } else {
+                    sibilScoreErr.setVisibility(View.GONE);
+                }
+
+                if (single.isChecked() || married.isChecked()){
+                    genderErr.setVisibility(View.GONE);
+                    if (married.isChecked()){
+                        if (spouseIncome.isEmpty()){
+                            spouseErr.setVisibility(View.VISIBLE);
+                            spouseErr.setText("Please enter spouse income.");
+                        } else {
+                            spouseErr.setVisibility(View.GONE);
+                        }
+                    }
+                }else {
+                    genderErr.setVisibility(View.VISIBLE);
+                    genderErr.setText("Please choose marital.");
+                }
+
+
+                if (loan_yes.isChecked() || loan_no.isChecked()){
+                    loanRadioErr.setVisibility(View.GONE);
+                    if (loan_yes.isChecked()) {
+                        if (loanEmi.isEmpty()) {
+                            emiErr.setVisibility(View.VISIBLE);
+                            emiErr.setText("Please enter monthly EMI's on loan.");
+                        } else {
+                            emiErr.setVisibility(View.GONE);
+                        }
+                    }
+                }else {
+                    loanRadioErr.setVisibility(View.VISIBLE);
+                    loanRadioErr.setText("Please choose any loan running.");
+                }
+
+                if (cc_yes.isChecked() || cc_no.isChecked()){
+                    ccRadioErr.setVisibility(View.GONE);
+                    if (cc_yes.isChecked())
+                        if (ccOutstanding.isEmpty()){
+                            ccAmountErr.setVisibility(View.VISIBLE);
+                            ccAmountErr.setText("Please enter amount");
+                        } else {
+                            ccAmountErr.setVisibility(View.GONE);
+                        }
+                }else {
+                    ccRadioErr.setVisibility(View.VISIBLE);
+                    ccRadioErr.setText("Please choose credit card.");
+                }
+
+
+                if (dropdownPurpose.getSelectedItemPosition() != 0){
+                    purposeErr.setVisibility(View.GONE);
+                }else {
+                    purposeErr.setVisibility(View.VISIBLE);
+                    purposeErr.setText("Please select one.");
+                }
+
+                if (spinnerHouseType.getSelectedItemPosition() != 0){
+                    houseTypeErr.setVisibility(View.GONE);
+                    if (spinnerHouseType.getSelectedItemPosition() == 1) {
+                        if (monthlyRent_et.isEmpty()) {
+                            monthlyRentErr.setVisibility(View.VISIBLE);
+                            monthlyRentErr.setText("Please enter company");
+                        } else {
+                            monthlyRentErr.setVisibility(View.GONE);
+                        }
+                        if (gurantor_yes.isChecked() || gurantor_no.isChecked()) {
+                            gurantorRadiodErr.setVisibility(View.GONE);
+                        } else {
+                            gurantorRadiodErr.setVisibility(View.VISIBLE);
+                            gurantorRadiodErr.setText("Please choose gurantor.");
+                        }
+                        if (stayingSince_et.isEmpty()){
+                            stayingSinceErr.setVisibility(View.VISIBLE);
+                            stayingSinceErr.setText("Please enter date.");
+                        } else {
+                            sibilScoreErr.setVisibility(View.GONE);
+                        }
+
+                    }
+                }else {
+                    houseTypeErr.setVisibility(View.VISIBLE);
+                    houseTypeErr.setText("Please select house type.");
+                }
+
+
+                if (dropdownEmpType.getSelectedItemPosition() != 0){
+                    empTypeErr.setVisibility(View.GONE);
+                    if (dropdownEmpType.getSelectedItemPosition() == 1) {
+                        if (company.isEmpty()) {
+                            companyErr.setVisibility(View.VISIBLE);
+                            companyErr.setText("Please enter company name.");
+                        } else {
+                            companyErr.setVisibility(View.GONE);
+                        }
+
+                        if (miSalary.isEmpty()) {
+                            monthlyIncomeErr.setVisibility(View.VISIBLE);
+                            monthlyIncomeErr.setText("Please enter monthly income.");
+                        } else {
+                            monthlyIncomeErr.setVisibility(View.GONE);
+                        }
+
+                        if (spinnerPaymentMode.getSelectedItemPosition() != 0){
+                            salaryErr.setVisibility(View.GONE);
+                        }else {
+                            salaryErr.setVisibility(View.VISIBLE);
+                            salaryErr.setText("Please select one salary.");
+                        }
+
+                        if (workingSince_et.isEmpty()){
+                            workSinceErr.setVisibility(View.VISIBLE);
+                            workSinceErr.setText("Please enter work since");
+                        } else {
+                            workSinceErr.setVisibility(View.GONE);
+                        }
+
+                        if (workingExperience.isEmpty()){
+                            workEYErr.setVisibility(View.VISIBLE);
+                            workEYErr.setText("Please enter work experience in year");
+                        } else {
+                            workEYErr.setVisibility(View.GONE);
+                        }
+
+                        if (workEM.isEmpty()){
+                            workEMErr.setVisibility(View.VISIBLE);
+                            workEMErr.setText("Please enter work experince in month");
+                        } else {
+                            workEMErr.setVisibility(View.GONE);
+                        }
+
+                    } else if (dropdownEmpType.getSelectedItemPosition() == 2){
+                        if (professionType.isEmpty()){
+                            professionTypeErr.setVisibility(View.VISIBLE);
+                            professionTypeErr.setText("Please enter profession type");
+                        } else {
+                            professionTypeErr.setVisibility(View.GONE);
+                        }
+                        if (sTurnover.isEmpty()){
+                            pGrossATOErr.setVisibility(View.VISIBLE);
+                            pGrossATOErr.setText("Please enter turnover amount");
+                        } else {
+                            pGrossATOErr.setVisibility(View.GONE);
+                        }
+                        if (sProfit.isEmpty()){
+                            pGrossAPErr.setVisibility(View.VISIBLE);
+                            pGrossAPErr.setText("Please enter profit amount");
+                        } else {
+                            pGrossAPErr.setVisibility(View.GONE);
+                        }
+                    }else if (dropdownEmpType.getSelectedItemPosition() == 3){
+                        if (businessType_et.isEmpty()){
+                            businessTypeErr.setVisibility(View.VISIBLE);
+                            businessTypeErr.setText("Please enter business type");
+                        } else {
+                            businessTypeErr.setVisibility(View.GONE);
+                        }
+                        if (bTurnover.isEmpty()){
+                            bGrossATOErr.setVisibility(View.VISIBLE);
+                            bGrossATOErr.setText("Please enter turnover amount");
+                        } else {
+                            bGrossATOErr.setVisibility(View.GONE);
+                        }
+                        if (bProfit.isEmpty()){
+                            bGrossAPErr.setVisibility(View.VISIBLE);
+                            bGrossAPErr.setText("Please enter profit amount");
+                        } else {
+                            bGrossAPErr.setVisibility(View.GONE);
+                        }
+                    } else Log.d("Emptype","=== null");
+                }else {
+                    empTypeErr.setVisibility(View.VISIBLE);
+                    empTypeErr.setText("Please select one employment type.");
+                }
+
+                if (dropdown.getSelectedItemPosition() != 0){
+                    tenureLoneErr.setVisibility(View.GONE);
+                }else {
+                    tenureLoneErr.setVisibility(View.VISIBLE);
+                    tenureLoneErr.setText("Please select one tenure of loan.");
+                }
+
+
+
                 Integer desiredAmount = 0;
                 try{
                     desiredAmount = Integer.parseInt(amountTxt.getText().toString());
@@ -905,7 +1368,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select a purpose", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String description = descriptionTxt.getText().toString();
+//                String description = descriptionTxt.getText().toString();
 
                 if (description.length()==0){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please provide description for the loan requirement", Toast.LENGTH_SHORT).show();
@@ -927,21 +1390,21 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     return;
                 }
 
-                String dobStr = bodEditTxt.getText().toString();
+//                String dobStr = dobEditTxt.getText().toString();
                 if (dobStr.length() == 0){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select your date of birth", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Date dob = strToDate(dobStr);
 
-                String pincode = pincodeEditTxt.getText().toString();
+//                String pincode = pincodeEditTxt.getText().toString();
 
                 if (pincode.length() == 0){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please provide your pincode", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String city = cityEditTxt.getText().toString();
+//                String city = cityEditTxt.getText().toString();
                 String state = addressState;
 
                 String empType = dropdownEmpType.getSelectedItem().toString();
@@ -1354,6 +1817,41 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
     }
 
+    public void errorTextFindID(){
+        amountErr = findViewById(R.id.amountErrTxt);
+        tenureLoneErr = findViewById(R.id.tenureLoanErrTxt);
+        purposeErr = findViewById(R.id.purposeErrTxt);
+        descriptionErr = findViewById(R.id.descriptionErrTxt);
+        genderErr = findViewById(R.id.genderErrTxt);
+        dobErr = findViewById(R.id.dobErrTxt);
+        pincodeErr = findViewById(R.id.pincodeErrTxt);
+        cityErr = findViewById(R.id.cityErrTxt);
+        empTypeErr = findViewById(R.id.empTypeErrTxt);
+        companyErr = findViewById(R.id.companyErrTxt);
+        monthlyIncomeErr = findViewById(R.id.incomeSalariedErrTxt);
+        salaryErr = findViewById(R.id.paymentModeErrTxt);
+        workSinceErr = findViewById(R.id.workingSinceErrTxt);
+        workEYErr = findViewById(R.id.workExperienceErrTxt);
+        workEMErr = findViewById(R.id.workExperienceMonthErrTxt);
+        businessTypeErr = findViewById(R.id.professionBusinessErrTxt);
+        bGrossATOErr = findViewById(R.id.turnoverBusinessErrTxt);
+        bGrossAPErr = findViewById(R.id.profitBusinessErrTxt);
+        professionTypeErr= findViewById(R.id.professionSelfEmpErrTxt);
+        pGrossATOErr = findViewById(R.id.turnoverSelfEmpErrTxt);
+        pGrossAPErr = findViewById(R.id.profitSelfEmpErrTxt);
+        houseTypeErr = findViewById(R.id.houseTypeErrTxt);
+        monthlyRentErr = findViewById(R.id.monthlyRentErrTxt);
+        gurantorRadiodErr = findViewById(R.id.canProvideGuranteeErrTxt);
+        stayingSinceErr = findViewById(R.id.stayingSinceErrTxt);
+        otherMIErr = findViewById(R.id.otherIncomeErrTxt);
+        spouseErr = findViewById(R.id.spouseIncomeErrTxt);
+        loanRadioErr = findViewById(R.id.radioLoanErrTxt);
+        emiErr = findViewById(R.id.loanEmiErrTxt);
+        ccRadioErr = findViewById(R.id.radioCCErrTxt);
+        ccAmountErr = findViewById(R.id.ccOutstandingErrTxt);
+        sibilScoreErr = findViewById(R.id.creditScoreErrTxt);
+    }
+
     public void initParameters() {
         accessToken = AccessToken.getCurrentAccessToken();
         callbackManager = CallbackManager.Factory.create();
@@ -1434,33 +1932,43 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radio_yes_creditCard:
-                if (checked)
+                if (checked) {
                     ccOutstandingLayout.setVisibility(LinearLayout.VISIBLE);
-                    ccOutstandingTxt.requestFocus();
-                    break;
+                    ccRadioErr.setVisibility(View.GONE);
+                ccOutstandingTxt.requestFocus();
+                break;
+            }
             case R.id.radio_no_creditCard:
-                if (checked)
+                if (checked) {
                     creditScoreTxt.requestFocus();
                     ccOutstandingLayout.setVisibility(LinearLayout.GONE);
+                    ccRadioErr.setVisibility(View.GONE);
                     break;
+                }
             case R.id.radio_yes_loan:
-                if (checked)
+                if (checked) {
+                    loanRadioErr.setVisibility(View.GONE);
                     loanEmiLayout.setVisibility(LinearLayout.VISIBLE);
                     loanEmiTxt.requestFocus();
-                break;
+                    break;
+                }
             case R.id.radio_no_loan:
-                if (checked)
+                if (checked) {
+                    loanRadioErr.setVisibility(View.GONE);
                     creditScoreTxt.requestFocus();
                     loanEmiLayout.setVisibility(LinearLayout.GONE);
-                break;
-            case R.id.radio_single:
-                if (checked)
-                    spouseIncomeLayout.setVisibility(LinearLayout.GONE);
-                break;
-            case R.id.radio_married:
-                if (checked)
-                    spouseIncomeLayout.setVisibility(LinearLayout.VISIBLE);
-                break;
+                    break;
+                }
+            case R.id.canProvideGurantee_yes:
+                if (checked) {
+                    gurantorRadiodErr.setVisibility(View.GONE);
+                    break;
+                }
+            case R.id.canProvideGurantee_no:
+                if (checked) {
+                    gurantorRadiodErr.setVisibility(View.GONE);
+                    break;
+                }
         }
     }
 

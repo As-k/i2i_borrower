@@ -39,7 +39,7 @@ public class AutoCompleteAdapter extends ArrayAdapter<String> {
                     // returns an ArrayList<GoEuroGetSet>
                     List<SuggestGetSet> new_suggestions =jp.getParseJsonWCF(constraint.toString());
                     suggestions.clear();
-                    for (int i=0;i<new_suggestions.size();i++) {
+                    for (int i=1;i<new_suggestions.size();i++) {
                         suggestions.add(new_suggestions.get(i).getName());
                     }
 

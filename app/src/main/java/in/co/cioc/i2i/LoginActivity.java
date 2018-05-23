@@ -166,6 +166,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void resetPassword(View v){
+        Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+        startActivity(i);
+    }
 
     private void attemptLogin() {
 

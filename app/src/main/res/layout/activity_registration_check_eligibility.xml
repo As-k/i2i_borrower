@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context="in.co.cioc.i2i.RegistrationCheckEligibility">-->
+<LinearLayout android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="in.co.cioc.i2i.RegistrationCheckEligibility">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/tile_background"
+    android:tileMode="repeat"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <ScrollView
         android:id="@+id/registration_form"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        >
 
 
         <LinearLayout
             android:id="@+id/basic_registration_form"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,6 +88,7 @@
                             android:layout_width="190dp"
                             android:layout_height="28dp"
                             android:id="@+id/linkedin_connect"
+                            android:onClick="loginLinkedIn"
                             app:srcCompat="@drawable/linkedin_connect" />
 
                         <TextView
@@ -88,7 +98,7 @@
                             android:text="connect"
                             android:textSize="14sp"
                             android:textAlignment="center"
-                            android:visibility="gone"/>
+                            />
 
                     </LinearLayout>
 
@@ -111,7 +121,7 @@
                             android:text="connect"
                             android:textSize="14sp"
                             android:textAlignment="center"
-                            android:visibility="gone"/>
+                            />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -132,11 +142,8 @@
                     app:srcCompat="@drawable/bottom_border2" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et"
+                    android:layout_marginTop="15dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -156,7 +163,9 @@
                             android:hint="Amount"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:maxLength="6"
+                            android:backgroundTint="@color/white"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -165,11 +174,8 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    android:layout_height="42dp"
+                    style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -205,11 +211,9 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    android:layout_height="42dp"
+                    style="@style/linear_layout_for_cb"
+                    android:layout_marginBottom="10dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -242,11 +246,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -265,7 +265,8 @@
                             android:layout_width="270dp"
                             android:layout_height="wrap_content"
                             android:text=""
-                            android:hint="Description"/>
+                            android:hint="Description"
+                            android:backgroundTint="@color/white"/>
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -277,21 +278,21 @@
                     style="@style/error_text_msg"/>
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/click_here"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="25dp"
                     android:text="Please describe about you loan requirment which can help you in attracting prospective investors. Click here to see an example" />
-
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="25dp"
                     android:text="Personal details" />
 
 
@@ -301,11 +302,7 @@
                     app:srcCompat="@drawable/bottom_border2" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -348,11 +345,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="0dp"
@@ -380,7 +373,8 @@
                                 android:hint="Date of birth"
                                 android:cursorVisible="false"
                                 android:focusable="false"
-                                android:focusableInTouchMode="false" />
+                                android:focusableInTouchMode="false"
+                                android:backgroundTint="@color/white"/>
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -392,11 +386,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -417,7 +407,8 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:maxLength="6"/>
+                            android:maxLength="6"
+                            android:backgroundTint="@color/white"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -426,11 +417,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -450,7 +437,8 @@
                             android:hint="City"
                             android:cursorVisible="false"
                             android:focusable="false"
-                            android:focusableInTouchMode="false" />
+                            android:focusableInTouchMode="false"
+                            android:backgroundTint="@color/white"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -476,11 +464,8 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    android:layout_height="42dp"
+                    style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -520,11 +505,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -548,7 +529,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:hint="Company" />
+                                    android:hint="Company"
+                                    android:backgroundTint="@color/white"/>
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -560,11 +542,7 @@
 
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -584,7 +562,8 @@
                                 android:hint="Monthly Income"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -593,11 +572,8 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="53dp"
-                        android:layout_marginTop="15dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        android:layout_height="42dp"
+                        style="@style/linear_layout_for_cb">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -631,11 +607,7 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -663,7 +635,8 @@
                                     android:hint="Working Since"
                                     android:cursorVisible="false"
                                     android:focusable="false"
-                                    android:focusableInTouchMode="false" />
+                                    android:focusableInTouchMode="false"
+                                    android:backgroundTint="@color/white"/>
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -674,11 +647,7 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -707,11 +676,7 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -731,7 +696,8 @@
                                 android:hint="Work Experience : Months"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -748,11 +714,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -776,7 +738,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:hint="Business Type" />
+                                    android:hint="Business Type"
+                                    android:backgroundTint="@color/white"/>
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -787,11 +750,37 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/date_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/businessFormEstablishedYr"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Business Established Year"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/businessEYrErrTxt"
+                        style="@style/error_text_msg"/>
+
+                    <LinearLayout
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -811,7 +800,8 @@
                                 android:hint="Gross Annual Turnover"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -820,11 +810,7 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -844,7 +830,8 @@
                                 android:hint="Gross Annual Profit"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -862,11 +849,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -890,7 +873,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ems="10"
-                                    android:hint="Profession Type" />
+                                    android:hint="Profession Type"
+                                    android:backgroundTint="@color/white"/>
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -901,11 +885,37 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            app:srcCompat="@drawable/date_icon" />
+
+                        <android.support.design.widget.TextInputLayout
+                            android:layout_width="270dp"
+                            android:layout_height="wrap_content">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/selfEmpExp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Total Professional Experience (Years)"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
+
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tpeYrErrTxt"
+                        style="@style/error_text_msg"/>
+
+                    <LinearLayout
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -925,7 +935,8 @@
                                 android:hint="Gross Annual Turnover"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -934,11 +945,7 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -958,7 +965,8 @@
                                 android:hint="Gross Annual Profit"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -982,13 +990,9 @@
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/bottom_border2" />
 
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="53dp"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    android:layout_height="42dp"
+                    style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -1030,11 +1034,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1054,7 +1054,8 @@
                                 android:hint="Monthly rent"
                                 android:inputType="number"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@color/white"/>
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -1071,11 +1072,7 @@
                         android:text="Can you provide gurantor who has own house ?"
                         android:textColor="@color/colorAccent"/>
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_cb">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -1118,11 +1115,7 @@
 
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="horizontal"
-                        android:paddingRight="20dp">
+                        style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -1146,11 +1139,13 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:ems="10"
+                                    android:textSize="10dp"
                                     android:onClick="setStayingSince"
                                     android:hint="Staying since at the current residence"
                                     android:cursorVisible="false"
                                     android:focusable="false"
-                                    android:focusableInTouchMode="false" />
+                                    android:focusableInTouchMode="false"
+                                    android:backgroundTint="@color/white"/>
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -1162,45 +1157,10 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/purpose_icon" />
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="270dp"
-                        android:layout_height="wrap_content">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/otherIncome"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Any Other Monthly Income"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true" />
-
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/otherIncomeErrTxt"
-                    style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp"
+                    style="@style/linear_layout_for_et"
                     android:id="@+id/spouseIncomeLayout">
 
                     <ImageView
@@ -1221,7 +1181,8 @@
                             android:hint="Spouse Income"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@color/white"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -1229,6 +1190,36 @@
                     android:id="@+id/spouseIncomeErrTxt"
                     style="@style/error_text_msg"/>
 
+                <LinearLayout
+                    style="@style/linear_layout_for_et">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/purpose_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/otherIncome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Any Other Monthly Income"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:backgroundTint="@color/white"/>
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/otherIncomeErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -1239,11 +1230,7 @@
                     android:text="Do you have any loan running"
                     android:textColor="@color/colorAccent"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -1285,11 +1272,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp"
+                    style="@style/linear_layout_for_et"
                     android:id="@+id/loanEmiLayout">
 
                     <ImageView
@@ -1310,7 +1293,8 @@
                             android:hint="Total current EMI"
                             android:inputType="number"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@color/white"/>
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -1328,11 +1312,7 @@
                     android:text="Do you have credit cards"
                     android:textColor="@color/colorAccent"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -1373,11 +1353,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp"
+                    style="@style/linear_layout_for_et"
                     android:id="@+id/ccOutstandingLayout">
 
                     <ImageView
@@ -1407,11 +1383,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="45dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -1448,7 +1420,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -1473,5 +1445,5 @@
     </ScrollView>
 
 
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
+<!--</android.support.constraint.ConstraintLayout>-->

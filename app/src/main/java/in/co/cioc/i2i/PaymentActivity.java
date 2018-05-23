@@ -56,7 +56,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     public Button payBtn;
     TextView discountTxt , discountAmt , gstTxt , totalTxt, amountTxt;
-    Integer amount = 500 , finalPay;
+    Integer amount = 500, finalPay;
     EditText couponTxt;
     Boolean couponValid;
 
@@ -89,7 +89,6 @@ public class PaymentActivity extends AppCompatActivity {
         payBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (totalTxt.getText().toString().equals("0.0") && couponValid){
                     Intent i = new Intent(getApplicationContext(), UserDetails.class);
                     startActivity(i);
@@ -179,7 +178,7 @@ public class PaymentActivity extends AppCompatActivity {
         discountAmt.setVisibility(TextView.VISIBLE);
         discountTxt.setVisibility(TextView.VISIBLE);
         Double discnt = percent*amount*0.01;
-        discountAmt.setText(discnt.toString());
+        discountAmt.setText(discnt+"");
         Double gst = (amount - discnt)*0.18;
         gstTxt.setText(gst.toString());
 
@@ -574,7 +573,15 @@ public class PaymentActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
+    }
 
 
 }

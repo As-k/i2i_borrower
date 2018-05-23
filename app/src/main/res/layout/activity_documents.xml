@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tile_background"
     tools:context="in.co.cioc.i2i.DocumentsActivity">
 
     <ScrollView
@@ -123,11 +124,7 @@
                 android:textColor="@color/cb_errorRed"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -147,7 +144,9 @@
                         android:hint="Password if any"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@color/white"
+                        />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
@@ -233,11 +232,7 @@
                 android:textColor="@color/cb_errorRed"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -257,18 +252,17 @@
                         android:hint="Password if any"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
                 </android.support.design.widget.TextInputLayout>
 
             </LinearLayout>
 
 
             <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="53dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_cb">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -301,11 +295,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -338,7 +328,9 @@
                             android:hint="Password if any"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -355,11 +347,8 @@
                 android:textColor="@color/cb_errorRed"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="53dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_cb">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -392,11 +381,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -429,7 +414,9 @@
                             android:hint="Password if any"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -480,11 +467,7 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -516,7 +499,9 @@
                             android:hint="Password if any"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -573,11 +558,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -609,7 +590,9 @@
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@android:color/transparent"
+                                />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -626,8 +609,7 @@
                     android:textColor="@color/cb_errorRed"/>
 
 
-
-               <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -658,13 +640,8 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -696,7 +673,9 @@
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@android:color/transparent"
+                                />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -745,11 +724,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -782,7 +757,9 @@
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@android:color/transparent"
+                                />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -833,11 +810,7 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -870,7 +843,9 @@
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
-                                android:singleLine="true" />
+                                android:singleLine="true"
+                                android:backgroundTint="@android:color/transparent"
+                                />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -1799,25 +1774,57 @@
 
 
             </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/authorize"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:orientation="horizontal"
                 android:layout_margin="20dp"
-                android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. ' />
+                >
+                <CheckBox
+                    android:id="@+id/authorize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                   />
 
-            <CheckBox
-                android:id="@+id/agree"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/authorizetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:textColor="#123"
+                    android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. ' />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:layout_margin="20dp"
-                android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com ' />
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                >
+                <CheckBox
+                    android:id="@+id/agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="5dp"/>
+                <TextView
+                    android:id="@+id/agreetxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:textColor="#123"
+                    android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com ' />
 
-
+            </LinearLayout>
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"

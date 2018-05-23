@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -15,8 +17,16 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -51,10 +61,12 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class DocumentsActivity extends AppCompatActivity {
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true , 80, 443);
     Backend backend = new Backend();
     SharedPreferences sharedPreferences;
     Drawable successTick;
+
+    AutoCompleteTextView panPassword, aadharPassword, permAddressPassword, localAddressPassword, statement12Password, salarySlipLastPassword, salarySlip2Password, salarySlip3Password, form16Password ;
 
     public static final int REQUEST_CODE_CAMERA = 0012;
 
@@ -74,6 +86,7 @@ public class DocumentsActivity extends AppCompatActivity {
     private TextView pan , aadhar;
     LinearLayout businessForm , salariedForm , selfEmpForm;
     CheckBox agreeCB , authorizeCB;
+    TextView agreeTxt , authorizeTxt;
 
 
     String empType;
@@ -91,6 +104,18 @@ public class DocumentsActivity extends AppCompatActivity {
                 // User refused to grant permission.
             }
         }
+    }
+
+    public void findIdAutoText(){
+        panPassword = findViewById(R.id.panPassword);
+        aadharPassword = findViewById(R.id.aadharPassword);
+        permAddressPassword = findViewById(R.id.permAddressPassword);
+        localAddressPassword = findViewById(R.id.localAddressPassword);
+        statement12Password = findViewById(R.id.statement12Password);
+        salarySlipLastPassword = findViewById(R.id.salarySlipLastPassword);
+        salarySlip2Password = findViewById(R.id.salarySlip2Password);
+        salarySlip3Password = findViewById(R.id.salarySlip3Password);
+        form16Password = findViewById(R.id.form16Password);
     }
 
     @Override
@@ -118,11 +143,249 @@ public class DocumentsActivity extends AppCompatActivity {
         selfEmpForm.setVisibility(LinearLayout.GONE);
         salariedForm.setVisibility(LinearLayout.GONE);
 
-        agreeCB = findViewById(R.id.agree);
+        findIdAutoText();
+
         authorizeCB = findViewById(R.id.authorize);
+        authorizeTxt = findViewById(R.id.authorizetxt);
+        agreeCB = findViewById(R.id.agree);
+        agreeTxt = findViewById(R.id.agreetxt);
+
+        ClickableSpan termsAndConditions = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.i2ifunding.com/terms-conditions")));
+                view.invalidate(); // need put invalidate here to make text change to GREEN after clicked
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(false);
+                if (authorizeTxt.isPressed() && authorizeTxt.getSelectionStart() != -1 && authorizeTxt.getText()
+                        .toString()
+                        .substring(authorizeTxt.getSelectionStart(), authorizeTxt.getSelectionEnd())
+                        .equals("Terms and Conditions")) {
+                    authorizeTxt.invalidate();
+                    ds.setColor(Color.rgb(100,0,200)); // need put invalidate here to make text change to own color when pressed on Highlight Link
+                } else {
+                    ds.setColor(Color.rgb(0,0,255));
+                }
+                // dont put invalidate here because if you put invalidate here `updateDrawState` will called forever
+            }
+        };
+
+        ClickableSpan privacyPolicy = new ClickableSpan() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.i2ifunding.com/privacy-policy")));
+                view.invalidate(); // need put invalidate here to make text change to GREEN after clicked
+            }
+
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(false);
+                if (agreeTxt.isPressed() && agreeTxt.getSelectionStart() != -1 && agreeTxt.getText()
+                        .toString()
+                        .substring(agreeTxt.getSelectionStart(), agreeTxt.getSelectionEnd())
+                        .equals("Privacy Policy")) {
+                    agreeTxt.invalidate();
+                    ds.setColor(Color.rgb(100,0,200)); // need put invalidate here to make text change to RED when pressed on Highlight Link
+                } else {
+                    ds.setColor(Color.rgb(0,0,255));
+                }
+                // dont put invalidate here because if you put invalidate here `updateDrawState` will called forever
+            }
+        };
+
+
+
+        makeLinks(authorizeTxt, new String[] {
+                "Terms and Conditions"
+        }, new ClickableSpan[] {
+                termsAndConditions
+        });
+
+        makeLinks(agreeTxt, new String[] {
+                "Privacy Policy"
+        }, new ClickableSpan[] {
+                privacyPolicy
+        });
 
         pan = findViewById(R.id.pan);
         aadhar = findViewById(R.id.aadhar);
+
+        panPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_pancard", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        aadharPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||aadhar_card", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        permAddressPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_parmanent_add_proof", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        localAddressPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    int pass = Integer.parseInt(s.toString().trim());
+                    uploadPassword("i2i_borrower_document_details||doc_current_add_proof", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        statement12Password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_account_statement", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        salarySlipLastPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_sal_last_month", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        salarySlip2Password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_sal_2nd_month", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        salarySlip3Password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_sal_3rd_month", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        form16Password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+                if (s.toString().trim().length()>0){
+                    uploadPassword("i2i_borrower_document_details||doc_form_16", s.toString().trim());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
 
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
@@ -256,9 +519,34 @@ public class DocumentsActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void uploadPassword(String tableColumn, String pass){
+
+        String session_id = sharedPreferences.getString("session_id" , null);
+        String csrf_token = sharedPreferences.getString("csrf_token" , null);
+
+        RequestParams params = new RequestParams();
+
+        params.put("tableColumn", tableColumn);
+        params.put("userID","");
+        params.put("password", pass);
+
+
+        client.post(backend.BASE_URL + "/api/v1/saveFile/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                super.onSuccess(statusCode, headers, c);
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+        });
+    }
+
     public void upload(String filePath ,final String table, final int id){
-
-
 
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
@@ -453,6 +741,7 @@ public class DocumentsActivity extends AppCompatActivity {
                 filePaths = new ArrayList<>();
                 filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
                 String form16UploadFile = filePaths.get(0);
+                upload(form16UploadFile , "i2i_borrower_document_details||doc_form_16", R.id.form16UploadFile);
                 Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
                 break;
 
@@ -666,6 +955,23 @@ public class DocumentsActivity extends AppCompatActivity {
         });
     }
 
+    public void makeLinks(TextView textView, String[] links, ClickableSpan[] clickableSpans) {
+        SpannableString spannableString = new SpannableString(textView.getText());
+        for (int i = 0; i < links.length; i++) {
+            ClickableSpan clickableSpan = clickableSpans[i];
+            String link = links[i];
+
+            int startIndexOfLink = textView.getText().toString().indexOf(link);
+            spannableString.setSpan(clickableSpan, startIndexOfLink,
+                    startIndexOfLink + link.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+        textView.setHighlightColor(
+                Color.TRANSPARENT); // prevent TextView change background when highlight
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setText(spannableString, TextView.BufferType.SPANNABLE);
+    }
+
+
     public void finalSubmit(View view){
 
 //        permAddressDocType	House Tax Receipt
@@ -741,6 +1047,15 @@ public class DocumentsActivity extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
     }
 }

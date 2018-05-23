@@ -20,10 +20,32 @@
         <!--<item name="android:layout_marginEnd">20dp</item>-->
         <!--<item name="android:layout_marginBottom">3dp</item>-->
         <item name="android:layout_marginStart">70dp</item>
+        <item name="android:textSize">10dp</item>
         <item name="android:textColor">@color/cb_errorRed</item>
         <item name="android:visibility">gone</item>
         <!--<item name="android:text">text error</item>-->
     </style>
 
+    <style name="linear_layout_for_et">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/edittext_bg_style</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="linear_layout_for_cb">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/checkbox_spinner_bg_style</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
 
 </resources>

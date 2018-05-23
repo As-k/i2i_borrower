@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tile_background"
     tools:context="in.co.cioc.i2i.RegistrationCheckEligibility">
 
     <ScrollView
@@ -54,11 +55,8 @@
                 android:text="Fathers name"
                 android:textColor="@color/colorAccent"/>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et"
+                android:layout_marginTop="0dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -78,7 +76,9 @@
                         android:hint="First Name"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -87,11 +87,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -111,17 +107,15 @@
                         android:hint="Middle Name (Optional)"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -141,7 +135,9 @@
                         android:hint="Last Name"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -165,11 +161,7 @@
                     android:text="Spouse name"
                     android:textColor="@color/colorAccent"/>
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -189,7 +181,9 @@
                             android:hint="First Name"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -198,11 +192,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -222,17 +212,15 @@
                             android:hint="Middle Name (Optional)"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -252,7 +240,9 @@
                             android:hint="Last Name"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -261,13 +251,15 @@
                     style="@style/error_text_msg"/>
             </LinearLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/noofDependentSpinner">
+
+            <LinearLayout
                 android:layout_height="53dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_cb">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -302,11 +294,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp"
+                style="@style/linear_layout_for_et"
                 android:id="@+id/dependent1Layout">
 
                 <ImageView
@@ -327,7 +315,9 @@
                         android:hint="Dependent 1 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -336,11 +326,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp"
+                style="@style/linear_layout_for_et"
                 android:id="@+id/dependent2Layout">
 
                 <ImageView
@@ -361,7 +347,9 @@
                         android:hint="Dependent 2 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -369,11 +357,7 @@
                 android:id="@+id/dependent2ErrTxt"
                 style="@style/error_text_msg"/>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp"
+                style="@style/linear_layout_for_et"
                 android:id="@+id/dependent3Layout">
 
                 <ImageView
@@ -394,7 +378,9 @@
                         android:hint="Dependent 3 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -402,6 +388,7 @@
                 android:id="@+id/dependent3ErrTxt"
                 style="@style/error_text_msg"/>
 
+            </LinearLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -418,11 +405,7 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -442,7 +425,9 @@
                         android:hint="Address"
                         android:inputType="text"
                         android:maxLines="1"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -451,11 +436,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -476,7 +457,9 @@
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:maxLength="6"/>
+                        android:maxLength="6"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -485,11 +468,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -512,7 +491,9 @@
                         android:singleLine="true"
                         android:cursorVisible="false"
                         android:focusable="false"
-                        android:focusableInTouchMode="false" />
+                        android:focusableInTouchMode="false"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -521,11 +502,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -548,7 +525,9 @@
                         android:singleLine="true"
                         android:cursorVisible="false"
                         android:focusable="false"
-                        android:focusableInTouchMode="false" />
+                        android:focusableInTouchMode="false"
+                        android:backgroundTint="@android:color/transparent"
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -572,11 +551,7 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_cb">
 
 
                 <CheckBox
@@ -598,11 +573,7 @@
                 android:orientation="vertical"
                 android:id="@+id/localAddressForm">
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -622,7 +593,9 @@
                             android:hint="Address"
                             android:inputType="text"
                             android:maxLines="1"
-                            android:singleLine="true" />
+                            android:singleLine="true"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -631,11 +604,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -656,7 +625,9 @@
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:maxLength="6"/>
+                            android:maxLength="6"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -665,11 +636,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -692,7 +659,9 @@
                             android:singleLine="true"
                             android:cursorVisible="false"
                             android:focusable="false"
-                            android:focusableInTouchMode="false" />
+                            android:focusableInTouchMode="false"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -701,11 +670,7 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -728,7 +693,9 @@
                             android:singleLine="true"
                             android:cursorVisible="false"
                             android:focusable="false"
-                            android:focusableInTouchMode="false" />
+                            android:focusableInTouchMode="false"
+                            android:backgroundTint="@android:color/transparent"
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

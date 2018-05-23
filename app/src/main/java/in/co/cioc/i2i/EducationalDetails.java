@@ -39,7 +39,7 @@ public class EducationalDetails extends AppCompatActivity {
     Spinner dropdown;
     TextView degreeErr, collegeErr, specializationErr, dropdownErr;
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true , 80, 443);
     Backend backend = new Backend();
     SharedPreferences sharedPreferences;
     String[] items;
@@ -189,7 +189,13 @@ public class EducationalDetails extends AppCompatActivity {
                     specialization.setText(c.getString("oth_specialization"));
                     degree.setText(c.getString("oth_degree"));
                     college.setText(c.getString("oth_college"));
-//                    dropdown.setSelection(items.index(c.getString("oth_graduation_year")));
+                    String year = c.getString("oth_graduation_year");
+                    for (int i=0; i<items.length; i++){
+                        if (year.equals(items[i])){
+                            dropdown.setSelection(i);
+                        }
+                    }
+
                 }catch (JSONException e) {
 
                 }
@@ -344,7 +350,15 @@ public class EducationalDetails extends AppCompatActivity {
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
 
-        client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/educationalDetails/?next=1&csrf_token=" + csrf_token + "&session_id=" + session_id , entity , "application/json", new JsonHttpResponseHandler() {
+        String url = "";
+        if (!stay){
+            save(true);
+            url += "1";
+        }else{
+            url += "0";
+        }
+
+        client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/educationalDetails/?next="+url+"&csrf_token=" + csrf_token + "&session_id=" + session_id , entity , "application/json", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
@@ -352,8 +366,6 @@ public class EducationalDetails extends AppCompatActivity {
                 if(!stay){
                     Intent i = new Intent(getApplicationContext(), DocumentsActivity.class);
                     startActivity(i);
-                }else {
-                    Toast.makeText(EducationalDetails.this, "Saved", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -363,6 +375,16 @@ public class EducationalDetails extends AppCompatActivity {
             }
 
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+
     }
 
 }

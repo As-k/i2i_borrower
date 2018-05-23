@@ -37,14 +37,14 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 public class UserDetails extends AppCompatActivity {
 
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true , 80, 443);
     Backend backend = new Backend();
     SharedPreferences sharedPreferences;
 
     Boolean married = false;
 //    Boolean married = true;
 
-    LinearLayout spouseNameForm, localAddressForm , depen1LL, depen2LL, depen3LL;
+    LinearLayout spouseNameForm, localAddressForm , noOfDepenLL, depen1LL, depen2LL, depen3LL;
     EditText fatherFName, fatherLName , fatherMName , spouseFName , spouseMName , spouseLName;
     EditText permAddress , permPincode , permCity , permState;
     EditText localAddress , localPincode , localCity , localState;
@@ -76,6 +76,8 @@ public class UserDetails extends AppCompatActivity {
 
         spouseNameForm = findViewById(R.id.spouseNameForm);
         spouseNameForm.setVisibility(LinearLayout.GONE);
+        noOfDepenLL = findViewById(R.id.noofDependentSpinner);
+        noOfDepenLL.setVisibility(View.GONE);
 
         localAddressForm = findViewById(R.id.localAddressForm);
 
@@ -317,6 +319,7 @@ public class UserDetails extends AppCompatActivity {
                 }
             }
         });
+
         depen2.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -341,6 +344,7 @@ public class UserDetails extends AppCompatActivity {
                 }
             }
         });
+
         depen3.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
@@ -570,19 +574,55 @@ public class UserDetails extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, c);
 
                 try {
-                    if (c.getString("married") == "M"){
+                    JSONObject fatherName = c.getJSONObject("fathersName");
+                    String ffname = fatherName.getString("firstName");
+                    fatherFName.setText(ffname);
+                    String fmname = fatherName.getString("middleName");
+                    fatherMName.setText(fmname);
+                    String flname = fatherName.getString("lastName");
+                    fatherLName.setText(flname);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e("printStackTrace",""+e);
+                }
+
+
+                try {
+                    if (c.getString("married").equals("M")){
                         married = true;
                         spouseNameForm.setVisibility(LinearLayout.VISIBLE);
+                        noOfDepenLL.setVisibility(View.VISIBLE);
+                        try {
+                            JSONObject spouseName = c.getJSONObject("spouseName");
+                            String sfname = spouseName.getString("firstName");
+                            if (!sfname.equals("null"))
+                                spouseFName.setText(sfname);
+                            String smname = spouseName.getString("middleName");
+                            if (!sfname.equals("null"))
+                                spouseMName.setText(smname);
+                            String slname = spouseName.getString("lastName");
+                            if (!sfname.equals("null"))
+                                spouseLName.setText(slname);
+                        }catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        JSONObject noOfDependents = c.getJSONObject("noOfDependents");
+                        JSONObject dependentsArr = c.getJSONObject("dependentsArr");
                     }
-
-                    JSONObject permanentAddress = c.getJSONObject("permanentAddress");
-
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONObject permanentAddress = null;
+                try {
+                    permanentAddress = c.getJSONObject("permanentAddress");
                     String permanentAddressAddress = permanentAddress.getString("address");
                     String permanentAddressPincode = permanentAddress.getString("pincode");
                     String permanentAddressCity = permanentAddress.getString("city");
                     String permanentAddressState = permanentAddress.getString("state");
 
-                    JSONObject localAddressObj = c.getJSONObject("localAddress");
+                    JSONObject localAddressObj = null;
+                    localAddressObj = c.getJSONObject("localAddress");
 
                     String localAddressAddress = localAddressObj.getString("address");
                     String localAddressPincode = localAddressObj.getString("pincode");
@@ -590,20 +630,20 @@ public class UserDetails extends AppCompatActivity {
                     String localAddressState = localAddressObj.getString("state");
 
                     localAddress.setText(localAddressAddress);
-                    if (localAddressPincode != "0" ){
+                    if (localAddressPincode != "0") {
                         localPincode.setText(localAddressPincode);
                     }
                     localCity.setText(localAddressCity);
                     localState.setText(localAddressState);
 
                     permAddress.setText(permanentAddressAddress);
-                    if (permanentAddressPincode.length() >1){
+                    if (permanentAddressPincode.length() > 1) {
                         permPincode.setText(permanentAddressPincode);
                     }
                     permCity.setText(permanentAddressCity);
                     permState.setText(permanentAddressState);
 
-                }catch (JSONException e) {
+                } catch (JSONException e) {
 
                 }
             }
@@ -834,6 +874,103 @@ public class UserDetails extends AppCompatActivity {
             currentCBErr.setVisibility(View.GONE);
         }
 
+        if (!(dropdown.getSelectedItemPosition()==0)) {
+            noOfDeptErr.setVisibility(View.GONE);
+            if (dropdown.getSelectedItemPosition() == 1) {
+                if (dependent1.length() == 0) {
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age.");
+                    return;
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+            } else if (dropdown.getSelectedItemPosition() == 2) {
+                if (dependent1.length() == 0) {
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age.");
+                    return;
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+                if (dependent2.length() == 0) {
+                    noOfDept2Err.setVisibility(View.VISIBLE);
+                    noOfDept2Err.setText("Please enter age.");
+                    return;
+                } else {
+                    noOfDept2Err.setVisibility(View.GONE);
+                }
+            } else if (dropdown.getSelectedItemPosition() == 3) {
+                if (dependent1.length() == 0) {
+                    noOfDept1Err.setVisibility(View.VISIBLE);
+                    noOfDept1Err.setText("Please enter age.");
+                    return;
+                } else {
+                    noOfDept1Err.setVisibility(View.GONE);
+                }
+                if (dependent2.length() == 0) {
+                    noOfDept2Err.setVisibility(View.VISIBLE);
+                    noOfDept2Err.setText("Please enter age.");
+                    return;
+                } else {
+                    noOfDept2Err.setVisibility(View.GONE);
+                }
+                if (dependent3.length() == 0) {
+                    noOfDept3Err.setVisibility(View.VISIBLE);
+                    noOfDept3Err.setText("Please enter age.");
+                    return;
+                } else {
+                    noOfDept3Err.setVisibility(View.GONE);
+                }
+            }
+        }
+
+        if (fatherFName.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your father's name", Toast.LENGTH_SHORT).show();
+            fatherFName.requestFocus();
+            return;
+        }
+        if (fatherLName.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your father's last name", Toast.LENGTH_SHORT).show();
+            fatherLName.requestFocus();
+            return;
+        }
+        if (permAddress.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your permanent address", Toast.LENGTH_SHORT).show();
+            permAddress.requestFocus();
+            return;
+        }
+        if (permPincode.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your permanent pincode", Toast.LENGTH_SHORT).show();
+            permPincode.requestFocus();
+            return;
+        }
+
+        if (permCity.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your permanent correct pincode", Toast.LENGTH_SHORT).show();
+            permCity.requestFocus();
+            return;
+        }
+
+        if (!sameAsPermCB.isChecked() && localAddress.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your local address", Toast.LENGTH_SHORT).show();
+            localAddress.requestFocus();
+            return;
+        }
+
+        if (married){
+            if (spouseFName.length()==0){
+                Toast.makeText(this, "Please provide your father's name", Toast.LENGTH_SHORT).show();
+                spouseFName.requestFocus();
+                return;
+            }
+
+            if (spouseLName.length()==0){
+                Toast.makeText(this, "Please provide your father's last name", Toast.LENGTH_SHORT).show();
+                spouseLName.requestFocus();
+                return;
+            }
+        }
+
         String dependentsArr = "[]";
 
         JSONObject permAdd = new JSONObject();
@@ -867,29 +1004,6 @@ public class UserDetails extends AppCompatActivity {
         }catch (JSONException e){
 
         }
-
-        if (fatherFName.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your father's name", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (fatherLName.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your father's last name", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (permAddress.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your permanent address", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (permPincode.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your permanent pincode", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (!sameAsPermCB.isChecked() && localAddress.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your local address", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         JSONObject spouseName = new JSONObject();
         try{
             spouseName.put("firstName" ,spouseFName.getText().toString());
@@ -927,6 +1041,7 @@ public class UserDetails extends AppCompatActivity {
         String url = "/api/v1/borrowerRegistration/userDetails/?csrf_token=" + csrf_token + "&session_id=" + session_id;
 
         if (!stay){
+            save(true);
             url += "&next=1";
         }else{
             url += "&next=0";
@@ -950,9 +1065,42 @@ public class UserDetails extends AppCompatActivity {
 
         });
 
-
-
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        fatherFName.setText(fatherFName.getText());
+//        fatherLName.setText(fatherLName.getText());
+//        if (married) {
+//            spouseFName.setText(spouseFName.getText());
+//            spouseLName.setText(spouseLName.getText());
+//            if (dropdown.getSelectedItemPosition() == 1) {
+//                depen1.setText(depen1.getText());
+//            } else {
+//                if (dropdown.getSelectedItemPosition() == 2) {
+//                    depen1.setText(depen1.getText());
+//                    depen2.setText(depen2.getText());
+//                } else {
+//                    if (dropdown.getSelectedItemPosition() == 3) {
+//                        depen1.setText(depen1.getText());
+//                        depen2.setText(depen2.getText());
+//                        depen3.setText(depen3.getText());
+//                    }
+//                }
+//            }
+//        }
+//        permAddress.setText(permAddress.getText());
+//        permCity.setText(permCity.getText());
+//        permPincode.setText(permPincode.getText());
+//        permState.setText(permState.getText());
+//        if (!sameAsPermCB.isChecked()){
+//            localAddress.setText(localAddress.getText());
+//            localPincode.setText(localPincode.getText());
+//            localCity.setText(localCity.getText());
+//            localState.setText(localState.getText());
+//        }
+//    }
 
     public void showSuccess(EditText edit){
         removeSuccess(edit);
@@ -963,5 +1111,13 @@ public class UserDetails extends AppCompatActivity {
         edit.setCompoundDrawables(null, null, null, null);
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
 
+    }
 }

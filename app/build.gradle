@@ -16,7 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    useLibrary  'org.apache.http.legacy'
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
@@ -35,9 +35,11 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.droidninja:filepicker:2.1.1'
     implementation project(':sdkui')
-    compile 'com.android.volley:volley:1.0.0'
+//    compile 'com.android.volley:volley:1.0.0'
     compile 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.facebook.android:facebook-login:[4,5)'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile project(path: ':linkedin-sdk')
     compile 'com.github.yesterselga:password-strength-checker-android:v1.0'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.8@aar') {
         transitive = true;

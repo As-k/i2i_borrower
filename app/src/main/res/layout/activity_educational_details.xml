@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/tile_background"
     tools:context="in.co.cioc.i2i.EducationalDetails">
 
     <ScrollView
@@ -46,11 +47,7 @@
                 app:srcCompat="@drawable/bottom_border" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="0dp"
@@ -74,7 +71,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:hint="Highest Degree" />
+                            android:hint="Highest Degree"
+                            android:backgroundTint="@color/white"/>
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -86,11 +84,7 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="0dp"
@@ -114,7 +108,8 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:hint="College Name" />
+                            android:hint="College Name"
+                            android:backgroundTint="@color/white"/>
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -125,11 +120,7 @@
                 style="@style/error_text_msg"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="0dp"
@@ -153,7 +144,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:ems="10"
-                            android:hint="Specialization" />
+                            android:hint="Specialization"
+                            android:backgroundTint="@color/white"
+                            />
                     </android.support.design.widget.TextInputLayout>
 
                 </LinearLayout>
@@ -165,11 +158,8 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="53dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                android:paddingRight="20dp">
+                style="@style/linear_layout_for_cb">
 
                 <ImageView
                     android:layout_width="wrap_content"

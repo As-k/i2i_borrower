@@ -99,7 +99,7 @@ import static in.co.cioc.i2i.LoginActivity.PREF_PASSWORD;
 
 public class AccountActivity extends AppCompatActivity {
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true , 80, 443);
     Backend backend = new Backend();
 
     SharedPreferences sharedPreferences;
@@ -198,7 +198,7 @@ public class AccountActivity extends AppCompatActivity {
                 .putString("up", usr_phone)
                 .commit();
 
-        String indicator=getIntent().getStringExtra("indicator");
+        String indicator = getIntent().getStringExtra("indicator");
         SharedPreferences pref = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         final String con = pref.getString(PREF_FNAME, null);
         int GET_MY_PERMISSION = 1;
@@ -1511,7 +1511,9 @@ public class AccountActivity extends AppCompatActivity {
         json_location =new JSONArray();
         //locationManager.requestLocationUpdates(
         //		LocationManager.GPS_PROVIDER, 2 * 60 * 1000, 10, locationListenerGPS);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
             return;
         }
         Location location = locationManager

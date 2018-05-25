@@ -67,7 +67,7 @@
                         android:layout_width="15dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="PAN"
+                        android:text="PAN Card"
                         android:textColor="@color/payu_blue"
                         android:textSize="@dimen/edit_text_size"/>
                     <TextView
@@ -87,9 +87,9 @@
 
                 <ImageView
                     android:id="@+id/panEKYCStatusImg"
-                    android:layout_width="71dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="50dp"
                     android:layout_weight="1"
                     android:scaleType="center"
                     app:srcCompat="@drawable/thumbsdown_icon" />
@@ -111,6 +111,13 @@
                     android:id="@+id/panUploadFile"
                     app:srcCompat="@drawable/upload_icon" />
 
+                <ImageView
+                    android:layout_width="77dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="center"
+                    android:id="@+id/panClickFile"
+                    app:srcCompat="@drawable/camera_icon" />
 
             </LinearLayout>
 
@@ -169,7 +176,7 @@
                         android:layout_width="15dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Aadhar"
+                        android:text="Aadhaar Card"
                         android:textColor="@color/payu_blue"
                         android:textSize="@dimen/edit_text_size"/>
                     <TextView
@@ -189,9 +196,9 @@
                 android:layout_marginTop="10dp">
                 <ImageView
                     android:id="@+id/aadharEKYCStatusImg"
-                    android:layout_width="71dp"
+                    android:layout_width="70dp"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="50dp"
                     android:layout_weight="1"
                     android:scaleType="center"
                     app:srcCompat="@drawable/thumbsdown_icon" />
@@ -213,6 +220,14 @@
                     android:scaleType="center"
                     android:id="@+id/aadharUploadFile"
                     app:srcCompat="@drawable/upload_icon" />
+
+                <ImageView
+                    android:layout_width="77dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:scaleType="center"
+                    android:id="@+id/aadharClickFile"
+                    app:srcCompat="@drawable/camera_icon" />
 
 
             </LinearLayout>
@@ -309,6 +324,14 @@
                         android:id="@+id/permAddressUploadFile"
                         app:srcCompat="@drawable/upload_icon" />
 
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        android:id="@+id/permAddressClickFile"
+                        app:srcCompat="@drawable/camera_icon" />
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="200dp"
                         android:layout_height="wrap_content">
@@ -392,6 +415,14 @@
                         android:id="@+id/localAddressUploadFile"
                         app:srcCompat="@drawable/upload_icon" />
 
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        android:id="@+id/localAddressClickFile"
+                        app:srcCompat="@drawable/camera_icon" />
+
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="200dp"
                         android:layout_height="wrap_content">
@@ -474,6 +505,14 @@
                         android:scaleType="center"
                         android:id="@+id/statement12UploadFile"
                         app:srcCompat="@drawable/upload_icon" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        android:id="@+id/statement12UClickFile"
+                        app:srcCompat="@drawable/camera_icon" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="200dp"
@@ -563,6 +602,14 @@
                             android:id="@+id/salarySlipLastUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:id="@+id/salarySlipLastClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
+
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="200dp"
                             android:layout_height="wrap_content">
@@ -645,6 +692,14 @@
                             android:scaleType="center"
                             android:id="@+id/salarySlip2UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:id="@+id/salarySlip2ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="200dp"
@@ -730,6 +785,14 @@
                             android:id="@+id/salarySlip3UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:id="@+id/salarySlip3ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
+
                         <android.support.design.widget.TextInputLayout
                             android:layout_width="200dp"
                             android:layout_height="wrap_content">
@@ -751,92 +814,6 @@
 
                 <TextView
                     android:id="@+id/salarySlip3UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
-                    android:layout_marginStart="130dp"
-                    android:textColor="@color/cb_errorRed"/>
-
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/education_icon" />
-
-                    <LinearLayout
-                        android:layout_width="270dp"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:text="Last year Form 16"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="@dimen/edit_text_size"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    style="@style/linear_layout_for_et">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
-
-                    <LinearLayout
-                        android:layout_width="270dp"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:scaleType="center"
-                            android:id="@+id/form16UploadFile"
-                            app:srcCompat="@drawable/upload_icon" />
-
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content">
-
-                            <AutoCompleteTextView
-                                android:id="@+id/form16Password"
-                                style="@style/edit_text_style"
-                                android:hint="Password if any"
-                                android:inputType="textPassword"
-                                android:maxLines="1"
-                                android:singleLine="true"
-                                android:backgroundTint="@android:color/transparent"
-                                />
-                        </android.support.design.widget.TextInputLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/form16UploadFileErrTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -904,6 +881,16 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/markSheetUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/markSheetClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
 
                     </LinearLayout>
@@ -990,6 +977,15 @@
                             android:id="@+id/businessPANUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/businessPANClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -1064,6 +1060,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/businessRegistrationtUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/businessRegistrationtClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 
@@ -1141,6 +1146,15 @@
                             android:id="@+id/businessIncomeTax1UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/businessIncomeTax1ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -1215,6 +1229,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax2UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/businessIncomeTax2ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 
@@ -1291,6 +1314,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax3UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/businessIncomeTax3ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 
@@ -1375,6 +1407,15 @@
                             android:id="@+id/selfempPANUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/selfempPANClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -1448,6 +1489,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/selfempRegistrationtUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/selfempRegistrationtClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 
@@ -1525,6 +1575,15 @@
                             android:id="@+id/selfempIncomeTax1UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/selfempIncomeTax1ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -1598,6 +1657,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax2UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/selfempIncomeTax2ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 
@@ -1673,6 +1741,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax3UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/selfempIncomeTax3ClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 
@@ -1750,6 +1827,15 @@
                             android:layout_marginEnd="200dp"
                             android:id="@+id/selfempMarkSheetUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:scaleType="center"
+                            android:layout_marginEnd="200dp"
+                            android:id="@+id/selfempMarkSheetClickFile"
+                            app:srcCompat="@drawable/camera_icon" />
 
                     </LinearLayout>
 

@@ -728,7 +728,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if (s.length() == 0){
                     amountErr.setVisibility(View.VISIBLE);
-                    amountErr.setError("Amount can not be Empty.");
+                    amountErr.setText("Amount can not be Empty.");
                     amountTxt.requestFocus();
                     return;
                 }
@@ -1045,7 +1045,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }else {
                     removeSuccess(ccOutstandingTxt);
                     ccAmountErr.setVisibility(View.VISIBLE);
-                    ccAmountErr.setError("What is your existing Credit Card outstanding balance.");
+                    ccAmountErr.setText("What is your existing Credit Card outstanding balance.");
                     ccOutstandingTxt.requestFocus();
                 }
             }
@@ -1227,8 +1227,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 if (s.toString().trim().equals("")){
                     pincodeErr.setVisibility(View.VISIBLE);
                     pincodeErr.setText("Please provide your city pincode.");
-                } else {
-                    pincodeErr.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -1453,6 +1451,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                 spinnerPaymentMode.setSelection(j);
                             }
                         }
+
 //                        if (fin_salary_mode != null){
 //                            int paymentModePosition = adapterPaymentMode.getPosition(fin_salary_mode);
 //                            spinnerPaymentMode.setSelection(paymentModePosition);
@@ -2320,8 +2319,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                 chances = "medium";
                                 msg = "Congratulations, You are eligible\n" + "Expected Interest Rate \n \n"+ (baseInterest-2) +"% to " + (baseInterest+2)+"%";
                             } else if (baseInterest > 30){
-                                icon = R.drawable.thumsup_icon;
                                 chances = "low";
+                                icon = R.drawable.meter_low;
                                 msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +"% to " + (baseInterest+2)+"%";
                             }
                         } else {

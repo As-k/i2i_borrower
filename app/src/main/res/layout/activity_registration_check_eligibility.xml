@@ -553,7 +553,7 @@
                             <AutoCompleteTextView
                                 android:id="@+id/incomeSalaried"
                                 style="@style/edit_text_style"
-                                android:hint="Monthly Income"
+                                android:hint="Monthly Salary (in Rs.)"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -618,7 +618,7 @@
                                     android:id="@+id/workingSince"
                                     style="@style/edit_text_style"
                                     android:onClick="setWorkingSince"
-                                    android:hint="Working Since"
+                                    android:hint="Joining Date in Current Company"
                                     android:cursorVisible="false"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"

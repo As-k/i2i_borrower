@@ -66,7 +66,7 @@ public class DocumentsActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     Drawable successTick;
 
-    AutoCompleteTextView panPassword, aadharPassword, permAddressPassword, localAddressPassword, statement12Password, salarySlipLastPassword, salarySlip2Password, salarySlip3Password, form16Password ;
+    AutoCompleteTextView panPassword, aadharPassword, permAddressPassword, localAddressPassword, statement12Password, salarySlipLastPassword, salarySlip2Password, salarySlip3Password;
 
     public static final int REQUEST_CODE_CAMERA = 0012;
 
@@ -115,7 +115,7 @@ public class DocumentsActivity extends AppCompatActivity {
         salarySlipLastPassword = findViewById(R.id.salarySlipLastPassword);
         salarySlip2Password = findViewById(R.id.salarySlip2Password);
         salarySlip3Password = findViewById(R.id.salarySlip3Password);
-        form16Password = findViewById(R.id.form16Password);
+//        form16Password = findViewById(R.id.form16Password);
         tncCBErr = findViewById(R.id.tncCheckboxErrTxt);
         personalCBErr = findViewById(R.id.personalInfoCheckBoxErrTxt);
     }
@@ -368,24 +368,24 @@ public class DocumentsActivity extends AppCompatActivity {
             }
         });
 
-        form16Password.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                if (s.toString().trim().length()>0){
-                    uploadPassword("i2i_borrower_document_details||doc_form_16", s.toString().trim());
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        form16Password.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+//                if (s.toString().trim().length()>0){
+//                    uploadPassword("i2i_borrower_document_details||doc_form_16", s.toString().trim());
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
 
 
 
@@ -455,7 +455,7 @@ public class DocumentsActivity extends AppCompatActivity {
         empSalarySlip1= findViewById(R.id.salarySlipLastUploadFile);
         empSalarySlip2 = findViewById(R.id.salarySlip2UploadFile);
         empSalarySlip3 = findViewById(R.id.salarySlip3UploadFile);
-        empForm16 = findViewById(R.id.form16UploadFile);
+//        empForm16 = findViewById(R.id.form16UploadFile);
         empHighestDegree = findViewById(R.id.markSheetUploadFile);
         businessPan = findViewById(R.id.businessPANUploadFile);
         businessCompanyReg = findViewById(R.id.businessRegistrationtUploadFile);
@@ -596,10 +596,10 @@ public class DocumentsActivity extends AppCompatActivity {
             errTv = findViewById(R.id.salarySlip3UploadFileErrTxt);
             errTv.setText("Succfully uploaded");
             errTv.setTextColor(getResources().getColor(R.color.green));
-        }else if (id == R.id.form16UploadFile){
-            errTv = findViewById(R.id.form16UploadFileErrTxt);
-            errTv.setText("Succfully uploaded");
-            errTv.setTextColor(getResources().getColor(R.color.green));
+//        }else if (id == R.id.form16UploadFile){
+//            errTv = findViewById(R.id.form16UploadFileErrTxt);
+//            errTv.setText("Succfully uploaded");
+//            errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.markSheetUploadFile){
             errTv = findViewById(R.id.markSheetUploadFileErrTxt);
             errTv.setText("Succfully uploaded");
@@ -738,13 +738,13 @@ public class DocumentsActivity extends AppCompatActivity {
                 upload(salarySlip3UploadFile , "i2i_borrower_document_details||doc_sal_3rd_month", R.id.salarySlip3UploadFile);
                 Toast.makeText(DocumentsActivity.this, salarySlip3UploadFile , Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.form16UploadFile:
-                filePaths = new ArrayList<>();
-                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
-                String form16UploadFile = filePaths.get(0);
-                upload(form16UploadFile , "i2i_borrower_document_details||doc_form_16", R.id.form16UploadFile);
-                Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
-                break;
+//            case R.id.form16UploadFile:
+//                filePaths = new ArrayList<>();
+//                filePaths.addAll(data.getStringArrayListExtra(FilePickerConst.KEY_SELECTED_DOCS));
+//                String form16UploadFile = filePaths.get(0);
+//                upload(form16UploadFile , "i2i_borrower_document_details||doc_form_16", R.id.form16UploadFile);
+//                Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
+//                break;
 
             case R.id.markSheetUploadFile:
                 filePaths = new ArrayList<>();
@@ -883,11 +883,11 @@ public class DocumentsActivity extends AppCompatActivity {
                         upload(salarySlip3UploadFile , "i2i_borrower_document_details||doc_sal_3rd_month", R.id.salarySlip3UploadFile);
                         Toast.makeText(DocumentsActivity.this, salarySlip3UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.form16UploadFile:
-                        String form16UploadFile = imageFile.getAbsolutePath();
-                        //upload(form16UploadFile , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.form16UploadFile);
-                        Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
-                        break;
+//                    case R.id.form16UploadFile:
+//                        String form16UploadFile = imageFile.getAbsolutePath();
+//                        //upload(form16UploadFile , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.form16UploadFile);
+//                        Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
+//                        break;
                     case R.id.markSheetUploadFile:
                         String markSheetUploadFile = imageFile.getAbsolutePath();
                         upload(markSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.markSheetUploadFile);
@@ -1030,25 +1030,36 @@ public class DocumentsActivity extends AppCompatActivity {
         params.put("agree", true);
         params.put("eKYCpan", true);
 
-
-        client.post(backend.BASE_URL + "/api/v1/borrowerRegistration/finalSubmit/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
-                super.onSuccess(statusCode, headers, c);
-//              http://localhost:8080/api/v1/logout/?csrf_token=PvKMr0O9JCGaS1yO52GxSnMtG&session_id=6jJoBMIsZOMsTu47TTZ7jd4Fm
-                client.post(backend.BASE_URL + "/api/v1/logout/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
+        if (!agreeCB.isChecked()) {
+            tncCBErr.setVisibility(View.VISIBLE);
+            tncCBErr.setText("Please read and agree to our terms and conditions.");
+        } else {
+            tncCBErr.setVisibility(View.GONE);
+            if (!authorizeCB.isChecked()) {
+                personalCBErr.setVisibility(View.VISIBLE);
+                personalCBErr.setText("Please read and agree to our privacy policy terms.");
+            } else {
+                personalCBErr.setVisibility(View.GONE);
+                client.post(backend.BASE_URL + "/api/v1/borrowerRegistration/finalSubmit/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                         super.onSuccess(statusCode, headers, c);
-                        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(i);
+//              http://localhost:8080/api/v1/logout/?csrf_token=PvKMr0O9JCGaS1yO52GxSnMtG&session_id=6jJoBMIsZOMsTu47TTZ7jd4Fm
+                        client.post(backend.BASE_URL + "/api/v1/logout/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                                super.onSuccess(statusCode, headers, c);
+                                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(i);
+                            }
+
+                        });
+
                     }
 
                 });
-
             }
-
-        });
+        }
     }
 
     @Override

@@ -70,7 +70,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/designation"
                             style="@style/edit_text_style"
-                            android:hint="Designation"
+                            android:hint="Designation in Current Organization"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"

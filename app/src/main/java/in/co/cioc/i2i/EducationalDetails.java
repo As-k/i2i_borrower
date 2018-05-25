@@ -74,7 +74,7 @@ public class EducationalDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     degreeErr.setVisibility(View.VISIBLE);
-                    degreeErr.setText("Please enter highest degree");
+                    degreeErr.setText("Please provide the highest latest degree.");
                 } else {
                     degreeErr.setVisibility(View.GONE);
                 }
@@ -102,7 +102,7 @@ public class EducationalDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     collegeErr.setVisibility(View.VISIBLE);
-                    collegeErr.setText("Please enter college name");
+                    collegeErr.setText("Please provide college name.");
                 } else {
                     collegeErr.setVisibility(View.GONE);
                 }
@@ -130,7 +130,7 @@ public class EducationalDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     specializationErr.setVisibility(View.VISIBLE);
-                    specializationErr.setText("Please enter specialization");
+                    specializationErr.setText("Please provide specialization.");
                 } else {
                     specializationErr.setVisibility(View.GONE);
                 }
@@ -266,7 +266,7 @@ public class EducationalDetails extends AppCompatActivity {
 
         if (dropdown.getSelectedItemPosition() == 0){
             dropdownErr.setVisibility(View.VISIBLE);
-            dropdownErr.setText("Please select year.");
+            dropdownErr.setText("Please select your graduation year.");
         } else {
             dropdownErr.setVisibility(View.GONE);
         }
@@ -278,21 +278,21 @@ public class EducationalDetails extends AppCompatActivity {
 
         if (degr.isEmpty()){
             degreeErr.setVisibility(View.VISIBLE);
-            degreeErr.setText("Please enter highest degree.");
+            degreeErr.setText("Please provide the highest latest degree.");
         } else {
             degreeErr.setVisibility(View.GONE);
         }
 
         if (colleg.isEmpty()){
             collegeErr.setVisibility(View.VISIBLE);
-            collegeErr.setText("Please enter college name.");
+            collegeErr.setText("Please provide college name.");
         } else {
             collegeErr.setVisibility(View.GONE);
         }
 
         if (spec.isEmpty()){
             specializationErr.setVisibility(View.VISIBLE);
-            specializationErr.setText("Please enter your specialization.");
+            specializationErr.setText("Please provide specialization.");
         } else {
             specializationErr.setVisibility(View.GONE);
         }
@@ -306,21 +306,25 @@ public class EducationalDetails extends AppCompatActivity {
             educationalForm.put("specialization" , spec);
             educationalForm.put("year" , yr );
 
-            if (yr.equals("Please select")){
-                Toast.makeText(this, "Please select the graduation year", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
             if (degr.length() == 0){
-                Toast.makeText(this, "Please enter your Highest degree", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please provide the highest latest degree.", Toast.LENGTH_SHORT).show();
+                degree.requestFocus();
                 return;
             }
             if (colleg.length() == 0){
-                Toast.makeText(this, "Please enter your college name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please provide college name.", Toast.LENGTH_SHORT).show();
+                college.requestFocus();
                 return;
             }
             if (spec.length() == 0){
-                Toast.makeText(this, "Please enter your specialization", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please provide specialization.", Toast.LENGTH_SHORT).show();
+                specialization.requestFocus();
+                return;
+            }
+
+            if (yr.equals("Please select")){
+                Toast.makeText(this, "Please select your graduation year.", Toast.LENGTH_SHORT).show();
+                dropdown.requestFocus();
                 return;
             }
 
@@ -356,6 +360,7 @@ public class EducationalDetails extends AppCompatActivity {
             url += "1";
         }else{
             url += "0";
+
         }
 
         client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/educationalDetails/?next="+url+"&csrf_token=" + csrf_token + "&session_id=" + session_id , entity , "application/json", new JsonHttpResponseHandler() {
@@ -366,6 +371,8 @@ public class EducationalDetails extends AppCompatActivity {
                 if(!stay){
                     Intent i = new Intent(getApplicationContext(), DocumentsActivity.class);
                     startActivity(i);
+                }else{
+                    Toast.makeText(EducationalDetails.this, "Saved", Toast.LENGTH_SHORT).show();
                 }
             }
 

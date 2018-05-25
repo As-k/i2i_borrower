@@ -96,7 +96,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     fnameErr.setVisibility(View.VISIBLE);
-                    fnameErr.setText("Please enter first name");
+                    fnameErr.setText("First name of father is required.");
                 } else {
                     fnameErr.setVisibility(View.GONE);
                 }
@@ -121,7 +121,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     lnameErr.setVisibility(View.VISIBLE);
-                    lnameErr.setText("Please enter last name");
+                    lnameErr.setText("Last name of father is required.");
                 } else {
                     lnameErr.setVisibility(View.GONE);
                 }
@@ -164,7 +164,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     fnameSpouseErr.setVisibility(View.VISIBLE);
-                    fnameSpouseErr.setText("Please enter first name");
+                    fnameSpouseErr.setText("First name of spouse is required.");
                 } else {
                     fnameSpouseErr.setVisibility(View.GONE);
                 }
@@ -207,7 +207,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     lnameSpouseErr.setVisibility(View.VISIBLE);
-                    lnameSpouseErr.setText("Please enter last name");
+                    lnameSpouseErr.setText("Last name of spouse is required.");
                 } else {
                     lnameSpouseErr.setVisibility(View.GONE);
                 }
@@ -249,7 +249,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     cAddressErr.setVisibility(View.VISIBLE);
-                    cAddressErr.setText("Please enter address");
+                    cAddressErr.setText("Please provide the address.");
                 } else {
                     cAddressErr.setVisibility(View.GONE);
                     currentCBErr.setVisibility(View.GONE);
@@ -275,7 +275,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     pAddressErr.setVisibility(View.VISIBLE);
-                    pAddressErr.setText("Please enter address");
+                    pAddressErr.setText("Please provide the permanent address.");
                 } else {
                     pAddressErr.setVisibility(View.GONE);
                 }
@@ -300,7 +300,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     noOfDept1Err.setVisibility(View.VISIBLE);
-                    noOfDept1Err.setText("Please enter age");
+                    noOfDept1Err.setText("Please enter age.");
                 } else {
                     noOfDept1Err.setVisibility(View.GONE);
                 }
@@ -325,7 +325,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     noOfDept2Err.setVisibility(View.VISIBLE);
-                    noOfDept2Err.setText("Please enter age");
+                    noOfDept2Err.setText("Please enter age.");
                 } else {
                     noOfDept2Err.setVisibility(View.GONE);
                 }
@@ -350,7 +350,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     noOfDept3Err.setVisibility(View.VISIBLE);
-                    noOfDept3Err.setText("Please enter age");
+                    noOfDept3Err.setText("Please enter age.");
                 } else {
                     noOfDept3Err.setVisibility(View.GONE);
                 }
@@ -376,8 +376,8 @@ public class UserDetails extends AppCompatActivity {
         depen3LL = findViewById(R.id.dependent3Layout);
 
         depen1LL.setVisibility(LinearLayout.GONE);
-        depen1LL.setVisibility(LinearLayout.GONE);
-        depen1LL.setVisibility(LinearLayout.GONE);
+        depen2LL.setVisibility(LinearLayout.GONE);
+        depen3LL.setVisibility(LinearLayout.GONE);
 
         sameAsPermCB = findViewById(R.id.sameAsPerm);
 
@@ -458,9 +458,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     pPincodeErr.setVisibility(View.VISIBLE);
-                    pPincodeErr.setText("Please enter pincode");
-                } else {
-                    pPincodeErr.setVisibility(View.GONE);
+                    pPincodeErr.setText("Please enter a valid pincode.");
                 }
             }
             @Override
@@ -471,13 +469,14 @@ public class UserDetails extends AppCompatActivity {
                 String pass = s.toString();
 
                 if(s.length() == 6){
+                    pPincodeErr.setVisibility(View.GONE);
                     showSuccess(permPincode);
-
                     client.get(backend.BASE_URL + "/api/v1/pincodeSearch/" + s.toString() , new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
-
+                            showSuccess(permPincode);
+                            pPincodeErr.setVisibility(View.GONE);
                             try {
                                 permCity.setText(response.getString("pin_city"));
                                 permState.setText(response.getString("pin_state"));
@@ -488,21 +487,22 @@ public class UserDetails extends AppCompatActivity {
                             }catch (JSONException e){
 
                             }
-
                         }
-
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
+                            pPincodeErr.setVisibility(View.VISIBLE);
+                            removeSuccess(localPincode);
+                            pPincodeErr.setText("Invalid pincode");
+                            permPincode.requestFocus();
                         }
 
                     });
-
-
                 }else{
-                    permPincode.setError("Invalid Pincode");
-                    View focusView = permPincode;
-                    focusView.requestFocus();
+                    removeSuccess(localPincode);
+                    pPincodeErr.setVisibility(View.VISIBLE);
+                    pPincodeErr.setText("Invalid pincode");
+                    permPincode.requestFocus();
                 }
             }
         });
@@ -512,9 +512,7 @@ public class UserDetails extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     cPincodeErr.setVisibility(View.VISIBLE);
-                    cPincodeErr.setText("Please enter first name");
-                } else {
-                    cPincodeErr.setVisibility(View.GONE);
+                    cPincodeErr.setText("Please enter a valid pincode.");
                 }
             }
             @Override
@@ -531,8 +529,8 @@ public class UserDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
-
                             try {
+                                cPincodeErr.setVisibility(View.GONE);
                                 localCity.setText(response.getString("pin_city"));
                                 localState.setText(response.getString("pin_state"));
                                 showSuccess(localCity);
@@ -548,15 +546,19 @@ public class UserDetails extends AppCompatActivity {
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
+                            cPincodeErr.setVisibility(View.VISIBLE);
+                            cPincodeErr.setText("Invalid Pincode");
+                            localPincode.requestFocus();
                         }
 
                     });
 
 
                 }else{
-                    localPincode.setError("Invalid Pincode");
-                    View focusView = localPincode;
-                    focusView.requestFocus();
+                    removeSuccess(localPincode);
+                    cPincodeErr.setVisibility(View.VISIBLE);
+                    cPincodeErr.setText("Invalid Pincode");
+                    localPincode.requestFocus();
                 }
             }
         });
@@ -739,28 +741,28 @@ public class UserDetails extends AppCompatActivity {
 
         if (ffName.isEmpty()){
             fnameErr.setVisibility(View.VISIBLE);
-            fnameErr.setText("Please enter first name.");
+            fnameErr.setText("First name of father is required.");
         } else {
             fnameErr.setVisibility(View.GONE);
         }
 
         if (flName.isEmpty()){
             lnameErr.setVisibility(View.VISIBLE);
-            lnameErr.setText("Please enter last name.");
+            lnameErr.setText("Last name of father is required.");
         } else {
             lnameErr.setVisibility(View.GONE);
         }
 
         if (sfName.isEmpty()){
             fnameSpouseErr.setVisibility(View.VISIBLE);
-            fnameSpouseErr.setText("Please enter first name.");
+            fnameSpouseErr.setText("First name of spouse is required.");
         } else {
             fnameSpouseErr.setVisibility(View.GONE);
         }
 
         if (slName.isEmpty()){
             lnameSpouseErr.setVisibility(View.VISIBLE);
-            lnameSpouseErr.setText("Please enter last name.");
+            lnameSpouseErr.setText("Last name of spouse is required.");
         } else {
             lnameSpouseErr.setVisibility(View.GONE);
         }
@@ -814,64 +816,77 @@ public class UserDetails extends AppCompatActivity {
 
         if (pAdd.isEmpty()){
             pAddressErr.setVisibility(View.VISIBLE);
-            pAddressErr.setText("Please enter address.");
+            pAddressErr.setText("Please provide the permanent address.");
         } else {
             pAddressErr.setVisibility(View.GONE);
         }
 
         if (pPinCode.isEmpty()){
             pPincodeErr.setVisibility(View.VISIBLE);
-            pPincodeErr.setText("Please enter pincode.");
+            pPincodeErr.setText("Please enter a valid pincode.");
         } else {
             pPincodeErr.setVisibility(View.GONE);
+            if (pCity.isEmpty()){
+                pCityErr.setVisibility(View.VISIBLE);
+                pCityErr.setText("Please enter city.");
+            } else {
+                pCityErr.setVisibility(View.GONE);
+            }
+
+            if (pState.isEmpty()){
+                pStateErr.setVisibility(View.VISIBLE);
+                pStateErr.setText("Please enter state.");
+            } else {
+                pStateErr.setVisibility(View.GONE);
+            }
         }
 
-        if (pCity.isEmpty()){
-            pCityErr.setVisibility(View.VISIBLE);
-            pCityErr.setText("Please enter city.");
-        } else {
-            pCityErr.setVisibility(View.GONE);
-        }
-
-        if (pState.isEmpty()){
-            pStateErr.setVisibility(View.VISIBLE);
-            pStateErr.setText("Please enter state.");
-        } else {
-            pStateErr.setVisibility(View.GONE);
-        }
 
         if (!sameAsPermCB.isChecked()) {
             currentCBErr.setVisibility(View.VISIBLE);
             currentCBErr.setText("Please enter current address");
             if (cAdd.isEmpty()) {
                 cAddressErr.setVisibility(View.VISIBLE);
-                cAddressErr.setText("Please enter address.");
+                cAddressErr.setText("Please provide the address.");
             } else {
                 cAddressErr.setVisibility(View.GONE);
                 currentCBErr.setVisibility(View.GONE);
             }
             if (cPinCode.isEmpty()) {
                 cPincodeErr.setVisibility(View.VISIBLE);
-                cPincodeErr.setText("Please enter pincode.");
+                cPincodeErr.setText("Please enter a valid pincode.");
             } else {
                 cPincodeErr.setVisibility(View.GONE);
+                if (cCity.isEmpty()) {
+                    cCityErr.setVisibility(View.VISIBLE);
+                    cCityErr.setText("Please enter city.");
+                } else {
+                    cCityErr.setVisibility(View.GONE);
+                }
+
+                if (cState.isEmpty()) {
+                    cStateErr.setVisibility(View.VISIBLE);
+                    cStateErr.setText("Please enter state.");
+                } else {
+                    cStateErr.setVisibility(View.GONE);
+                }
             }
 
-            if (cCity.isEmpty()) {
-                cCityErr.setVisibility(View.VISIBLE);
-                cCityErr.setText("Please enter city.");
-            } else {
-                cCityErr.setVisibility(View.GONE);
-            }
-
-            if (cState.isEmpty()) {
-                cStateErr.setVisibility(View.VISIBLE);
-                cStateErr.setText("Please enter state.");
-            } else {
-                cStateErr.setVisibility(View.GONE);
-            }
         } else {
             currentCBErr.setVisibility(View.GONE);
+        }
+
+
+
+        if (fatherFName.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your father's first name.", Toast.LENGTH_SHORT).show();
+            fatherFName.requestFocus();
+            return;
+        }
+        if (fatherLName.getText().toString().length()==0){
+            Toast.makeText(this, "Please provide your father's last name.", Toast.LENGTH_SHORT).show();
+            fatherLName.requestFocus();
+            return;
         }
 
         if (!(dropdown.getSelectedItemPosition()==0)) {
@@ -880,6 +895,7 @@ public class UserDetails extends AppCompatActivity {
                 if (dependent1.length() == 0) {
                     noOfDept1Err.setVisibility(View.VISIBLE);
                     noOfDept1Err.setText("Please enter age.");
+                    depen1.requestFocus();
                     return;
                 } else {
                     noOfDept1Err.setVisibility(View.GONE);
@@ -888,6 +904,7 @@ public class UserDetails extends AppCompatActivity {
                 if (dependent1.length() == 0) {
                     noOfDept1Err.setVisibility(View.VISIBLE);
                     noOfDept1Err.setText("Please enter age.");
+                    depen1.requestFocus();
                     return;
                 } else {
                     noOfDept1Err.setVisibility(View.GONE);
@@ -895,6 +912,7 @@ public class UserDetails extends AppCompatActivity {
                 if (dependent2.length() == 0) {
                     noOfDept2Err.setVisibility(View.VISIBLE);
                     noOfDept2Err.setText("Please enter age.");
+                    depen2.requestFocus();
                     return;
                 } else {
                     noOfDept2Err.setVisibility(View.GONE);
@@ -903,6 +921,7 @@ public class UserDetails extends AppCompatActivity {
                 if (dependent1.length() == 0) {
                     noOfDept1Err.setVisibility(View.VISIBLE);
                     noOfDept1Err.setText("Please enter age.");
+                    depen1.requestFocus();
                     return;
                 } else {
                     noOfDept1Err.setVisibility(View.GONE);
@@ -910,6 +929,7 @@ public class UserDetails extends AppCompatActivity {
                 if (dependent2.length() == 0) {
                     noOfDept2Err.setVisibility(View.VISIBLE);
                     noOfDept2Err.setText("Please enter age.");
+                    depen2.requestFocus();
                     return;
                 } else {
                     noOfDept2Err.setVisibility(View.GONE);
@@ -917,6 +937,7 @@ public class UserDetails extends AppCompatActivity {
                 if (dependent3.length() == 0) {
                     noOfDept3Err.setVisibility(View.VISIBLE);
                     noOfDept3Err.setText("Please enter age.");
+                    depen3.requestFocus();
                     return;
                 } else {
                     noOfDept3Err.setVisibility(View.GONE);
@@ -924,48 +945,37 @@ public class UserDetails extends AppCompatActivity {
             }
         }
 
-        if (fatherFName.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your father's name", Toast.LENGTH_SHORT).show();
-            fatherFName.requestFocus();
-            return;
-        }
-        if (fatherLName.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your father's last name", Toast.LENGTH_SHORT).show();
-            fatherLName.requestFocus();
-            return;
-        }
         if (permAddress.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your permanent address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please provide the permanent address.", Toast.LENGTH_SHORT).show();
             permAddress.requestFocus();
             return;
         }
         if (permPincode.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your permanent pincode", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please provide your permanent pincode.", Toast.LENGTH_SHORT).show();
             permPincode.requestFocus();
             return;
         }
 
         if (permCity.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your permanent correct pincode", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please provide your permanent city.", Toast.LENGTH_SHORT).show();
             permCity.requestFocus();
             return;
         }
 
         if (!sameAsPermCB.isChecked() && localAddress.getText().toString().length()==0){
-            Toast.makeText(this, "Please provide your local address", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please provide your local address.", Toast.LENGTH_SHORT).show();
             localAddress.requestFocus();
             return;
         }
 
         if (married){
             if (spouseFName.length()==0){
-                Toast.makeText(this, "Please provide your father's name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please provide your spouse's first name.", Toast.LENGTH_SHORT).show();
                 spouseFName.requestFocus();
                 return;
             }
-
             if (spouseLName.length()==0){
-                Toast.makeText(this, "Please provide your father's last name", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please provide your spouse's last name.", Toast.LENGTH_SHORT).show();
                 spouseLName.requestFocus();
                 return;
             }
@@ -1055,6 +1065,8 @@ public class UserDetails extends AppCompatActivity {
                 if (!stay){
                     Intent i = new Intent(getApplicationContext(), EmployementDetails.class);
                     startActivity(i);
+                } else {
+                    Toast.makeText(UserDetails.this, "Saved", Toast.LENGTH_SHORT).show();
                 }
             }
 

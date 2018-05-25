@@ -86,7 +86,7 @@ public class DocumentsActivity extends AppCompatActivity {
     private TextView pan , aadhar;
     LinearLayout businessForm , salariedForm , selfEmpForm;
     CheckBox agreeCB , authorizeCB;
-    TextView agreeTxt , authorizeTxt;
+    TextView agreeTxt , authorizeTxt, tncCBErr, personalCBErr;;
 
 
     String empType;
@@ -116,6 +116,8 @@ public class DocumentsActivity extends AppCompatActivity {
         salarySlip2Password = findViewById(R.id.salarySlip2Password);
         salarySlip3Password = findViewById(R.id.salarySlip3Password);
         form16Password = findViewById(R.id.form16Password);
+        tncCBErr = findViewById(R.id.tncCheckboxErrTxt);
+        personalCBErr = findViewById(R.id.personalInfoCheckBoxErrTxt);
     }
 
     @Override
@@ -165,9 +167,9 @@ public class DocumentsActivity extends AppCompatActivity {
                         .substring(authorizeTxt.getSelectionStart(), authorizeTxt.getSelectionEnd())
                         .equals("Terms and Conditions")) {
                     authorizeTxt.invalidate();
-                    ds.setColor(Color.rgb(100,0,200)); // need put invalidate here to make text change to own color when pressed on Highlight Link
+                    ds.setColor(Color.rgb(210,60,50)); // need put invalidate here to make text change to own color when pressed on Highlight Link
                 } else {
-                    ds.setColor(Color.rgb(0,0,255));
+                    ds.setColor(getResources().getColor(R.color.orange));
                 }
                 // dont put invalidate here because if you put invalidate here `updateDrawState` will called forever
             }
@@ -190,7 +192,7 @@ public class DocumentsActivity extends AppCompatActivity {
                     agreeTxt.invalidate();
                     ds.setColor(Color.rgb(100,0,200)); // need put invalidate here to make text change to RED when pressed on Highlight Link
                 } else {
-                    ds.setColor(Color.rgb(0,0,255));
+                    ds.setColor(getResources().getColor(R.color.orange));
                 }
                 // dont put invalidate here because if you put invalidate here `updateDrawState` will called forever
             }
@@ -669,8 +671,7 @@ public class DocumentsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (REQUEST_CODE_DOC)
-        {
+        switch (REQUEST_CODE_DOC) {
 
             case R.id.panUploadFile:
                 filePaths = new ArrayList<>();
@@ -995,19 +996,20 @@ public class DocumentsActivity extends AppCompatActivity {
         }
 
 
-        if (!agreeCB.isChecked()){
-            agreeCB.setError("Please agree to our Terms and Conditions");
-            agreeCB.requestFocus();
+        if (!agreeCB.isChecked()) {
+            tncCBErr.setVisibility(View.VISIBLE);
+            tncCBErr.setText("Please read and agree to our terms and conditions.");
             return;
-        }else{
-            agreeCB.setError(null);
+        } else {
+            tncCBErr.setVisibility(View.GONE);
         }
-        if (!authorizeCB.isChecked()){
-            authorizeCB.setError("Please authorize us to validate your profile");
-            authorizeCB.requestFocus();
+
+        if (!authorizeCB.isChecked()) {
+            personalCBErr.setVisibility(View.VISIBLE);
+            personalCBErr.setText("Please read and agree to our privacy policy terms.");
             return;
-        }else{
-            authorizeCB.setError(null);
+        } else {
+            personalCBErr.setVisibility(View.GONE);
         }
 
 

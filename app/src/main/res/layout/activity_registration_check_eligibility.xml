@@ -62,7 +62,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="Connect social accounts" />
 
 
@@ -143,12 +143,13 @@
 
                 <LinearLayout
                     style="@style/linear_layout_for_et"
-                    android:layout_marginTop="15dp">
+                    android:layout_marginTop="10dp">
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:layout_gravity="center_vertical"
                         android:scaleType="center"
                         app:srcCompat="@drawable/money_icon" />
 
@@ -158,14 +159,13 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/amount"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Amount"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:maxLength="6"
-                            android:backgroundTint="@color/white"/>
+                           />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -174,14 +174,14 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_height="42dp"
+                    android:layout_height="38dp"
                     style="@style/linear_layout_for_cb">
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:scaleType="center"
+                        android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/date_icon" />
 
                     <LinearLayout
@@ -195,13 +195,15 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Tenure of Loan"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                         <Spinner
                             android:id="@+id/spinner1"
                             android:layout_width="160dp"
                             android:layout_height="match_parent"
-                            android:spinnerMode="dropdown" />
+                            android:spinnerMode="dropdown"
+                            android:scrollbarSize="@dimen/edit_text_size"/>
                     </LinearLayout>
 
 
@@ -211,15 +213,16 @@
                     style="@style/error_text_msg"/>
 
                 <LinearLayout
-                    android:layout_height="42dp"
+                    android:layout_height="38dp"
                     style="@style/linear_layout_for_cb"
-                    android:layout_marginBottom="10dp">
+                    >
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:scaleType="center"
+                        android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/date_icon" />
 
                     <LinearLayout
@@ -250,9 +253,9 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:scaleType="center"
+                        android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/description_icon" />
 
 
@@ -262,11 +265,9 @@
 
                         <MultiAutoCompleteTextView
                             android:id="@+id/description"
-                            android:layout_width="270dp"
-                            android:layout_height="wrap_content"
-                            android:text=""
+                            style="@style/edit_text_style"
                             android:hint="Description"
-                            android:backgroundTint="@color/white"/>
+                            />
 
                     </android.support.design.widget.TextInputLayout>
 
@@ -284,7 +285,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="30dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:text="Please describe about you loan requirment which can help you in attracting prospective investors. Click here to see an example" />
 
                 <TextView
@@ -292,7 +293,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="10dp"
                     android:text="Personal details" />
 
 
@@ -326,14 +327,16 @@
                                 android:layout_width="131dp"
                                 android:layout_height="wrap_content"
                                 android:onClick="onRadioButtonClickedMarital"
-                                android:text="Single" />
+                                android:text="Single"
+                                android:textSize="@dimen/edit_text_size"/>
 
                             <RadioButton
                                 android:id="@+id/radio_married"
                                 android:layout_width="117dp"
                                 android:layout_height="wrap_content"
                                 android:onClick="onRadioButtonClickedMarital"
-                                android:text="Married" />
+                                android:text="Married"
+                                android:textSize="@dimen/edit_text_size"/>
 
 
                         </RadioGroup>
@@ -365,16 +368,13 @@
 
                             <EditText
                                 android:id="@+id/dob"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:ems="10"
+                                style="@style/edit_text_style"
                                 android:onClick="setDate"
                                 android:hint="Date of birth"
                                 android:cursorVisible="false"
                                 android:focusable="false"
                                 android:focusableInTouchMode="false"
-                                android:backgroundTint="@color/white"/>
+                                />
                         </android.support.design.widget.TextInputLayout>
 
                     </LinearLayout>
@@ -401,14 +401,13 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/pincode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Pincode"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:maxLength="6"
-                            android:backgroundTint="@color/white"/>
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -432,13 +431,12 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/city"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="City"
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:backgroundTint="@color/white"/>
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -452,7 +450,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="Employment Details" />
 
 
@@ -464,7 +462,7 @@
 
 
                 <LinearLayout
-                    android:layout_height="42dp"
+                    android:layout_height="38dp"
                     style="@style/linear_layout_for_cb">
 
                     <ImageView
@@ -525,12 +523,9 @@
 
                                 <AutoCompleteTextView
                                     android:id="@+id/company"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:ems="10"
+                                    style="@style/edit_text_style"
                                     android:hint="Company"
-                                    android:backgroundTint="@color/white"/>
+                                    />
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -557,13 +552,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/incomeSalaried"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Monthly Income"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -572,7 +566,7 @@
                         style="@style/error_text_msg"/>
 
                     <LinearLayout
-                        android:layout_height="42dp"
+                        android:layout_height="38dp"
                         style="@style/linear_layout_for_cb">
 
                         <ImageView
@@ -610,16 +604,11 @@
                         style="@style/linear_layout_for_et">
 
                         <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:scaleType="center"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/date_icon" />
-
-                        <LinearLayout
-                            android:layout_width="270dp"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
 
                             <android.support.design.widget.TextInputLayout
                                 android:layout_width="270dp"
@@ -627,19 +616,14 @@
 
                                 <EditText
                                     android:id="@+id/workingSince"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:ems="10"
+                                    style="@style/edit_text_style"
                                     android:onClick="setWorkingSince"
                                     android:hint="Working Since"
                                     android:cursorVisible="false"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:backgroundTint="@color/white"/>
+                                    />
                             </android.support.design.widget.TextInputLayout>
-
-                        </LinearLayout>
 
                     </LinearLayout>
                     <TextView
@@ -662,8 +646,7 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/workExperience"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Work Experience : Years"
                                 android:inputType="number"
                                 android:maxLines="1"
@@ -691,13 +674,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/workExperienceMonth"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Work Experience : Months"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                               />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -734,12 +716,9 @@
 
                                 <EditText
                                     android:id="@+id/professionBusiness"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:ems="10"
+                                    style="@style/edit_text_style"
                                     android:hint="Business Type"
-                                    android:backgroundTint="@color/white"/>
+                                    />
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -765,13 +744,13 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/businessFormEstablishedYr"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Business Established Year"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                android:maxLength="4"
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -795,13 +774,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/turnoverBusiness"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Gross Annual Turnover"
+                                style="@style/edit_text_style"
+                                android:hint="Gross Annual Turnover (in Rs.)"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                               />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -825,13 +803,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/profitBusiness"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Gross Annual Profit"
+                                style="@style/edit_text_style"
+                                android:hint="Gross Annual Profit (in Rs.)"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -852,10 +829,10 @@
                         style="@style/linear_layout_for_et">
 
                         <ImageView
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:scaleType="center"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/business_icon" />
 
                         <LinearLayout
@@ -869,12 +846,11 @@
 
                                 <EditText
                                     android:id="@+id/professionSelfEmp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    style="@style/edit_text_style"
                                     android:layout_weight="1"
                                     android:ems="10"
                                     android:hint="Profession Type"
-                                    android:backgroundTint="@color/white"/>
+                                    />
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -898,15 +874,14 @@
                             android:layout_width="270dp"
                             android:layout_height="wrap_content">
 
-                            <AutoCompleteTextView
+                            <EditText
                                 android:id="@+id/selfEmpExp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Total Professional Experience (Years)"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -930,13 +905,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/turnoverSelfEmp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Gross Annual Turnover"
+                                style="@style/edit_text_style"
+                                android:hint="Gross Annual Turnover (in Rs.)"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -960,13 +934,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/profitSelfEmp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Gross Annual Profit"
+                                android:hint="Gross Annual Profit (in Rs.)"
+                                style="@style/edit_text_style"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -981,7 +954,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="Financial Details" />
 
 
@@ -991,7 +964,7 @@
                     app:srcCompat="@drawable/bottom_border2" />
 
                 <LinearLayout
-                    android:layout_height="42dp"
+                    android:layout_height="38dp"
                     style="@style/linear_layout_for_cb">
 
                     <ImageView
@@ -1038,9 +1011,9 @@
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:scaleType="center"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/purpose_icon" />
 
                         <android.support.design.widget.TextInputLayout
@@ -1049,13 +1022,12 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/monthlyRent"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:hint="Monthly rent"
+                                style="@style/edit_text_style"
+                                android:hint="Monthly Rent Amount (in Rs.)"
                                 android:inputType="number"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:backgroundTint="@color/white"/>
+                                />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
@@ -1068,7 +1040,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="50dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="10dp"
                         android:text="Can you provide gurantor who has own house ?"
                         android:textColor="@color/colorAccent"/>
                     <LinearLayout
@@ -1096,14 +1068,16 @@
                                     android:layout_width="131dp"
                                     android:layout_height="wrap_content"
                                     android:onClick="onRadioButtonClicked"
-                                    android:text="Yes" />
+                                    android:text="Yes"
+                                    android:textSize="@dimen/edit_text_size"/>
 
                                 <RadioButton
                                     android:id="@+id/canProvideGurantee_no"
                                     android:layout_width="117dp"
                                     android:layout_height="wrap_content"
                                     android:onClick="onRadioButtonClicked"
-                                    android:text="No" />
+                                    android:text="No"
+                                    android:textSize="@dimen/edit_text_size"/>
 
 
                             </RadioGroup>
@@ -1135,17 +1109,13 @@
 
                                 <EditText
                                     android:id="@+id/stayingSince"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:ems="10"
-                                    android:textSize="10dp"
+                                    style="@style/edit_text_style"
                                     android:onClick="setStayingSince"
                                     android:hint="Staying since at the current residence"
                                     android:cursorVisible="false"
                                     android:focusable="false"
                                     android:focusableInTouchMode="false"
-                                    android:backgroundTint="@color/white"/>
+                                    />
                             </android.support.design.widget.TextInputLayout>
 
                         </LinearLayout>
@@ -1176,13 +1146,12 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/spouseIncome"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Spouse Income"
+                            style="@style/edit_text_style"
+                            android:hint="Spouse Monthly Income (in Rs.)"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@color/white"/>
+                           />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -1195,25 +1164,24 @@
 
                     <ImageView
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:scaleType="center"
+                        android:layout_gravity="center_vertical"
                         app:srcCompat="@drawable/purpose_icon" />
 
                     <android.support.design.widget.TextInputLayout
                         android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0">
+                        >
 
                         <AutoCompleteTextView
                             android:id="@+id/otherIncome"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Any Other Monthly Income"
+                            style="@style/edit_text_style"
+                            android:hint="Any Other Monthly Income (in Rs.)"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@color/white"/>
+                            />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -1226,7 +1194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="Do you have any loan running"
                     android:textColor="@color/colorAccent"/>
                 <LinearLayout
@@ -1254,14 +1222,16 @@
                                 android:layout_width="131dp"
                                 android:layout_height="wrap_content"
                                 android:onClick="onRadioButtonClicked"
-                                android:text="Yes" />
+                                android:text="Yes"
+                                android:textSize="@dimen/edit_text_size"/>
 
                             <RadioButton
                                 android:id="@+id/radio_no_loan"
                                 android:layout_width="117dp"
                                 android:layout_height="wrap_content"
                                 android:onClick="onRadioButtonClicked"
-                                android:text="No" />
+                                android:text="No"
+                                android:textSize="@dimen/edit_text_size"/>
 
 
                         </RadioGroup>
@@ -1288,8 +1258,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/loanEmi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Total current EMI"
                             android:inputType="number"
                             android:maxLines="1"
@@ -1308,7 +1277,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="Do you have credit cards"
                     android:textColor="@color/colorAccent"/>
                 <LinearLayout
@@ -1336,14 +1305,16 @@
                                 android:layout_width="131dp"
                                 android:layout_height="wrap_content"
                                 android:onClick="onRadioButtonClicked"
-                                android:text="Yes" />
+                                android:text="Yes"
+                                android:textSize="@dimen/edit_text_size"/>
 
                             <RadioButton
                                 android:id="@+id/radio_no_creditCard"
                                 android:layout_width="117dp"
                                 android:layout_height="wrap_content"
                                 android:onClick="onRadioButtonClicked"
-                                android:text="No" />
+                                android:text="No"
+                                android:textSize="@dimen/edit_text_size"/>
 
                         </RadioGroup>
                     </LinearLayout>
@@ -1369,8 +1340,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/ccOutstanding"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Total Credit Card Amount Outstanding"
                             android:inputType="number"
                             android:maxLines="1"
@@ -1398,9 +1368,8 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/creditScore"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Cibil Score"
+                            style="@style/edit_text_style"
+                            android:hint="CIBIL Score (Credit Bureau Score)"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true" />
@@ -1431,6 +1400,7 @@
                     android:layout_width="224dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:textAllCaps="false"
                     android:background="@drawable/roundbutton_orange"
                     android:text="Check Eligibility"
                     android:textColor="#ffffff"

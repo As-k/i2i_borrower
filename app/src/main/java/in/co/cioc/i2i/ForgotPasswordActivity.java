@@ -156,7 +156,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     public void updateDrawState(TextPaint ds) {
                         super.updateDrawState(ds);
                         ds.setUnderlineText(false);
-                        ds.setColor(Color.BLUE);
+                        ds.setColor(getResources().getColor(R.color.colorPrimary));
                     }
                 }, sb.length()-clickableText.length(), sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 

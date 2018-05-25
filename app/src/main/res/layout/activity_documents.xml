@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:text="Document Details" />
 
@@ -42,14 +42,13 @@
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/bottom_border" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
                 android:orientation="horizontal"
                 android:paddingRight="20dp">
 
@@ -69,7 +68,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="PAN"
-                        android:textColor="@color/payu_blue" />
+                        android:textColor="@color/payu_blue"
+                        android:textSize="@dimen/edit_text_size"/>
                     <TextView
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
 
                 <ImageView
                     android:id="@+id/panEKYCStatusImg"
@@ -116,12 +116,10 @@
 
             <TextView
                 android:id="@+id/panUploadFileErrTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text=""
+                style="@style/edit_text_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="130dp"
-                android:textColor="@color/cb_errorRed"/>
+                />
 
             <LinearLayout
                 style="@style/linear_layout_for_et">
@@ -139,13 +137,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/panPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Password if any"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@color/white"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -174,7 +170,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Aadhar"
-                        android:textColor="@color/payu_blue" />
+                        android:textColor="@color/payu_blue"
+                        android:textSize="@dimen/edit_text_size"/>
                     <TextView
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
@@ -183,15 +180,13 @@
                         android:text="" />
                 </LinearLayout>
 
-
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="10dp">
                 <ImageView
                     android:id="@+id/aadharEKYCStatusImg"
                     android:layout_width="71dp"
@@ -224,12 +219,10 @@
 
             <TextView
                 android:id="@+id/aadharUploadFileErrTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text=""
+                style="@style/edit_text_style"
+                android:layout_marginBottom="5dp"
                 android:layout_marginStart="130dp"
-                android:textColor="@color/cb_errorRed"/>
+                />
 
             <LinearLayout
                 style="@style/linear_layout_for_et">
@@ -247,13 +240,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/aadharPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Password if any"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
                 </android.support.design.widget.TextInputLayout>
 
@@ -261,7 +252,7 @@
 
 
             <LinearLayout
-                android:layout_height="53dp"
+                android:layout_height="38dp"
                 style="@style/linear_layout_for_cb">
 
                 <ImageView
@@ -283,7 +274,8 @@
                         android:gravity="center_vertical"
                         android:textAlignment="center"
                         android:text="Type of Permanent address proof"
-                        android:textColor="@color/colorAccent" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/edit_text_size"/>
 
                     <Spinner
                         android:id="@+id/permAddressSpinner"
@@ -323,13 +315,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/permAddressPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Password if any"
                             android:inputType="textPassword"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
                     </android.support.design.widget.TextInputLayout>
 
@@ -339,15 +329,13 @@
 
             <TextView
                 android:id="@+id/permAddressUploadFileErrTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/edit_text_style"
                 android:layout_marginBottom="8dp"
-                android:text=""
                 android:layout_marginStart="130dp"
-                android:textColor="@color/cb_errorRed"/>
+                />
 
             <LinearLayout
-                android:layout_height="53dp"
+                android:layout_height="38dp"
                 style="@style/linear_layout_for_cb">
 
                 <ImageView
@@ -369,7 +357,8 @@
                         android:gravity="center_vertical"
                         android:textAlignment="center"
                         android:text="Type of Current address proof"
-                        android:textColor="@color/colorAccent" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/edit_text_size"/>
 
                     <Spinner
                         android:id="@+id/localAddressSpinner"
@@ -409,8 +398,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/localAddressPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Password if any"
                             android:inputType="textPassword"
                             android:maxLines="1"
@@ -425,12 +413,10 @@
 
             <TextView
                 android:id="@+id/localAddressUploadFileErrTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/edit_text_style"
                 android:layout_marginBottom="8dp"
-                android:text=""
                 android:layout_marginStart="130dp"
-                android:textColor="@color/cb_errorRed"/>
+                />
 
             <!---->
 
@@ -459,7 +445,8 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Bank Account  Statement (Last 12 Months)"
-                        android:textColor="@color/colorAccent" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/edit_text_size"/>
 
                 </LinearLayout>
 
@@ -494,8 +481,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/statement12Password"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Password if any"
                             android:inputType="textPassword"
                             android:maxLines="1"
@@ -510,12 +496,9 @@
 
             <TextView
                 android:id="@+id/statement12UploadFileErrTxt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/edit_text_style"
                 android:layout_marginBottom="8dp"
-                android:text=""
-                android:layout_marginStart="130dp"
-                android:textColor="@color/cb_errorRed"/>
+                android:layout_marginStart="130dp"/>
 
 
 
@@ -550,7 +533,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Salary Slip (Last Month Salary Slip)"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -585,8 +569,7 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/salarySlipLastPassword"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
@@ -634,7 +617,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Salary Slip (2nd Last Month Salary Slip)"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -668,8 +652,7 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/salarySlip2Password"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
@@ -716,7 +699,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Salary Slip (3rd Last Month Salary Slip)"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -752,8 +736,7 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/salarySlip3Password"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
@@ -802,7 +785,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Last year Form 16"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -838,8 +822,7 @@
 
                             <AutoCompleteTextView
                                 android:id="@+id/form16Password"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                style="@style/edit_text_style"
                                 android:hint="Password if any"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
@@ -880,14 +863,14 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Highest Degree Marksheet"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -965,14 +948,14 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Business PAN card"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1045,7 +1028,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Company registration documents"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1120,7 +1104,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Last Year Income Tax Return"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1194,7 +1179,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="2nd Last Year Income Tax Return"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1269,7 +1255,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="3rdLast Year Income Tax Return"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1351,7 +1338,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Business PAN card"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1425,7 +1413,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Company registration documents"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1499,7 +1488,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Last Year Income Tax Return"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1573,7 +1563,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="2nd Last Year Income Tax Return"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1617,7 +1608,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
-                    android:text=""
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1647,7 +1637,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="3rdLast Year Income Tax Return"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1723,7 +1714,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="Highest Degree Marksheet"
-                            android:textColor="@color/colorAccent" />
+                            android:textColor="@color/colorAccent"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
 
@@ -1767,8 +1759,7 @@
                     android:id="@+id/selfempMarkSheetUploadFileErrTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    android:layout_marginBottom="5dp"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1779,15 +1770,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:layout_margin="20dp"
+                android:gravity="center_vertical"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginRight="20dp"
                 >
                 <CheckBox
                     android:id="@+id/authorize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:paddingRight="5dp"
                    />
 
                 <TextView
@@ -1795,15 +1788,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:textColor="#123"
-                    android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. ' />
+                    android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. '
+                    android:textSize="@dimen/edit_text_size"/>
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/tncCheckboxErrTxt"
+                style="@style/error_text_msg"
+                android:layout_marginStart="50dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="20dp"
@@ -1813,18 +1811,21 @@
                     android:id="@+id/agree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginLeft="5dp"/>
+                    />
                 <TextView
                     android:id="@+id/agreetxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="5dp"
-                    android:textColor="#123"
+                    android:textSize="@dimen/edit_text_size"
                     android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com ' />
 
             </LinearLayout>
+            <TextView
+                android:id="@+id/personalInfoCheckBoxErrTxt"
+                style="@style/error_text_msg"
+                android:layout_marginStart="50dp" />
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
@@ -1833,9 +1834,6 @@
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@color/white">
-
-
-
 
                 <Button
                     android:id="@+id/register_button"

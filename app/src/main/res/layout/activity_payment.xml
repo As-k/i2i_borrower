@@ -96,6 +96,7 @@
                     android:gravity="end"
                     android:id="@+id/amount"
                     android:text="500" />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -143,7 +144,8 @@
                     android:id="@+id/couponCode"
                     android:layout_width="182dp"
                     android:layout_height="wrap_content"
-                    android:hint="Coupon code" />
+                    android:hint="Coupon code"
+                    android:textSize="@dimen/edit_text_size"/>
             </android.support.design.widget.TextInputLayout>
 
             <Button
@@ -154,6 +156,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/roundbutton_blue"
                 android:text="Apply"
+                android:textAllCaps="false"
                 android:textColor="#ffffff" />
 
         </LinearLayout>
@@ -167,7 +170,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Coupon code is Invalid"
+                android:text="Coupon code entered by you is incorrect."
                 android:textColor="@color/cb_errorRed"/>
         </LinearLayout>
 
@@ -180,7 +183,7 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Coupon code successfully applied"
+                android:text="100% Discount Coupon code applied successfully!"
                 android:textColor="@color/green"/>
         </LinearLayout>
 
@@ -192,7 +195,7 @@
             android:layout_marginBottom="20dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -205,6 +208,7 @@
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/roundbutton_orange"
                 android:text="Pay Now"
+                android:textAllCaps="false"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 

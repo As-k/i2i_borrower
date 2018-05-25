@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 android:text="Employment Details" />
 
@@ -42,7 +42,7 @@
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/bottom_border" />
 
@@ -69,13 +69,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/designation"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Designation"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -100,17 +98,18 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/officialEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Official E-mail id (optional)"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/selfEmailErrTxt"
+                    style="@style/error_text_msg"/>
 
             </LinearLayout>
 
@@ -136,13 +135,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/businessFormName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Business Name"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -151,36 +148,36 @@
                     android:id="@+id/bnameErrTxt"
                     style="@style/error_text_msg"/>
 
-                <LinearLayout
-                    style="@style/linear_layout_for_et">
+                <!--<LinearLayout-->
+                    <!--style="@style/linear_layout_for_et">-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/date_icon" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:scaleType="center"-->
+                        <!--app:srcCompat="@drawable/date_icon" />-->
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="270dp"
-                        android:layout_height="wrap_content">
+                    <!--<android.support.design.widget.TextInputLayout-->
+                        <!--android:layout_width="270dp"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <AutoCompleteTextView
-                            android:id="@+id/businessFormEstablishedYr"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Business Established Year"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
-                            />
+                        <!--<AutoCompleteTextView-->
+                            <!--android:id="@+id/businessFormEstablishedYr"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:hint="Business Established Year"-->
+                            <!--android:inputType="number"-->
+                            <!--android:maxLines="1"-->
+                            <!--android:singleLine="true"-->
+                            <!--android:backgroundTint="@android:color/transparent"-->
+                            <!--/>-->
 
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/bEYErrTxt"
-                    style="@style/error_text_msg"/>
+                    <!--</android.support.design.widget.TextInputLayout>-->
+                <!--</LinearLayout>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/bEYErrTxt"-->
+                    <!--style="@style/error_text_msg"/>-->
 
                 <LinearLayout
                     style="@style/linear_layout_for_et">
@@ -198,13 +195,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/businessFormWebsite"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Business Website (Optional)"
                             android:inputType="textWebEditText"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -226,13 +221,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/businessFormTan"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="TAN Number (Optional)"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -255,13 +248,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/businessFormPan"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="PAN Number (Optional)"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -283,13 +274,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/businessFormEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="E-mail id"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -322,48 +311,46 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/selfEmpWebsite"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Website (Optional)"
                             android:inputType="textWebEditText"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    style="@style/linear_layout_for_et">
+                <!--<LinearLayout-->
+                    <!--style="@style/linear_layout_for_et">-->
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center"
-                        app:srcCompat="@drawable/date_icon" />
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:scaleType="center"-->
+                        <!--app:srcCompat="@drawable/date_icon" />-->
 
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="270dp"
-                        android:layout_height="wrap_content">
+                    <!--<android.support.design.widget.TextInputLayout-->
+                        <!--android:layout_width="270dp"-->
+                        <!--android:layout_height="wrap_content">-->
 
-                        <AutoCompleteTextView
-                            android:id="@+id/selfEmpExp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Total Professional Experience (Years)"
-                            android:inputType="number"
-                            android:maxLines="1"
-                            android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
-                            />
+                        <!--<AutoCompleteTextView-->
+                            <!--android:id="@+id/selfEmpExp"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:hint="Total Professional Experience (Years)"-->
+                            <!--android:inputType="number"-->
+                            <!--android:maxLines="1"-->
+                            <!--android:singleLine="true"-->
+                            <!--android:backgroundTint="@android:color/transparent"-->
+                            <!--/>-->
 
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <TextView
-                    android:id="@+id/tpeYearErrTxt"
-                    style="@style/error_text_msg"/>
+                    <!--</android.support.design.widget.TextInputLayout>-->
+                <!--</LinearLayout>-->
+                <!--<TextView-->
+                    <!--android:id="@+id/tpeYearErrTxt"-->
+                    <!--style="@style/error_text_msg"/>-->
 
                 <LinearLayout
                     style="@style/linear_layout_for_cb">
@@ -385,14 +372,16 @@
                             android:layout_width="131dp"
                             android:layout_height="wrap_content"
                             android:text="Individual"
-                            android:onClick="onRadioButtonClicked"/>
+                            android:onClick="onRadioButtonClicked"
+                            android:textSize="@dimen/edit_text_size"/>
 
                         <RadioButton
                             android:id="@+id/radio_firm"
                             android:layout_width="117dp"
                             android:layout_height="wrap_content"
                             android:text="Firm"
-                            android:onClick="onRadioButtonClicked"/>
+                            android:onClick="onRadioButtonClicked"
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </RadioGroup>
 
@@ -417,13 +406,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/email"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Email(Optional)"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -438,7 +425,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
                 android:text="Office address" />
 
 
@@ -464,13 +450,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Address"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -495,14 +479,12 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/pincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Pincode"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:maxLength="6"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -527,8 +509,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/city"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="City"
                         android:inputType="text"
                         android:maxLines="1"
@@ -536,7 +517,6 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -561,8 +541,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/state"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="State"
                         android:inputType="text"
                         android:maxLines="1"
@@ -570,7 +549,6 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -599,12 +577,11 @@
                         <AutoCompleteTextView
                             android:id="@+id/stdCode"
                             android:layout_width="100dp"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="STD Code"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -615,12 +592,11 @@
                         <AutoCompleteTextView
                             android:id="@+id/phoneNum"
                             android:layout_width="170dp"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Phone No."
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -633,7 +609,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:padding="15dp">
                 <Button
@@ -641,7 +617,7 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="85dp"
                     android:layout_height="wrap_content"
-
+                    android:textAllCaps="false"
                     android:layout_weight="1"
                     android:background="@drawable/roundbutton_orange"
                     android:text="Previous"
@@ -657,8 +633,8 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="85dp"
                     android:layout_height="wrap_content"
-
                     android:layout_weight="1"
+                    android:textAllCaps="false"
                     android:background="@drawable/roundbutton_green"
                     android:text="Save"
                     android:textColor="#ffffff"
@@ -676,6 +652,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
+                    android:textAllCaps="false"
                     android:background="@drawable/roundbutton_blue"
                     android:text="Next"
                     android:textColor="#ffffff"

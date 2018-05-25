@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
                         android:layout_marginStart="10dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="20dp"
                         android:text="Loan details"
                         android:textColor="@color/colorPrimary"/>
 
@@ -119,7 +119,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:layout_marginTop="30dp">
+                        android:layout_marginTop="20dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -446,6 +446,7 @@
                                     android:background="@drawable/roundbutton_blue"
                                     android:text="Loan Rejected"
                                     android:textSize="8dp"
+                                    android:textAllCaps="false"
                                     android:textColor="@color/white"/>
 
                             </LinearLayout>
@@ -541,6 +542,7 @@
                                 android:layout_gravity="center_horizontal"
                                 android:background="@drawable/roundbutton_blue"
                                 android:text="Apply"
+                                android:textAllCaps="false"
                                 android:textColor="#ffffff" />
 
                         </LinearLayout>
@@ -575,6 +577,7 @@
                                 android:text="Pay and Post Your Loan"
                                 android:textColor="#ffffff"
                                 android:textStyle="bold"
+                                android:textAllCaps="false"
                                 android:onClick="continueRegistration"/>
 
                         </LinearLayout>
@@ -1567,7 +1570,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginBottom="20dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="40dp"
                         android:layout_weight="1"
                         android:orientation="vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -1584,6 +1587,7 @@
                             android:text="Continue registration"
                             android:textColor="#ffffff"
                             android:textStyle="bold"
+                            android:textAllCaps="false"
                             android:onClick="continueRegistration"/>
 
                     </LinearLayout>

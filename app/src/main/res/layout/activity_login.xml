@@ -61,7 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center_horizontal"
-                android:text="New Users" />
+                android:text="New Users"
+                android:textSize="@dimen/edit_text_size"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,7 +108,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:text="OR" />
+                    android:text="OR"
+                    android:textSize="@dimen/edit_text_size"
+                    />
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -122,7 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center_horizontal"
-                android:text="Existing users login below" />
+                android:text="Existing users login below"
+                android:textSize="@dimen/edit_text_size"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -145,13 +149,12 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="@string/prompt_email"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@color/white"/>
+                        />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -177,8 +180,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
@@ -195,6 +197,7 @@
                 android:gravity="end"
                 android:text="Forgot password ?"
                 android:onClick="resetPassword"
+                android:textSize="@dimen/edit_text_size"
                 />
 
 
@@ -220,7 +223,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="Not a member ? Register"
-                android:onClick="register"/>
+                android:onClick="register"
+                android:textSize="@dimen/edit_text_size"/>
 
 
         </LinearLayout>

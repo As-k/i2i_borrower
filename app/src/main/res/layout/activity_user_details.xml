@@ -42,7 +42,7 @@
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="20dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/bottom_border" />
 
@@ -51,18 +51,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="30dp"
                 android:text="Fathers name"
                 android:textColor="@color/colorAccent"/>
             <LinearLayout
                 style="@style/linear_layout_for_et"
-                android:layout_marginTop="0dp">
+                >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:scaleType="center"
                     app:srcCompat="@drawable/user_icon" />
 
                 <android.support.design.widget.TextInputLayout
@@ -71,13 +70,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/firstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="First Name"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -90,11 +87,12 @@
                 style="@style/linear_layout_for_et">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:scaleType="center"
                     app:srcCompat="@drawable/user_icon" />
+
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="270dp"
@@ -102,8 +100,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/middleName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Middle Name (Optional)"
                         android:inputType="text"
                         android:maxLines="1"
@@ -118,10 +115,10 @@
                 style="@style/linear_layout_for_et">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:scaleType="center"
                     app:srcCompat="@drawable/user_icon" />
 
                 <android.support.design.widget.TextInputLayout
@@ -130,13 +127,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/lastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Last Name"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -157,17 +152,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:text="Spouse name"
                     android:textColor="@color/colorAccent"/>
                 <LinearLayout
                     style="@style/linear_layout_for_et">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:scaleType="center"
                         app:srcCompat="@drawable/user_icon" />
 
                     <android.support.design.widget.TextInputLayout
@@ -176,13 +171,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/firstNameSpouse"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="First Name"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -195,10 +188,10 @@
                     style="@style/linear_layout_for_et">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:scaleType="center"
                         app:srcCompat="@drawable/user_icon" />
 
                     <android.support.design.widget.TextInputLayout
@@ -207,13 +200,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/middleNameSpouse"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Middle Name (Optional)"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -223,10 +214,10 @@
                     style="@style/linear_layout_for_et">
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:scaleType="center"
                         app:srcCompat="@drawable/user_icon" />
 
                     <android.support.design.widget.TextInputLayout
@@ -235,13 +226,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/lastNameSpouse"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Last Name"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -258,7 +247,7 @@
                 android:id="@+id/noofDependentSpinner">
 
             <LinearLayout
-                android:layout_height="53dp"
+                android:layout_height="38dp"
                 style="@style/linear_layout_for_cb">
 
                 <ImageView
@@ -279,7 +268,8 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:text="Number of dependents"
-                        android:textColor="@color/colorAccent" />
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/edit_text_size"/>
 
                     <Spinner
                         android:id="@+id/spinner"
@@ -310,13 +300,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/dependent1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Dependent 1 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -342,13 +330,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/dependent2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Dependent 2 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -373,13 +359,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/dependent3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Dependent 3 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -394,7 +378,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:text="Permanent address" />
 
 
@@ -420,13 +404,11 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/permanentAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Address"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -451,14 +433,12 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/permanentPincode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="Pincode"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:maxLength="6"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -483,8 +463,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/permanentCity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="City"
                         android:inputType="text"
                         android:maxLines="1"
@@ -492,7 +471,6 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -517,8 +495,7 @@
 
                     <AutoCompleteTextView
                         android:id="@+id/permanentState"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        style="@style/edit_text_style"
                         android:hint="State"
                         android:inputType="text"
                         android:maxLines="1"
@@ -526,7 +503,6 @@
                         android:cursorVisible="false"
                         android:focusable="false"
                         android:focusableInTouchMode="false"
-                        android:backgroundTint="@android:color/transparent"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -540,7 +516,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:text="Current address" />
 
 
@@ -558,9 +534,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="20dp"
                     android:id="@+id/sameAsPerm"
-                    android:text="Current Address if same as Permanent Address" />
+                    android:text="Current Address if same as Permanent Address"
+                    android:textSize="@dimen/edit_text_size"/>
 
             </LinearLayout>
 
@@ -588,13 +565,11 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/currentAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Address"
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -619,14 +594,12 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/currentPincode"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="Pincode"
                             android:inputType="number"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:maxLength="6"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -651,8 +624,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/currentCity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="City"
                             android:inputType="text"
                             android:maxLines="1"
@@ -660,7 +632,6 @@
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -685,8 +656,7 @@
 
                         <AutoCompleteTextView
                             android:id="@+id/currentState"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            style="@style/edit_text_style"
                             android:hint="State"
                             android:inputType="text"
                             android:maxLines="1"
@@ -694,7 +664,6 @@
                             android:cursorVisible="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:backgroundTint="@android:color/transparent"
                             />
 
                     </android.support.design.widget.TextInputLayout>
@@ -708,7 +677,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
                 android:padding="15dp">
 
@@ -717,10 +686,10 @@
                     style="?android:textAppearanceSmall"
                     android:layout_width="139dp"
                     android:layout_height="wrap_content"
-
                     android:layout_weight="1"
                     android:background="@drawable/roundbutton_green"
                     android:text="Save"
+                    android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
 
@@ -738,6 +707,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/roundbutton_blue"
                     android:text="Next"
+                    android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -36,6 +36,7 @@ import com.githang.stepview.StepView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.rilixtech.CountryCodePicker;
 import com.ybs.passwordstrengthmeter.PasswordStrength;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     EditText pan;
     EditText email;
     EditText mobile;
+    CountryCodePicker ccp;
 
     private EditText mobileOTPEdit;
     private EditText emailOTPEdit;
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         pan.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 
         email = findViewById(R.id.email);
+        ccp = (CountryCodePicker) findViewById(R.id.ccp);
         mobile = findViewById(R.id.mobile);
 
         mPasswordView = findViewById(R.id.password);
@@ -163,13 +166,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         pattern = Pattern.compile(EMAIL_PATTERN);
-
+        final Drawable img = this.getResources().getDrawable( R.drawable.user_icon);
         fName.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 if(s.toString().trim().equals("")){
                     fnameErr.setVisibility(View.VISIBLE);
                     fnameErr.setText("Please enter first name.");
+                    register_button.setText("GET OTP");
+                    fnameValid = false;
                 } else{
                     fnameErr.setVisibility(View.GONE);
                 }
@@ -198,6 +203,8 @@ public class MainActivity extends AppCompatActivity {
                 if(s.toString().trim().equals("")){
                     lnameErr.setVisibility(View.VISIBLE);
                     lnameErr.setText("Please enter last name.");
+                    register_button.setText("GET OTP");
+                    lnameValid = false;
                 } else{
                     lnameErr.setVisibility(View.GONE);
                 }
@@ -243,7 +250,8 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     panErr.setVisibility(View.VISIBLE);
-                    panErr.setText("Please enter valid PAN number.");
+                    panErr.setText("Please enter valid PAN card number.");
+                    register_button.setText("GET OTP");
                     pan.requestFocus();
                 }
             }
@@ -255,16 +263,21 @@ public class MainActivity extends AppCompatActivity {
 
                 if (s.length() > 10){
                     pan.setText(s.toString().substring(0,10));
+                    panValid = false;
                 }
 
                 if(s.length() != 0 && s.length() != 10){
                     // show error message on pan
                     panErr.setVisibility(View.VISIBLE);
-                    panErr.setText("Please enter valid PAN number.");
+                    panErr.setText("Please enter valid PAN card number.");
+                    register_button.setText("GET OTP");
+                    panValid = false;
                     pan.requestFocus();
                 }else if(s.length() == 0){
                     panErr.setVisibility(View.VISIBLE);
-                    panErr.setText("PAN card is required");
+                    register_button.setText("GET OTP");
+                    panErr.setText("PAN card is required.");
+                    panValid = false;
                     pan.requestFocus();
                 }else {
                     // check regex and backend validity of the pan
@@ -291,11 +304,14 @@ public class MainActivity extends AppCompatActivity {
                                 }else{
                                     panValid = false;
                                     panErr.setVisibility(View.VISIBLE);
-                                    panErr.setText("Please enter valid PAN number.");
+                                    register_button.setText("GET OTP");
+                                    panErr.setText("Please enter valid PAN card number.");
                                     pan.requestFocus();
                                     if (count>0) {
                                         panValid = false;
-                                        pan.setError("PAN card already exist");
+                                        panErr.setVisibility(View.VISIBLE);
+                                        panErr.setText("This PAN is already registered with us.");
+                                        register_button.setText("GET OTP");
                                         pan.requestFocus();
                                     }
                                 }
@@ -314,7 +330,9 @@ public class MainActivity extends AppCompatActivity {
 
                     }else{
                         panValid = false;
-                        pan.setError("Invalid PAN card");
+                        panErr.setVisibility(View.VISIBLE);
+                        panErr.setText("Invalid PAN Card details");
+                        register_button.setText("GET OTP");
                         pan.requestFocus();
                     }
                 }
@@ -327,6 +345,8 @@ public class MainActivity extends AppCompatActivity {
                 if (s.toString().trim().equals("")){
                     emailErr.setVisibility(View.VISIBLE);
                     emailErr.setText("Please enter your Email-Id.");
+                    register_button.setText("GET OTP");
+                    emailValid = false;
                     email.requestFocus();
                 }
 
@@ -354,16 +374,20 @@ public class MainActivity extends AppCompatActivity {
                             }catch (JSONException err){
                             }
                             if (count ==0){
+                                emailErr.setVisibility(View.GONE);
                                 showSuccess(email);
                                 emailValid = true;
                             }else {
                                 emailValid = false;
+                                register_button.setText("GET OTP");
                                 emailErr.setVisibility(View.VISIBLE);
                                 emailErr.setText("Please enter your Email-Id.");
                                 email.requestFocus();
                                 if (count > 0) {
                                     emailValid = false;
-                                    email.setError("Email ID already exist");
+                                    register_button.setText("GET OTP");
+                                    emailErr.setVisibility(View.VISIBLE);
+                                    emailErr.setText("This Email-Id is already registered with us.");
                                     email.requestFocus();
                                 }
                             }
@@ -380,7 +404,9 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
                     emailValid = false;
-                    email.setError("Invalid Email-Id");
+                    register_button.setText("GET OTP");
+                    emailErr.setVisibility(View.VISIBLE);
+                    emailErr.setText("Invalid Email-Id");
                     email.requestFocus();
                 }
             }
@@ -391,7 +417,9 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
                     aadharErr.setVisibility(View.VISIBLE);
-                    aadharErr.setText("Please enter valid aadhaar no.");
+                    aadharErr.setText("Please enter valid Aadhaar no.");
+                    register_button.setText("GET OTP");
+                    aadharValid = false;
                     adhar.requestFocus();
                 }
             }
@@ -416,15 +444,19 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if (count ==0){
                                 showSuccess(adhar);
+                                aadharErr.setVisibility(View.GONE);
                                 aadharValid = true;
                             } else {
                                 aadharValid = false;
                                 aadharErr.setVisibility(View.VISIBLE);
-                                aadharErr.setText("Please enter valid aadhaar no.");
+                                aadharErr.setText("Please enter valid Aadhaar no.");
+                                register_button.setText("GET OTP");
                                 adhar.requestFocus();
                             }if (count>0){
                                 aadharValid = false;
-                                adhar.setError("Aadhar Number already exist");
+                                aadharErr.setVisibility(View.VISIBLE);
+                                register_button.setText("GET OTP");
+                                aadharErr.setText("This Aadhaar number is already registered with us.");
                                 adhar.requestFocus();
                             }
                         }
@@ -440,19 +472,25 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
                     aadharValid = false;
-                    adhar.setError("Invalid Aadhar Number");
+                    register_button.setText("GET OTP");
+                    aadharErr.setVisibility(View.VISIBLE);
+                    aadharErr.setText("Invalid Aadhaar number");
                     adhar.requestFocus();
                 }
             }
         });
+
+
 
         mobile.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
                     mobileErr.setVisibility(View.VISIBLE);
-                    mobileErr.setText("Invalid Mobile Number");
+                    mobileErr.setText("Please enter your mobile number.");
+                    register_button.setText("GET OTP");
                     mobile.requestFocus();
+                    mobileValid = false;
                 }
             }
             @Override
@@ -477,16 +515,20 @@ public class MainActivity extends AppCompatActivity {
                             }
                             if (count ==0){
                                 showSuccess(mobile);
+                                mobileErr.setVisibility(View.GONE);
                                 mobileValid = true;
                             } else {
                                 mobileValid = false;
                                 mobileErr.setVisibility(View.VISIBLE);
-                                mobileErr.setText("Invalid Mobile Number");
+                                mobileErr.setText("Your mobile number is invalid.");
+                                register_button.setText("GET OTP");
                                 mobile.requestFocus();
                                 if (count>0) {
                                     mobileValid = false;
-                                    mobile.setError("Mobile Number already exist");
+                                    mobileErr.setVisibility(View.VISIBLE);
+                                    mobileErr.setText("This mobile number is already registered with us.");
                                     mobile.requestFocus();
+                                    register_button.setText("GET OTP");
                                 }
                              }
                         }
@@ -502,7 +544,9 @@ public class MainActivity extends AppCompatActivity {
 
                 }else{
                     mobileValid = false;
-                    mobile.setError("Invalid Mobile Number");
+                    register_button.setText("GET OTP");
+                    mobileErr.setVisibility(View.VISIBLE);
+                    mobileErr.setText("Invalid Mobile number");
                     mobile.requestFocus();
                 }
             }
@@ -516,7 +560,9 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
                     passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setText("Invalid Password");
+                    register_button.setText("GET OTP");
+                    passwordErr.setText("Please enter Password.");
+                    passwordValid = false;
                 }
             }
             @Override
@@ -527,14 +573,18 @@ public class MainActivity extends AppCompatActivity {
 
                 updatePasswordStrengthView(s.toString());
 
-                if(PasswordStrength.calculateStrength(s.toString()).getText(getApplicationContext()).equals("Strong")){
+                if(PasswordStrength.calculateStrength(s.toString()).getText(MainActivity.this).equals("Strong")){
                     showSuccess(mPasswordView);
-                    passwordErr.setVisibility(View.GONE);
+                    passwordErr.setVisibility(View.VISIBLE);
+                    passwordErr.setTextColor(getResources().getColor(R.color.green));
+                    passwordErr.setText("Your Password is Strong.");
                     passwordValid = true;
                 } else {
                     passwordValid = false;
+                    register_button.setText("GET OTP");
                     passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setText("Invalid Password");
+                    passwordErr.setTextColor(getResources().getColor(R.color.cb_errorRed));
+                    passwordErr.setText("Your Password is Weak.");
                 }
             }
         });
@@ -543,8 +593,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
-                    passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setText("Invalid Password");
+                    password2Err.setVisibility(View.VISIBLE);
+                    register_button.setText("GET OTP");
+                    password2Err.setText("Confirm Password does not match.");
+                    repasswordValid = false;
                 }
             }
             @Override
@@ -561,7 +613,8 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     repasswordValid = false;
                     password2Err.setVisibility(View.VISIBLE);
-                    password2Err.setText("Password does not matches");
+                    register_button.setText("GET OTP");
+                    password2Err.setText("Confirm Password does not match.");
                 }
             }
         });
@@ -581,20 +634,20 @@ public class MainActivity extends AppCompatActivity {
                 password = mPasswordView.getText().toString().trim();
                 repassword = RePasswordView.getText().toString().trim();
 
-                if (repassword.isEmpty()){
-                    password2Err.setVisibility(View.VISIBLE);
-                    password2Err.setText("Password is required");
-                    RePasswordView.requestFocus();
-                } else {
-                    password2Err.setVisibility(View.GONE);
-                }
 
                 if (password.isEmpty()){
                     passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setText("Password is required");
+                    passwordErr.setText("Please enter Password.");
                     mPasswordView.requestFocus();
                 } else {
                     passwordErr.setVisibility(View.GONE);
+                    if (repassword.isEmpty()){
+                        password2Err.setVisibility(View.VISIBLE);
+                        password2Err.setText("Confirm Password does not match.");
+                        RePasswordView.requestFocus();
+                    } else {
+                        password2Err.setVisibility(View.GONE);
+                    }
                 }
 
                 if (p_mobile.isEmpty()){
@@ -623,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (p_adhar.isEmpty()){
                     aadharErr.setVisibility(View.VISIBLE);
-                    aadharErr.setText("Please enter valid aadhaar no.");
+                    aadharErr.setText("Please enter valid Aadhaar no.");
                     adhar.requestFocus();
                 } else {
                     aadharErr.setVisibility(View.GONE);
@@ -654,37 +707,37 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (!fnameValid){
-                    Toast.makeText(MainActivity.this, "Please enter first name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter first name.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!lnameValid){
-                    Toast.makeText(MainActivity.this, "Please enter last name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter last name.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!aadharValid){
-                    Toast.makeText(MainActivity.this, "Please enter aadhar card", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter valid Aadhaar no.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!panValid){
-                    Toast.makeText(MainActivity.this, "Please enter pan card", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter valid PAN card number.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!emailValid){
-                    Toast.makeText(MainActivity.this, "Please enter email-id", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter your Email-Id", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!mobileValid){
-                    Toast.makeText(MainActivity.this, "Please enter mobile no.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter your mobile no.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!passwordValid){
-                    Toast.makeText(MainActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter Password.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -710,6 +763,7 @@ public class MainActivity extends AppCompatActivity {
                     params.put("password", mPasswordView.getText().toString().trim());
                     params.put("password2", RePasswordView.getText().toString().trim());
                     params.put("mobileNum", mobile.getText().toString().trim());
+                    params.put("mobileCode", ccp.getSelectedCountryCode());
                     params.put("mobileOTP", "");
                     params.put("emailOTP", "");
                     params.put("type", "borrower");
@@ -740,8 +794,8 @@ public class MainActivity extends AppCompatActivity {
 
 //                                otpMasterLayout.setVisibility(LinearLayout.VISIBLE);
                                 register_button.setText("√ Sent (Resend ?)");
-                                mobileOTPEdit.setText("");
                                 emailOTPEdit.setText("");
+                                mobileOTPEdit.setText("");
 //                            Intent i = new Intent(getApplicationContext(), RegistrationOTP.class);
 //                            i.putExtras(bundle);
 //                            startActivity(i);
@@ -753,7 +807,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 } else {
                     password2Err.setVisibility(View.VISIBLE);
-                    password2Err.setText("Password does not matches");
+                    password2Err.setText("Confirm Password does not match.");
                     RePasswordView.requestFocus();
                 }
 
@@ -783,9 +837,9 @@ public class MainActivity extends AppCompatActivity {
                         .substring(authorizeTxt.getSelectionStart(), authorizeTxt.getSelectionEnd())
                         .equals("Terms and Conditions")) {
                     authorizeTxt.invalidate();
-                    ds.setColor(Color.rgb(100,0,200)); // need put invalidate here to make text change to RED when pressed on Highlight Link
+                    ds.setColor(Color.rgb(200,50,50)); // need put invalidate here to make text change to RED when pressed on Highlight Link
                 } else {
-                    ds.setColor(Color.rgb(0,0,255));
+                    ds.setColor(getResources().getColor(R.color.orange));
                 }
                 // dont put invalidate here because if you put invalidate here `updateDrawState` will called forever
             }
@@ -806,9 +860,9 @@ public class MainActivity extends AppCompatActivity {
                         .substring(agreeTxt.getSelectionStart(), agreeTxt.getSelectionEnd())
                         .equals("Privacy Policy")) {
                     agreeTxt.invalidate();
-                    ds.setColor(Color.rgb(100,0,200)); // need put invalidate here to make text change to RED when pressed on Highlight Link
+                    ds.setColor(Color.rgb(200,50,50)); // need put invalidate here to make text change to RED when pressed on Highlight Link
                 } else {
-                    ds.setColor(Color.rgb(0,0,255));
+                    ds.setColor(getResources().getColor(R.color.orange));
                 }
                 // dont put invalidate here because if you put invalidate here `updateDrawState` will called forever
             }
@@ -835,7 +889,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
                     otpemailErr.setVisibility(View.VISIBLE);
-                    otpemailErr.setText("Please enter OTP sent to your email");
+                    otpemailErr.setText("Please enter OTP sent to your email.");
                 }
             }
             @Override
@@ -857,10 +911,12 @@ public class MainActivity extends AppCompatActivity {
                                     otpemailErr.setVisibility(View.GONE);
                                 } else{
                                     emailOTPValid = false;
+                                    otpemailErr.setVisibility(View.VISIBLE);
+                                    otpemailErr.setText("Invalid email OTP");
+                                    emailOTPEdit.requestFocus();
                                 }
                             }catch(JSONException e){
                                 removeSuccess(emailOTPEdit);
-                                emailOTPEdit.setError("Email OTP not correct");
                                 otpemailErr.setVisibility(View.VISIBLE);
                                 otpemailErr.setText("Invalid email OTP");
                                 emailOTPEdit.requestFocus();
@@ -871,7 +927,6 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }else {
                     removeSuccess(emailOTPEdit);
-                    emailOTPEdit.setError("Email OTP not correct");
                     otpemailErr.setVisibility(View.VISIBLE);
                     otpemailErr.setText("Invalid email OTP");
                     emailOTPEdit.requestFocus();
@@ -884,7 +939,7 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
                     otpmobileErr.setVisibility(View.VISIBLE);
-                    otpmobileErr.setText("Please enter OTP sent to your mobile");
+                    otpmobileErr.setText("Please enter OTP sent to your mobile.");
                 }
             }
             @Override
@@ -913,7 +968,6 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }catch(JSONException e){
                                 removeSuccess(mobileOTPEdit);
-                                mobileOTPEdit.setError("Mobile OTP not correct");
                                 otpmobileErr.setVisibility(View.VISIBLE);
                                 otpmobileErr.setText("Invalid mobile OTP");
                                 mobileOTPEdit.requestFocus();
@@ -928,7 +982,7 @@ public class MainActivity extends AppCompatActivity {
                     });
                 }else {
                     removeSuccess(mobileOTPEdit);
-                    mobileOTPEdit.setError("Mobile OTP not correct");
+//                    mobileOTPEdit.setError("Mobile OTP not correct");
                     otpmobileErr.setVisibility(View.VISIBLE);
                     otpmobileErr.setText("Invalid mobile OTP");
                     mobileOTPEdit.requestFocus();
@@ -960,21 +1014,21 @@ public class MainActivity extends AppCompatActivity {
 
                 if (!tncCB.isChecked()) {
                     tncCBErr.setVisibility(View.VISIBLE);
-                    tncCBErr.setText("Please agree to the terms and conditions");
+                    tncCBErr.setText("Please read and agree to our terms and conditions.");
                 } else {
                     tncCBErr.setVisibility(View.GONE);
                 }
 
                 if (!personalCB.isChecked()) {
                     personalCBErr.setVisibility(View.VISIBLE);
-                    personalCBErr.setText("Please agree to the privacy policy");
+                    personalCBErr.setText("Please read and agree to our privacy policy terms.");
                 } else {
                     personalCBErr.setVisibility(View.GONE);
                 }
 
                 if (email_otp.isEmpty()) {
                     otpemailErr.setVisibility(View.VISIBLE);
-                    otpemailErr.setText("Please enter OTP sent to your email");
+                    otpemailErr.setText("Please enter OTP sent to your email.");
                     emailOTPEdit.requestFocus();
                 } else {
                     otpemailErr.setVisibility(View.GONE);
@@ -982,26 +1036,25 @@ public class MainActivity extends AppCompatActivity {
 
                 if (mob_otp.isEmpty()) {
                     otpmobileErr.setVisibility(View.VISIBLE);
-                    otpmobileErr.setText("Please enter OTP sent to your mobile");
+                    otpmobileErr.setText("Please enter OTP sent to your mobile.");
                     mobileOTPEdit.requestFocus();
                 } else {
                     otpmobileErr.setVisibility(View.GONE);
                 }
 
-                if (repassword.isEmpty()){
-                    password2Err.setVisibility(View.VISIBLE);
-                    password2Err.setText("Password is required");
-                    RePasswordView.requestFocus();
-                } else {
-                    password2Err.setVisibility(View.GONE);
-                }
-
                 if (password.isEmpty()){
                     passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setText("Password is required");
+                    passwordErr.setText("Please enter Password.");
                     mPasswordView.requestFocus();
                 } else {
                     passwordErr.setVisibility(View.GONE);
+                    if (repassword.isEmpty() || !password.equals(repassword)){
+                        password2Err.setVisibility(View.VISIBLE);
+                        password2Err.setText("Confirm Password does not match.");
+                        RePasswordView.requestFocus();
+                    } else {
+                        password2Err.setVisibility(View.GONE);
+                    }
                 }
 
                 if (p_mobile.isEmpty()){
@@ -1022,7 +1075,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (p_pan.isEmpty()){
                     panErr.setVisibility(View.VISIBLE);
-                    panErr.setText("Please enter valid PAN number.");
+                    panErr.setText("Please enter valid PAN card number.");
                     pan.requestFocus();
                 } else {
                     panErr.setVisibility(View.GONE);
@@ -1030,7 +1083,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (p_adhar.isEmpty()){
                     aadharErr.setVisibility(View.VISIBLE);
-                    aadharErr.setText("Please enter valid aadhaar no.");
+                    aadharErr.setText("Please enter valid Aadhaar no.");
                     adhar.requestFocus();
                 } else {
                     aadharErr.setVisibility(View.GONE);
@@ -1062,12 +1115,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (!aadharValid){
-                    Toast.makeText(MainActivity.this, "Please enter aadhar card", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter valid Aadhaar no.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!panValid){
-                    Toast.makeText(MainActivity.this, "Please enter pan card", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter valid PAN card", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -1082,7 +1135,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (!passwordValid){
-                    Toast.makeText(MainActivity.this, "Invalid password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter Password.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -1122,110 +1175,113 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (!repasswordValid){
-                    Toast.makeText(MainActivity.this, "Invalid confirm password", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (!emailOTPValid){
-                    Toast.makeText(MainActivity.this, "Invalid email OTP", Toast.LENGTH_SHORT).show();
+                if (!repasswordValid || !password.equals(repassword)){
+                    Toast.makeText(MainActivity.this, "Confirm Password does not match.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (!mobOTPValid){
-                    Toast.makeText(MainActivity.this, "Invalid mobile OTP", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Please enter OTP sent to your mobile", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (!tncCB.isChecked()) {
-                    tncCBErr.setVisibility(View.VISIBLE);
-                    tncCBErr.setText("Please agree to the terms and conditions");
-                } else {
-                    tncCBErr.setVisibility(View.GONE);
-                    if (!personalCB.isChecked()) {
-//                    Toast.makeText(MainActivity.this, "Please agree to the privacy policy", Toast.LENGTH_SHORT).show();
-                        personalCBErr.setVisibility(View.VISIBLE);
-                        personalCBErr.setText("Please agree to the privacy policy");
+                if (!emailOTPValid){
+                    Toast.makeText(MainActivity.this, "Please enter OTP sent to your email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(register_button.getText().toString().equals("√ Sent (Resend ?)")) {
+                    if (!tncCB.isChecked()) {
+                        tncCBErr.setVisibility(View.VISIBLE);
+                        tncCBErr.setText("Please read and agree to our terms and conditions.");
                     } else {
-                        personalCBErr.setVisibility(View.GONE);
-                        if (mob_otp.equals(mobileOtp)) {
-                            if (email_otp.equals(emailOtp)) {
-                                JSONObject userObj = new JSONObject();
+                        tncCBErr.setVisibility(View.GONE);
+                        if (!personalCB.isChecked()) {
+                            personalCBErr.setVisibility(View.VISIBLE);
+                            personalCBErr.setText("Please read and agree to our privacy policy terms.");
+                        } else {
+                            personalCBErr.setVisibility(View.GONE);
+                            if (mob_otp.equals(mobileOtp)) {
+                                if (email_otp.equals(emailOtp)) {
+                                    JSONObject userObj = new JSONObject();
 
-                                try {
-                                    userObj.put("firstName", fName.getText().toString());
-                                    userObj.put("middleName", mName.getText().toString());
-                                    userObj.put("lastName", lName.getText().toString());
+                                    try {
+                                        userObj.put("firstName", fName.getText().toString());
+                                        userObj.put("middleName", mName.getText().toString());
+                                        userObj.put("lastName", lName.getText().toString());
 
-                                    if (male.isChecked()) {
-                                        userObj.put("gender", "M");
-                                    } else if (feMale.isChecked()) {
-                                        userObj.put("gender", "F");
-                                    } else {
-                                        return;
-                                    }
-
-                                    userObj.put("aadhar", adhar.getText().toString());
-                                    userObj.put("panNumber", pan.getText().toString());
-                                } catch (JSONException e) {
-
-                                }
-
-                                JSONObject jsonParams = new JSONObject();
-                                try {
-                                    jsonParams.put("mobileOTP", mobileOTPEdit.getText().toString());
-                                    jsonParams.put("emailOTP", emailOTPEdit.getText().toString());
-                                    jsonParams.put("emailID", email.getText().toString());
-                                    jsonParams.put("user", userObj);
-                                } catch (JSONException e) {
-
-                                }
-
-                                StringEntity entity = null;
-
-                                try {
-                                    entity = new StringEntity(jsonParams.toString());
-                                } catch (Exception e) {
-
-                                }
-
-
-                                client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/submitBasic/", entity, "application/json", new JsonHttpResponseHandler() {
-                                    @Override
-                                    public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
-                                        super.onSuccess(statusCode, headers, c);
-
-                                        try {
-                                            String session_id = c.getString("session_id");
-                                            String csrf_token = c.getString("csrf_token");
-
-
-                                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                                            editor.putString("session_id", session_id);
-                                            editor.putString("csrf_token", csrf_token);
-                                            editor.putString("email", email.getText().toString());
-                                            editor.putString("mobile", mobile.getText().toString());
-                                            editor.commit();
-                                        } catch (JSONException e) {
-
+                                        if (male.isChecked()) {
+                                            userObj.put("gender", "M");
+                                        } else if (feMale.isChecked()) {
+                                            userObj.put("gender", "F");
+                                        } else {
+                                            return;
                                         }
 
+                                        userObj.put("aadhar", adhar.getText().toString());
+                                        userObj.put("panNumber", pan.getText().toString());
+                                    } catch (JSONException e) {
 
-                                        Intent i = new Intent(getApplicationContext(), RegistrationCheckEligibility.class);
-                                        startActivity(i);
                                     }
 
-                                    @Override
-                                    public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject c) {
-                                        System.out.println("Console is: " + "Faild OTP verification");
+                                    JSONObject jsonParams = new JSONObject();
+                                    try {
+                                        jsonParams.put("mobileOTP", mobileOTPEdit.getText().toString());
+                                        jsonParams.put("emailOTP", emailOTPEdit.getText().toString());
+                                        jsonParams.put("emailID", email.getText().toString());
+                                        jsonParams.put("user", userObj);
+                                    } catch (JSONException e) {
+
                                     }
 
-                                });
+                                    StringEntity entity = null;
+
+                                    try {
+                                        entity = new StringEntity(jsonParams.toString());
+                                    } catch (Exception e) {
+
+                                    }
+
+
+                                    client.post(getApplicationContext(), backend.BASE_URL + "/api/v1/borrowerRegistration/submitBasic/", entity, "application/json", new JsonHttpResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                                            super.onSuccess(statusCode, headers, c);
+
+                                            try {
+                                                String session_id = c.getString("session_id");
+                                                String csrf_token = c.getString("csrf_token");
+
+
+                                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                                editor.putString("session_id", session_id);
+                                                editor.putString("csrf_token", csrf_token);
+                                                editor.putString("email", email.getText().toString());
+                                                editor.putString("mobile", mobile.getText().toString());
+                                                editor.commit();
+                                            } catch (JSONException e) {
+
+                                            }
+
+
+                                            Intent i = new Intent(getApplicationContext(), RegistrationCheckEligibility.class);
+                                            startActivity(i);
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject c) {
+                                            System.out.println("Console is: " + "Faild OTP verification");
+                                        }
+
+                                    });
+                                }
                             }
                         }
                     }
-                }
 
+                } else {
+                    Toast.makeText(MainActivity.this, "Please click on GET OTP for new OTP.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -1291,7 +1347,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         if (password.isEmpty()) {
-            strengthView.setText("");
+            strengthView.setText("Weak");
             progressBar.setProgress(0);
             return;
         }

@@ -378,31 +378,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         tv_fb_connect = findViewById(R.id.tv_fb_connect);
         tv_fb_connect.setVisibility(View.GONE);
 
-//        progress = new ProgressDialog(this);
-
-//        linkedin_connect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                progress.setTitle("Please wait");
-//                progress.setMessage("Connecting to LinkedIn");
-////                progress.setCancelable(false);
-//                progress.show();
-//
-//            }
-//        });
-
-//        fb_connect.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                progress.setTitle("Please wait");
-//                progress.setMessage("Connecting to Facebook");
-////                progress.setCancelable(false);
-//                progress.show();
-//
-//            }
-//        });
         initParameters();
         initViews();
         AccessTokenTracker accessTokenTracker = new AccessTokenTracker() {
@@ -484,7 +459,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setUnderlineText(false);
-                ds.setColor(Color.BLUE);
+                ds.setColor(getResources().getColor(R.color.orange));
             }
 
         }, sb.length()-clickableText.length(), sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -514,7 +489,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     professionTypeErr.setVisibility(View.VISIBLE);
-                    professionTypeErr.setText("Please select profession type");
+                    professionTypeErr.setText("What is your profession type ?");
                 } else {
                     professionTypeErr.setVisibility(View.GONE);
                 }
@@ -526,9 +501,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(professionTypeTxt);
+                    professionTypeErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(professionTypeTxt);
-                    professionTypeTxt.setError("Please tell us about the profession type you are in");
+                    professionTypeErr.setVisibility(View.VISIBLE);
+                    professionTypeErr.setText("Please tell us about the profession type you are in");
                     professionTypeTxt.requestFocus();
                 }
             }
@@ -539,7 +516,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(s.toString().trim().equals("")){
                     totalProfessionEYrErr.setVisibility(View.VISIBLE);
-                    totalProfessionEYrErr.setText("Please enter professional exp.");
+                    totalProfessionEYrErr.setText("Please provide your total professional experience.");
                 } else{
                     totalProfessionEYrErr.setVisibility(View.GONE);
                 }
@@ -549,11 +526,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 if(s.length() != 0){
                     showSuccess(selfEmpExp);
+                    totalProfessionEYrErr.setVisibility(View.GONE);
                 }else {
-                    selfEmpExp.setError("Invalid professional exp.");
+                    totalProfessionEYrErr.setVisibility(View.VISIBLE);
+                    totalProfessionEYrErr.setText("Please provide your total professional experience.");
                     selfEmpExp.requestFocus();
                 }
             }
@@ -564,7 +542,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     pGrossATOErr.setVisibility(View.VISIBLE);
-                    pGrossATOErr.setText("Please enter your turnover last year");
+                    pGrossATOErr.setText("Please enter your annual turnover (in Rs.)");
                 } else {
                     pGrossATOErr.setVisibility(View.GONE);
                 }
@@ -576,9 +554,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(turnoverSelfEmpTxt);
+                    pGrossATOErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(turnoverSelfEmpTxt);
-                    turnoverSelfEmpTxt.setError("What was your turnover last year");
+                    pGrossATOErr.setVisibility(View.GONE);
+                    pGrossATOErr.setText("What was your turnover last year");
                     turnoverSelfEmpTxt.requestFocus();
                 }
             }
@@ -589,7 +569,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     pGrossAPErr.setVisibility(View.VISIBLE);
-                    pGrossAPErr.setText("Please enter the profit you made last year ");
+                    pGrossAPErr.setText("Please enter gross annual profit (in Rs.)");
                 } else {
                     pGrossAPErr.setVisibility(View.GONE);
                 }}
@@ -600,9 +580,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(profitSelfEmpTxt);
+                    pGrossAPErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(profitSelfEmpTxt);
-                    profitSelfEmpTxt.setError("What was the profit you made last year");
+                    pGrossAPErr.setVisibility(View.VISIBLE);
+                    pGrossAPErr.setText("What was the profit you made last year");
                     profitSelfEmpTxt.requestFocus();
                 }
             }
@@ -621,7 +603,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     businessTypeErr.setVisibility(View.VISIBLE);
-                    businessTypeErr.setText("Please select business type");
+                    businessTypeErr.setText("Please provide type of your business ?");
                 } else {
                     businessTypeErr.setVisibility(View.GONE);
                 }
@@ -633,9 +615,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(professionBusinessTxt);
+                    businessTypeErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(professionBusinessTxt);
-                    professionBusinessTxt.setError("What is your business type");
+                    businessTypeErr.setVisibility(View.VISIBLE);
+                    businessTypeErr.setError("Please provide type of your business ?");
                     professionBusinessTxt.requestFocus();
                 }
             }
@@ -644,25 +628,30 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
         businessFormEstablishedYr.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.toString().trim().equals("")){
-                    businessEYrErr.setVisibility(View.VISIBLE);
-                    businessEYrErr.setText("Please enter established year.");
-                } else{
-                    businessEYrErr.setVisibility(View.GONE);
-                }
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.toString().trim().equals("")){
+                    businessEYrErr.setVisibility(View.VISIBLE);
+                    businessEYrErr.setText("Please provide establishment year of your business.");
+                } else if(s.toString().trim().length() == 4){
+                    int years = Integer.parseInt(s.toString().trim());
+                    if (1800 <= years && years <= year) {
+                        businessEYrErr.setVisibility(View.GONE);
+                        showSuccess(businessFormEstablishedYr);
+                    } else {
+                        businessEYrErr.setVisibility(View.VISIBLE);
+                        businessEYrErr.setText("Please provide valid establishment year of your business.");
+                        removeSuccess(businessFormEstablishedYr);
+                    }
 
-                if(s.toString().length() == 4){
-                    showSuccess(businessFormEstablishedYr);
                 }else{
-                    businessFormEstablishedYr.setError("Invalid Year value");
-                    View focusView = businessFormEstablishedYr;
-                    focusView.requestFocus();
+                    businessEYrErr.setVisibility(View.VISIBLE);
+                    businessEYrErr.setText("Invalid Year value.");
+                    removeSuccess(businessFormEstablishedYr);
                 }
             }
         });
@@ -672,7 +661,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     bGrossATOErr.setVisibility(View.VISIBLE);
-                    bGrossATOErr.setText("Please enter the turnover you had last year");
+                    bGrossATOErr.setText("Please enter your annual turnover (in Rs.)");
                 } else {
                     bGrossATOErr.setVisibility(View.GONE);
                 }
@@ -684,9 +673,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(turnoverBusinessTxt);
+                    bGrossATOErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(turnoverBusinessTxt);
-                    turnoverBusinessTxt.setError("What was the turnover you had last year");
+                    bGrossATOErr.setVisibility(View.VISIBLE);
+                    bGrossATOErr.setText("What was the turnover you had last year?");
                     turnoverBusinessTxt.requestFocus();
                 }
             }
@@ -697,7 +688,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     bGrossAPErr.setVisibility(View.VISIBLE);
-                    bGrossAPErr.setText("Please enter the turnover you had last year");
+                    bGrossAPErr.setText("Please enter gross annual profit (in Rs.)");
                 } else {
                     bGrossAPErr.setVisibility(View.GONE);
                 }
@@ -709,9 +700,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(profitBusinessTxt);
+                    bGrossAPErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(profitBusinessTxt);
-                    profitBusinessTxt.setError("What was the profit you made last year");
+                    bGrossAPErr.setVisibility(View.VISIBLE);
+                    bGrossAPErr.setText("What was the profit you made last year?");
                     profitBusinessTxt.requestFocus();
                 }
             }
@@ -723,7 +716,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     amountErr.setVisibility(View.VISIBLE);
-                    amountErr.setText("Please enter amount");
+                    amountErr.setText("Please enter an valid loan amount.");
                 } else {
                     amountErr.setVisibility(View.GONE);
                 }
@@ -734,7 +727,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if (s.length() == 0){
-                    amountTxt.setError("Amount can not be Empty");
+                    amountErr.setVisibility(View.VISIBLE);
+                    amountErr.setError("Amount can not be Empty.");
                     amountTxt.requestFocus();
                     return;
                 }
@@ -742,13 +736,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 if(i < 25000 || i > 300000){
                     removeSuccess(amountTxt);
-                    amountTxt.setError("Amount can not be less then 25000 or greater than 300000");
+                    amountErr.setVisibility(View.VISIBLE);
+                    amountErr.setText("Amount can not be less then 25000 or greater than 300000");
                     amountTxt.requestFocus();
                 }else if(i%5000 != 0){
-                    amountTxt.setError("Please enter amount in the multiples of 5000");
+                    amountErr.setVisibility(View.VISIBLE);
+                    amountErr.setText("Please enter amount in the multiples of 5000");
                     amountTxt.requestFocus();
                 } else {
                     showSuccess(amountTxt);
+                    amountErr.setVisibility(View.GONE);
                 }
             }
         });
@@ -759,7 +756,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     descriptionErr.setVisibility(View.VISIBLE);
-                    descriptionErr.setText("Please enter description");
+                    descriptionErr.setText("Please enter a loan description.");
                 } else {
                     descriptionErr.setVisibility(View.GONE);
                 }
@@ -771,9 +768,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(descriptionTxt);
+                    descriptionErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(descriptionTxt);
-                    descriptionTxt.setError("Please explain why you need this loan");
+                    descriptionErr.setVisibility(View.VISIBLE);
+                    descriptionErr.setText("Please explain why you need this loan");
                     descriptionTxt.requestFocus();
                 }
             }
@@ -784,7 +783,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     companyErr.setVisibility(View.VISIBLE);
-                    companyErr.setText("Please select company name");
+                    companyErr.setText("Please enter your company name.");
                 } else {
                     companyErr.setVisibility(View.GONE);
                 }
@@ -796,9 +795,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(companyTxt);
+                    companyErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(companyTxt);
-                    companyTxt.setError("Please search and select a company");
+                    companyErr.setVisibility(View.VISIBLE);
+                    companyErr.setText("Please search and select a company.");
                     companyTxt.requestFocus();
                 }
             }
@@ -809,7 +810,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     workEMErr.setVisibility(View.VISIBLE);
-                    workEMErr.setText("Please enter experience in month");
+                    workEMErr.setText("Please enter experience in month.");
                 } else {
                     workEMErr.setVisibility(View.GONE);
                 }
@@ -821,9 +822,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(workExperienceMonthTxt);
+                    workEMErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(workExperienceMonthTxt);
-                    workExperienceMonthTxt.setError("Please tell us your work experience");
+                    workEMErr.setVisibility(View.GONE);
+                    workEMErr.setText("Please tell us your work experience in month.");
                     workExperienceMonthTxt.requestFocus();
                 }
             }
@@ -834,7 +837,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     workEYErr.setVisibility(View.VISIBLE);
-                    workEYErr.setText("Please enter experience in year");
+                    workEYErr.setText("Please enter experience in year.");
                 } else {
                     workEYErr.setVisibility(View.GONE);
                 }
@@ -846,9 +849,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(workExperienceTxt);
+                    workEYErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(workExperienceTxt);
-                    workExperienceTxt.setError("Please tell us your work experience");
+                    workEYErr.setVisibility(View.VISIBLE);
+                    workEYErr.setError("Please tell us your work experience in year.");
                     workExperienceTxt.requestFocus();
                 }
             }
@@ -859,7 +864,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     workSinceErr.setVisibility(View.VISIBLE);
-                    workSinceErr.setText("Please enter when work started");
+                    workSinceErr.setText("Please tell us the date on which you joined current organization.");
                 } else {
                     workSinceErr.setVisibility(View.GONE);
                 }
@@ -871,9 +876,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(workExperienceTxt);
+                    workSinceErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(workExperienceTxt);
-                    workExperienceTxt.setError("Please tell us your work experience");
+                    workSinceErr.setVisibility(View.VISIBLE);
+                    workSinceErr.setError("Please tell us the date on which you joined current organization.");
                     workExperienceTxt.requestFocus();
                 }
             }
@@ -900,9 +907,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(monthlyRentTxt);
+                    monthlyRentErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(monthlyRentTxt);
-                    monthlyRentTxt.setError("What is your monthly rent amount");
+                    monthlyRentErr.setVisibility(View.VISIBLE);
+                    monthlyRentErr.setText("What is your monthly rent amount");
                     monthlyRentTxt.requestFocus();
                 }
             }
@@ -915,7 +924,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     sibilScoreErr.setVisibility(View.VISIBLE);
-                    sibilScoreErr.setText("Please enter credit score amount");
+                    sibilScoreErr.setText("Please enter credit score amount.");
                 } else {
                     sibilScoreErr.setVisibility(View.GONE);
                 }
@@ -965,7 +974,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     otherMIErr.setVisibility(View.VISIBLE);
-                    otherMIErr.setText("Please enter other income");
+                    otherMIErr.setText("Please enter other income.");
                 } else {
                     otherMIErr.setVisibility(View.GONE);
                 }
@@ -975,7 +984,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-                if(s.length() != 0){
+                if(s.toString().trim().length() != 0){
                     showSuccess(otherIncomeTxt);
                 }else {
                     removeSuccess(otherIncomeTxt);
@@ -993,7 +1002,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     emiErr.setVisibility(View.VISIBLE);
-                    emiErr.setText("Please enter your monthly EMIs on loan");
+                    emiErr.setText("Please enter the total EMI amount.");
                 } else {
                     emiErr.setVisibility(View.GONE);
                 }
@@ -1005,9 +1014,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(loanEmiTxt);
+                    emiErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(loanEmiTxt);
-                    loanEmiTxt.setError("What is your monthly EMIs on loan");
+                    emiErr.setVisibility(View.VISIBLE);
+                    emiErr.setText("Please enter the total EMI amount.");
                     loanEmiTxt.requestFocus();
                 }
             }
@@ -1018,7 +1029,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     ccAmountErr.setVisibility(View.VISIBLE);
-                    ccAmountErr.setText("Please enter your existing Credit Card outstanding balance");
+                    ccAmountErr.setText("Please enter total outstanding amount.");
                 } else {
                     ccAmountErr.setVisibility(View.GONE);
                 }
@@ -1030,9 +1041,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                       int before, int count) {
                 if(s.length() != 0){
                     showSuccess(ccOutstandingTxt);
+                    ccAmountErr.setVisibility(View.GONE);
                 }else {
                     removeSuccess(ccOutstandingTxt);
-                    ccOutstandingTxt.setError("What is your existing Credit Card outstanding balance");
+                    ccAmountErr.setVisibility(View.VISIBLE);
+                    ccAmountErr.setError("What is your existing Credit Card outstanding balance.");
                     ccOutstandingTxt.requestFocus();
                 }
             }
@@ -1213,7 +1226,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")){
                     pincodeErr.setVisibility(View.VISIBLE);
-                    pincodeErr.setText("Please enter pincode");
+                    pincodeErr.setText("Please provide your city pincode.");
                 } else {
                     pincodeErr.setVisibility(View.GONE);
                 }
@@ -1227,12 +1240,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 if(s.length() == 6){
                     showSuccess(pincodeEditTxt);
-
+                    pincodeErr.setVisibility(View.GONE);
                     client.get(backend.BASE_URL + "/api/v1/pincodeSearch/" + s.toString() , new JsonHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             super.onSuccess(statusCode, headers, response);
-
+                            pincodeErr.setVisibility(View.GONE);
                             try {
                                 cityEditTxt.setText(response.getString("pin_city"));
                                 addressState = response.getString("pin_state");
@@ -1247,15 +1260,17 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         @Override
                         public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                             super.onFailure(statusCode, headers, throwable, errorResponse);
+                            pincodeErr.setVisibility(View.VISIBLE);
+                            pincodeErr.setText("Invalid Pincode");
+                            pincodeEditTxt.requestFocus();
                         }
-
                     });
 
 
                 }else{
-                    pincodeEditTxt.setError("Invalid Pincode");
-                    View focusView = pincodeEditTxt;
-                    focusView.requestFocus();
+                    pincodeErr.setVisibility(View.VISIBLE);
+                    pincodeErr.setText("Invalid Pincode");
+                    pincodeEditTxt.requestFocus();
                 }
             }
         });
@@ -1335,7 +1350,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                             public void afterTextChanged(Editable editable) {
                                 if (editable.toString().trim().equals("")){
                                     spouseErr.setVisibility(View.VISIBLE);
-                                    spouseErr.setText("Please enter spouse income");
+                                    spouseErr.setText("Please enter spouse income.");
                                 } else {
                                     spouseErr.setVisibility(View.GONE);
                                 }
@@ -1542,37 +1557,36 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }
                 if (description.isEmpty()){
                     descriptionErr.setVisibility(View.VISIBLE);
-                    descriptionErr.setText("Please enter description.");
+                    descriptionErr.setText("Please enter a loan description.");
                 } else {
                     descriptionErr.setVisibility(View.GONE);
                 }
                 if (dobStr.isEmpty()){
                     dobErr.setVisibility(View.VISIBLE);
-                    dobErr.setText("Please enter dob.");
+                    dobErr.setText("Please enter your date of birth.");
                 } else {
                     dobErr.setVisibility(View.GONE);
                 }
                 if (pincode.isEmpty()){
                     pincodeErr.setVisibility(View.VISIBLE);
-                    pincodeErr.setText("Please enter pincode.");
+                    pincodeErr.setText("Please provide your city pincode.");
                 } else {
                     pincodeErr.setVisibility(View.GONE);
                 }
 
                 if (city.isEmpty()){
                     cityErr.setVisibility(View.VISIBLE);
-                    cityErr.setText("Please enter city.");
+                    cityErr.setText("Please provide the current city you live in.");
                 } else {
                     cityErr.setVisibility(View.GONE);
                 }
 
-                if (otherIncome.isEmpty()) {
-                    otherMIErr.setVisibility(View.VISIBLE);
-                    otherMIErr.setText("Please enter other income amount.");
-                    otherIncomeTxt.requestFocus();
-                } else {
-                    otherIncomeTxt.setVisibility(View.GONE);
-                }
+//                if (otherIncome.isEmpty()) {
+//                    otherMIErr.setVisibility(View.VISIBLE);
+//                    otherMIErr.setText("Please enter other income amount.");
+//                } else {
+//                    otherIncomeTxt.setVisibility(View.GONE);
+//                }
 
 //                if (creditScore.isEmpty()){
 //                    sibilScoreErr.setVisibility(View.VISIBLE);
@@ -1595,7 +1609,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     }
                 }else {
                     genderErr.setVisibility(View.VISIBLE);
-                    genderErr.setText("Please choose marital.");
+                    genderErr.setText("Please select your marital status.");
                 }
 
                 if (loan_yes.isChecked() || loan_no.isChecked()){
@@ -1603,14 +1617,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     if (loan_yes.isChecked()) {
                         if (loanEmi.isEmpty()) {
                             emiErr.setVisibility(View.VISIBLE);
-                            emiErr.setText("Please enter monthly EMI's on loan.");
+                            emiErr.setText("Please enter the total EMI amount.");
                         } else {
                             emiErr.setVisibility(View.GONE);
                         }
                     }
                 }else {
                     loanRadioErr.setVisibility(View.VISIBLE);
-                    loanRadioErr.setText("Please choose any loan running.");
+                    loanRadioErr.setText("Please select one of option above.");
                 }
 
                 if (cc_yes.isChecked() || cc_no.isChecked()){
@@ -1618,13 +1632,13 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     if (cc_yes.isChecked())
                         if (ccOutstanding.isEmpty()){
                             ccAmountErr.setVisibility(View.VISIBLE);
-                            ccAmountErr.setText("Please enter amount.");
+                            ccAmountErr.setText("Please enter total outstanding amount.");
                         } else {
                             ccAmountErr.setVisibility(View.GONE);
                         }
                 }else {
                     ccRadioErr.setVisibility(View.VISIBLE);
-                    ccRadioErr.setText("Please choose credit card.");
+                    ccRadioErr.setText("Please select one of option above.");
                 }
 
 
@@ -1632,7 +1646,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     purposeErr.setVisibility(View.GONE);
                 }else {
                     purposeErr.setVisibility(View.VISIBLE);
-                    purposeErr.setText("Please select one.");
+                    purposeErr.setText("Please select your loan purpose.");
                 }
 
                 if (spinnerHouseType.getSelectedItemPosition() != 0){
@@ -1640,7 +1654,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     if (spinnerHouseType.getSelectedItemPosition() == 1) {
                         if (monthlyRent_et.isEmpty()) {
                             monthlyRentErr.setVisibility(View.VISIBLE);
-                            monthlyRentErr.setText("Please enter company");
+                            monthlyRentErr.setText("Please provide your monthly rent.");
                         } else {
                             monthlyRentErr.setVisibility(View.GONE);
                         }
@@ -1648,11 +1662,11 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                             gurantorRadiodErr.setVisibility(View.GONE);
                         } else {
                             gurantorRadiodErr.setVisibility(View.VISIBLE);
-                            gurantorRadiodErr.setText("Please choose gurantor.");
+                            gurantorRadiodErr.setText("Please select one option.");
                         }
                         if (stayingSince_et.isEmpty()){
                             stayingSinceErr.setVisibility(View.VISIBLE);
-                            stayingSinceErr.setText("Please enter date.");
+                            stayingSinceErr.setText("Please select the date.");
                         } else {
                             sibilScoreErr.setVisibility(View.GONE);
                         }
@@ -1660,7 +1674,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     }
                 }else {
                     houseTypeErr.setVisibility(View.VISIBLE);
-                    houseTypeErr.setText("Please select house type.");
+                    houseTypeErr.setText("Please select at least one residence type.");
                 }
 
 
@@ -1669,14 +1683,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     if (dropdownEmpType.getSelectedItemPosition() == 1) {
                         if (company.isEmpty()) {
                             companyErr.setVisibility(View.VISIBLE);
-                            companyErr.setText("Please enter company name.");
+                            companyErr.setText("Please enter your company name.");
                         } else {
                             companyErr.setVisibility(View.GONE);
                         }
 
                         if (miSalary.isEmpty()) {
                             monthlyIncomeErr.setVisibility(View.VISIBLE);
-                            monthlyIncomeErr.setText("Please enter monthly income.");
+                            monthlyIncomeErr.setText("Please provide your monthly salary (in Rs.).");
                         } else {
                             monthlyIncomeErr.setVisibility(View.GONE);
                         }
@@ -1685,12 +1699,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                             salaryErr.setVisibility(View.GONE);
                         }else {
                             salaryErr.setVisibility(View.VISIBLE);
-                            salaryErr.setText("Please select one salary.");
+                            salaryErr.setText("Please select the salary mode.");
                         }
 
                         if (workingSince_et.isEmpty()){
                             workSinceErr.setVisibility(View.VISIBLE);
-                            workSinceErr.setText("Please enter work since.");
+                            workSinceErr.setText("Please tell us the date on which you joined current organization.");
                         } else {
                             workSinceErr.setVisibility(View.GONE);
                         }
@@ -1704,7 +1718,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                         if (workEM.isEmpty()){
                             workEMErr.setVisibility(View.VISIBLE);
-                            workEMErr.setText("Please enter work experince in month.");
+                            workEMErr.setText("Please enter work experience in month.");
                         } else {
                             workEMErr.setVisibility(View.GONE);
                         }
@@ -1712,66 +1726,66 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     } else if (dropdownEmpType.getSelectedItemPosition() == 2){
                         if (professionType.isEmpty()){
                             professionTypeErr.setVisibility(View.VISIBLE);
-                            professionTypeErr.setText("Please enter profession type.");
+                            professionTypeErr.setText("What is your profession type ?");
                         } else {
                             professionTypeErr.setVisibility(View.GONE);
                         }
 
                         if (professionalExp.isEmpty()){
                             totalProfessionEYrErr.setVisibility(View.VISIBLE);
-                            totalProfessionEYrErr.setText("Please enter professional exp.");
+                            totalProfessionEYrErr.setText("Please provide your total professional experience.");
                         } else {
                             totalProfessionEYrErr.setVisibility(View.GONE);
                         }
 
                         if (sTurnover.isEmpty()){
                             pGrossATOErr.setVisibility(View.VISIBLE);
-                            pGrossATOErr.setText("Please enter turnover amount.");
+                            pGrossATOErr.setText("Please enter your annual turnover (in Rs.).");
                         } else {
                             pGrossATOErr.setVisibility(View.GONE);
                         }
                         if (sProfit.isEmpty()){
                             pGrossAPErr.setVisibility(View.VISIBLE);
-                            pGrossAPErr.setText("Please enter profit amount.");
+                            pGrossAPErr.setText("Please enter gross annual profit (in Rs.).");
                         } else {
                             pGrossAPErr.setVisibility(View.GONE);
                         }
                     }else if (dropdownEmpType.getSelectedItemPosition() == 3){
                         if (businessType_et.isEmpty()){
                             businessTypeErr.setVisibility(View.VISIBLE);
-                            businessTypeErr.setText("Please enter business type.");
+                            businessTypeErr.setText("Please provide type of your business ?");
                         } else {
                             businessTypeErr.setVisibility(View.GONE);
                         }
                         if (businessEY.isEmpty()){
                             businessEYrErr.setVisibility(View.VISIBLE);
-                            businessEYrErr.setText("Please enter established year.");
+                            businessEYrErr.setText("Please provide establishment year of your business.");
                         } else {
                             businessEYrErr.setVisibility(View.GONE);
                         }
                         if (bTurnover.isEmpty()){
                             bGrossATOErr.setVisibility(View.VISIBLE);
-                            bGrossATOErr.setText("Please enter turnover amount.");
+                            bGrossATOErr.setText("Please enter your annual turnover (in Rs.).");
                         } else {
                             bGrossATOErr.setVisibility(View.GONE);
                         }
                         if (bProfit.isEmpty()){
                             bGrossAPErr.setVisibility(View.VISIBLE);
-                            bGrossAPErr.setText("Please enter profit amount.");
+                            bGrossAPErr.setText("Please enter gross annual profit (in Rs.).");
                         } else {
                             bGrossAPErr.setVisibility(View.GONE);
                         }
                     } else Log.d("Emptype","=== null");
                 }else {
                     empTypeErr.setVisibility(View.VISIBLE);
-                    empTypeErr.setText("Please select one employment type.");
+                    empTypeErr.setText("Please select your employment type.");
                 }
 
                 if (dropdown.getSelectedItemPosition() != 0){
                     tenureLoneErr.setVisibility(View.GONE);
                 }else {
                     tenureLoneErr.setVisibility(View.VISIBLE);
-                    tenureLoneErr.setText("Please select one tenure of loan.");
+                    tenureLoneErr.setText("Please select loan tenure.");
                 }
 
                 Integer desiredAmount = 0;
@@ -1783,26 +1797,31 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 if(desiredAmount < 25000 || desiredAmount > 300000){
                     Toast.makeText(RegistrationCheckEligibility.this, "Amount can not be less then 25000 or greater than 300000", Toast.LENGTH_SHORT).show();
+                    amountTxt.requestFocus();
                     return;
                 }else if(desiredAmount % 5000 != 0){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please enter amount in the multiples of 5000", Toast.LENGTH_SHORT).show();
+                    amountTxt.requestFocus();
                     return;
                 }
 
                 String tenure = dropdown.getSelectedItem().toString();
                 if (tenure.equals("Please select")){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please select a tenure", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select loan tenure.", Toast.LENGTH_SHORT).show();
+                    dropdown.requestFocus();
                     return;
                 }
                 Integer purpose = dropdownPurpose.getSelectedItemPosition();
                 if (purpose.equals(0)){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please select a purpose", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your loan purpose.", Toast.LENGTH_SHORT).show();
+                    dropdownPurpose.requestFocus();
                     return;
                 }
 //                String description = descriptionTxt.getText().toString();
 
                 if (description.length()==0){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide description for the loan requirement", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please enter a loan description.", Toast.LENGTH_SHORT).show();
+                    descriptionTxt.requestFocus();
                     return;
                 }
 
@@ -1822,16 +1841,19 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                     }
                     if (spouseIncomeRate.equals(0)){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide spouse income", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide spouse income.", Toast.LENGTH_SHORT).show();
+                        spouseIncomeTxt.requestFocus();
                         return;
                     }
                 }else{
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your marital status", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your marital status.", Toast.LENGTH_SHORT).show();
+                    radioSingle.requestFocus();
                     return;
                 }
 
                 if (dobStr.length() == 0){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your date of birth", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please enter your date of birth.", Toast.LENGTH_SHORT).show();
+                    dobEditTxt.requestFocus();
                     return;
                 }
 
@@ -1853,12 +1875,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
 
                 if (pincode.length() == 0){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide your pincode", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide your city pincode.", Toast.LENGTH_SHORT).show();
+                    pincodeEditTxt.requestFocus();
                     return;
                 }
 
                 if (city.length() == 0){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide your correct pincode", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please provide the current city you live in.", Toast.LENGTH_SHORT).show();
+                    cityEditTxt.requestFocus();
                     return;
                 }
 
@@ -1867,7 +1891,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 String empType = dropdownEmpType.getSelectedItem().toString();
 
                 if (empType.equals("Please select")){
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your employment type", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your employment type.", Toast.LENGTH_SHORT).show();
+                    dropdownEmpType.requestFocus();
                     return;
                 }
 
@@ -1882,6 +1907,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                     if (businessType.length()==0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business type", Toast.LENGTH_SHORT).show();
+                        professionBusinessTxt.requestFocus();
                         return;
                     }
                     try{
@@ -1892,18 +1918,25 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if (establishedYr <= 3){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business established year", Toast.LENGTH_SHORT).show();
+                    if (businessEY.length() <= 3) {
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please mention your valid business established year", Toast.LENGTH_SHORT).show();
+                        businessFormEstablishedYr.requestFocus();
                         return;
-                    }
-
+                    } else
+                        if (!(1800 <= establishedYr && establishedYr <= year)) {
+                            Toast.makeText(RegistrationCheckEligibility.this, "Please mention your valid business established year", Toast.LENGTH_SHORT).show();
+                            businessFormEstablishedYr.requestFocus();
+                            return;
+                        }
                     if (grossTurnover == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        turnoverBusinessTxt.requestFocus();
                         return;
                     }
 
                     if (grossAnnualProfit == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        profitBusinessTxt.requestFocus();
                         return;
                     }
                 }
@@ -1912,6 +1945,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     businessType = professionTypeTxt.getText().toString();
                     if (businessType.length()==0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business type", Toast.LENGTH_SHORT).show();
+                        professionTypeTxt.requestFocus();
                         return;
                     }
                     try{
@@ -1924,16 +1958,19 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                     if (tProfessionalExp == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your total professional experience", Toast.LENGTH_SHORT).show();
+                        selfEmpExp.requestFocus();
                         return;
                     }
 
                     if (grossTurnover == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        turnoverSelfEmpTxt.requestFocus();
                         return;
                     }
 
                     if (grossAnnualProfit == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please mention your business gross turnover", Toast.LENGTH_SHORT).show();
+                        profitSelfEmpTxt.requestFocus();
                         return;
                     }
 
@@ -1949,7 +1986,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     compName = companyTxt.getText().toString();
 
                     if (compName.length()== 0){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your company name", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please enter your company name.", Toast.LENGTH_SHORT).show();
+                        companyTxt.requestFocus();
                         return;
                     }
 
@@ -1957,42 +1995,52 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 //                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your company name", Toast.LENGTH_SHORT).show();
 //                        return;
 //                    }
-                    String incomeSalriedTxt = incomeSalariedTxt.getText().toString();
-                    if (incomeSalriedTxt.length()== 0){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide monthly income", Toast.LENGTH_SHORT).show();
+                    String incomeSalTxt = incomeSalariedTxt.getText().toString();
+                    if (incomeSalTxt.length()== 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your monthly salary (in Rs.)", Toast.LENGTH_SHORT).show();
+                        incomeSalariedTxt.requestFocus();
                         return;
                     }
                     try{
-                        monthlyIncome = Integer.parseInt(incomeSalriedTxt);
+                        monthlyIncome = Integer.parseInt(incomeSalTxt);
                     }catch (Exception e){
 
                     }
 
                     empPaymentType = spinnerPaymentMode.getSelectedItem().toString();
                     if (empPaymentType.equals("Please select")){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please select your payment mode for salary", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select the salary mode.", Toast.LENGTH_SHORT).show();
+                        spinnerPaymentMode.requestFocus();
                         return;
                     }
                     String wrkingSinceTxt = workingSinceEditTxt.getText().toString();
 
                     if (wrkingSinceTxt.length() == 0){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please select a date since you are working in your company", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please tell us the date on which you joined current organization.", Toast.LENGTH_SHORT).show();
+                        workingSinceEditTxt.requestFocus();
                         return;
                     }
                     workingSince = strToDate(wrkingSinceTxt);
                     expYear = workExperienceTxt.getText().toString();
                     expMonth = workExperienceMonthTxt.getText().toString();
 
-                    if (expYear.length() == 0 && expMonth.length() == 0){
+                    if (expYear.length() == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please provide your experience", Toast.LENGTH_SHORT).show();
+                        workExperienceTxt.requestFocus();
                         return;
                     }
 
+                    if (expMonth.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your experience", Toast.LENGTH_SHORT).show();
+                        workExperienceMonthTxt.requestFocus();
+                        return;
+                    }
                 }
 
                 String houseType = spinnerHouseType.getSelectedItem().toString();
                 if (houseType.equals("Please select")){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select your residence type", Toast.LENGTH_SHORT).show();
+                    spinnerHouseType.requestFocus();
                     return;
                 }
 
@@ -2019,14 +2067,15 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     }catch (Exception e){
 
                     }
-
                     if (runningLoanEmi.equals(0)){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please provide your current EMI", Toast.LENGTH_SHORT).show();
+                        loanEmiTxt.requestFocus();
                         return;
                     }
 
                 }else{
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select if you have any loan running", Toast.LENGTH_SHORT).show();
+                    noLoan.requestFocus();
                     return;
                 }
 
@@ -2044,6 +2093,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     }
                     if (creditCardOutstanding.equals(0)){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please provide your current credit card outstanding", Toast.LENGTH_SHORT).show();
+                        ccOutstandingTxt.requestFocus();
                         return;
                     }
                 } else if (noCC.isChecked()){
@@ -2051,6 +2101,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 }else{
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select if you have any credit card", Toast.LENGTH_SHORT).show();
+                    yesCC.requestFocus();
                     return;
                 }
 
@@ -2085,17 +2136,20 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         canProvideGurantor = true;
                     }else{
                         Toast.makeText(RegistrationCheckEligibility.this, "Please select if you can provide a gurantor who has own house", Toast.LENGTH_SHORT).show();
+                        haveGurantee.requestFocus();
                         return;
                     }
 
                     monthlyRent = monthlyRentTxt.getText().toString();
                     if (monthlyRent.length() == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please provide your monthly rent", Toast.LENGTH_SHORT).show();
+                        monthlyRentTxt.requestFocus();
                         return;
                     }
                     String stayingSinceEdtTxt = stayingSinceEditTxt.getText().toString();
                     if (stayingSinceEdtTxt.length() == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please select a date since you are living at current residence", Toast.LENGTH_SHORT).show();
+                        stayingSinceEditTxt.requestFocus();
                         return;
                     }
                     stayingSince = strToDate(stayingSinceEdtTxt);
@@ -2260,15 +2314,15 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                             if (baseInterest >= 18 && baseInterest <= 24){
                                 icon = R.drawable.meter_high;
                                 chances = "high";
-                                msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +" to " + (baseInterest+2);
+                                msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +"% to " + (baseInterest+2)+"%";
                             } else if (baseInterest >= 25 && baseInterest <= 30){
                                 icon = R.drawable.meter_medium;
                                 chances = "medium";
-                                msg = "Congratulations, You are eligible\n" + "Expected Interest Rate \n \n"+ (baseInterest-2) +" to " + (baseInterest+2);
+                                msg = "Congratulations, You are eligible\n" + "Expected Interest Rate \n \n"+ (baseInterest-2) +"% to " + (baseInterest+2)+"%";
                             } else if (baseInterest > 30){
                                 icon = R.drawable.thumsup_icon;
                                 chances = "low";
-                                msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +" to " + (baseInterest+2);
+                                msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +"% to " + (baseInterest+2)+"%";
                             }
                         } else {
                             msg = "Sorry, You are not eligible";
@@ -2283,7 +2337,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                     @Override
                                     public void onClick(View v) {
                                         Toast.makeText(getApplicationContext(), "positive clicked", Toast.LENGTH_SHORT).show();
-                                        otherIncomeTxt.requestFocus();
                                         Intent i = new Intent(getApplicationContext(), PaymentActivity.class);
                                         startActivity(i);
 
@@ -2292,7 +2345,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                                 .setNegativeButton(android.R.string.no, new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        otherIncomeTxt.requestFocus();
                                         dialog.dismiss();
                                     }
                                 })

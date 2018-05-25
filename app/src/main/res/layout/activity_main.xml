@@ -9,12 +9,11 @@
     tools:context="in.co.cioc.i2i.LoginActivity">
 
 
-
     <ScrollView
-            android:id="@+id/registration_form"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout">
+        android:id="@+id/registration_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout">
 
 
         <LinearLayout
@@ -56,153 +55,169 @@
                 android:layout_width="163dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/bottom_border" />
 
 
             <LinearLayout
-                style="@style/linear_layout_for_cb">
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="270dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal"
+                    android:paddingRight="10dp">
 
                     <RadioButton
                         android:id="@+id/radio_male"
-                        android:layout_width="33dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked"
-                        android:text="" />
+                        android:onClick="onRadioButtonClicked" />
 
                     <ImageView
-                        android:layout_width="7dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_weight="1"
+                        android:padding="3dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/male_icon" />
 
                     <RadioButton
                         android:id="@+id/radio_female"
-                        android:layout_width="47dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="onRadioButtonClicked"
-                        android:text="" />
+                        android:layout_marginLeft="10dp"
+                        android:onClick="onRadioButtonClicked" />
 
                     <ImageView
-                        android:layout_width="6dp"
-                        android:layout_height="30dp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_weight="1"
+                        android:padding="3dp"
                         android:scaleType="fitCenter"
                         app:srcCompat="@drawable/female_icon" />
 
 
                 </RadioGroup>
-
             </LinearLayout>
+
             <TextView
                 android:id="@+id/genderErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg"
+                android:layout_marginStart="30dp"/>
 
             <LinearLayout
                 style="@style/linear_layout_for_et"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="10dp"
+
+                >
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:scaleType="center"
                     app:srcCompat="@drawable/user_icon" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="270dp"
                     android:layout_height="wrap_content"
-                    >
+                    android:backgroundTint="@android:color/transparent"
+                    android:gravity="center"
+                    android:textColorLink="@color/bg_gray">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/firstName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="First Name"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
-                        />
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/fnameErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
+            <LinearLayout style="@style/linear_layout_for_et"
+                >
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:scaleType="center"
                     app:srcCompat="@drawable/user_icon" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="270dp"
                     android:layout_height="wrap_content"
-                    >
+                    android:backgroundTint="@android:color/transparent"
+                    android:textColorLink="@color/bg_gray">
 
                     <AutoCompleteTextView
                         android:id="@+id/middleName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="Middle Name (Optional)"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"/>
+                        android:textColorLink="@color/com_facebook_button_background_color_focused"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
+            <LinearLayout style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:scaleType="center"
                     app:srcCompat="@drawable/user_icon" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="270dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:textColorLink="@color/bg_gray">
 
                     <AutoCompleteTextView
                         android:id="@+id/lastName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="Last Name"
                         android:inputType="text"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"/>
+                        android:textColorLink="@color/white"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/lnameErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
+            <LinearLayout style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -213,33 +228,36 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="270dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:textColorLink="@color/white">
 
                     <AutoCompleteTextView
                         android:id="@+id/aadhar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Aadhar"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="Aadhaar Number"
                         android:inputType="number"
+                        android:maxLength="12"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:maxLength="12"
-                        android:backgroundTint="@android:color/transparent"/>
+                        android:textColorLink="@color/white"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/aadharErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
+            <LinearLayout style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:scaleType="center"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/pan_icon" />
 
                 <android.support.design.widget.TextInputLayout
@@ -250,27 +268,29 @@
                         android:id="@+id/pan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="PAN"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="PAN Number"
                         android:inputType="text"
+                        android:maxLength="10"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:maxLength="10"
-                        android:backgroundTint="@android:color/transparent"/>
+                        android:textColorLink="@color/white"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/panErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
+            <LinearLayout style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:scaleType="center"
+                    android:layout_gravity="center_vertical"
                     app:srcCompat="@drawable/email_icon" />
 
                 <android.support.design.widget.TextInputLayout
@@ -281,53 +301,80 @@
                         android:id="@+id/email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/prompt_email"
+                        android:backgroundTint="@android:color/transparent"
+                        android:hint="Email Id"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"/>
+                        android:textColorLink="@color/white"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/emailErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
             <LinearLayout
-                style="@style/linear_layout_for_et">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <ImageView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/mobile_icon" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
                     android:layout_height="wrap_content"
-                    >
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/edit_text_shape"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/mobile"
+                    <com.rilixtech.CountryCodePicker
+                        android:id="@+id/ccp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="10dp"
+                        app:ccp_textSize="@dimen/edit_text_size" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_layout_for_et"
+                    android:gravity="center_vertical">
+
+                    <android.support.design.widget.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Mobile Number"
-                        android:inputType="number"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:maxLength="10"
-                        android:backgroundTint="@android:color/white"/>
+                        android:gravity="center_vertical"
+                        >
 
-                </android.support.design.widget.TextInputLayout>
+                        <EditText
+                            android:id="@+id/mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="@android:color/transparent"
+                            android:hint="Mobile No"
+                            android:inputType="number|textNoSuggestions"
+                            android:maxLength="10"
+                            android:maxLines="1"
+                            android:paddingLeft="@dimen/edit_text_size"
+                            android:singleLine="true"
+                            android:textColorLink="@color/white"
+                            android:textSize="@dimen/edit_text_size" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
             </LinearLayout>
+
             <TextView
                 android:id="@+id/mobileErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
+            <LinearLayout style="@style/linear_layout_for_et">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -345,11 +392,13 @@
                         android:id="@+id/password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
-                        android:backgroundTint="@android:color/transparent"
-                        android:singleLine="true" />
+                        android:singleLine="true"
+                        android:textColorLink="@color/white"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
@@ -358,35 +407,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="120dp"
-                android:paddingEnd="30dp">
+                android:paddingRight="20dp"
+                android:paddingStart="10dp">
+
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
+                    android:layout_width="307dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:indeterminate="false"
                     android:maxHeight="20dip"
                     android:minHeight="20dip"
-                    android:layout_weight="1"
-                    android:progress="0"/>
+                    android:progress="0" />
+
                 <TextView
+                    android:id="@+id/password_strength"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Weak"
-                    android:id="@+id/password_strength" />
+                    android:text="Weak" />
             </LinearLayout>
+
             <TextView
                 android:id="@+id/passwordErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
+
             <TextView
+                android:id="@+id/login_instructions"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/login_instructions"
-                android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
-                android:text="Your password must be at least 8 characters. With at least 1 number and 1 special character" />
+                android:layout_marginStart="30dp"
+                android:text="Password should be 8-14 characters long. It should have at least one uppercase, one lowercase, one digit and one special character." />
 
             <LinearLayout
                 style="@style/linear_layout_for_et"
@@ -408,19 +461,20 @@
                         android:id="@+id/rePassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:backgroundTint="@android:color/transparent"
                         android:hint="Confirm Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:backgroundTint="@android:color/transparent"
-                        />
+                        android:textColorLink="@color/white"
+                        android:textSize="@dimen/edit_text_size" />
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/password2ErrTxt"
-                style="@style/error_text_msg"/>
+                style="@style/error_text_msg" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -439,22 +493,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
+                    android:textAllCaps="false"
                     android:background="@drawable/roundbutton_orange"
-                    android:text="Get OTP"
+                    android:text="GET OTP"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/otpMasterLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/otpMasterLayout">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
@@ -462,7 +517,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="8dp"
-                        android:layout_marginTop="30dp"
+                        android:layout_marginTop="25dp"
                         android:gravity="center_horizontal"
                         android:text="Verify communication details" />
 
@@ -475,71 +530,73 @@
                         app:srcCompat="@drawable/bottom_border" />
 
                     <LinearLayout
-                        android:layout_marginTop="45dp"
-                        style="@style/linear_layout_for_et">
+                        style="@style/linear_layout_for_et"
+                        android:layout_marginTop="30dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
                             android:layout_weight="1"
                             android:scaleType="center"
                             app:srcCompat="@drawable/mobile_icon" />
 
                         <android.support.design.widget.TextInputLayout
-                            android:layout_width="250dp"
+                            android:layout_width="270dp"
                             android:layout_height="wrap_content">
 
                             <AutoCompleteTextView
                                 android:id="@+id/mobileOTP"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:backgroundTint="@android:color/transparent"
                                 android:hint="Mobile OTP"
                                 android:inputType="numberPassword"
+                                android:maxLength="6"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:maxLength="6"
-                                android:backgroundTint="@android:color/transparent"
-                                />
+                                android:textColorLink="@color/white"
+                                android:textSize="@dimen/edit_text_size" />
 
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/mobileOTPErrTxt"
-                        style="@style/error_text_msg"/>
+                        style="@style/error_text_msg" />
 
-
-                    <LinearLayout
-                        style="@style/linear_layout_for_et">
+                    <LinearLayout style="@style/linear_layout_for_et">
 
                         <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:scaleType="center"
+                            android:layout_gravity="center_vertical"
                             app:srcCompat="@drawable/email_icon" />
 
                         <android.support.design.widget.TextInputLayout
-                            android:layout_width="250dp"
+                            android:layout_width="270dp"
                             android:layout_height="wrap_content">
 
                             <AutoCompleteTextView
                                 android:id="@+id/emailOTP"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:backgroundTint="@android:color/transparent"
                                 android:hint="Email OTP"
                                 android:inputType="numberPassword"
+                                android:maxLength="6"
                                 android:maxLines="1"
                                 android:singleLine="true"
-                                android:maxLength="6"
-                                android:backgroundTint="@android:color/transparent"
-                                />
+                                android:textColorLink="@color/white"
+                                android:textSize="@dimen/edit_text_size" />
 
                         </android.support.design.widget.TextInputLayout>
-
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/emailOTPErrTxt"
-                        style="@style/error_text_msg"/>
+                        style="@style/error_text_msg" />
 
                 </LinearLayout>
 
@@ -554,10 +611,12 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="70dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_weight="1"
                     android:orientation="vertical"
-                    android:layout_margin="20dp"
                     app:layout_constraintBottom_toBottomOf="parent">
 
                     <LinearLayout
@@ -565,62 +624,61 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-
+                        android:gravity="center_vertical"
                         >
 
                         <CheckBox
                             android:id="@+id/tncCheckbox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:onClick="tncCB"/>
+                            android:paddingRight="5dp"
+                            android:onClick="tncCB" />
 
                         <TextView
                             android:id="@+id/authorizetxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
-                            android:textColor="#123"
-                            android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. ' />
+                            android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. '
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/tncCheckboxErrTxt"
                         style="@style/error_text_msg"
-                        android:layout_marginStart="50dp"/>
+                        android:layout_marginStart="50dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        >
                         <CheckBox
                             android:id="@+id/personalInfoCheckBox"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginRight="5dp"
-                            android:layout_marginLeft="5dp"
-                            android:onClick="personalCB"/>
+                            android:paddingRight="5dp"
+                            android:onClick="personalCB" />
+
                         <TextView
                             android:id="@+id/agreetxt"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp"
-                            android:textColor="#123"
-                            android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com ' />
+                            android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com '
+
+                            android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/personalInfoCheckBoxErrTxt"
                         style="@style/error_text_msg"
-                        android:layout_marginStart="50dp"/>
+                        android:layout_marginStart="50dp" />
 
                     <Button
                         android:id="@+id/submit_button"
@@ -632,6 +690,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/roundbutton_blue"
                         android:text="Submit"
+                        android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textStyle="bold" />
 

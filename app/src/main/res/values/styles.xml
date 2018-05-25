@@ -20,7 +20,7 @@
         <!--<item name="android:layout_marginEnd">20dp</item>-->
         <!--<item name="android:layout_marginBottom">3dp</item>-->
         <item name="android:layout_marginStart">70dp</item>
-        <item name="android:textSize">10dp</item>
+        <item name="android:textSize">11dp</item>
         <item name="android:textColor">@color/cb_errorRed</item>
         <item name="android:visibility">gone</item>
         <!--<item name="android:text">text error</item>-->
@@ -34,6 +34,23 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:paddingRight">20dp</item>
+
+    </style>
+
+    <style name="text_input_layout_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+    </style>
+
+    <style name="edit_text_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:ems">10</item>-->
+        <item name="android:textSize">@dimen/edit_text_size</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:backgroundTintMode">@color/white</item>
     </style>
 
     <style name="linear_layout_for_cb">
@@ -41,8 +58,8 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/checkbox_spinner_bg_style</item>
         <item name="android:orientation">horizontal</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:paddingRight">20dp</item>

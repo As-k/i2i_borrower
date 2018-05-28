@@ -117,7 +117,6 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
 
 
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
@@ -203,8 +202,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, Throwable e,  JSONObject c) {
                 super.onFailure(statusCode, headers, e, c);
 
+
+
                 if(statusCode == 401){
                     directToAccount(c);
+                }else {
+                    Toast.makeText(LoginActivity.this, "Username or Password incorrect", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -216,17 +219,30 @@ public class LoginActivity extends AppCompatActivity {
 
     void directToAccount(JSONObject c){
         try {
+
+
+            Bundle bundle = new Bundle();
+
             String session_id = c.getString("session_id");
             String csrf_token = c.getString("csrf_token");
 
 
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("session_id", session_id);
-            editor.putString("csrf_token", csrf_token);
-            editor.commit();
+            bundle.putString("session_id", session_id);
+            bundle.putString("csrf_token", csrf_token);
 
-            Intent i = new Intent(getApplicationContext(), AccountActivity.class);
+            Intent i = new Intent(getApplicationContext(), RegistrationOTP.class);
+            i.putExtras(bundle);
             startActivity(i);
+
+
+
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.putString("session_id", session_id);
+//            editor.putString("csrf_token", csrf_token);
+//            editor.commit();
+//
+//            Intent i = new Intent(getApplicationContext(), AccountActivity.class);
+//            startActivity(i);
 
         }catch(JSONException e){
 

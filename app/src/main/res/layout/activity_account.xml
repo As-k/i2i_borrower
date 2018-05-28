@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="55dp"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="2dp"
                         android:layout_weight="1"
@@ -70,6 +70,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/logoutBtnTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="2dp"
@@ -148,11 +149,12 @@
                                     android:text="Loan Amount Applied" />
 
                                 <TextView
+                                    android:id="@+id/loanAmtApplied"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="INR 10000" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -177,11 +179,12 @@
                                     android:text="Approved Loan Amount" />
 
                                 <TextView
+                                    android:id="@+id/loanAmtApproved"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="INR 10000" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -214,11 +217,12 @@
                                     android:text="Total Amount Disbursed" />
 
                                 <TextView
+                                    android:id="@+id/loanAmtDisbursed"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="INR 10000" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -243,11 +247,12 @@
                                     android:text="Tenure" />
 
                                 <TextView
+                                    android:id="@+id/loanTenure"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="3" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -280,11 +285,12 @@
                                     android:text="Purpose" />
 
                                 <TextView
+                                    android:id="@+id/purpose"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="Medical Expense" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -309,11 +315,12 @@
                                     android:text="I2I Interest Rate" />
 
                                 <TextView
+                                    android:id="@+id/interestRate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="20%" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -346,11 +353,12 @@
                                     android:text="Initial Interest Rate" />
 
                                 <TextView
+                                    android:id="@+id/initialRate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="22%" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -375,11 +383,12 @@
                                     android:text="Current Interest Rate" />
 
                                 <TextView
+                                    android:id="@+id/currentRate"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="20%" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -412,11 +421,12 @@
                                     android:text="I2I Category" />
 
                                 <TextView
+                                    android:id="@+id/i2iCategory"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:textColor="@color/orange"
-                                    android:text="B" />
+                                    android:text="" />
 
                             </LinearLayout>
 
@@ -441,10 +451,11 @@
                                     android:text="Current Status" />
 
                                 <Button
+                                    android:id="@+id/currentStatus"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="25dp"
+                                    android:layout_height="23dp"
                                     android:background="@drawable/roundbutton_blue"
-                                    android:text="Loan Rejected"
+                                    android:text=""
                                     android:textSize="8dp"
                                     android:textAllCaps="false"
                                     android:textColor="@color/white"/>
@@ -656,10 +667,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step1Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -678,10 +690,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step1Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -692,12 +705,14 @@
                                 </LinearLayout>
 
                                 <LinearLayout
+
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step1Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -747,7 +762,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -756,9 +771,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Loan Approval Status"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -774,10 +788,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step2Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -796,10 +811,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step2Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -816,6 +832,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step2Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -867,7 +884,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -876,9 +893,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Loan Live On Portal"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -894,10 +910,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step3Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -916,10 +933,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step3Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -936,6 +954,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step3Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -987,7 +1006,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -996,9 +1015,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Funding Status"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -1014,10 +1032,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step4Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -1036,10 +1055,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step4Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -1056,6 +1076,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step4Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1107,7 +1128,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -1116,9 +1137,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Physical Verification"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -1134,10 +1154,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step5Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -1156,10 +1177,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step5Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -1176,6 +1198,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step5Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1227,7 +1250,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -1236,9 +1259,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Documentation"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -1254,10 +1276,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step6Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -1276,10 +1299,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step6Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -1296,6 +1320,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step6Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1347,7 +1372,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -1356,9 +1381,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Disbursement"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -1374,10 +1398,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step7Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -1396,10 +1421,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step7Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -1416,6 +1442,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step7Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -1467,7 +1494,7 @@
                                 </LinearLayout>
 
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="150dp"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical"
                                     android:gravity="center_horizontal"
@@ -1476,9 +1503,8 @@
                                     <TextView
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:textAlignment="center"
                                         android:text="Repayment"
-                                        android:layout_gravity="center_horizontal"
+                                        android:layout_gravity="start"
                                         android:textColor="@color/orange"/>
 
                                     <LinearLayout
@@ -1494,10 +1520,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step8Txt"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="Done"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/green"/>
 
@@ -1516,10 +1543,11 @@
                                             android:textColor="@color/cb_dark_grey"/>
 
                                         <TextView
+                                            android:id="@+id/step8Date"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:textAlignment="center"
-                                            android:text="01 Jan 2017"
+                                            android:text=""
                                             android:layout_gravity="center_horizontal"
                                             android:textColor="@color/black"/>
 
@@ -1536,6 +1564,7 @@
                                     android:gravity="end">
 
                                     <ImageView
+                                        android:id="@+id/step8Image"
                                         android:layout_marginTop="40dp"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"

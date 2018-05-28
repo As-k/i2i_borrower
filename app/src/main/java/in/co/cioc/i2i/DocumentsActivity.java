@@ -81,6 +81,17 @@ public class DocumentsActivity extends AppCompatActivity {
     private ImageView businessPan , businessCompanyReg , businessITR1 , businessITR2, businessITR3 ;
     private ImageView selfEmpPan , selfEmpCompanyReg, selfEmpITR1 , selfEmpITR2, selfEmpITR3 , selfEmpHighestDegree;
 
+
+    private ImageView panUploadCamera , aadharUploadCamera , permAddressCamera , currentAddressCamera , bankStatementCamera;
+    private ImageView empSalarySlip1Camera, empSalarySlip2Camera , empSalarySlip3Camera , empForm16Camera , empHighestDegreeCamera ;
+    private ImageView businessPanCamera , businessCompanyRegCamera , businessITR1Camera , businessITR2Camera, businessITR3Camera ;
+    private ImageView selfEmpPanCamera , selfEmpCompanyRegCamera, selfEmpITR1Camera , selfEmpITR2Camera, selfEmpITR3Camera , selfEmpHighestDegreeCamera ;
+
+    private Boolean eKYCPan = false;
+    private Boolean eKYCAadhar = false;
+
+    private LinearLayout ekycPanSuccess , getEkycAadharSuccess ,  ekycPanFailure , getEkycAadharFailure;
+
     List<Integer> uploadedFiles = new ArrayList<Integer>();
 
     private TextView pan , aadhar;
@@ -135,6 +146,12 @@ public class DocumentsActivity extends AppCompatActivity {
         int h = successTick.getIntrinsicHeight();
         int w = successTick.getIntrinsicWidth();
         successTick.setBounds( 0, 0, w, h );
+
+
+        ekycPanSuccess = findViewById(R.id.ekycSuccessPAN);
+        getEkycAadharSuccess = findViewById(R.id.ekycSuccessAadhar);
+        ekycPanFailure = findViewById(R.id.panEKYCStatusImg);
+        getEkycAadharFailure = findViewById(R.id.aadharEKYCStatusImg);
 
 
         businessForm = findViewById(R.id.business_form);
@@ -403,6 +420,26 @@ public class DocumentsActivity extends AppCompatActivity {
                     pan.setText(c.getString("usr_pan"));
                     aadhar.setText(c.getString("aadhar_card"));
 
+//                    this.documentsForm.eKYCaadhar = data.status_aadhar == "1";
+//                    this.documentsForm.eKYCpan = data.status_pan == "1";
+
+                    eKYCAadhar = c.getString("status_aadhar").equals("1");
+                    eKYCPan = c.getString("status_pan").equals("1");
+
+
+                    if (!eKYCPan) {
+                        ekycPanSuccess.setVisibility(LinearLayout.GONE);
+                    }else {
+                        ekycPanFailure.setVisibility(LinearLayout.GONE);
+                    }
+
+                    if (!eKYCAadhar){
+                        getEkycAadharSuccess.setVisibility(LinearLayout.GONE);
+                    }else {
+                        getEkycAadharFailure.setVisibility(LinearLayout.GONE);
+                    }
+
+
                     if (empType.equals("Salaried Employee") ){
                         salariedForm.setVisibility(LinearLayout.VISIBLE);
                     }else if(empType.equals("Self Employed Professional")){
@@ -414,6 +451,11 @@ public class DocumentsActivity extends AppCompatActivity {
                 }catch (JSONException e) {
 
                 }
+
+
+
+
+
             }
 
 
@@ -469,10 +511,40 @@ public class DocumentsActivity extends AppCompatActivity {
         selfEmpITR3 = findViewById(R.id.selfempIncomeTax3UploadFile);
         selfEmpHighestDegree= findViewById(R.id.selfempMarkSheetUploadFile);
 
+
+        panUploadCamera = findViewById(R.id.panClickFile);
+        aadharUploadCamera = findViewById(R.id.aadharClickFile);
+        permAddressCamera = findViewById(R.id.permAddressClickFile);
+        currentAddressCamera = findViewById(R.id.localAddressClickFile);
+        bankStatementCamera = findViewById(R.id.statement12ClickFile);
+        empSalarySlip1Camera= findViewById(R.id.salarySlipLastClickFile);
+        empSalarySlip2Camera = findViewById(R.id.salarySlip2ClickFile);
+        empSalarySlip3Camera = findViewById(R.id.salarySlip3ClickFile);
+//        empForm16 = findViewById(R.id.form16ClickFile);
+        empHighestDegreeCamera = findViewById(R.id.markSheetClickFile);
+        businessPanCamera = findViewById(R.id.businessPANClickFile);
+        businessCompanyRegCamera = findViewById(R.id.businessRegistrationtClickFile);
+        businessITR1Camera = findViewById(R.id.businessIncomeTax1ClickFile);
+        businessITR2Camera = findViewById(R.id.businessIncomeTax2ClickFile);
+        businessITR3Camera = findViewById(R.id.businessIncomeTax3ClickFile);
+        selfEmpPanCamera = findViewById(R.id.selfempPANClickFile);
+        selfEmpCompanyRegCamera = findViewById(R.id.selfempRegistrationtClickFile);
+        selfEmpITR1Camera= findViewById(R.id.selfempIncomeTax1ClickFile);
+        selfEmpITR2Camera= findViewById(R.id.selfempIncomeTax2ClickFile);
+        selfEmpITR3Camera = findViewById(R.id.selfempIncomeTax3ClickFile);
+        selfEmpHighestDegreeCamera= findViewById(R.id.selfempMarkSheetClickFile);
+
         View.OnClickListener uploader = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openImage(view.getId());
+                selectFromDoc(view.getId());
+            }
+        };
+
+        View.OnClickListener uploaderImage = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                selectFromCamera(view.getId());
             }
         };
 
@@ -496,7 +568,51 @@ public class DocumentsActivity extends AppCompatActivity {
         selfEmpITR2.setOnClickListener(uploader);
         selfEmpITR3.setOnClickListener(uploader);
         selfEmpHighestDegree.setOnClickListener(uploader);
+
+
+
+        panUploadCamera.setOnClickListener(uploaderImage);
+        aadharUploadCamera.setOnClickListener(uploaderImage);
+        permAddressCamera.setOnClickListener(uploaderImage);
+        currentAddressCamera.setOnClickListener(uploaderImage);
+        bankStatementCamera.setOnClickListener(uploaderImage);
+        empSalarySlip1Camera.setOnClickListener(uploaderImage);
+        empSalarySlip2Camera.setOnClickListener(uploaderImage);
+        empSalarySlip3Camera.setOnClickListener(uploaderImage);
+        empHighestDegreeCamera.setOnClickListener(uploaderImage);
+        businessPanCamera.setOnClickListener(uploaderImage);
+        businessCompanyRegCamera.setOnClickListener(uploaderImage);
+        businessITR1Camera.setOnClickListener(uploaderImage);
+        businessITR2Camera.setOnClickListener(uploaderImage);
+        businessITR3Camera.setOnClickListener(uploaderImage);
+        selfEmpPanCamera.setOnClickListener(uploaderImage);
+        selfEmpCompanyRegCamera.setOnClickListener(uploaderImage);
+        selfEmpITR1Camera.setOnClickListener(uploaderImage);
+        selfEmpITR2Camera.setOnClickListener(uploaderImage);
+        selfEmpITR3Camera.setOnClickListener(uploaderImage);
+        selfEmpHighestDegreeCamera.setOnClickListener(uploaderImage);
+
+
+
+
+
+
     }
+
+
+    private void selectFromCamera(final Integer elementCode){
+        EasyImage.openCamera(DocumentsActivity.this, elementCode);
+    }
+
+    private void selectFromDoc(final Integer elementCode){
+        REQUEST_CODE_DOC = elementCode;
+        FilePickerBuilder.getInstance().setMaxCount(1)
+                .setActivityTheme(R.style.Theme_AppCompat).addFileSupport("ZIP", new String[]{".zip",".rar"}, R.drawable.ic_file).enableDocSupport(false)
+                .addFileSupport("PDF",new String[]{".pdf",".PDF"}, R.drawable.ic_file).enableCameraSupport(true)
+                .pickFile(DocumentsActivity.this);
+    }
+
+
 
     private void openImage(final Integer elementCode){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -549,6 +665,8 @@ public class DocumentsActivity extends AppCompatActivity {
     }
 
     public void upload(String filePath ,final String table, final int id){
+
+        Toast.makeText(this, table, Toast.LENGTH_SHORT).show();
 
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
@@ -843,42 +961,42 @@ public class DocumentsActivity extends AppCompatActivity {
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
                 switch (type){
-                    case R.id.panUploadFile:
+                    case R.id.panClickFile:
                         String filePath = imageFile.getAbsolutePath();
                         upload(filePath , "i2i_borrower_document_details||doc_pancard", R.id.panUploadFile);
                         Toast.makeText(DocumentsActivity.this, filePath , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.aadharUploadFile:
+                    case R.id.aadharClickFile:
                         String aadharUploadFile = imageFile.getAbsolutePath();
                         upload(aadharUploadFile , "i2i_borrower_document_details||aadhar_card", R.id.aadharUploadFile);
                         Toast.makeText(DocumentsActivity.this, aadharUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.permAddressUploadFile:
+                    case R.id.permAddressClickFile:
                         String permAddressUploadFile = imageFile.getAbsolutePath();
                         upload(permAddressUploadFile , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.permAddressUploadFile);
                         Toast.makeText(DocumentsActivity.this, permAddressUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.localAddressUploadFile:
+                    case R.id.localAddressClickFile:
                         String localAddressUploadFile = imageFile.getAbsolutePath();
                         upload(localAddressUploadFile , "i2i_borrower_document_details||doc_current_add_proof", R.id.localAddressUploadFile);
                         Toast.makeText(DocumentsActivity.this, localAddressUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.statement12UploadFile:
+                    case R.id.statement12ClickFile:
                         String statement12UploadFile = imageFile.getAbsolutePath();
                         upload(statement12UploadFile , "i2i_borrower_document_details||doc_account_statement", R.id.statement12UploadFile);
                         Toast.makeText(DocumentsActivity.this, statement12UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.salarySlipLastUploadFile:
+                    case R.id.salarySlipLastClickFile:
                         String salarySlipLastUploadFile = imageFile.getAbsolutePath();
                         upload(salarySlipLastUploadFile , "i2i_borrower_document_details||doc_sal_last_month", R.id.salarySlipLastUploadFile);
                         Toast.makeText(DocumentsActivity.this, salarySlipLastUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.salarySlip2UploadFile:
+                    case R.id.salarySlip2ClickFile:
                         String salarySlip2UploadFile = imageFile.getAbsolutePath();
                         upload(salarySlip2UploadFile , "i2i_borrower_document_details||doc_sal_2nd_month", R.id.salarySlip2UploadFile);
                         Toast.makeText(DocumentsActivity.this, salarySlip2UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.salarySlip3UploadFile:
+                    case R.id.salarySlip3ClickFile:
                         String salarySlip3UploadFile = imageFile.getAbsolutePath();
                         upload(salarySlip3UploadFile , "i2i_borrower_document_details||doc_sal_3rd_month", R.id.salarySlip3UploadFile);
                         Toast.makeText(DocumentsActivity.this, salarySlip3UploadFile , Toast.LENGTH_SHORT).show();
@@ -888,63 +1006,63 @@ public class DocumentsActivity extends AppCompatActivity {
 //                        //upload(form16UploadFile , "i2i_borrower_document_details||doc_parmanent_add_proof", R.id.form16UploadFile);
 //                        Toast.makeText(DocumentsActivity.this, form16UploadFile , Toast.LENGTH_SHORT).show();
 //                        break;
-                    case R.id.markSheetUploadFile:
+                    case R.id.markSheetClickFile:
                         String markSheetUploadFile = imageFile.getAbsolutePath();
                         upload(markSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.markSheetUploadFile);
                         Toast.makeText(DocumentsActivity.this, markSheetUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.businessPANUploadFile:
+                    case R.id.businessPANClickFile:
                         String businessPANUploadFile = imageFile.getAbsolutePath();
                         upload(businessPANUploadFile , "i2i_borrower_document_details||doc_com_pancard", R.id.businessPANUploadFile);
                         Toast.makeText(DocumentsActivity.this, businessPANUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.businessRegistrationtUploadFile:
+                    case R.id.businessRegistrationtClickFile:
                         String businessRegistrationtUploadFile = imageFile.getAbsolutePath();
                         upload(businessRegistrationtUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.businessRegistrationtUploadFile);
                         Toast.makeText(DocumentsActivity.this, businessRegistrationtUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.businessIncomeTax1UploadFile:
+                    case R.id.businessIncomeTax1ClickFile:
                         String businessIncomeTax1UploadFile = imageFile.getAbsolutePath();
                         upload(businessIncomeTax1UploadFile , "i2i_borrower_document_details||doc_return_last", R.id.businessIncomeTax1UploadFile);
                         Toast.makeText(DocumentsActivity.this, businessIncomeTax1UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.businessIncomeTax2UploadFile:
+                    case R.id.businessIncomeTax2ClickFile:
                         String businessIncomeTax2UploadFile = imageFile.getAbsolutePath();
                         upload(businessIncomeTax2UploadFile , "i2i_borrower_document_details||doc_return_2nd", R.id.businessIncomeTax2UploadFile);
                         Toast.makeText(DocumentsActivity.this, businessIncomeTax2UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.businessIncomeTax3UploadFile:
+                    case R.id.businessIncomeTax3ClickFile:
                         String businessIncomeTax3UploadFile = imageFile.getAbsolutePath();
                         upload(businessIncomeTax3UploadFile , "i2i_borrower_document_details||doc_return_3rd", R.id.businessIncomeTax3UploadFile);
                         Toast.makeText(DocumentsActivity.this, businessIncomeTax3UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.selfempPANUploadFile:
+                    case R.id.selfempPANClickFile:
                         String selfempPANUploadFile = imageFile.getAbsolutePath();
                         upload(selfempPANUploadFile , "i2i_borrower_document_details||doc_com_pancard", R.id.selfempPANUploadFile);
                         Toast.makeText(DocumentsActivity.this, selfempPANUploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.selfempRegistrationtUploadFile:
+                    case R.id.selfempRegistrationtClickFile:
                         String selfempRegistrationtUploadFile = imageFile.getAbsolutePath();
                         upload(selfempRegistrationtUploadFile , "i2i_borrower_document_details||doc_com_reg_doc", R.id.selfempRegistrationtUploadFile);
                         Toast.makeText(DocumentsActivity.this, selfempRegistrationtUploadFile , Toast.LENGTH_SHORT).show();
                         break;
 
-                    case R.id.selfempIncomeTax1UploadFile:
+                    case R.id.selfempIncomeTax1ClickFile:
                         String selfempIncomeTax1UploadFile = imageFile.getAbsolutePath();
                         upload(selfempIncomeTax1UploadFile , "i2i_borrower_document_details||doc_return_last", R.id.selfempIncomeTax1UploadFile);
                         Toast.makeText(DocumentsActivity.this, selfempIncomeTax1UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.selfempIncomeTax2UploadFile:
+                    case R.id.selfempIncomeTax2ClickFile:
                         String selfempIncomeTax2UploadFile = imageFile.getAbsolutePath();
                         upload(selfempIncomeTax2UploadFile , "i2i_borrower_document_details||doc_return_2nd", R.id.selfempIncomeTax2UploadFile);
                         Toast.makeText(DocumentsActivity.this, selfempIncomeTax2UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.selfempIncomeTax3UploadFile:
+                    case R.id.selfempIncomeTax3ClickFile:
                         String selfempIncomeTax3UploadFile = imageFile.getAbsolutePath();
                         upload(selfempIncomeTax3UploadFile , "i2i_borrower_document_details||doc_return_3rd", R.id.selfempIncomeTax3UploadFile);
                         Toast.makeText(DocumentsActivity.this, selfempIncomeTax3UploadFile , Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.selfempMarkSheetUploadFile:
+                    case R.id.selfempMarkSheetClickFile:
                         String selfempMarkSheetUploadFile = imageFile.getAbsolutePath();
                         upload(selfempMarkSheetUploadFile , "i2i_borrower_document_details||doc_marksheet", R.id.selfempMarkSheetUploadFile);
                         Toast.makeText(DocumentsActivity.this, selfempMarkSheetUploadFile , Toast.LENGTH_SHORT).show();
@@ -1045,15 +1163,17 @@ public class DocumentsActivity extends AppCompatActivity {
                     public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                         super.onSuccess(statusCode, headers, c);
 //              http://localhost:8080/api/v1/logout/?csrf_token=PvKMr0O9JCGaS1yO52GxSnMtG&session_id=6jJoBMIsZOMsTu47TTZ7jd4Fm
-                        client.post(backend.BASE_URL + "/api/v1/logout/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
-                                super.onSuccess(statusCode, headers, c);
-                                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                                startActivity(i);
-                            }
-
-                        });
+                        Intent i = new Intent(getApplicationContext(), AccountActivity.class);
+                        startActivity(i);
+//                        client.post(backend.BASE_URL + "/api/v1/logout/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
+//                            @Override
+//                            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+//                                super.onSuccess(statusCode, headers, c);
+//                                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+//                                startActivity(i);
+//                            }
+//
+//                        });
 
                     }
 

@@ -525,7 +525,64 @@ public class EmployementDetails extends AppCompatActivity {
             public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                 super.onSuccess(statusCode, headers, c);
 
+
+//                this.http.get(global.oldWebsite + '/i2ifundingv2/user/panapi/user_id/' + data.usr_id+'/type/U' ,{})
+//                        .map(res => res.json())
+//              .subscribe(data =>{
+//
+//                });
+//
+//                this.http.get(global.oldWebsite + '/i2ifundingv2/user/aadharapi/user_id/' + data.usr_id+'/type/U' ,{})
+//                        .map(res => res.json())
+//              .subscribe(data =>{
+//
+//                });
+
+
+
+
+
+
                 try {
+
+                    try {
+                        String usr_id = c.getString("usr_id");
+                        Toast.makeText(EmployementDetails.this, usr_id, Toast.LENGTH_SHORT).show();
+
+                        client.get(getApplicationContext(), backend.OLD_WEBSITE + "/i2ifundingv2/user/panapi/user_id/" + usr_id + "/type/U" , new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                super.onSuccess(statusCode, headers, response);
+
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                super.onFailure(statusCode, headers, throwable, errorResponse);
+                            }
+
+                        });
+
+                        client.get(getApplicationContext(), backend.OLD_WEBSITE + "/i2ifundingv2/user/aadharapi/user_id/" + usr_id + "/type/U" , new JsonHttpResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                super.onSuccess(statusCode, headers, response);
+
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                                super.onFailure(statusCode, headers, throwable, errorResponse);
+                            }
+
+                        });
+
+
+                    }catch (JSONException e){
+                        Toast.makeText(EmployementDetails.this, "In error", Toast.LENGTH_SHORT).show();
+                    }
+                    
+
                     String typ = c.getString("emp_type");
 //                    typ =  "Salaried";
 //                    typ =  "Business";

@@ -11,7 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="400dp">
 
         <TextView
             android:id="@+id/textView3"
@@ -20,7 +22,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="30dp"
             android:gravity="center_horizontal"
-            android:text="Verify communication details" />
+            android:text="Auto Verification" />
 
 
         <ImageView
@@ -30,117 +32,55 @@
             android:layout_gravity="center_horizontal"
             app:srcCompat="@drawable/bottom_border" />
 
+
+
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:orientation="horizontal"
-            android:paddingRight="20dp">
+            style="@style/linear_layout_for_et"
+            android:layout_marginTop="30dp">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:scaleType="center"
                 app:srcCompat="@drawable/mobile_icon" />
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="250dp"
+                android:layout_width="270dp"
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
                     android:id="@+id/mobileOTP"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
                     android:hint="Mobile OTP"
                     android:inputType="numberPassword"
+                    android:maxLength="6"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColorLink="@color/white"
+                    android:textSize="@dimen/edit_text_size"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal"
-            android:paddingRight="20dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:scaleType="center"
-                app:srcCompat="@drawable/email_icon" />
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="250dp"
-                android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:id="@+id/emailOTP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email OTP"
-                    android:inputType="numberPassword"
-                    android:maxLines="1"
-                    android:singleLine="true" />
-
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/otpView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="" />
-
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:padding="20dp"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <CheckBox
-            android:id="@+id/tncCheckbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text='I have read, understood, and I agree to the "Terms and Conditions" set forth by i2ifunding.com. ' />
-
-        <CheckBox
-            android:id="@+id/personalInfoCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_weight="1"
-            android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com ' />
-
-        <Button
-            android:id="@+id/submit_button"
-            style="?android:textAppearanceSmall"
-            android:layout_width="117dp"
-            android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/otpView"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/roundbutton_blue"
-            android:text="Submit"
-            android:textColor="#ffffff"
-            android:textStyle="bold" />
+            android:text="Please wait while we verify your mobile number" />
 
     </LinearLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

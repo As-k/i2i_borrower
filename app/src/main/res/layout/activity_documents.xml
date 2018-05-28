@@ -24,7 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:paddingTop="20dp"
-                android:background="@android:color/white"
+                android:background="@color/colorPrimary"
+                app:svTextColor="@color/white"
+                app:svCircleColor="@color/white"
                 app:svSelectedColor="@color/orange"/>
 
 
@@ -79,45 +81,110 @@
                 </LinearLayout>
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/panEKYCStatusImg">
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/ekycFailedPAN">
+
+                    <ImageView
+
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/thumbsdown_icon" />
+
+                    <TextView
+                        android:id="@+id/panEKYCStatusTxt"
+                        android:layout_width="185dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="eKYC faild , please upload a copy of your PAN card"
+                        android:textAlignment="center"
+                        android:textColor="@color/orange" />
+
+                    <ImageView
+                        android:id="@+id/panUploadFile"
+                        android:layout_width="37dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/upload_icon" />
+
+                    <ImageView
+                        android:id="@+id/panClickFile"
+                        android:layout_width="31dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/camera_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_layout_for_et">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/lock_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/panPassword"
+                            style="@style/edit_text_style"
+                            android:hint="Password if any"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="360dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginEnd="20dp"
+                android:id="@+id/ekycSuccessPAN">
 
                 <ImageView
-                    android:id="@+id/panEKYCStatusImg"
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
                     android:scaleType="center"
-                    app:srcCompat="@drawable/thumbsdown_icon" />
+                    app:srcCompat="@drawable/thumsup_icon" />
 
                 <TextView
                     android:layout_width="185dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/panEKYCStatusTxt"
-                    android:text="eKYC faild , please upload a copy of your PAN card"
+                    android:text="eKYC successful"
                     android:textAlignment="center"
-                    android:textColor="@color/orange" />
-
-                <ImageView
-                    android:layout_width="77dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:id="@+id/panUploadFile"
-                    app:srcCompat="@drawable/upload_icon" />
-
-                <ImageView
-                    android:layout_width="77dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:id="@+id/panClickFile"
-                    app:srcCompat="@drawable/camera_icon" />
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/green" />
 
             </LinearLayout>
 
@@ -128,31 +195,7 @@
                 android:layout_marginStart="130dp"
                 />
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/lock_icon" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/panPassword"
-                        style="@style/edit_text_style"
-                        android:hint="Password if any"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -189,81 +232,124 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/aadharEKYCStatusImg">
+
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_marginEnd="20dp"
+                    android:id="@+id/ekycFailedAadhar">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="50dp"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/thumbsdown_icon" />
+
+                    <TextView
+                        android:id="@+id/aadharEKYCStatusTxt"
+                        android:layout_width="185dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="eKYC faild , upload a copy of your Aadhar card"
+                        android:textAlignment="center"
+                        android:textColor="@color/orange" />
+
+
+                    <ImageView
+                        android:id="@+id/aadharUploadFile"
+                        android:layout_width="44dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/upload_icon" />
+
+                    <ImageView
+                        android:id="@+id/aadharClickFile"
+                        android:layout_width="31dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/camera_icon" />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/aadharUploadFileErrTxt"
+                    style="@style/edit_text_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="130dp"
+                    />
+
+                <LinearLayout
+                    style="@style/linear_layout_for_et">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="center"
+                        app:srcCompat="@drawable/lock_icon" />
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="270dp"
+                        android:layout_height="wrap_content">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/aadharPassword"
+                            style="@style/edit_text_style"
+                            android:hint="Password if any"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="360dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp">
+                android:layout_marginEnd="20dp"
+                android:id="@+id/ekycSuccessAadhar">
+
                 <ImageView
-                    android:id="@+id/aadharEKYCStatusImg"
                     android:layout_width="70dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="50dp"
                     android:layout_weight="1"
                     android:scaleType="center"
-                    app:srcCompat="@drawable/thumbsdown_icon" />
+                    app:srcCompat="@drawable/thumsup_icon" />
 
                 <TextView
                     android:layout_width="185dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/aadharEKYCStatusTxt"
-                    android:text="eKYC faild , upload a copy of your Aadhar card"
+                    android:text="eKYC successful"
                     android:textAlignment="center"
-                    android:textColor="@color/orange" />
-
-
-                <ImageView
-                    android:layout_width="77dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:id="@+id/aadharUploadFile"
-                    app:srcCompat="@drawable/upload_icon" />
-
-                <ImageView
-                    android:layout_width="77dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    android:id="@+id/aadharClickFile"
-                    app:srcCompat="@drawable/camera_icon" />
-
+                    android:layout_marginTop="10dp"
+                    android:textColor="@color/green" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/aadharUploadFileErrTxt"
-                style="@style/edit_text_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="130dp"
-                />
 
-            <LinearLayout
-                style="@style/linear_layout_for_et">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/lock_icon" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="270dp"
-                    android:layout_height="wrap_content">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/aadharPassword"
-                        style="@style/edit_text_style"
-                        android:hint="Password if any"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        />
-                </android.support.design.widget.TextInputLayout>
-
-            </LinearLayout>
 
 
             <LinearLayout
@@ -511,7 +597,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="center"
-                        android:id="@+id/statement12UClickFile"
+                        android:id="@+id/statement12ClickFile"
                         app:srcCompat="@drawable/camera_icon" />
 
                     <android.support.design.widget.TextInputLayout
@@ -855,31 +941,22 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
+
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
                         <ImageView
+                            android:id="@+id/markSheetUploadFile"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
-                            android:id="@+id/markSheetUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
 
@@ -888,7 +965,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/markSheetClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -950,30 +1026,19 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
+                    style="@style/linear_layout_for_et">
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessPANUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -982,7 +1047,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessPANClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1033,45 +1097,28 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
+                    style="@style/linear_layout_for_et">
 
                     <LinearLayout
                         android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
-
-
+                        android:layout_marginStart="70dp">
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessRegistrationtUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
-
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessRegistrationtClickFile"
                             app:srcCompat="@drawable/camera_icon" />
-
                     </LinearLayout>
-
                 </LinearLayout>
 
                 <TextView
@@ -1117,24 +1164,14 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                <LinearLayout style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1142,7 +1179,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax1UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1151,7 +1187,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax1ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1202,23 +1237,14 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1226,7 +1252,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax2UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1235,7 +1260,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax2ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1287,23 +1311,14 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1311,7 +1326,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax3UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1320,7 +1334,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/businessIncomeTax3ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1379,23 +1392,14 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1403,7 +1407,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempPANUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1412,7 +1415,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempPANClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1463,30 +1465,19 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
+                    style="@style/linear_layout_for_et">
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempRegistrationtUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1495,7 +1486,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempRegistrationtClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1547,23 +1537,14 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1571,7 +1552,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax1UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1580,7 +1560,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax1ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1631,30 +1610,20 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax2UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1663,7 +1632,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax2ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1714,23 +1682,15 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
+                    style="@style/linear_layout_for_et">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
+
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1738,7 +1698,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax3UploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1747,7 +1706,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempIncomeTax3ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
@@ -1800,23 +1758,13 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:paddingRight="20dp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:scaleType="center" />
+                    style="@style/linear_layout_for_et">
 
                     <LinearLayout
-                        android:layout_width="270dp"
+                        android:layout_width="80dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:minHeight="50dp">
+                        android:layout_marginStart="70dp">
 
 
                         <ImageView
@@ -1824,7 +1772,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempMarkSheetUploadFile"
                             app:srcCompat="@drawable/upload_icon" />
 
@@ -1833,7 +1780,6 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:scaleType="center"
-                            android:layout_marginEnd="200dp"
                             android:id="@+id/selfempMarkSheetClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 

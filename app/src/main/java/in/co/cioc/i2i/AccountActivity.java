@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
@@ -160,6 +161,13 @@ public class AccountActivity extends AppCompatActivity {
     LinearLayout promoCodeLayout , promocodeControls;
     ScrollView account_scroll;
 
+    TextView loanAmtApplied , loanAmtApproved , loanAmtDisbursed , loanTenure , purpose , interestRate , i2iCategory , currentRate , initialRate;
+    Button currentStatus;
+
+    TextView step1Txt , step1Date , step2Txt , step2Date, step3Txt , step3Date, step4Txt , step4Date, step5Txt , step5Date, step6Txt , step6Date, step7Txt , step7Date, step8Txt , step8Date;
+    ImageView step1Image , step2Image, step3Image, step4Image, step5Image, step6Image, step7Image, step8Image;
+
+    TextView logoutBtn2;
 
     public void oldMain(){
         Intent intent = getIntent();
@@ -178,13 +186,6 @@ public class AccountActivity extends AppCompatActivity {
         // Start the queue
         mRequestQueue.start();
         callarr = new JSONArray();
-
-//        usr_id = initial_bundle.getString("user");
-//        usr_phone = initial_bundle.getString("user_phone");
-//        usr_email = initial_bundle.getString("user_email");
-//        full_name = initial_bundle.getString("user_fname") + " " + initial_bundle.getString("user_lname");
-
-
 
         sendc = 0;
         sends = 0;
@@ -231,10 +232,167 @@ public class AccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+
+        logoutBtn2 = findViewById(R.id.logoutBtnTxt);
+
+        loanAmtApplied = findViewById(R.id.loanAmtApplied);
+        loanAmtApproved = findViewById(R.id.loanAmtApproved);
+        loanAmtDisbursed = findViewById(R.id.loanAmtDisbursed);
+        loanTenure = findViewById(R.id.loanTenure);
+        purpose = findViewById(R.id.purpose);
+        interestRate = findViewById(R.id.interestRate);
+        i2iCategory = findViewById(R.id.i2iCategory);
+        currentRate = findViewById(R.id.currentRate);
+        initialRate = findViewById(R.id.initialRate);
+        currentStatus = findViewById(R.id.currentStatus);
+
+
+        step1Txt = findViewById(R.id.step1Txt);
+        step1Date = findViewById(R.id.step1Date);
+        step1Image = findViewById(R.id.step1Image);
+
+
+        step2Txt = findViewById(R.id.step2Txt);
+        step2Date = findViewById(R.id.step2Date);
+        step2Image = findViewById(R.id.step2Image);
+
+        step3Txt = findViewById(R.id.step3Txt);
+        step3Date = findViewById(R.id.step3Date);
+        step3Image = findViewById(R.id.step3Image);
+
+        step4Txt = findViewById(R.id.step4Txt);
+        step4Date = findViewById(R.id.step4Date);
+        step4Image = findViewById(R.id.step4Image);
+
+
+        step5Txt = findViewById(R.id.step5Txt);
+        step5Date = findViewById(R.id.step5Date);
+        step5Image = findViewById(R.id.step5Image);
+
+        step6Txt = findViewById(R.id.step6Txt);
+        step6Date = findViewById(R.id.step6Date);
+        step6Image = findViewById(R.id.step6Image);
+
+        step7Txt = findViewById(R.id.step7Txt);
+        step7Date = findViewById(R.id.step7Date);
+        step7Image = findViewById(R.id.step7Image);
+
+        step8Txt = findViewById(R.id.step8Txt);
+        step8Date = findViewById(R.id.step8Date);
+        step8Image = findViewById(R.id.step8Image);
+
+
+
+
+
+
+
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
+
+        client.get(backend.BASE_URL + "/api/v1/getDetails/loan/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                super.onSuccess(statusCode, headers, c);
+
+                //loanAmtApplied , loanAmtApproved , loanAmtDisbursed , loanTenure , purpose , interestRate , i2iCategory;
+
+                try {
+                    loanAmtApplied.setText( "INR " +  c.getString("bloan_amount"));
+                    loanTenure.setText( c.getString("bloan_tenure"));
+                    interestRate.setText( c.getString("bloan_i2i_rate") + " %");
+                    i2iCategory.setText( c.getString("bloan_i2i_category"));
+                    loanAmtApproved.setText( "INR " +  c.getString("bloan_approved_amt"));
+                    currentStatus.setText( c.getString("bloan_status"));
+                    purpose.setText( c.getString("purpose"));
+                    currentRate.setText(c.getString("currentInterest"));
+                    initialRate.setText(c.getString("initialInterest"));
+                    loanAmtDisbursed.setText(c.getString("amtDisbursed"));
+
+                    step1Txt.setText(c.getString("step1Status"));
+                    if (c.getBoolean("step1Complete")){
+                        step1Date.setText(c.getString("step1Date"));
+                    }else {
+                        step1Image.setVisibility(ImageView.GONE);
+                    }
+
+
+                    step2Txt.setText(c.getString("step2Status"));
+                    if (c.getBoolean("step2Complete")){
+                        step2Date.setText(c.getString("step2Date"));
+                    }else {
+                        step2Image.setVisibility(ImageView.GONE);
+                    }
+
+
+                    step3Txt.setText(c.getString("step3Status"));
+                    if (c.getBoolean("step3Complete")){
+                        step3Date.setText(c.getString("step3Date"));
+                    }else {
+                        step3Image.setVisibility(ImageView.GONE);
+                    }
+
+
+                    step4Txt.setText(c.getString("step4Status"));
+                    if (c.getBoolean("step4Complete")){
+                        step4Date.setText(c.getString("step4Date"));
+                    }else {
+                        step4Image.setVisibility(ImageView.GONE);
+                    }
+
+
+                    step5Txt.setText(c.getString("step5Status"));
+                    if (c.getBoolean("step5Complete")){
+                        step5Date.setText(c.getString("step5Date"));
+                    }else {
+                        step5Image.setVisibility(ImageView.GONE);
+                    }
+
+
+                    step6Txt.setText(c.getString("step6Status"));
+                    if (c.getBoolean("step6Complete")){
+                        step6Date.setText(c.getString("step6Date"));
+                    }else {
+                        step6Image.setVisibility(ImageView.GONE);
+                    }
+
+
+                    step7Txt.setText(c.getString("step7Status"));
+                    if (c.getBoolean("step7Complete")){
+                        step7Date.setText(c.getString("step7Date"));
+                    }else {
+                        step7Image.setVisibility(ImageView.GONE);
+                    }
+
+                    step8Txt.setText(c.getString("step8Status"));
+                    if (c.getBoolean("step8Complete")){
+                        step8Date.setText(c.getString("step8Date"));
+                    }else {
+                        step8Image.setVisibility(ImageView.GONE);
+                    }
+
+
+
+
+                }catch (JSONException e){
+
+                }
+
+                Toast.makeText(AccountActivity.this, "In success", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject c){
+                Toast.makeText(AccountActivity.this, "Cant get the loan details", Toast.LENGTH_SHORT).show();
+            }
+
+
+        });
+
+
+
+
 
         progress = new ProgressDialog(this);
         progress.setTitle("Please wait");
@@ -323,6 +481,21 @@ public class AccountActivity extends AppCompatActivity {
         });
 
 
+
+        logoutBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+
         if (session_id != null && csrf_token != null){
             client.get(backend.BASE_URL + "/api/v1/notifications/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
                 @Override
@@ -343,6 +516,7 @@ public class AccountActivity extends AppCompatActivity {
                         }else{
                             accountView.setVisibility(LinearLayout.VISIBLE);
                             continueView.setVisibility(LinearLayout.GONE);
+                            logoutBtn2.setText("logout");
                         }
 
                         usr_id = id.toString();
@@ -355,7 +529,7 @@ public class AccountActivity extends AppCompatActivity {
                         userID.setText(id.toString());
 
                         reg_stage = c.getInt("reg_stage");
-                        oldMain();
+//                        oldMain();
 
                         // To dismiss the dialog
 
@@ -418,9 +592,6 @@ public class AccountActivity extends AppCompatActivity {
         return true;
     }
 
-    public void checkpermission(View view) {
-        checkpermission();
-    }
 
     public void checkpermission() {
         if (ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_SMS)
@@ -733,32 +904,6 @@ public class AccountActivity extends AppCompatActivity {
         return stringBuffer.toString();
     }
 
-    public void openalert(View view) {
-        AlertDialog.Builder builder1 = new AlertDialog.Builder(AccountActivity.this);
-        builder1.setMessage("Are you sure want to logout");
-        builder1.setCancelable(true);
-
-        builder1.setPositiveButton(
-                "Yes",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        finish();
-                        getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
-                                .edit().remove(PREF_FNAME2).remove(PREF_PASSWORD).apply();
-                    }
-                });
-
-        builder1.setNegativeButton(
-                "No",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-
-        AlertDialog alert11 = builder1.create();
-        alert11.show();
-    }
 
     void addingcontacts() {
         contactsarr = new JSONArray();
@@ -851,15 +996,6 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    public void logLargeString(String TAG, String str) {
-        if (str.length() > 3000) {
-            Log.i(TAG, str.substring(0, 3000));
-            logLargeString(TAG, str.substring(3000));
-        } else {
-            Log.i(TAG, str); // continuation
-        }
-    }
-
     void addingsms2() {
         sends2 = 1;
         smsarr = new JSONArray();
@@ -928,7 +1064,6 @@ public class AccountActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_GRANTED) {
             getCallDetails(this);
         }
-//        Log.d("sasa",String.valueOf(callarr));
 
     }
 
@@ -1219,27 +1354,6 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    public void appendLog2(String text) {
-        File logFile = new File("sdcard/logsat.txt");
-        if (!logFile.exists()) {
-            try {
-                logFile.createNewFile();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        try {
-            //BufferedWriter for performance, true to set append to file flag
-            BufferedWriter buf = new BufferedWriter(new FileWriter(logFile, true));
-            buf.append(text);
-            buf.newLine();
-            buf.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 
     class contacts implements Runnable {
         private String col1;

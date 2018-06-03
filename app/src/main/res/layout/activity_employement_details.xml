@@ -110,7 +110,7 @@
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/selfEmailErrTxt"
+                    android:id="@+id/salaryEmailErrTxt"
                     style="@style/error_text_msg"/>
 
             </LinearLayout>
@@ -252,13 +252,16 @@
                             android:id="@+id/businessFormPan"
                             style="@style/edit_text_style"
                             android:hint="PAN Number (Optional)"
-                            android:inputType="text"
+                            android:inputType="textCapCharacters"
                             android:maxLines="1"
                             android:singleLine="true"
                             />
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/businessFormPanErrTxt"
+                    style="@style/error_text_msg"/>
 
                 <LinearLayout
                     style="@style/linear_layout_for_et">
@@ -417,6 +420,9 @@
 
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/personalEmailErrTxt"
+                    style="@style/error_text_msg"/>
 
             </LinearLayout>
 

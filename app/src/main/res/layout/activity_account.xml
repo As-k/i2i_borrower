@@ -1613,7 +1613,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
                             android:background="@drawable/roundbutton_orange"
-                            android:text="Continue registration"
+                            android:text="Continue Registration"
                             android:textColor="#ffffff"
                             android:textStyle="bold"
                             android:textAllCaps="false"

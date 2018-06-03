@@ -1,11 +1,17 @@
 package in.co.cioc.i2i;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.SpannableString;
@@ -14,6 +20,7 @@ import android.text.TextPaint;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -54,11 +61,12 @@ import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.entity.StringEntity;
+import droidninja.filepicker.FilePickerBuilder;
 
 
 public class MainActivity extends AppCompatActivity {
     EditText mPasswordView;
-    EditText RePasswordView;
+    EditText rePasswordView;
     EditText fName;
     EditText mName;
     EditText lName;
@@ -86,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView genderErr, fnameErr, lnameErr, aadharErr, panErr, emailErr, mobileErr, passwordErr, password2Err, otpmobileErr, otpemailErr, tncCBErr, personalCBErr;
 
-    RequestParams requestParams = new RequestParams();;
+    RequestParams requestParams = new RequestParams();
     private static AsyncHttpClient client = new AsyncHttpClient(true , 80, 443);
     String jsonResponse , mobileOtp , emailOtp;
 
@@ -99,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
     String f_name, l_name, m_name, p_email, p_adhar, p_pan, password, p_mobile, repassword;
     Button register_button;
     boolean fnameValid, lnameValid, panValid, aadharValid, mobileValid, emailValid, passwordValid, repasswordValid, emailOTPValid, mobOTPValid;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         mobile = findViewById(R.id.mobile);
 
         mPasswordView = findViewById(R.id.password);
-        RePasswordView = findViewById(R.id.rePassword);
+        rePasswordView = findViewById(R.id.rePassword);
 
         male = findViewById(R.id.radio_male);
         feMale = findViewById(R.id.radio_female);
@@ -155,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         personalCBErr = findViewById(R.id.personalInfoCheckBoxErrTxt);
 
 
+        isStoragePermissionGranted();
 
 
         View focusView = null;
@@ -173,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 if(s.toString().trim().equals("")){
                     fnameErr.setVisibility(View.VISIBLE);
                     fnameErr.setText("Please enter first name.");
-                    register_button.setText("GET OTP");
+                    textChange(fName);
                     fnameValid = false;
                 } else{
                     fnameErr.setVisibility(View.GONE);
@@ -203,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
                 if(s.toString().trim().equals("")){
                     lnameErr.setVisibility(View.VISIBLE);
                     lnameErr.setText("Please enter last name.");
-                    register_button.setText("GET OTP");
+                    textChange(lName);
                     lnameValid = false;
                 } else{
                     lnameErr.setVisibility(View.GONE);
@@ -248,107 +259,21 @@ public class MainActivity extends AppCompatActivity {
         pan.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")){
-                    panErr.setVisibility(View.VISIBLE);
-                    panErr.setText("Please enter valid PAN card number.");
-                    register_button.setText("GET OTP");
-                    pan.requestFocus();
-                }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (s.length() > 10){
-                    pan.setText(s.toString().substring(0,10));
-                    panValid = false;
-                }
-
-                if(s.length() != 0 && s.length() != 10){
-                    // show error message on pan
-                    panErr.setVisibility(View.VISIBLE);
-                    panErr.setText("Please enter valid PAN card number.");
-                    register_button.setText("GET OTP");
-                    panValid = false;
-                    pan.requestFocus();
-                }else if(s.length() == 0){
-                    panErr.setVisibility(View.VISIBLE);
-                    register_button.setText("GET OTP");
-                    panErr.setText("PAN card is required.");
-                    panValid = false;
-                    pan.requestFocus();
-                }else {
-                    // check regex and backend validity of the pan
-                    System.out.println("Checking PAN");
-                    panErr.setVisibility(View.GONE);
-                    if(Pattern.compile("^[A-Z]{5}[0-9]{4}[A-Z]$").matcher(s.toString()).find()){
-
-                        panErr.setVisibility(View.GONE);
-                        client.get(backend.BASE_URL + "/api/v1/checkPan/" + s.toString() +"/i2i_users||usr_pan", requestParams, new JsonHttpResponseHandler() {
-                            @Override
-                            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                                super.onSuccess(statusCode, headers, response);
-                                jsonResponse = response.toString();
-                                System.out.println(jsonResponse);
-                                Integer count = -1;
-                                try {
-                                    count = response.getInt("count");
-                                }catch (JSONException err){
-
-                                }
-                                if (count ==0){
-                                    showSuccess(pan);
-                                    panValid = true;
-                                }else{
-                                    panValid = false;
-                                    panErr.setVisibility(View.VISIBLE);
-                                    register_button.setText("GET OTP");
-                                    panErr.setText("Please enter valid PAN card number.");
-                                    pan.requestFocus();
-                                    if (count>0) {
-                                        panValid = false;
-                                        panErr.setVisibility(View.VISIBLE);
-                                        panErr.setText("This PAN is already registered with us.");
-                                        register_button.setText("GET OTP");
-                                        pan.requestFocus();
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                                super.onFailure(statusCode, headers, throwable, errorResponse);
-                            }
-                            @Override
-                            public void onFinish() {
-                                System.out.println("finished 001");
-
-                            }
-                        });
-
-                    }else{
-                        panValid = false;
-                        panErr.setVisibility(View.VISIBLE);
-                        panErr.setText("Invalid PAN Card details");
-                        register_button.setText("GET OTP");
-                        pan.requestFocus();
-                    }
-                }
+                panCardValidation(s.toString().trim());
             }
         });
 
         email.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")){
-                    emailErr.setVisibility(View.VISIBLE);
-                    emailErr.setText("Please enter your Email-Id.");
-                    register_button.setText("GET OTP");
-                    emailValid = false;
-                    email.requestFocus();
-                }
+
 
             }
             @Override
@@ -356,127 +281,21 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String EMAIL_PATTERN =
-                        "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                                + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-                if(validateEmail(s.toString())){
-
-                    emailErr.setVisibility(View.GONE);
-                    client.get(backend.BASE_URL + "/api/v1/checkEmail/" + s.toString() +"/i2i_users||usr_email", requestParams, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-                            jsonResponse = response.toString();
-                            System.out.println(jsonResponse);
-                            Integer count = -1;
-                            try {
-                                count = response.getInt("count");
-                            }catch (JSONException err){
-                            }
-                            if (count ==0){
-                                emailErr.setVisibility(View.GONE);
-                                showSuccess(email);
-                                emailValid = true;
-                            }else {
-                                emailValid = false;
-                                register_button.setText("GET OTP");
-                                emailErr.setVisibility(View.VISIBLE);
-                                emailErr.setText("Please enter your Email-Id.");
-                                email.requestFocus();
-                                if (count > 0) {
-                                    emailValid = false;
-                                    register_button.setText("GET OTP");
-                                    emailErr.setVisibility(View.VISIBLE);
-                                    emailErr.setText("This Email-Id is already registered with us.");
-                                    email.requestFocus();
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                    });
-
-
-
-                }else{
-                    emailValid = false;
-                    register_button.setText("GET OTP");
-                    emailErr.setVisibility(View.VISIBLE);
-                    emailErr.setText("Invalid Email-Id");
-                    email.requestFocus();
-                }
+                emailIdValidation(s.toString().trim());
             }
         });
 
         adhar.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")) {
-                    aadharErr.setVisibility(View.VISIBLE);
-                    aadharErr.setText("Please enter valid Aadhaar no.");
-                    register_button.setText("GET OTP");
-                    aadharValid = false;
-                    adhar.requestFocus();
-                }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.length() == 12){
-
-                    aadharErr.setVisibility(View.GONE);
-                    client.get(backend.BASE_URL + "/api/v1/checkAadhar/" + s.toString() +"/?partner=false", requestParams, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-
-                            Integer count = -1;
-                            try {
-                                count = response.getInt("count");
-                            }catch (JSONException err){
-                            }
-                            if (count ==0){
-                                showSuccess(adhar);
-                                aadharErr.setVisibility(View.GONE);
-                                aadharValid = true;
-                            } else {
-                                aadharValid = false;
-                                aadharErr.setVisibility(View.VISIBLE);
-                                aadharErr.setText("Please enter valid Aadhaar no.");
-                                register_button.setText("GET OTP");
-                                adhar.requestFocus();
-                            }if (count>0){
-                                aadharValid = false;
-                                aadharErr.setVisibility(View.VISIBLE);
-                                register_button.setText("GET OTP");
-                                aadharErr.setText("This Aadhaar number is already registered with us.");
-                                adhar.requestFocus();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                    });
-
-
-
-                }else{
-                    aadharValid = false;
-                    register_button.setText("GET OTP");
-                    aadharErr.setVisibility(View.VISIBLE);
-                    aadharErr.setText("Invalid Aadhaar number");
-                    adhar.requestFocus();
-                }
+                aadharCardValidation(s.toString().trim());
             }
         });
 
@@ -485,70 +304,14 @@ public class MainActivity extends AppCompatActivity {
         mobile.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")) {
-                    mobileErr.setVisibility(View.VISIBLE);
-                    mobileErr.setText("Please enter your mobile number.");
-                    register_button.setText("GET OTP");
-                    mobile.requestFocus();
-                    mobileValid = false;
-                }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(s.length() == 10){
-
-                    mobileErr.setVisibility(View.GONE);
-                    client.get(backend.BASE_URL + "/api/v1/checkPhoneNumber/" + s.toString() +"/?partner=false", requestParams, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                            super.onSuccess(statusCode, headers, response);
-                            jsonResponse = response.toString();
-                            System.out.println(jsonResponse);
-                            Integer count = -1;
-                            try {
-                                count = response.getInt("count");
-                            }catch (JSONException err){
-                            }
-                            if (count ==0){
-                                showSuccess(mobile);
-                                mobileErr.setVisibility(View.GONE);
-                                mobileValid = true;
-                            } else {
-                                mobileValid = false;
-                                mobileErr.setVisibility(View.VISIBLE);
-                                mobileErr.setText("Your mobile number is invalid.");
-                                register_button.setText("GET OTP");
-                                mobile.requestFocus();
-                                if (count>0) {
-                                    mobileValid = false;
-                                    mobileErr.setVisibility(View.VISIBLE);
-                                    mobileErr.setText("This mobile number is already registered with us.");
-                                    mobile.requestFocus();
-                                    register_button.setText("GET OTP");
-                                }
-                             }
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                            super.onFailure(statusCode, headers, throwable, errorResponse);
-                        }
-
-                    });
-
-
-
-                }else{
-                    mobileValid = false;
-                    register_button.setText("GET OTP");
-                    mobileErr.setVisibility(View.VISIBLE);
-                    mobileErr.setText("Invalid Mobile number");
-                    mobile.requestFocus();
-                }
+                mobileNoValidation(s.toString().trim());
             }
         });
 
@@ -558,43 +321,23 @@ public class MainActivity extends AppCompatActivity {
         mPasswordView.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")) {
-                    passwordErr.setVisibility(View.VISIBLE);
-                    register_button.setText("GET OTP");
-                    passwordErr.setText("Please enter Password.");
-                    passwordValid = false;
-                }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                updatePasswordStrengthView(s.toString());
-
-                if(PasswordStrength.calculateStrength(s.toString()).getText(MainActivity.this).equals("Strong")){
-                    showSuccess(mPasswordView);
-                    passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setTextColor(getResources().getColor(R.color.green));
-                    passwordErr.setText("Your Password is Strong.");
-                    passwordValid = true;
-                } else {
-                    passwordValid = false;
-                    register_button.setText("GET OTP");
-                    passwordErr.setVisibility(View.VISIBLE);
-                    passwordErr.setTextColor(getResources().getColor(R.color.cb_errorRed));
-                    passwordErr.setText("Your Password is Weak.");
-                }
+                passwordValidation(s.toString().trim());
             }
         });
 
-        RePasswordView.addTextChangedListener(new TextWatcher() {
+        rePasswordView.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().trim().equals("")) {
                     password2Err.setVisibility(View.VISIBLE);
-                    register_button.setText("GET OTP");
+                    textChange(rePasswordView);
                     password2Err.setText("Confirm Password does not match.");
                     repasswordValid = false;
                 }
@@ -607,13 +350,14 @@ public class MainActivity extends AppCompatActivity {
                 String pass = mPasswordView.getText().toString();
 
                 if(s.toString().equals(pass)){
-                    showSuccess(RePasswordView);
+                    showSuccess(rePasswordView);
+                    getOtp();
                     password2Err.setVisibility(View.GONE);
                     repasswordValid = true;
                 } else {
                     repasswordValid = false;
                     password2Err.setVisibility(View.VISIBLE);
-                    register_button.setText("GET OTP");
+                    textChange(rePasswordView);
                     password2Err.setText("Confirm Password does not match.");
                 }
             }
@@ -624,6 +368,8 @@ public class MainActivity extends AppCompatActivity {
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                emailOTPEdit.setText("");
+                mobileOTPEdit.setText("");
                 f_name = fName.getText().toString().trim();
                 l_name = lName.getText().toString().trim();
                 m_name = mName.getText().toString().trim();
@@ -632,7 +378,7 @@ public class MainActivity extends AppCompatActivity {
                 p_adhar = adhar.getText().toString().trim();
                 p_pan = pan.getText().toString().trim();
                 password = mPasswordView.getText().toString().trim();
-                repassword = RePasswordView.getText().toString().trim();
+                repassword = rePasswordView.getText().toString().trim();
 
 
                 if (password.isEmpty()){
@@ -644,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
                     if (repassword.isEmpty()){
                         password2Err.setVisibility(View.VISIBLE);
                         password2Err.setText("Confirm Password does not match.");
-                        RePasswordView.requestFocus();
+                        rePasswordView.requestFocus();
                     } else {
                         password2Err.setVisibility(View.GONE);
                     }
@@ -682,6 +428,12 @@ public class MainActivity extends AppCompatActivity {
                     aadharErr.setVisibility(View.GONE);
                 }
 
+                passwordValidation(password);
+                mobileNoValidation(p_mobile);
+                emailIdValidation(p_email);
+                panCardValidation(p_pan);
+                aadharCardValidation(p_adhar);
+
                 if (l_name.isEmpty()){
                     lnameErr.setVisibility(View.VISIBLE);
                     lnameErr.setText("Please enter last name.");
@@ -705,6 +457,8 @@ public class MainActivity extends AppCompatActivity {
                     genderErr.setText("Please choose gender.");
                     Toast.makeText(MainActivity.this, "Please choose gender.", Toast.LENGTH_SHORT).show();
                 }
+
+
 
                 if (!fnameValid){
                     Toast.makeText(MainActivity.this, "Please enter first name.", Toast.LENGTH_SHORT).show();
@@ -741,6 +495,8 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
 
+
+
                 if (repassword.equals(password)) {
                     password2Err.setVisibility(View.GONE);
                     RequestParams params = new RequestParams();
@@ -761,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
                     params.put("panNumber", pan.getText().toString().trim());
                     params.put("emailID", email.getText().toString().trim());
                     params.put("password", mPasswordView.getText().toString().trim());
-                    params.put("password2", RePasswordView.getText().toString().trim());
+                    params.put("password2", rePasswordView.getText().toString().trim());
                     params.put("mobileNum", mobile.getText().toString().trim());
                     params.put("mobileCode", ccp.getSelectedCountryCode());
                     params.put("mobileOTP", "");
@@ -808,7 +564,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     password2Err.setVisibility(View.VISIBLE);
                     password2Err.setText("Confirm Password does not match.");
-                    RePasswordView.requestFocus();
+                    rePasswordView.requestFocus();
                 }
 
             }
@@ -887,10 +643,7 @@ public class MainActivity extends AppCompatActivity {
         emailOTPEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")) {
-                    otpemailErr.setVisibility(View.VISIBLE);
-                    otpemailErr.setText("Please enter OTP sent to your email.");
-                }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -898,49 +651,14 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length() == 6){
-                    String url = backend.BASE_URL + "/api/v1/checkEmailOTP/" + email.getText().toString()+"/"+ s.toString() +"/?partner=false";
-                    client.get(url, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
-                            super.onSuccess(statusCode, headers, c);
-                            try {
-                                if (c.getBoolean("valid")){
-                                    showSuccess(emailOTPEdit);
-                                    emailOTPValid = true;
-                                    otpemailErr.setVisibility(View.GONE);
-                                } else{
-                                    emailOTPValid = false;
-                                    otpemailErr.setVisibility(View.VISIBLE);
-                                    otpemailErr.setText("Invalid email OTP");
-                                    emailOTPEdit.requestFocus();
-                                }
-                            }catch(JSONException e){
-                                removeSuccess(emailOTPEdit);
-                                otpemailErr.setVisibility(View.VISIBLE);
-                                otpemailErr.setText("Invalid email OTP");
-                                emailOTPEdit.requestFocus();
-                            }
-
-                        }
-
-                    });
-                }else {
-                    removeSuccess(emailOTPEdit);
-                    otpemailErr.setVisibility(View.VISIBLE);
-                    otpemailErr.setText("Invalid email OTP");
-                    emailOTPEdit.requestFocus();
-                }
+                emailOTPValidation(s.toString().trim());
             }
         });
 
         mobileOTPEdit.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().trim().equals("")) {
-                    otpmobileErr.setVisibility(View.VISIBLE);
-                    otpmobileErr.setText("Please enter OTP sent to your mobile.");
-                }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start,
@@ -948,45 +666,7 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start,  int before, int count) {
-                if(s.length() == 6){
-                    String url = backend.BASE_URL + "/api/v1/checkMobileOTP/" + mobile.getText().toString() +'/' + s.toString() + "/?partner=false";
-                    client.get(url, new JsonHttpResponseHandler() {
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
-                            super.onSuccess(statusCode, headers, c);
-
-                            try {
-                                if (c.getBoolean("valid")){
-                                    showSuccess(mobileOTPEdit);
-                                    mobOTPValid = true;
-                                    otpmobileErr.setVisibility(View.GONE);
-                                } else{
-                                    mobOTPValid = false;
-                                    otpmobileErr.setVisibility(View.VISIBLE);
-                                    otpmobileErr.setText("Invalid mobile OTP");
-                                    mobileOTPEdit.requestFocus();
-                                }
-                            }catch(JSONException e){
-                                removeSuccess(mobileOTPEdit);
-                                otpmobileErr.setVisibility(View.VISIBLE);
-                                otpmobileErr.setText("Invalid mobile OTP");
-                                mobileOTPEdit.requestFocus();
-                            }
-
-                        }
-
-                        public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject obj){
-                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                        }
-
-                    });
-                }else {
-                    removeSuccess(mobileOTPEdit);
-//                    mobileOTPEdit.setError("Mobile OTP not correct");
-                    otpmobileErr.setVisibility(View.VISIBLE);
-                    otpmobileErr.setText("Invalid mobile OTP");
-                    mobileOTPEdit.requestFocus();
-                }
+                mobileOTPValidation(s.toString().trim());
             }
         });
 
@@ -1010,7 +690,7 @@ public class MainActivity extends AppCompatActivity {
                 p_adhar = adhar.getText().toString().trim();
                 p_pan = pan.getText().toString().trim();
                 password = mPasswordView.getText().toString().trim();
-                repassword = RePasswordView.getText().toString().trim();
+                repassword = rePasswordView.getText().toString().trim();
 
                 if (!tncCB.isChecked()) {
                     tncCBErr.setVisibility(View.VISIBLE);
@@ -1042,22 +722,22 @@ public class MainActivity extends AppCompatActivity {
                     otpmobileErr.setVisibility(View.GONE);
                 }
 
-                if (password.isEmpty()){
+                if (password.isEmpty()) {
                     passwordErr.setVisibility(View.VISIBLE);
                     passwordErr.setText("Please enter Password.");
                     mPasswordView.requestFocus();
                 } else {
                     passwordErr.setVisibility(View.GONE);
-                    if (repassword.isEmpty() || !password.equals(repassword)){
+                    if (repassword.isEmpty() || !password.equals(repassword)) {
                         password2Err.setVisibility(View.VISIBLE);
                         password2Err.setText("Confirm Password does not match.");
-                        RePasswordView.requestFocus();
+                        rePasswordView.requestFocus();
                     } else {
                         password2Err.setVisibility(View.GONE);
                     }
                 }
 
-                if (p_mobile.isEmpty()){
+                if (p_mobile.isEmpty()) {
                     mobileErr.setVisibility(View.VISIBLE);
                     mobileErr.setText("Please enter your mobile number.");
                     mobile.requestFocus();
@@ -1065,7 +745,7 @@ public class MainActivity extends AppCompatActivity {
                     mobileErr.setVisibility(View.GONE);
                 }
 
-                if (p_email.isEmpty()){
+                if (p_email.isEmpty()) {
                     emailErr.setVisibility(View.VISIBLE);
                     emailErr.setText("Please enter your Email-Id.");
                     email.requestFocus();
@@ -1073,7 +753,7 @@ public class MainActivity extends AppCompatActivity {
                     emailErr.setVisibility(View.GONE);
                 }
 
-                if (p_pan.isEmpty()){
+                if (p_pan.isEmpty()) {
                     panErr.setVisibility(View.VISIBLE);
                     panErr.setText("Please enter valid PAN card number.");
                     pan.requestFocus();
@@ -1081,12 +761,32 @@ public class MainActivity extends AppCompatActivity {
                     panErr.setVisibility(View.GONE);
                 }
 
-                if (p_adhar.isEmpty()){
+                if (p_adhar.isEmpty()) {
                     aadharErr.setVisibility(View.VISIBLE);
                     aadharErr.setText("Please enter valid Aadhaar no.");
                     adhar.requestFocus();
                 } else {
                     aadharErr.setVisibility(View.GONE);
+                }
+
+//                if (!fnameValid)
+//                    if (!lnameValid)
+                if (!mobileValid)
+                {
+                    emailOTPValidation(email_otp);
+                    mobileOTPValidation(mob_otp);
+                    passwordValidation(password);
+                    mobileNoValidation(p_mobile);
+                }
+                if (!emailValid) {
+                    emailIdValidation(p_email);
+                }
+                if (!panValid){
+                    panCardValidation(p_pan);
+                }
+
+                if (!aadharValid) {
+                    aadharCardValidation(p_adhar);
                 }
 
                 if (l_name.isEmpty()){
@@ -1201,8 +901,8 @@ public class MainActivity extends AppCompatActivity {
                             personalCBErr.setText("Please read and agree to our privacy policy terms.");
                         } else {
                             personalCBErr.setVisibility(View.GONE);
-                            if (mob_otp.equals(mobileOtp)) {
-                                if (email_otp.equals(emailOtp)) {
+                            if (true) {
+                                if (true) {
                                     JSONObject userObj = new JSONObject();
 
                                     try {
@@ -1262,8 +962,6 @@ public class MainActivity extends AppCompatActivity {
                                             } catch (JSONException e) {
 
                                             }
-
-
                                             Intent i = new Intent(getApplicationContext(), RegistrationCheckEligibility.class);
                                             startActivity(i);
                                         }
@@ -1321,6 +1019,428 @@ public class MainActivity extends AppCompatActivity {
 //                });
 
 
+    }
+
+    public void panCardValidation(String s){
+        if (s.length() > 10){
+            pan.setText(s.toString().substring(0,10));
+            panValid = false;
+        }
+
+        if(s.length() != 0 && s.length() != 10){
+            // show error message on pan
+            panErr.setVisibility(View.VISIBLE);
+            panErr.setText("Please enter valid PAN card number.");
+            textChange(pan);
+            panValid = false;
+            pan.requestFocus();
+        }else if(s.length() == 0){
+            panErr.setVisibility(View.VISIBLE);
+            textChange(pan);
+            panErr.setText("PAN card is required.");
+            panValid = false;
+            pan.requestFocus();
+        }else {
+            // check regex and backend validity of the pan
+            System.out.println("Checking PAN");
+            panErr.setVisibility(View.GONE);
+            if(Pattern.compile("^[A-Z]{5}[0-9]{4}[A-Z]$").matcher(s.toString()).find()){
+
+                panErr.setVisibility(View.GONE);
+                client.get(backend.BASE_URL + "/api/v1/checkPan/" + s.toString() +"/i2i_users||usr_pan", requestParams, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        jsonResponse = response.toString();
+                        System.out.println(jsonResponse);
+                        Integer count = -1;
+                        try {
+                            count = response.getInt("count");
+                        }catch (JSONException err){
+
+                        }
+                        if (count ==0){
+                            showSuccess(pan);
+                            getOtp();
+                            panValid = true;
+                        }else{
+                            panValid = false;
+                            panErr.setVisibility(View.VISIBLE);
+                            textChange(pan);
+                            panErr.setText("Please enter valid PAN card number.");
+                            pan.requestFocus();
+                            if (count>0) {
+                                panValid = false;
+                                panErr.setVisibility(View.VISIBLE);
+                                panErr.setText("This PAN is already registered with us.");
+                                textChange(pan);
+                                pan.requestFocus();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                    }
+                    @Override
+                    public void onFinish() {
+                        System.out.println("finished 001");
+
+                    }
+                });
+
+            }else{
+                panValid = false;
+                panErr.setVisibility(View.VISIBLE);
+                panErr.setText("Invalid PAN Card details");
+                textChange(pan);
+                pan.requestFocus();
+            }
+        }
+
+        if (s.toString().trim().equals("")){
+            panErr.setVisibility(View.VISIBLE);
+            panErr.setText("Please enter valid PAN card number.");
+            textChange(pan);
+            pan.requestFocus();
+        }
+    }
+
+    public void aadharCardValidation(String s){
+
+        if(s.length() == 12){
+
+            aadharErr.setVisibility(View.GONE);
+            client.get(backend.BASE_URL + "/api/v1/checkAadhar/" + s.toString() +"/?partner=false", requestParams, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+
+                    Integer count = -1;
+                    try {
+                        count = response.getInt("count");
+                    }catch (JSONException err){
+                    }
+                    if (count ==0){
+                        showSuccess(adhar);
+                        getOtp();
+                        aadharErr.setVisibility(View.GONE);
+                        aadharValid = true;
+                    } else {
+                        aadharValid = false;
+                        aadharErr.setVisibility(View.VISIBLE);
+                        aadharErr.setText("Please enter valid Aadhaar no.");
+                        textChange(adhar);
+                        adhar.requestFocus();
+                    }if (count>0){
+                        aadharValid = false;
+                        aadharErr.setVisibility(View.VISIBLE);
+                        textChange(adhar);
+                        aadharErr.setText("This Aadhaar number is already registered with us.");
+                        adhar.requestFocus();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+
+            });
+
+
+
+        }else{
+            aadharValid = false;
+            textChange(adhar);
+            aadharErr.setVisibility(View.VISIBLE);
+            aadharErr.setText("Invalid Aadhaar number");
+            adhar.requestFocus();
+        }
+        if (s.toString().trim().equals("")) {
+            aadharErr.setVisibility(View.VISIBLE);
+            aadharErr.setText("Please enter valid Aadhaar no.");
+            textChange(adhar);
+            aadharValid = false;
+            adhar.requestFocus();
+        }
+    }
+
+    public void mobileNoValidation(String s){
+        if(s.length() == 10){
+            mobileErr.setVisibility(View.GONE);
+            client.get(backend.BASE_URL + "/api/v1/checkPhoneNumber/" + s.toString() +"/?partner=false", requestParams, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    jsonResponse = response.toString();
+                    System.out.println(jsonResponse);
+                    Integer count = -1;
+                    try {
+                        count = response.getInt("count");
+                    }catch (JSONException err){
+                    }
+                    if (count ==0){
+                        showSuccess(mobile);
+                        getOtp();
+                        mobileErr.setVisibility(View.GONE);
+                        mobileValid = true;
+                    } else {
+                        mobileValid = false;
+                        mobileErr.setVisibility(View.VISIBLE);
+                        mobileErr.setText("Your mobile number is invalid.");
+                        textChange(mobile);
+                        mobile.requestFocus();
+                        if (count>0) {
+                            mobileValid = false;
+                            mobileErr.setVisibility(View.VISIBLE);
+                            mobileErr.setText("This mobile number is already registered with us.");
+                            mobile.requestFocus();
+                            textChange(mobile);
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+
+            });
+
+
+
+        }else{
+            mobileValid = false;
+            textChange(mobile);
+            mobileErr.setVisibility(View.VISIBLE);
+            mobileErr.setText("Invalid Mobile number");
+            mobile.requestFocus();
+        }
+        if (s.toString().trim().equals("")) {
+            mobileErr.setVisibility(View.VISIBLE);
+            mobileErr.setText("Please enter your mobile number.");
+            textChange(mobile);
+            mobile.requestFocus();
+            mobileValid = false;
+        }
+    }
+
+    public void emailIdValidation(String s){
+
+        String EMAIL_PATTERN =
+                "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+                        + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        if(validateEmail(s.toString())){
+            emailErr.setVisibility(View.GONE);
+            textChange(email);
+            client.get(backend.BASE_URL + "/api/v1/checkEmail/" + s.toString() +"/i2i_users||usr_email", requestParams, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    jsonResponse = response.toString();
+                    System.out.println(jsonResponse);
+                    Integer count = -1;
+                    try {
+                        count = response.getInt("count");
+                    }catch (JSONException err){
+                    }
+                    if (count == 0){
+                        emailErr.setVisibility(View.GONE);
+                        showSuccess(email);
+                        getOtp();
+                        emailValid = true;
+                    }else {
+                        emailValid = false;
+                        textChange(email);
+                        emailErr.setVisibility(View.VISIBLE);
+                        emailErr.setText("Please enter your Email-Id.");
+                        email.requestFocus();
+                        if (count > 0) {
+                            emailValid = false;
+                            textChange(email);
+                            emailErr.setVisibility(View.VISIBLE);
+                            emailErr.setText("This Email-Id is already registered with us.");
+                            email.requestFocus();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+
+            });
+        }else{
+            emailValid = false;
+            textChange(email);
+            emailErr.setVisibility(View.VISIBLE);
+            emailErr.setText("Invalid Email-Id");
+            email.requestFocus();
+        }
+        if (s.toString().trim().equals("")){
+            emailErr.setVisibility(View.VISIBLE);
+            emailErr.setText("Please enter your Email-Id.");
+            textChange(email);
+            emailValid = false;
+            email.requestFocus();
+        }
+    }
+
+    public void passwordValidation(String s){
+
+        updatePasswordStrengthView(s.toString());
+
+        if(PasswordStrength.calculateStrength(s.toString()).getText(MainActivity.this).equals("Strong")){
+            showSuccess(mPasswordView);
+            getOtp();
+            passwordErr.setVisibility(View.VISIBLE);
+            passwordErr.setTextColor(getResources().getColor(R.color.green));
+            passwordErr.setText("Your Password is Strong.");
+            passwordValid = true;
+        } else {
+            passwordValid = false;
+            textChange(mPasswordView);
+            passwordErr.setVisibility(View.VISIBLE);
+            passwordErr.setTextColor(getResources().getColor(R.color.cb_errorRed));
+            passwordErr.setText("Your Password is Weak.");
+        }
+        if (s.toString().trim().equals("")) {
+            passwordErr.setVisibility(View.VISIBLE);
+            textChange(mPasswordView);
+            passwordErr.setText("Please enter Password.");
+            passwordValid = false;
+        }
+    }
+
+    public void emailOTPValidation(String s){
+        if(s.length() == 6){
+            String url = backend.BASE_URL + "/api/v1/checkEmailOTP/" + email.getText().toString()+"/"+ s.toString() +"/?partner=false";
+            client.get(url, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                    super.onSuccess(statusCode, headers, c);
+                    try {
+                        if (c.getBoolean("valid")){
+                            showSuccess(emailOTPEdit);
+                            emailOTPValid = true;
+                            otpemailErr.setVisibility(View.GONE);
+                        } else{
+                            emailOTPValid = false;
+                            otpemailErr.setVisibility(View.VISIBLE);
+                            otpemailErr.setText("Invalid email OTP");
+                            emailOTPEdit.requestFocus();
+                        }
+                    }catch(JSONException e){
+                        removeSuccess(emailOTPEdit);
+                        otpemailErr.setVisibility(View.VISIBLE);
+                        otpemailErr.setText("Invalid email OTP");
+                        emailOTPEdit.requestFocus();
+                    }
+
+                }
+
+            });
+        }else {
+            removeSuccess(emailOTPEdit);
+            otpemailErr.setVisibility(View.VISIBLE);
+            otpemailErr.setText("Invalid email OTP");
+        }
+        if (s.toString().trim().equals("")) {
+            otpemailErr.setVisibility(View.VISIBLE);
+            otpemailErr.setText("Please enter OTP sent to your email.");
+        }
+    }
+
+    public void mobileOTPValidation(String s){
+        if(s.length() == 6){
+            String url = backend.BASE_URL + "/api/v1/checkMobileOTP/" + mobile.getText().toString() +'/' + s.toString() + "/?partner=false";
+            client.get(url, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
+                    super.onSuccess(statusCode, headers, c);
+                    try {
+                        if (c.getBoolean("valid")){
+                            showSuccess(mobileOTPEdit);
+                            mobOTPValid = true;
+                            otpmobileErr.setVisibility(View.GONE);
+                        } else{
+                            mobOTPValid = false;
+                            otpmobileErr.setVisibility(View.VISIBLE);
+                            otpmobileErr.setText("Invalid mobile OTP");
+                            mobileOTPEdit.requestFocus();
+                        }
+                    }catch(JSONException e){
+                        removeSuccess(mobileOTPEdit);
+                        otpmobileErr.setVisibility(View.VISIBLE);
+                        otpmobileErr.setText("Invalid mobile OTP");
+                        mobileOTPEdit.requestFocus();
+                    }
+
+                }
+
+                public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject obj){
+                    Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+
+            });
+        }else {
+            removeSuccess(mobileOTPEdit);
+//                    mobileOTPEdit.setError("Mobile OTP not correct");
+            otpmobileErr.setVisibility(View.VISIBLE);
+            otpmobileErr.setText("Invalid mobile OTP");
+        }
+        if (s.toString().trim().equals("")) {
+            otpmobileErr.setVisibility(View.VISIBLE);
+            otpmobileErr.setText("Please enter OTP sent to your mobile.");
+        }
+    }
+
+
+    public void textChange(EditText edit){
+        register_button.setText("Get OTP");
+        removeSuccess(edit);
+
+    }
+
+    public void getOtp(){
+        emailOTPEdit.setText("");
+        mobileOTPEdit.setText("");
+    }
+
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                Log.v("TAG","Permission is granted");
+                return true;
+            } else {
+                Log.v("TAG","Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("TAG","Permission is granted");
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case 1: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Log.v("TAG", "Permission: " + permissions[0] + "was " + grantResults[0]);
+                    //resume tasks needing this permission
+                }
+                return;
+            }
+        }
     }
 
     public void makeLinks(TextView textView, String[] links, ClickableSpan[] clickableSpans) {

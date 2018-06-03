@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/pradeep/Documents/i2i_android_borrower/linkedin-sdk/build/intermediates/res/merged/androidTest/debug/values_values.arsc.flat",
+            "outputFile": "/Users/admin/Desktop/i2i_android_borrower/linkedin-sdk/build/intermediates/res/merged/androidTest/debug/values_values.arsc.flat",
             "map": [
                 {
-                    "source": "/home/pradeep/Documents/i2i_android_borrower/linkedin-sdk/build/intermediates/bundles/debug/res/values/values.xml",
+                    "source": "/Users/admin/Desktop/i2i_android_borrower/linkedin-sdk/build/intermediates/bundles/debug/res/values/values.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

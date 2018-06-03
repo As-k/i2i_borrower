@@ -396,6 +396,7 @@
                         android:hint="Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
+                        android:maxLength="14"
                         android:singleLine="true"
                         android:textColorLink="@color/white"
                         android:textSize="@dimen/edit_text_size" />
@@ -465,6 +466,7 @@
                         android:hint="Confirm Password"
                         android:inputType="textPassword"
                         android:maxLines="1"
+                        android:maxLength="14"
                         android:singleLine="true"
                         android:textColorLink="@color/white"
                         android:textSize="@dimen/edit_text_size" />
@@ -495,7 +497,7 @@
                     android:layout_weight="1"
                     android:textAllCaps="false"
                     android:background="@drawable/roundbutton_orange"
-                    android:text="GET OTP"
+                    android:text="Get OTP"
                     android:textColor="#ffffff"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -670,7 +672,6 @@
                             android:layout_height="wrap_content"
                             android:padding="5dp"
                             android:text='I agree to i2ifunding.com requesting, processing and utilizing my personal data as mentioned in "Privacy Policy" of i2ifunding.com '
-
                             android:textSize="@dimen/edit_text_size"/>
 
                     </LinearLayout>

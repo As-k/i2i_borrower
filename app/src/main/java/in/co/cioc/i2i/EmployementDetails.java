@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.githang.stepview.StepView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +44,7 @@ public class EmployementDetails extends AppCompatActivity {
     EditText businessFormName , businessFormWebsite, businessFormTan, businessFormPan, businessFormEmail;
     EditText selfEmpWebsite, selfEmpEmail;
 
-    TextView designationErr, selfEmailErr, businessNameErr, businessEmailErr, radioIFErr, addressErr, pincodeErr, cityErr, stateErr;
+    TextView designationErr, salaryEmailErr, businessNameErr, businessPanErr, businessEmailErr, radioIFErr, selfEmailErr, addressErr, pincodeErr, cityErr, stateErr;
     RadioButton individual, firm;
 
     Drawable successTick;
@@ -54,6 +55,10 @@ public class EmployementDetails extends AppCompatActivity {
 
     EditText address , pincode , city , state;
     EditText std, phone;
+    boolean panValid, businessEmailValid;
+
+    RequestParams requestParams = new RequestParams();
+    String jsonResponse;
 
     public static String SALARIED = "salaried";
     public static String SELF_EMP = "selfEmp";
@@ -155,13 +160,13 @@ public class EmployementDetails extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(s.toString().length() > 0){
-                    showSuccess(businessFormPan);
-                }else{
-                    businessFormPan.setError("Invalid PAN number.");
-                    View focusView = businessFormPan;
-                    focusView.requestFocus();
-                }
+//                if(s.toString().length() > 0){
+//                    showSuccess(businessFormPan);
+//                }else{
+//                    businessFormPan.setError("Invalid PAN number.");
+//                    businessFormPan.requestFocus();
+//                }
+                panCardValidation(s.toString());
             }
         });
 
@@ -198,34 +203,60 @@ public class EmployementDetails extends AppCompatActivity {
                 }else{
                     removeSuccess(businessFormWebsite);
                     businessFormWebsite.setError("Invalid website address");
-                    View focusView = businessFormWebsite;
-                    focusView.requestFocus();
                 }
             }
         });
 
         businessFormName.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {if(s.toString().trim().equals("")){
-                businessNameErr.setVisibility(View.VISIBLE);
-                businessNameErr.setText("Please provide name of your business.");
-            } else{
-                businessNameErr.setVisibility(View.GONE);
-            }}
+            public void afterTextChanged(Editable s) {
+                if(s.toString().trim().equals("")){
+                    businessNameErr.setVisibility(View.VISIBLE);
+                    businessNameErr.setText("Please provide name of your business.");
+                }
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 if(s.toString().length() > 0){
                     showSuccess(businessFormName);
                     businessNameErr.setVisibility(View.GONE);
                 }else{
                     removeSuccess(businessFormName);
                     businessNameErr.setVisibility(View.VISIBLE);
-                    businessNameErr.setText("Invalid business name");
+                    businessNameErr.setText("Please provide name of your business.");
                     businessFormName.requestFocus();
+                }
+            }
+        });
+
+        businessFormEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.toString().equals("")){
+                    businessEmailErr.setVisibility(View.VISIBLE);
+                    businessEmailValid = false;
+                    businessEmailErr.setText("Please enter your Email-Id.");
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(validateEmail(s.toString())){
+                    showSuccess(businessFormEmail);
+                    businessEmailValid = true;
+                    businessEmailErr.setVisibility(View.GONE);
+                }else{
+                    removeSuccess(businessFormEmail);
+                    businessEmailValid = false;
+                    businessEmailErr.setVisibility(View.VISIBLE);
+                    businessEmailErr.setText("Invalid Email ID");
+                    businessFormEmail.requestFocus();
                 }
             }
         });
@@ -258,7 +289,9 @@ public class EmployementDetails extends AppCompatActivity {
 
         salariedEmail.addTextChangedListener(new TextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+
+            }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -267,38 +300,11 @@ public class EmployementDetails extends AppCompatActivity {
 
                 if(validateEmail(s.toString())){
                     showSuccess(salariedEmail);
+                    salaryEmailErr.setVisibility(View.GONE);
                 }else{
-                    salariedEmail.setError("Invalid Email ID");
-                    View focusView = salariedEmail;
-                    focusView.requestFocus();
-                }
-            }
-        });
-
-        businessFormEmail.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                if(s.toString().trim().equals("")){
-                    businessEmailErr.setVisibility(View.VISIBLE);
-                    businessEmailErr.setText("Please enter your Email-Id.");
-                } else{
-                    businessEmailErr.setVisibility(View.GONE);
-                }
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(validateEmail(s.toString())){
-                    showSuccess(businessFormEmail);
-                    businessEmailErr.setVisibility(View.GONE);
-                }else{
-                    businessEmailErr.setVisibility(View.VISIBLE);
-                    businessEmailErr.setText("Invalid Email ID");
-                    View focusView = businessFormEmail;
-                    focusView.requestFocus();
+                    salaryEmailErr.setVisibility(View.VISIBLE);
+                    salaryEmailErr.setText("Invalid Email ID");
+                    salariedEmail.requestFocus();
                 }
             }
         });
@@ -539,10 +545,6 @@ public class EmployementDetails extends AppCompatActivity {
 //                });
 
 
-
-
-
-
                 try {
 
                     try {
@@ -605,6 +607,7 @@ public class EmployementDetails extends AppCompatActivity {
                         businessForm.setVisibility(LinearLayout.GONE);
                         salariedForm.setVisibility(LinearLayout.GONE);
 //                        selfEmpExp.setText(c.getString("emp_total_professional_exp"));
+                        selfEmpWebsite.setText(c.getString("emp_comp_website"));
                         selfEmpEmail.setText(c.getString("emp_official_email"));
                         selfEmpWebsite.requestFocus();
                     }else {
@@ -612,11 +615,11 @@ public class EmployementDetails extends AppCompatActivity {
                         selfEmpForm.setVisibility(LinearLayout.GONE);
                         businessForm.setVisibility(LinearLayout.VISIBLE);
                         salariedForm.setVisibility(LinearLayout.GONE);
-                        businessFormName.requestFocus();
                         businessFormName.setText(c.getString("emp_comp_name"));
+                        businessFormWebsite.setText(c.getString("emp_comp_website"));
                         businessFormEmail.setText(c.getString("emp_official_email"));
 //                        businessFormEstablishedYr.setText(c.getString("emp_bus_est_year"));
-                        businessFormWebsite.setText(c.getString("emp_comp_website"));
+                        businessFormName.requestFocus();
                     }
 
                     String bPan = c.getString("emp_comp_pan");
@@ -714,6 +717,89 @@ public class EmployementDetails extends AppCompatActivity {
 
     }
 
+    public void panCardValidation(String s){
+        if (s.length() > 10){
+            businessFormPan.setText(s.toString().substring(0,10));
+            panValid = false;
+        }
+
+        if(s.length() != 0 && s.length() != 10){
+            // show error message on pan
+            businessPanErr.setVisibility(View.VISIBLE);
+            businessPanErr.setText("Please enter valid PAN card number.");
+            panValid = false;
+            removeSuccess(businessFormPan);
+            businessFormPan.requestFocus();
+        }else if(s.length() == 0){
+            businessPanErr.setVisibility(View.VISIBLE);
+            businessPanErr.setText("PAN card is required.");
+            panValid = false;
+            businessFormPan.requestFocus();
+        }else {
+            // check regex and backend validity of the pan
+            System.out.println("Checking PAN");
+            businessPanErr.setVisibility(View.GONE);
+            if(Pattern.compile("^[A-Z]{5}[0-9]{4}[A-Z]$").matcher(s.toString()).find()){
+
+                businessPanErr.setVisibility(View.GONE);
+                client.get(backend.BASE_URL + "/api/v1/checkPan/" + s.toString() +"/i2i_users||usr_pan", requestParams, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        jsonResponse = response.toString();
+                        System.out.println(jsonResponse);
+                        Integer count = -1;
+                        try {
+                            count = response.getInt("count");
+                        }catch (JSONException err){
+
+                        }
+                        if (count ==0){
+                            showSuccess(businessFormPan);
+                            panValid = true;
+                        }else{
+                            panValid = false;
+                            businessPanErr.setVisibility(View.VISIBLE);
+                            businessPanErr.setText("Please enter valid PAN card number.");
+                            businessFormPan.requestFocus();
+                            if (count>0) {
+                                panValid = false;
+                                businessPanErr.setVisibility(View.VISIBLE);
+                                businessPanErr.setText("This PAN is already registered with us.");
+                                removeSuccess(businessFormPan);
+                                businessFormPan.requestFocus();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                    }
+                    @Override
+                    public void onFinish() {
+                        System.out.println("finished 001");
+
+                    }
+                });
+
+            }else{
+                panValid = false;
+                businessPanErr.setVisibility(View.VISIBLE);
+                businessPanErr.setText("Invalid PAN Card details");
+                removeSuccess(businessFormPan);
+                businessFormPan.requestFocus();
+            }
+        }
+
+        if (s.toString().trim().equals("")){
+            businessPanErr.setVisibility(View.VISIBLE);
+            businessPanErr.setText("Please enter valid PAN card number.");
+            removeSuccess(businessFormPan);
+            businessFormPan.requestFocus();
+        }
+    }
+
     public void previous(){
 // /api/v1/borrowerRegistration/previous/?csrf_token=RaZYctICecN8gVbILUTvWdCmX&session_id=4kdWt2QIw2RMUEJI4hUs1sHU5
 
@@ -774,7 +860,7 @@ public class EmployementDetails extends AppCompatActivity {
 //        } else {
 //            businessEYErr.setVisibility(View.GONE);
 //        }
-
+        businessPanErr.setVisibility(View.GONE);
         if (businessEmail.isEmpty()){
             businessEmailErr.setVisibility(View.VISIBLE);
             businessEmailErr.setText("Please enter your Email-Id.");
@@ -823,27 +909,6 @@ public class EmployementDetails extends AppCompatActivity {
             radioIFErr.setText("Please provide communication address of your firm.");
         }
 
-        if (address1.length() == 0){
-            Toast.makeText(this, "Please provide the address.", Toast.LENGTH_SHORT).show();
-            address.requestFocus();
-            return;
-        }
-
-        if (pinCode.length() == 0){
-            Toast.makeText(this, "Please enter a valid pincode.", Toast.LENGTH_SHORT).show();
-            pincode.requestFocus();
-            return;
-        }
-        if (city1.length() == 0){
-            Toast.makeText(this, "Please enter city.", Toast.LENGTH_SHORT).show();
-            city.requestFocus();
-            return;
-        }
-        if (state1.length() == 0){
-            Toast.makeText(this, "Please enter state.", Toast.LENGTH_SHORT).show();
-            state.requestFocus();
-            return;
-        }
 
 
         JSONObject jsonParams = new JSONObject();
@@ -880,15 +945,19 @@ public class EmployementDetails extends AppCompatActivity {
                 businessFormName.requestFocus();
                 return;
             }
+
+
 //            if (businessEY.length() == 0){
 //                Toast.makeText(this, "Please enter established year", Toast.LENGTH_SHORT).show();
 //                return;
 //            }
-            if (businessEmail.length() == 0){
+            if (!businessEmailValid){
                 Toast.makeText(this, "Please enter your Email-Id.", Toast.LENGTH_SHORT).show();
+                businessEmailErr.setVisibility(View.VISIBLE);
+                businessEmailErr.setText("Invalid Email ID");
                 businessFormEmail.requestFocus();
                 return;
-            }
+            } else businessEmailErr.setVisibility(View.GONE);
         } else if (emp.equals("Self Employed")){
 //            if (professionalExp.length() == 0){
 //                Toast.makeText(this, "Please enter professional experience", Toast.LENGTH_SHORT).show();
@@ -911,6 +980,31 @@ public class EmployementDetails extends AppCompatActivity {
         } else {
             Log.d("","");
         }
+
+
+        if (address1.length() == 0){
+            Toast.makeText(this, "Please provide the address.", Toast.LENGTH_SHORT).show();
+            address.requestFocus();
+            return;
+        }
+
+        if (pinCode.length() == 0){
+            Toast.makeText(this, "Please enter a valid pincode.", Toast.LENGTH_SHORT).show();
+            pincode.requestFocus();
+            return;
+        }
+        if (city1.length() == 0){
+            Toast.makeText(this, "Please enter city.", Toast.LENGTH_SHORT).show();
+            city.requestFocus();
+            return;
+        }
+        if (state1.length() == 0){
+            Toast.makeText(this, "Please enter state.", Toast.LENGTH_SHORT).show();
+            state.requestFocus();
+            return;
+        }
+
+
 
         JSONObject empDetailsSalaried = new JSONObject();
 
@@ -1048,9 +1142,10 @@ public class EmployementDetails extends AppCompatActivity {
 
     public void findIdErrorText() {
         designationErr = findViewById(R.id.designationErrTxt);
-        selfEmailErr = findViewById(R.id.selfEmailErrTxt);
+        salaryEmailErr = findViewById(R.id.salaryEmailErrTxt);
+        selfEmailErr = findViewById(R.id.personalEmailErrTxt);
         businessNameErr = findViewById(R.id.bnameErrTxt);
-//        businessEYErr = findViewById(R.id.bEYErrTxt);
+        businessPanErr = findViewById(R.id.businessFormPanErrTxt);
         businessEmailErr = findViewById(R.id.bEmailErrTxt);
 //        professionalExpErr = findViewById(R.id.tpeYearErrTxt);
         radioIFErr = findViewById(R.id.radio_I_F_ErrTxt);

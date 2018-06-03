@@ -63,7 +63,7 @@ public class PaymentActivity extends AppCompatActivity {
     LinearLayout errorCoupon, successCoupon;
     SharedPreferences sharedPreferences;
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true, 80,443);
     Backend backend = new Backend();
 
     @Override

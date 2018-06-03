@@ -77,7 +77,7 @@ public class UserDetails extends AppCompatActivity {
         spouseNameForm = findViewById(R.id.spouseNameForm);
         spouseNameForm.setVisibility(LinearLayout.GONE);
         noOfDepenLL = findViewById(R.id.noofDependentSpinner);
-        noOfDepenLL.setVisibility(View.GONE);
+//        noOfDepenLL.setVisibility(View.GONE);
 
         localAddressForm = findViewById(R.id.localAddressForm);
 
@@ -593,7 +593,7 @@ public class UserDetails extends AppCompatActivity {
                     if (c.getString("married").equals("M")){
                         married = true;
                         spouseNameForm.setVisibility(LinearLayout.VISIBLE);
-                        noOfDepenLL.setVisibility(View.VISIBLE);
+//                        noOfDepenLL.setVisibility(View.VISIBLE);
                         try {
                             JSONObject spouseName = c.getJSONObject("spouseName");
                             String sfname = spouseName.getString("firstName");
@@ -889,6 +889,19 @@ public class UserDetails extends AppCompatActivity {
             return;
         }
 
+        if (married){
+            if (spouseFName.length()==0){
+                Toast.makeText(this, "Please provide your spouse's first name.", Toast.LENGTH_SHORT).show();
+                spouseFName.requestFocus();
+                return;
+            }
+            if (spouseLName.length()==0){
+                Toast.makeText(this, "Please provide your spouse's last name.", Toast.LENGTH_SHORT).show();
+                spouseLName.requestFocus();
+                return;
+            }
+        }
+
         if (!(dropdown.getSelectedItemPosition()==0)) {
             noOfDeptErr.setVisibility(View.GONE);
             if (dropdown.getSelectedItemPosition() == 1) {
@@ -968,18 +981,7 @@ public class UserDetails extends AppCompatActivity {
             return;
         }
 
-        if (married){
-            if (spouseFName.length()==0){
-                Toast.makeText(this, "Please provide your spouse's first name.", Toast.LENGTH_SHORT).show();
-                spouseFName.requestFocus();
-                return;
-            }
-            if (spouseLName.length()==0){
-                Toast.makeText(this, "Please provide your spouse's last name.", Toast.LENGTH_SHORT).show();
-                spouseLName.requestFocus();
-                return;
-            }
-        }
+
 
         String dependentsArr = "[]";
 

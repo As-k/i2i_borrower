@@ -76,6 +76,8 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
                         android:id="@+id/pan"
                         android:text="" />
                 </LinearLayout>
@@ -92,15 +94,14 @@
                     android:layout_width="360dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:paddingRight="20dp"
                     android:orientation="horizontal"
-                    android:layout_marginEnd="20dp"
                     android:id="@+id/ekycFailedPAN">
 
                     <ImageView
-
                         android:layout_width="70dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:layout_weight="1"
                         android:scaleType="center"
                         app:srcCompat="@drawable/thumbsdown_icon" />
@@ -120,6 +121,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="center"
+                        android:layout_marginRight="3dp"
                         app:srcCompat="@drawable/upload_icon" />
 
                     <ImageView
@@ -131,6 +133,12 @@
                         app:srcCompat="@drawable/camera_icon" />
 
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/panUploadFileErrTxt"
+                    style="@style/text_view_style"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginStart="130dp"
+                    />
 
                 <LinearLayout
                     style="@style/linear_layout_for_et">
@@ -150,7 +158,7 @@
                             android:id="@+id/panPassword"
                             style="@style/edit_text_style"
                             android:hint="Password if any"
-                            android:inputType="text"
+                            android:inputType="textPassword"
                             android:maxLines="1"
                             android:singleLine="true"
                             />
@@ -188,12 +196,7 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/panUploadFileErrTxt"
-                style="@style/edit_text_style"
-                android:layout_marginBottom="5dp"
-                android:layout_marginStart="130dp"
-                />
+
 
 
 
@@ -226,6 +229,8 @@
                         android:layout_width="125dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textAlignment="center"
                         android:id="@+id/aadhar"
                         android:text="" />
                 </LinearLayout>
@@ -244,13 +249,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal"
-                    android:layout_marginEnd="20dp"
+                    android:paddingRight="20dp"
                     android:id="@+id/ekycFailedAadhar">
 
                     <ImageView
                         android:layout_width="70dp"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="50dp"
+                        android:layout_marginStart="40dp"
                         android:layout_weight="1"
                         android:scaleType="center"
                         app:srcCompat="@drawable/thumbsdown_icon" />
@@ -271,6 +276,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:scaleType="center"
+                        android:layout_marginRight="3dp"
                         app:srcCompat="@drawable/upload_icon" />
 
                     <ImageView
@@ -286,7 +292,7 @@
 
                 <TextView
                     android:id="@+id/aadharUploadFileErrTxt"
-                    style="@style/edit_text_style"
+                    style="@style/text_view_style"
                     android:layout_marginBottom="5dp"
                     android:layout_marginStart="130dp"
                     />
@@ -309,7 +315,7 @@
                             android:id="@+id/aadharPassword"
                             style="@style/edit_text_style"
                             android:hint="Password if any"
-                            android:inputType="text"
+                            android:inputType="textPassword"
                             android:maxLines="1"
                             android:singleLine="true"
                             />
@@ -324,7 +330,7 @@
             <LinearLayout
                 android:layout_width="360dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 android:layout_marginEnd="20dp"
                 android:id="@+id/ekycSuccessAadhar">
@@ -349,10 +355,8 @@
             </LinearLayout>
 
 
-
-
-
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_height="38dp"
                 style="@style/linear_layout_for_cb">
 
@@ -438,13 +442,13 @@
 
             <TextView
                 android:id="@+id/permAddressUploadFileErrTxt"
-                style="@style/edit_text_style"
-                android:layout_marginBottom="8dp"
+                style="@style/text_view_style"
                 android:layout_marginStart="130dp"
                 />
 
             <LinearLayout
                 android:layout_height="38dp"
+                android:layout_marginTop="@dimen/margin_top_size"
                 style="@style/linear_layout_for_cb">
 
                 <ImageView
@@ -530,8 +534,7 @@
 
             <TextView
                 android:id="@+id/localAddressUploadFileErrTxt"
-                style="@style/edit_text_style"
-                android:layout_marginBottom="8dp"
+                style="@style/text_view_style"
                 android:layout_marginStart="130dp"
                 />
 
@@ -540,7 +543,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/margin_top_size"
                 android:orientation="horizontal"
                 android:paddingRight="20dp">
                 <ImageView
@@ -621,8 +624,7 @@
 
             <TextView
                 android:id="@+id/statement12UploadFileErrTxt"
-                style="@style/edit_text_style"
-                android:layout_marginBottom="8dp"
+                style="@style/text_view_style"
                 android:layout_marginStart="130dp"/>
 
 
@@ -636,7 +638,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -717,10 +719,7 @@
 
                 <TextView
                     android:id="@+id/salarySlipLastUploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -728,7 +727,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -810,15 +809,14 @@
                     android:id="@+id/salarySlip2UploadFileErrTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -900,10 +898,7 @@
 
                 <TextView
                     android:id="@+id/salarySlip3UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -911,7 +906,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -943,13 +938,11 @@
                 <LinearLayout
                     style="@style/linear_layout_for_et">
 
-
-
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
                         <ImageView
                             android:id="@+id/markSheetUploadFile"
@@ -968,6 +961,9 @@
                             android:id="@+id/markSheetClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
 
                     </LinearLayout>
 
@@ -975,10 +971,7 @@
 
                 <TextView
                     android:id="@+id/markSheetUploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -996,7 +989,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1029,10 +1022,10 @@
                     style="@style/linear_layout_for_et">
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -1050,6 +1043,10 @@
                             android:id="@+id/businessPANClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
@@ -1057,16 +1054,14 @@
                 <TextView
                     android:id="@+id/businessPANUploadFileErrTxt"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1103,7 +1098,7 @@
                         android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
@@ -1118,15 +1113,16 @@
                             android:scaleType="center"
                             android:id="@+id/businessRegistrationtClickFile"
                             app:srcCompat="@drawable/camera_icon" />
+
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
                     </LinearLayout>
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/businessRegistrationtUploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1168,10 +1164,10 @@
 
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1190,23 +1186,24 @@
                             android:id="@+id/businessIncomeTax1ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/businessIncomeTax1UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1241,10 +1238,10 @@
 
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1263,16 +1260,17 @@
                             android:id="@+id/businessIncomeTax2ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/businessIncomeTax2UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1280,7 +1278,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1315,10 +1313,10 @@
 
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1337,16 +1335,17 @@
                             android:id="@+id/businessIncomeTax3ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/businessIncomeTax3UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1361,7 +1360,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1396,10 +1395,10 @@
 
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1418,23 +1417,24 @@
                             android:id="@+id/selfempPANClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/selfempPANUploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1468,10 +1468,10 @@
                     style="@style/linear_layout_for_et">
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -1489,16 +1489,17 @@
                             android:id="@+id/selfempRegistrationtClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/selfempRegistrationtUploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1506,7 +1507,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1541,10 +1542,10 @@
 
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1563,23 +1564,24 @@
                             android:id="@+id/selfempIncomeTax1ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/selfempIncomeTax1UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1614,10 +1616,10 @@
 
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
                         <ImageView
                             android:layout_width="0dp"
@@ -1635,15 +1637,17 @@
                             android:id="@+id/selfempIncomeTax2ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/selfempIncomeTax2UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1651,7 +1655,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1684,13 +1688,11 @@
                 <LinearLayout
                     style="@style/linear_layout_for_et">
 
-
-
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1709,16 +1711,17 @@
                             android:id="@+id/selfempIncomeTax3ClickFile"
                             app:srcCompat="@drawable/camera_icon" />
 
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
+
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/selfempIncomeTax3UploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text=""
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
@@ -1727,7 +1730,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="@dimen/margin_top_size"
                     android:orientation="horizontal"
                     android:paddingRight="20dp">
                     <ImageView
@@ -1761,10 +1764,10 @@
                     style="@style/linear_layout_for_et">
 
                     <LinearLayout
-                        android:layout_width="80dp"
+                        android:layout_width="270dp"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
-                        android:layout_marginStart="70dp">
+                        android:layout_marginStart="50dp">
 
 
                         <ImageView
@@ -1782,6 +1785,9 @@
                             android:scaleType="center"
                             android:id="@+id/selfempMarkSheetClickFile"
                             app:srcCompat="@drawable/camera_icon" />
+                        <TextView
+                            style="@style/text_view_style"
+                            android:layout_width="200dp"/>
 
                     </LinearLayout>
 
@@ -1789,23 +1795,20 @@
 
                 <TextView
                     android:id="@+id/selfempMarkSheetUploadFileErrTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    style="@style/text_view_style"
                     android:layout_marginStart="130dp"
                     android:textColor="@color/cb_errorRed"/>
 
-
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
                 >
                 <CheckBox
@@ -1813,6 +1816,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingRight="5dp"
+                    android:onClick="tncCBD"
                    />
 
                 <TextView
@@ -1825,7 +1829,7 @@
 
             </LinearLayout>
             <TextView
-                android:id="@+id/tncCheckboxErrTxt"
+                android:id="@+id/tncCheckboxErrTxtD"
                 style="@style/error_text_msg"
                 android:layout_marginStart="50dp" />
 
@@ -1835,7 +1839,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:layout_marginBottom="20dp"
+                android:layout_marginTop="@dimen/margin_top_size"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 >
@@ -1844,6 +1848,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:onClick="personalCBD"
                     />
                 <TextView
                     android:id="@+id/agreetxt"
@@ -1855,7 +1860,7 @@
 
             </LinearLayout>
             <TextView
-                android:id="@+id/personalInfoCheckBoxErrTxt"
+                android:id="@+id/personalInfoCheckBoxErrTxtD"
                 style="@style/error_text_msg"
                 android:layout_marginStart="50dp" />
             <LinearLayout
@@ -1863,6 +1868,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="20dp"
                 android:padding="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:background="@color/white">
@@ -1876,6 +1882,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/roundbutton_green"
                     android:text="Submit"
+                    android:textAlignment="center"
+                    android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textStyle="bold"
                     android:onClick="finalSubmit"/>

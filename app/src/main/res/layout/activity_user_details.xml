@@ -306,6 +306,7 @@
                         android:hint="Dependent 1 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
+                        android:maxLength="2"
                         android:singleLine="true"
                         />
 
@@ -336,6 +337,7 @@
                         android:hint="Dependent 2 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
+                        android:maxLength="2"
                         android:singleLine="true"
                         />
 
@@ -365,6 +367,7 @@
                         android:hint="Dependent 3 (Age in years)"
                         android:inputType="number"
                         android:maxLines="1"
+                        android:maxLength="2"
                         android:singleLine="true"
                         />
 

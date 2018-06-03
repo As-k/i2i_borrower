@@ -35,7 +35,7 @@ public class RegistrationOTP extends AppCompatActivity {
     private String csrf_token = "";
     private EditText mobileOTPEdit;
     private Drawable successTick;
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true,80,443);
     Backend backend;
     SharedPreferences sharedPreferences;
 

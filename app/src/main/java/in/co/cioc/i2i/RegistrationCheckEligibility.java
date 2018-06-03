@@ -853,7 +853,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }else {
                     removeSuccess(workExperienceTxt);
                     workEYErr.setVisibility(View.VISIBLE);
-                    workEYErr.setError("Please tell us your work experience in year.");
+                    workEYErr.setText("Please tell us your work experience in year.");
                     workExperienceTxt.requestFocus();
                 }
             }
@@ -880,7 +880,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 }else {
                     removeSuccess(workExperienceTxt);
                     workSinceErr.setVisibility(View.VISIBLE);
-                    workSinceErr.setError("Please tell us the date on which you joined current organization.");
+                    workSinceErr.setText("Please tell us the date on which you joined current organization.");
                     workExperienceTxt.requestFocus();
                 }
             }
@@ -962,7 +962,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     showSuccess(monthlyIncomeSalariedTxt);
                 }else {
                     removeSuccess(monthlyIncomeSalariedTxt);
-                    monthlyIncomeSalariedTxt.setError("What is your monthly take home salary");
+                    monthlyIncomeErr.setText("What is your monthly take home salary");
                     monthlyIncomeSalariedTxt.requestFocus();
                 }
             }
@@ -1285,44 +1285,34 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 try {
 
-                    String bloan_amount = c.getString("bloan_amount");
-                    if (bloan_amount != null) {
-                        double amountDouble = Double.parseDouble(bloan_amount);
-                        int amountInt = (int) amountDouble;
-                        amountTxt.setText(amountInt+"");
-                    }
-                    String bloan_tenure = c.getString("bloan_tenure");
-                    for (int i=0; i<items.length; i++){
-                        if (items[i].equals(bloan_tenure)){
-                            dropdown.setSelection(i);
-                        }
-                    }
+                    String bloan_usr_cibil_score = c.getString("bloan_usr_cibil_score");
+                    if (bloan_usr_cibil_score != null)
+                        creditScoreTxt.setText(bloan_usr_cibil_score);
 
-                    String bloan_purpose = c.getString("bloan_purpose");
-                    if (bloan_purpose != null){
-                        int purposePosition = Integer.parseInt(bloan_purpose);
-                        dropdownPurpose.setSelection(purposePosition);
+                    String loan_running = c.getString("loan_running");
+                    if (loan_running.equals("yes")){
+                        loan_yes.setChecked(true);
+                        loanEmiLayout.setVisibility(View.VISIBLE);
+                        String total_current_emi = c.getString("total_current_emi");
+                        loanEmiTxt.setText(total_current_emi);
+                    } else {
+                        loan_no.setChecked(true);
+                        loanEmiLayout.setVisibility(View.GONE);
                     }
 
-                    String bloan_desc = c.getString("bloan_desc");
-                    descriptionTxt.setText(bloan_desc);
+                    String credit_card = c.getString("credit_card");
+                    if (credit_card.equals("yes")){
+                        cc_yes.setChecked(true);
+                        ccOutstandingLayout.setVisibility(View.VISIBLE);
+                        String cc_amt_outstanding = c.getString("cc_amt_outstanding");
+                        ccOutstandingTxt.setText(cc_amt_outstanding);
+                    } else {
+                        ccOutstandingLayout.setVisibility(View.GONE);
+                        cc_no.setChecked(true);
+                    }
 
-                    String dateOfBirth = c.getString("dateOfBirth");
-                    long date = Long.parseLong(dateOfBirth);
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    String date1 = simpleDateFormat.format(new Date(date*1000));
-//                    dobEditTxt.setText(getDate(date, "dd/MM/yyyy"));
-                    dobEditTxt.setText(date1+"");
-
-                    JSONObject localAddressObj = c.getJSONObject("localAddress");
-
-                    String localAddressAddress = localAddressObj.getString("address");
-                    String localAddressPincode = localAddressObj.getString("pincode");
-                    pincodeEditTxt.setText(localAddressPincode);
-                    String localAddressCity = localAddressObj.getString("city");
-                    cityEditTxt.setText(localAddressCity);
-                    String localAddressState = localAddressObj.getString("state");
-
+                    String other_monthly_income = c.getString("other_monthly_income");
+                    otherIncomeTxt.setText(other_monthly_income);
 
                     String marriedStatus = c.getString("married");
                     if (marriedStatus.equals("M")){
@@ -1360,8 +1350,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         single.setChecked(true);
                         spouseIncomeLayout.setVisibility(View.GONE);
                     }
-
-
 
                     String residence_type = c.getString("residence_type");
                     if (residence_type != null){
@@ -1403,35 +1391,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     if (fin_own_home.equals("Yes")) {
                         spinnerHouseType.setSelection(2);
                     }
-                    String loan_running = c.getString("loan_running");
-                    if (loan_running.equals("yes")){
-                        loan_yes.setChecked(true);
-                        loanEmiLayout.setVisibility(View.VISIBLE);
-                        String total_current_emi = c.getString("total_current_emi");
-                        loanEmiTxt.setText(total_current_emi);
-                    } else {
-                        loan_no.setChecked(true);
-                        loanEmiLayout.setVisibility(View.GONE);
-                    }
-
-                    String credit_card = c.getString("credit_card");
-                    if (credit_card.equals("yes")){
-                        cc_yes.setChecked(true);
-                        ccOutstandingLayout.setVisibility(View.VISIBLE);
-                        String cc_amt_outstanding = c.getString("cc_amt_outstanding");
-                        ccOutstandingTxt.setText(cc_amt_outstanding);
-                    } else {
-                        ccOutstandingLayout.setVisibility(View.GONE);
-                        cc_no.setChecked(true);
-                    }
-
-                    String other_monthly_income = c.getString("other_monthly_income");
-                    otherIncomeTxt.setText(other_monthly_income);
-
-
-                    String bloan_usr_cibil_score = c.getString("bloan_usr_cibil_score");
-                    if (bloan_usr_cibil_score != null)
-                        creditScoreTxt.setText(bloan_usr_cibil_score);
 
                     String empType = c.getString("empType");
 
@@ -1498,6 +1457,49 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         turnoverBusinessTxt.setText(fin_annual_turnover);
                         String fin_income = c.getString("fin_income");
                         profitBusinessTxt.setText(fin_income);
+                    }
+
+
+                    String bloan_tenure = c.getString("bloan_tenure");
+                    for (int i=0; i<items.length; i++){
+                        if (items[i].equals(bloan_tenure)){
+                            dropdown.setSelection(i);
+                        }
+                    }
+
+                    String bloan_purpose = c.getString("bloan_purpose");
+                    if (bloan_purpose != null){
+                        int purposePosition = Integer.parseInt(bloan_purpose);
+                        dropdownPurpose.setSelection(purposePosition);
+                    }
+
+
+
+                    JSONObject localAddressObj = c.getJSONObject("localAddress");
+
+//                    String localAddressAddress = localAddressObj.getString("address");
+                    String localAddressPincode = localAddressObj.getString("pincode");
+                    pincodeEditTxt.setText(localAddressPincode);
+                    String localAddressCity = localAddressObj.getString("city");
+                    cityEditTxt.setText(localAddressCity);
+//                    String localAddressState = localAddressObj.getString("state");
+
+                    String dateOfBirth = c.getString("dateOfBirth");
+                    long date = Long.parseLong(dateOfBirth);
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String date1 = simpleDateFormat.format(new Date(date*1000));
+//                    dobEditTxt.setText(getDate(date, "dd/MM/yyyy"));
+                    dobEditTxt.setText(date1+"");
+
+                    String bloan_desc = c.getString("bloan_desc");
+                    descriptionTxt.setText(bloan_desc);
+
+                    String bloan_amount = c.getString("bloan_amount");
+                    if (bloan_amount != null) {
+                        double amountDouble = Double.parseDouble(bloan_amount);
+                        int amountInt = (int) amountDouble;
+                        amountTxt.setText(amountInt+"");
+                        amountTxt.requestFocus();
                     }
 
 
@@ -1669,7 +1671,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                         } else {
                             sibilScoreErr.setVisibility(View.GONE);
                         }
-
                     }
                 }else {
                     houseTypeErr.setVisibility(View.VISIBLE);
@@ -1708,19 +1709,22 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                             workSinceErr.setVisibility(View.GONE);
                         }
 
-                        if (workingExperience.isEmpty()){
+                        if (workingExperience.isEmpty() && workEM.isEmpty()){
                             workEYErr.setVisibility(View.VISIBLE);
                             workEYErr.setText("Please enter work experience in year.");
-                        } else {
-                            workEYErr.setVisibility(View.GONE);
-                        }
-
-                        if (workEM.isEmpty()){
                             workEMErr.setVisibility(View.VISIBLE);
                             workEMErr.setText("Please enter work experience in month.");
                         } else {
+                            workEYErr.setVisibility(View.GONE);
                             workEMErr.setVisibility(View.GONE);
                         }
+
+//                        if (workEM.isEmpty()){
+//                            workEMErr.setVisibility(View.VISIBLE);
+//                            workEMErr.setText("Please enter work experience in month.");
+//                        } else {
+//                            workEMErr.setVisibility(View.GONE);
+//                        }
 
                     } else if (dropdownEmpType.getSelectedItemPosition() == 2){
                         if (professionType.isEmpty()){
@@ -1824,31 +1828,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     return;
                 }
 
-                RadioButton radioMarried = findViewById(R.id.radio_married);
-                RadioButton radioSingle = findViewById(R.id.radio_single);
-                Boolean married = false;
-
-
-                Integer spouseIncomeRate = 0;
-                if (radioSingle.isChecked()){
-                    married = false;
-                }else if (radioMarried.isChecked()){
-                    married = true;
-                    try{
-                        spouseIncomeRate = Integer.parseInt(spouseIncome);
-                    }catch (Exception e){
-
-                    }
-                    if (spouseIncomeRate.equals(0)){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide spouse income.", Toast.LENGTH_SHORT).show();
-                        spouseIncomeTxt.requestFocus();
-                        return;
-                    }
-                }else{
-                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your marital status.", Toast.LENGTH_SHORT).show();
-                    radioSingle.requestFocus();
-                    return;
-                }
 
                 if (dobStr.length() == 0){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please enter your date of birth.", Toast.LENGTH_SHORT).show();
@@ -1984,7 +1963,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 if (empType == "Salaried"){
                     compName = companyTxt.getText().toString();
 
-                    if (compName.length()== 0){
+                    if (compName.length() == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please enter your company name.", Toast.LENGTH_SHORT).show();
                         companyTxt.requestFocus();
                         return;
@@ -1995,7 +1974,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 //                        return;
 //                    }
                     String incomeSalTxt = incomeSalariedTxt.getText().toString();
-                    if (incomeSalTxt.length()== 0){
+                    if (incomeSalTxt.length() == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please provide your monthly salary (in Rs.)", Toast.LENGTH_SHORT).show();
                         incomeSalariedTxt.requestFocus();
                         return;
@@ -2023,23 +2002,82 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     expYear = workExperienceTxt.getText().toString();
                     expMonth = workExperienceMonthTxt.getText().toString();
 
-                    if (expYear.length() == 0){
+                    if (expYear.length() == 0 && expMonth.length() == 0){
                         Toast.makeText(RegistrationCheckEligibility.this, "Please provide your experience", Toast.LENGTH_SHORT).show();
                         workExperienceTxt.requestFocus();
                         return;
                     }
 
-                    if (expMonth.length() == 0){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your experience", Toast.LENGTH_SHORT).show();
-                        workExperienceMonthTxt.requestFocus();
-                        return;
-                    }
+//                    if (expMonth.length() == 0){
+//                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your experience", Toast.LENGTH_SHORT).show();
+//                        workExperienceMonthTxt.requestFocus();
+//                        return;
+//                    }
                 }
-
                 String houseType = spinnerHouseType.getSelectedItem().toString();
                 if (houseType.equals("Please select")){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select your residence type", Toast.LENGTH_SHORT).show();
                     spinnerHouseType.requestFocus();
+                    return;
+                }
+
+
+                String monthlyRent = "0";
+                Date stayingSince = null;
+                Boolean canProvideGurantor = false;
+                if (houseType == "Rented") {
+                    RadioButton haveGurantee = findViewById(R.id.canProvideGurantee_yes);
+                    RadioButton noGurantee = findViewById(R.id.canProvideGurantee_no);
+
+                    if (noGurantee.isChecked()){
+                        canProvideGurantor = false;
+                    } else if (haveGurantee.isChecked()){
+                        canProvideGurantor = true;
+                    } else{
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select if you can provide a gurantor who has own house", Toast.LENGTH_SHORT).show();
+                        haveGurantee.requestFocus();
+                        return;
+                    }
+
+                    monthlyRent = monthlyRentTxt.getText().toString();
+                    if (monthlyRent.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your monthly rent", Toast.LENGTH_SHORT).show();
+                        monthlyRentTxt.requestFocus();
+                        return;
+                    }
+                    String stayingSinceEdtTxt = stayingSinceEditTxt.getText().toString();
+                    if (stayingSinceEdtTxt.length() == 0){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please select a date since you are living at current residence", Toast.LENGTH_SHORT).show();
+                        stayingSinceEditTxt.requestFocus();
+                        return;
+                    }
+                    stayingSince = strToDate(stayingSinceEdtTxt);
+                }
+
+
+                RadioButton radioMarried = findViewById(R.id.radio_married);
+                RadioButton radioSingle = findViewById(R.id.radio_single);
+                Boolean married = false;
+
+
+                Integer spouseIncomeRate = 0;
+                if (radioSingle.isChecked()){
+                    married = false;
+                }else if (radioMarried.isChecked()){
+                    married = true;
+                    try{
+                        spouseIncomeRate = Integer.parseInt(spouseIncome);
+                    }catch (Exception e){
+
+                    }
+                    if (spouseIncomeRate.equals(0)){
+                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide spouse income.", Toast.LENGTH_SHORT).show();
+                        spouseIncomeTxt.requestFocus();
+                        return;
+                    }
+                }else{
+                    Toast.makeText(RegistrationCheckEligibility.this, "Please select your marital status.", Toast.LENGTH_SHORT).show();
+                    radioSingle.requestFocus();
                     return;
                 }
 
@@ -2121,38 +2159,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
                 }
 
-                String monthlyRent = "0";
-                Date stayingSince = null;
-                Boolean canProvideGurantor = false;
-                if (houseType == "Rented"){
 
-                    RadioButton haveGurantee = findViewById(R.id.canProvideGurantee_yes);
-                    RadioButton noGurantee = findViewById(R.id.canProvideGurantee_no);
-
-                    if (noGurantee.isChecked()){
-                        canProvideGurantor = false;
-                    }else if (haveGurantee.isChecked()){
-                        canProvideGurantor = true;
-                    }else{
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please select if you can provide a gurantor who has own house", Toast.LENGTH_SHORT).show();
-                        haveGurantee.requestFocus();
-                        return;
-                    }
-
-                    monthlyRent = monthlyRentTxt.getText().toString();
-                    if (monthlyRent.length() == 0){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide your monthly rent", Toast.LENGTH_SHORT).show();
-                        monthlyRentTxt.requestFocus();
-                        return;
-                    }
-                    String stayingSinceEdtTxt = stayingSinceEditTxt.getText().toString();
-                    if (stayingSinceEdtTxt.length() == 0){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please select a date since you are living at current residence", Toast.LENGTH_SHORT).show();
-                        stayingSinceEditTxt.requestFocus();
-                        return;
-                    }
-                    stayingSince = strToDate(stayingSinceEdtTxt);
-                }
 
 
 /*http://localhost:8080/api/v1/checkEligibility/?csrf_token=XzaphWgrzwWRKtBjLkRneKYaq&session_id=gs7Ix9YWiMtmdNsbeFBYYhJIi
@@ -2325,7 +2332,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                             }
                         } else {
                             msg = "Sorry, You are not eligible";
-                            icon = R.drawable.thumbsdown_icon;
+                            icon = R.drawable.meter_low;
                         }
 
                         final LovelyStandardDialog dialog = new LovelyStandardDialog(RegistrationCheckEligibility.this);

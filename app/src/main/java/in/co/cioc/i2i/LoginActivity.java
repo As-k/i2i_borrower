@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
 
-    private static AsyncHttpClient client = new AsyncHttpClient();
+    private static AsyncHttpClient client = new AsyncHttpClient(true,80, 443);
     Backend backend = new Backend();
 
     SharedPreferences sharedPreferences;
@@ -88,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
 
         this.setContentView(R.layout.activity_login);
 
-        getWindow().setBackgroundDrawableResource(R.drawable.bg);
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);

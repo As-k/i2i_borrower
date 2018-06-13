@@ -386,12 +386,15 @@ public class EducationalDetails extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (!shouldAllowBack()) {
+//            Toast.makeText(this, "Fill All Details.", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
+    public boolean shouldAllowBack(){
+        return false;
     }
 
 }

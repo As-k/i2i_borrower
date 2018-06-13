@@ -3,11 +3,11 @@ package in.co.cioc.i2i;
 
 public class Backend {
     //String BASE_URL = "http://10.0.2.2:8080";
-    String BASE_URL = "https://qai2i.com:8585/";
-//    String BASE_URL = "http://qai2i.com:8080/";
+//    String BASE_URL = "https://qai2i.com:8585/";
+    String BASE_URL = "http://qai2i.com:8080/";
 //    String BASE_URL = "http://192.168.1.113:8080/";
 //    String BASE_URL = "https://api.i2ifunding.com/";
-    //String BASE_URL = "http://i2ifunding.cioc.co.in:8080";
+//    String BASE_URL = "http://i2ifunding.cioc.co.in:8080";
 
     String OLD_WEBSITE = "https://www.i2ifunding.com";
     Backend(){

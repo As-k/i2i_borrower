@@ -25,6 +25,7 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -444,9 +445,12 @@ public class DocumentsActivity extends AppCompatActivity {
         dropdownPerm = findViewById(R.id.permAddressSpinner);
         dropdownCurrent = findViewById(R.id.localAddressSpinner);
         String[] items = new String[]{"Please select", "House Tax Receipt", "Electricity Bill", "Registration Document" };
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdownPerm.setAdapter(adapter);
-        dropdownCurrent.setAdapter(adapter);
+        String[] itemsPerm = new String[]{"Please Select" , "Electricity Bill", "Property Tax Receipt" , "Water Tax Receipt" , "House Registry Papers"};
+        String[] itemsCurrent = new String[]{"Please select" , "Voter ID" , "Aadhaar Card" , "Driving License" , "Post-Paid Mobile Bill" , "Land-Line Bill" , "Broadband Bill" , "Valid Rent Agreement"};
+        ArrayAdapter<String> adapterPerm = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsPerm);
+        ArrayAdapter<String> adapterCrnt = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, itemsCurrent);
+        dropdownPerm.setAdapter(adapterPerm);
+        dropdownCurrent.setAdapter(adapterCrnt);
 
         //http://localhost:8080/api/v1/saveFile/?csrf_token=PvKMr0O9JCGaS1yO52GxSnMtG&session_id=6jJoBMIsZOMsTu47TTZ7jd4Fm
         //tableColumn"
@@ -569,7 +573,7 @@ public class DocumentsActivity extends AppCompatActivity {
         REQUEST_CODE_DOC = elementCode;
         FilePickerBuilder.getInstance().setMaxCount(1)
                 .setActivityTheme(R.style.Theme_AppCompat_Light).addFileSupport("image", new String[]{".jpg",".jpeg", ".png"}, R.drawable.ic_file).enableDocSupport(false)
-                .addFileSupport("PDF",new String[]{".pdf",".PDF"}, R.drawable.ic_file).enableCameraSupport(true)
+                .addFileSupport("PDF",new String[]{".pdf",".PDF", ".docx", ".DOCX"}, R.drawable.ic_file).enableCameraSupport(true)
                 .pickFile(DocumentsActivity.this);
     }
 
@@ -632,7 +636,7 @@ public class DocumentsActivity extends AppCompatActivity {
         File file = new File(filePath);
         long fileSize = file.length()/1024;
         if (!(fileSize <= 2*1024)){
-            Toast.makeText(this, "You can't select more than 2MB File.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File size should not more than 2MB.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -652,35 +656,35 @@ public class DocumentsActivity extends AppCompatActivity {
         TextView errTv;
         if (id == R.id.panUploadFile){
             errTv = findViewById(R.id.panUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.aadharUploadFile){
             errTv = findViewById(R.id.aadharUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.permAddressUploadFile){
             errTv = findViewById(R.id.permAddressUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.localAddressUploadFile){
             errTv = findViewById(R.id.localAddressUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.statement12UploadFile){
             errTv = findViewById(R.id.statement12UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.salarySlipLastUploadFile){
             errTv = findViewById(R.id.salarySlipLastUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.salarySlip2UploadFile){
             errTv = findViewById(R.id.salarySlip2UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.salarySlip3UploadFile){
             errTv = findViewById(R.id.salarySlip3UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
 //        }else if (id == R.id.form16UploadFile){
 //            errTv = findViewById(R.id.form16UploadFileErrTxt);
@@ -688,51 +692,51 @@ public class DocumentsActivity extends AppCompatActivity {
 //            errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.markSheetUploadFile){
             errTv = findViewById(R.id.markSheetUploadFileErrTxt);
-            errTv.setText("Succfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.businessPANUploadFile){
             errTv = findViewById(R.id.businessPANUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.businessRegistrationtUploadFile){
             errTv = findViewById(R.id.businessRegistrationtUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.businessIncomeTax1UploadFile){
             errTv = findViewById(R.id.businessIncomeTax1UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.businessIncomeTax2UploadFile){
             errTv = findViewById(R.id.businessIncomeTax2UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.businessIncomeTax3UploadFile){
             errTv = findViewById(R.id.businessIncomeTax3UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.selfempPANUploadFile){
             errTv = findViewById(R.id.selfempPANUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.selfempRegistrationtUploadFile){
             errTv = findViewById(R.id.selfempRegistrationtUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.selfempIncomeTax1UploadFile){
             errTv = findViewById(R.id.selfempIncomeTax1UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.selfempIncomeTax2UploadFile){
             errTv = findViewById(R.id.selfempIncomeTax2UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.selfempIncomeTax3UploadFile){
             errTv = findViewById(R.id.selfempIncomeTax3UploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }else if (id == R.id.selfempMarkSheetUploadFile){
             errTv = findViewById(R.id.selfempMarkSheetUploadFileErrTxt);
-            errTv.setText("Successfully uploaded");
+            errTv.setText("Document uploaded successfully.");
             errTv.setTextColor(getResources().getColor(R.color.green));
         }
 
@@ -1166,13 +1170,29 @@ public class DocumentsActivity extends AppCompatActivity {
         }
     }
 
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+//        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+//                && keyCode == KeyEvent.KEYCODE_BACK
+//                && event.getRepeatCount() == 0) {
+//            Log.d("CDA", "onKeyDown Called");
+//            onBackPressed();
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
+//
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-
+        if (!shouldAllowBack()) {
+            Toast.makeText(this, "Fill All Details.", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
     }
+
+    public boolean shouldAllowBack(){
+        return false;
+    }
+
 }

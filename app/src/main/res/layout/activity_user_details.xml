@@ -70,12 +70,13 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/firstName"
                         style="@style/edit_text_style"
                         android:hint="First Name"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:maxLines="1"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:singleLine="true"
                         />
 
@@ -100,12 +101,13 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/middleName"
                         style="@style/edit_text_style"
                         android:hint="Middle Name (Optional)"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:maxLines="1"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         android:singleLine="true"
                         android:backgroundTint="@android:color/transparent"
                         />
@@ -127,13 +129,14 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/lastName"
                         style="@style/edit_text_style"
                         android:hint="Last Name"
-                        android:inputType="text"
+                        android:inputType="textCapWords"
                         android:maxLines="1"
                         android:singleLine="true"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                         />
 
                 </android.support.design.widget.TextInputLayout>
@@ -171,12 +174,13 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/firstNameSpouse"
                             style="@style/edit_text_style"
                             android:hint="First Name"
-                            android:inputType="text"
+                            android:inputType="textCapWords"
                             android:maxLines="1"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:singleLine="true"
                             />
 
@@ -200,11 +204,12 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/middleNameSpouse"
                             style="@style/edit_text_style"
                             android:hint="Middle Name (Optional)"
-                            android:inputType="text"
+                            android:inputType="textCapWords"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:maxLines="1"
                             android:singleLine="true"
                             />
@@ -226,11 +231,12 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/lastNameSpouse"
                             style="@style/edit_text_style"
                             android:hint="Last Name"
-                            android:inputType="text"
+                            android:inputType="textCapWords"
+                            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                             android:maxLines="1"
                             android:singleLine="true"
                             />
@@ -300,7 +306,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/dependent1"
                         style="@style/edit_text_style"
                         android:hint="Dependent 1 (Age in years)"
@@ -331,7 +337,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/dependent2"
                         style="@style/edit_text_style"
                         android:hint="Dependent 2 (Age in years)"
@@ -361,7 +367,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/dependent3"
                         style="@style/edit_text_style"
                         android:hint="Dependent 3 (Age in years)"
@@ -407,7 +413,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/permanentAddress"
                         style="@style/edit_text_style"
                         android:hint="Address"
@@ -436,7 +442,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/permanentPincode"
                         style="@style/edit_text_style"
                         android:hint="Pincode"
@@ -466,7 +472,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/permanentCity"
                         style="@style/edit_text_style"
                         android:hint="City"
@@ -498,7 +504,7 @@
                     android:layout_width="270dp"
                     android:layout_height="wrap_content">
 
-                    <AutoCompleteTextView
+                    <EditText
                         android:id="@+id/permanentState"
                         style="@style/edit_text_style"
                         android:hint="State"
@@ -568,7 +574,7 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/currentAddress"
                             style="@style/edit_text_style"
                             android:hint="Address"
@@ -597,7 +603,7 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/currentPincode"
                             style="@style/edit_text_style"
                             android:hint="Pincode"
@@ -627,7 +633,7 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/currentCity"
                             style="@style/edit_text_style"
                             android:hint="City"
@@ -659,7 +665,7 @@
                         android:layout_width="270dp"
                         android:layout_height="wrap_content">
 
-                        <AutoCompleteTextView
+                        <EditText
                             android:id="@+id/currentState"
                             style="@style/edit_text_style"
                             android:hint="State"

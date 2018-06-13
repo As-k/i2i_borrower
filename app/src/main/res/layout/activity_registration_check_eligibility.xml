@@ -1375,6 +1375,7 @@
                             style="@style/edit_text_style"
                             android:hint="CIBIL Score (Credit Bureau Score)"
                             android:inputType="number"
+                            android:digits="-0987654321"
                             android:maxLines="1"
                             android:singleLine="true" />
 

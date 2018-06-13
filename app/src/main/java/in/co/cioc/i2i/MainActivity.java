@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                     + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    String password_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,14}$";
     String f_name, l_name, m_name, p_email, p_adhar, p_pan, password, p_mobile, repassword;
     Button register_button;
     boolean fnameValid, lnameValid, panValid, aadharValid, mobileValid, emailValid, passwordValid, repasswordValid, emailOTPValid, mobOTPValid;

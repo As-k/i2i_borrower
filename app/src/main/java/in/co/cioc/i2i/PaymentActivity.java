@@ -124,6 +124,7 @@ public class PaymentActivity extends AppCompatActivity {
                             setDiscount(c.getInt("discount"));
                             successCoupon.setVisibility(LinearLayout.VISIBLE);
                             errorCoupon.setVisibility(LinearLayout.GONE);
+                            payBtn.setText("Submit");
                         }catch(JSONException e){
 
                         }

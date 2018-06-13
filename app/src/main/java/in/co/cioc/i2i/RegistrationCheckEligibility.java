@@ -126,6 +126,8 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
     Button submit_button;
     SharedPreferences sharedPreferences;
 
+    int desiredAmount = 0;
+
     ImageView linkedin_connect;
     LoginButton loginButton;
     TextView tv_linkined_connect, tv_fb_connect;
@@ -1524,7 +1526,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String amount = amountTxt.getText().toString().trim();
+                final String amount = amountTxt.getText().toString().trim();
                 String description = descriptionTxt.getText().toString().trim();
                 String dobStr = dobEditTxt.getText().toString().trim();
                 String pincode = pincodeEditTxt.getText().toString().trim();
@@ -1599,12 +1601,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                 if (single.isChecked() || married.isChecked()){
                     genderErr.setVisibility(View.GONE);
                     if (married.isChecked()){
-                        if (spouseIncome.isEmpty()){
-                            spouseErr.setVisibility(View.VISIBLE);
-                            spouseErr.setText("Please enter spouse income.");
-                        } else {
-                            spouseErr.setVisibility(View.GONE);
-                        }
+//                        if (spouseIncome.isEmpty()){
+//                            spouseErr.setVisibility(View.VISIBLE);
+//                            spouseErr.setText("Please enter spouse income.");
+//                        } else {
+//                            spouseErr.setVisibility(View.GONE);
+//                        }
                     } else if (single.isChecked()){
                             spouseErr.setVisibility(View.GONE);
                     }
@@ -1791,7 +1793,6 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     tenureLoneErr.setText("Please select loan tenure.");
                 }
 
-                Integer desiredAmount = 0;
                 try{
                     desiredAmount = Integer.parseInt(amountTxt.getText().toString());
                 }catch(Exception e){
@@ -1808,7 +1809,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     return;
                 }
 
-                String tenure = dropdown.getSelectedItem().toString();
+                final String tenure = dropdown.getSelectedItem().toString();
                 if (tenure.equals("Please select")){
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select loan tenure.", Toast.LENGTH_SHORT).show();
                     dropdown.requestFocus();
@@ -2065,16 +2066,16 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     married = false;
                 }else if (radioMarried.isChecked()){
                     married = true;
-                    try{
-                        spouseIncomeRate = Integer.parseInt(spouseIncome);
-                    }catch (Exception e){
-
-                    }
-                    if (spouseIncomeRate.equals(0)){
-                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide spouse income.", Toast.LENGTH_SHORT).show();
-                        spouseIncomeTxt.requestFocus();
-                        return;
-                    }
+//                    try{
+//                        spouseIncomeRate = Integer.parseInt(spouseIncome);
+//                    }catch (Exception e){
+//
+//                    }
+//                    if (spouseIncomeRate.equals(0)){
+//                        Toast.makeText(RegistrationCheckEligibility.this, "Please provide spouse income.", Toast.LENGTH_SHORT).show();
+//                        spouseIncomeTxt.requestFocus();
+//                        return;
+//                    }
                 }else{
                     Toast.makeText(RegistrationCheckEligibility.this, "Please select your marital status.", Toast.LENGTH_SHORT).show();
                     radioSingle.requestFocus();
@@ -2142,12 +2143,12 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     return;
                 }
 
-                Integer cibilScore = 0;
-                try{
-                    cibilScore = Integer.parseInt(creditScoreTxt.getText().toString());
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+//                Integer cibilScore = 0;
+//                try{
+//                    cibilScore = Integer.parseInt(creditScoreTxt.getText().toString());
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
 
                 Integer spouseMonthlyIncome = 0;
                 if (married){
@@ -2265,7 +2266,7 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
                     financialDetails.put("runningLoanEmi" , runningLoanEmi);
                     financialDetails.put("creditCard" , creditCard);
                     financialDetails.put("creditCardOutstanding" , creditCardOutstanding);
-                    financialDetails.put("cibilScore" , cibilScore);
+                    financialDetails.put("cibilScore" , creditScore);
                     financialDetails.put("spouseMonthlyIncome" , spouseMonthlyIncome);
                     financialDetails.put("canProvideGurantor" , canProvideGurantor);
                     financialDetails.put("monthlyRent" , monthlyRent);
@@ -2317,18 +2318,32 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 //                        String next = "<font color='#0000EE'>Expected Interest Rate</font>";
 //                        String third = "";
                         if (eligible){
+                            float emiMin, emiMax;
+                            float t = Float.parseFloat(tenure);
+                            float baseInterestMin = (float)(baseInterest-2) / (12 * 100); // one month interest
+                            float baseInterestMax = (float)(baseInterest+2) / (12 * 100); // one month interest
+                            emiMin = (desiredAmount * baseInterestMin * (float)Math.pow(1 + baseInterestMin, t))
+                                    / (float)(Math.pow(1 + baseInterestMin, t) - 1);
+                            emiMax = (desiredAmount * baseInterestMax * (float)Math.pow(1 + baseInterestMax, t))
+                                    / (float)(Math.pow(1 + baseInterestMax, t) - 1);
+
                             if (baseInterest >= 18 && baseInterest <= 24){
+
                                 icon = R.drawable.meter_high;
                                 chances = "high";
-                                msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +"% to " + (baseInterest+2)+"%";
+                                msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +"% to " + (baseInterest+2)+"% \n " +
+                                        "\n"+ "Rs. "+emiMin +" to Rs." + emiMax;
+//                                Toast.makeText(RegistrationCheckEligibility.this, "Rs. "+emiMin +" to Rs." + emiMax, Toast.LENGTH_SHORT).show();
                             } else if (baseInterest >= 25 && baseInterest <= 30){
                                 icon = R.drawable.meter_medium;
                                 chances = "medium";
                                 msg = "Congratulations, You are eligible\n" + "Expected Interest Rate \n \n"+ (baseInterest-2) +"% to " + (baseInterest+2)+"%";
+//                                Toast.makeText(RegistrationCheckEligibility.this, "Rs. "+emiMin +" to Rs." + emiMax, Toast.LENGTH_SHORT).show();
                             } else if (baseInterest > 30){
                                 chances = "low";
                                 icon = R.drawable.meter_low;
                                 msg = "Congratulations, You are eligible \n" + "Expected Interest Rate \n \n" + (baseInterest-2) +"% to " + (baseInterest+2)+"%";
+//                                Toast.makeText(RegistrationCheckEligibility.this, "Rs. "+emiMin +" to Rs." + emiMax, Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             msg = "Sorry, You are not eligible";
@@ -2653,11 +2668,14 @@ public class RegistrationCheckEligibility extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+        if (!shouldAllowBack()) {
+//            Toast.makeText(this, "Fill All Details.", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
+    public boolean shouldAllowBack(){
+        return false;
     }
 }

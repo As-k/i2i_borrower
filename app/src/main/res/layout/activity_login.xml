@@ -122,6 +122,12 @@
                 android:gravity="center_horizontal"
                 android:text="Existing users login below"
                 android:textSize="@dimen/edit_text_size"/>
+            <TextView
+                android:id="@+id/email_passErrTxt"
+                style="@style/error_text_msg"
+                android:layout_marginBottom="8dp"
+                android:textAlignment="center"
+                android:layout_marginStart="40dp"/>
 
             <LinearLayout
                 style="@style/linear_layout_for_et"
@@ -154,12 +160,15 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/emailErrTxt"
+                style="@style/error_text_msg"
+                android:layout_marginStart="50dp"/>
 
             <LinearLayout
                 style="@style/linear_layout_for_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginVertical="@dimen/activity_vertical_margin"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -185,6 +194,10 @@
 
                 </android.support.design.widget.TextInputLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/passwordErrTxt"
+                style="@style/error_text_msg"
+                android:layout_marginStart="50dp"/>
 
             <TextView
                 android:id="@+id/textView2"

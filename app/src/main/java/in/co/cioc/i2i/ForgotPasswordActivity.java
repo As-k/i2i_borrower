@@ -98,9 +98,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         }catch (JSONException err){
                         }
                         if (count == 0){
-                            resetEmail.setError("Email ID already exist");
+//                            resetEmail.setError("Email ID already exist");
                             emailErr.setVisibility(View.VISIBLE);
-                            emailErr.setText("Please enter your Email-Id.");
+                            removeSuccess(resetEmail);
+                            emailErr.setText("Email does not exist in our record.");
                             resetEmail.requestFocus();
                         }else if (count > 0) {
                                 showSuccess(resetEmail);
@@ -112,11 +113,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                         super.onFailure(statusCode, headers, throwable, errorResponse);
                     }
-
                 });
-
-
-
             }else{
                 resetEmail.setError("Invalid Email-Id");
                 resetEmail.requestFocus();

@@ -2,6 +2,7 @@ package in.co.cioc.i2i;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -26,11 +28,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -93,12 +97,16 @@ import java.util.regex.Pattern;
 import javax.net.ssl.HttpsURLConnection;
 
 import cz.msebera.android.httpclient.Header;
+import in.co.cioc.i2i.backend.BackgroundService;
 
 import static in.co.cioc.i2i.LoginActivity.PREFS_NAME;
 import static in.co.cioc.i2i.LoginActivity.PREF_FNAME;
 import static in.co.cioc.i2i.LoginActivity.PREF_PASSWORD;
 
 public class AccountActivity extends AppCompatActivity {
+
+    private static final String TAG = AccountActivity.class.getName();
+    private Context mContext;
 
     private static AsyncHttpClient client = new AsyncHttpClient(true , 80, 443);
     Backend backend = new Backend();
@@ -108,6 +116,8 @@ public class AccountActivity extends AppCompatActivity {
     Button continueBtn , payNPost;
     Integer reg_stage;
     ProgressDialog progress;
+    private int c_year, c_month, c_day;
+    private Calendar calendar1;
 
 //    from the old app
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -152,6 +162,7 @@ public class AccountActivity extends AppCompatActivity {
     public static String PREF_PASSWORD = "password";
     public static String PREF_FNAME = "c41586290";
 
+    Integer loanID;
 
     LinearLayout accountView , continueView;
 
@@ -164,8 +175,8 @@ public class AccountActivity extends AppCompatActivity {
     TextView loanAmtApplied , loanAmtApproved , loanAmtDisbursed , loanTenure , purpose , interestRate , i2iCategory , currentRate , initialRate;
     Button currentStatus;
 
-    TextView step1Txt , step1Date , step2Txt , step2Date, step3Txt , step3Date, step4Txt , step4Date, step5Txt , step5Date, step6Txt , step6Date, step7Txt , step7Date, step8Txt , step8Date;
-    ImageView step1Image , step2Image, step3Image, step4Image, step5Image, step6Image, step7Image, step8Image;
+    TextView step1Txt , step1Date , step2Txt , step2Date, step3Txt , step3Date, step4Txt , step4Date, step5Txt , step5Date, step6Txt , step6Date, step7Txt , step7Date, step8Txt , step8Date , step9Txt , step9Date;
+    ImageView step1Image , step2Image, step3Image, step4Image, step5Image, step6Image, step7Image, step8Image , step9Image;
 
     TextView logoutBtn2;
 
@@ -231,7 +242,7 @@ public class AccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-
+        mContext = AccountActivity.this;
 
         logoutBtn2 = findViewById(R.id.logoutBtnTxt);
 
@@ -281,18 +292,23 @@ public class AccountActivity extends AppCompatActivity {
         step8Date = findViewById(R.id.step8Date);
         step8Image = findViewById(R.id.step8Image);
 
+        step9Txt = findViewById(R.id.step9Txt);
+        step9Date = findViewById(R.id.step9Date);
+        step9Image = findViewById(R.id.step9Image);
 
 
-
-
-
-
+//        startService(new Intent(mContext, BackgroundService.class));
+        Intent intent = new Intent(BackgroundService.ACTION);
+        sendBroadcast(intent);
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
         String session_id = sharedPreferences.getString("session_id" , null);
         String csrf_token = sharedPreferences.getString("csrf_token" , null);
 
-        client.get(backend.BASE_URL + "/api/v1/getDetails/loan/?csrf_token=" + csrf_token + "&session_id=" + session_id, new JsonHttpResponseHandler() {
+        String url = "https://www.qai2i.com:4000/borrower/overview/loandetails?csrf_token=lrJ3KctWYhC25JwGT4JgyQUHV&session_id=dYm0V9Yx5UfJjEdZb6JfdtZAv";
+//        backend.BASE_URL + "/api/v1/getDetails/loan/?csrf_token=" + csrf_token + "&session_id=" + session_id
+
+        client.get(url , new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                 super.onSuccess(statusCode, headers, c);
@@ -300,81 +316,253 @@ public class AccountActivity extends AppCompatActivity {
                 //loanAmtApplied , loanAmtApproved , loanAmtDisbursed , loanTenure , purpose , interestRate , i2iCategory;
 
                 try {
-                    loanAmtApplied.setText( "INR " +  c.getString("bloan_amount"));
-                    loanTenure.setText( c.getString("bloan_tenure"));
-                    interestRate.setText( c.getString("bloan_i2i_rate") + " %");
-                    i2iCategory.setText( c.getString("bloan_i2i_category"));
-                    loanAmtApproved.setText( "INR " +  c.getString("bloan_approved_amt"));
-                    currentStatus.setText( c.getString("bloan_status"));
-                    purpose.setText( c.getString("purpose"));
-                    currentRate.setText(c.getString("currentInterest"));
-                    initialRate.setText(c.getString("initialInterest"));
-                    loanAmtDisbursed.setText(c.getString("amtDisbursed"));
+                    JSONObject loanDetails = c.getJSONArray("loan_details").getJSONObject(c.getJSONArray("loan_details").length() -1);
+                    loanAmtApplied.setText( "INR " +  loanDetails.getString("bloan_amount"));
+                    loanTenure.setText( loanDetails.getString("bloan_tenure"));
+                    interestRate.setText( loanDetails.getString("bloan_i2i_rate") + " %");
+                    i2iCategory.setText( loanDetails.getString("bloan_i2i_category"));
+                    loanAmtApproved.setText( "INR " +  loanDetails.getString("bloan_approved_amt"));
 
-                    step1Txt.setText(c.getString("step1Status"));
-                    if (c.getBoolean("step1Complete")){
-                        step1Date.setText(c.getString("step1Date"));
-                    }else {
+                    purpose.setText( loanDetails.getString("loan_purpose"));
+                    currentRate.setText(loanDetails.getString("current_interest_rate"));
+                    initialRate.setText(loanDetails.getString("initial_rate"));
+                    loanAmtDisbursed.setText(loanDetails.getString("disbursed_amunt"));
+
+                    loanID = loanDetails.getInt("loan_id");
+
+                    Integer stat = loanDetails.getInt("loan_status");
+                    Integer loan_live_status = loanDetails.getInt("loan_live_status");
+                    Integer average = loanDetails.getInt("average");
+                    Integer bloan_posted_fees = loanDetails.getInt("bloan_posted_fees");
+                    Integer disbursed_amunt = loanDetails.getInt("disbursed_amunt");
+                    String loan_started = loanDetails.getString("loan_started");
+//                    loan_status  < 4  (Loan Under Evaluation)
+//                      == 14 OR == 55 (Loan Rejected)
+//                       < 8  (Funding in Progress)
+//                       < 9  (Physical Verification Pending)
+//                       < 10 (Documentation Verification Pending)
+//                     == 10 (Documentation Verification Completed)
+//
+//                    Loan_live_status <1 (Post Your Loan)
+//                    loan_live_status==1 and average<1 (Loan Live)
+//                    average < 100 &&loan _status' < 8 (Funding in Progress)
+//                    disbursed_amount >0 && loan_started == ‘’ (Disbursemment In Progress)
+
+                    if (stat <4){
+                        currentStatus.setText( "Loan Under Evaluation");
+                    }else if (stat == 14 || stat == 55){
+                        currentStatus.setText( "Loan Rejected");
+                    }else if(stat <8){
+                        currentStatus.setText( "Funding in Progress");
+                    }else if(stat <9){
+                        currentStatus.setText( "Physical Verification Pending");
+                    }else if(stat <10){
+                        currentStatus.setText( "Documentation Verification Pending");
+                    }else if(stat == 10){
+                        currentStatus.setText( "Documentation Verification Completed");
+                    }else if(loan_live_status <1){
+                        currentStatus.setText( "Post Your Loan");
+                    }else if(loan_live_status == 1 && average<1){
+                        currentStatus.setText( "Loan Live");
+                    }else if(average<100 && stat <8){
+                        currentStatus.setText( "Funding in Progress");
+                    }else if(disbursed_amunt >0 && loan_started.length() == 0){
+                        currentStatus.setText( "Disbursemment In Progress");
+                    }else{
+                        currentStatus.setText( "Repayment In Progress");
+                    }
+
+//                    Loan_live_status  == 1 &&
+//                            If (loan_status == 5 )
+//                    If (bloan_posted_fees == ‘1’ || bloan_posted_fees== ‘2’)
+//                    ‘Post Your Loan’
+//                                        Else
+//                     ‘
+//                    ‘Please Pay Rs. 1,000 To Post Your Loan’ 
+//
+//                    ’
+                    TextView loanPostingStatus = findViewById(R.id.loanPostingStatus);
+//                    Please Pay Rs. 1,000 to Post Your Loan
+
+                    if (loan_live_status == 1){
+                        if (stat == 5 && (bloan_posted_fees == 1 || bloan_posted_fees== 2)){
+                            loanPostingStatus.setText("Post Your Loan");
+                        }else{
+                            loanPostingStatus.setText("Please Pay Rs. 1,000 To Post Your Loan");
+                        }
+                    }
+
+
+//                    For  Status of your Loan Project
+//                    1> Loan Application Submitted   status ( if loan_status == 2  ‘completed’ else ‘Pending’)
+//                    2> Loan Approval Status  (if loan_status<5  ‘Pending ’ else if (loan_status == 14 || loan_status == 55 )‘Rejected’ ) if( loan_status == 5 || (loan_status > 4 && loan_status < 14) ) ‘Accepted’
+//                    3>  Loan Live on Portal (if loan_live_status <1 ‘pending ’ else loan_live_status>0 ‘Done )
+//                    4> Funding Status (if average > 0 ‘Completed’ else ‘Pending’)
+//                    5> Processing Fee Payment (if loan_status > 7 && loan_status <14  Paid else ‘Pending’)
+//                    6> Physical Verification (if loan_status <9  ‘Pending’ elseif(loan_status >=9 && loan_status <14 ) ‘Completed’ )
+//                    7> Documentation (if loan_status <10  ‘Pending’ elseif(loan_status >=10 && loan_status <14 ) ‘Completed’ )
+//                    8> Disbursement (if (disbursed_amount>0) ‘In progress’  else if (disbursal_status==1)’Completed’ else ‘Pending’)
+//                    9> Repayment (If (Loan_started === ‘’) ‘pending’ else ‘Started’)
+
+
+                    Integer loan_status = stat;
+                    if (loan_status == 2){
+                        step1Txt.setText("Complete");
+                    }else{
+                        step1Txt.setText("Pending");
                         step1Image.setVisibility(ImageView.GONE);
                     }
 
-
-                    step2Txt.setText(c.getString("step2Status"));
-                    if (c.getBoolean("step2Complete")){
-                        step2Date.setText(c.getString("step2Date"));
-                    }else {
+                    if (stat < 5){
+                        step2Txt.setText("Pending");
                         step2Image.setVisibility(ImageView.GONE);
+                    }else if(loan_status == 14 || loan_status == 55 ){
+                        step2Txt.setText("Rejected");
+                        step2Image.setVisibility(ImageView.GONE);
+                    }else if(loan_status == 5 || (loan_status > 4 && loan_status < 14)){
+                        step2Txt.setText("Accepted");
                     }
 
 
-                    step3Txt.setText(c.getString("step3Status"));
-                    if (c.getBoolean("step3Complete")){
-                        step3Date.setText(c.getString("step3Date"));
-                    }else {
+                    if (loan_live_status <1){
+                        step3Txt.setText("Pending");
                         step3Image.setVisibility(ImageView.GONE);
+                    }else{
+                        step3Txt.setText("Done");
                     }
 
 
-                    step4Txt.setText(c.getString("step4Status"));
-                    if (c.getBoolean("step4Complete")){
-                        step4Date.setText(c.getString("step4Date"));
-                    }else {
+                    if (average >0){
+                        step4Txt.setText("Completed");
+                    }else{
+                        step4Txt.setText("Pending");
                         step4Image.setVisibility(ImageView.GONE);
                     }
 
-
-                    step5Txt.setText(c.getString("step5Status"));
-                    if (c.getBoolean("step5Complete")){
-                        step5Date.setText(c.getString("step5Date"));
+                    if (loan_status > 7 && loan_status <14){
+                        step5Txt.setText("Paid");
                     }else {
+                        step5Txt.setText("Pending");
                         step5Image.setVisibility(ImageView.GONE);
                     }
 
 
-                    step6Txt.setText(c.getString("step6Status"));
-                    if (c.getBoolean("step6Complete")){
-                        step6Date.setText(c.getString("step6Date"));
-                    }else {
+                    if (loan_status <9){
+                        step6Txt.setText("Pending");
                         step6Image.setVisibility(ImageView.GONE);
+                    }else if(loan_status >=9 && loan_status <14){
+                        step6Txt.setText("Complete");
                     }
 
-
-                    step7Txt.setText(c.getString("step7Status"));
-                    if (c.getBoolean("step7Complete")){
-                        step7Date.setText(c.getString("step7Date"));
-                    }else {
+                    if (loan_status <10){
+                        step7Txt.setText("Pending");
                         step7Image.setVisibility(ImageView.GONE);
+                    }else if(loan_status >=10 && loan_status <14){
+                        step7Txt.setText("Completed");
                     }
 
-                    step8Txt.setText(c.getString("step8Status"));
-                    if (c.getBoolean("step8Complete")){
-                        step8Date.setText(c.getString("step8Date"));
-                    }else {
+                    if (disbursed_amunt>0){
+                        step8Txt.setText("In progress");
+                        step8Image.setVisibility(ImageView.GONE);
+                    }else if(loanDetails.getInt("disbursal_status")==1){
+                        step8Txt.setText("Completed");
+                    }else{
+                        step8Txt.setText("Pending");
                         step8Image.setVisibility(ImageView.GONE);
                     }
 
+                    if (loan_started.length() == 0){
+                        step9Txt.setText("Pending");
+                        step9Image.setVisibility(ImageView.GONE);
+                    }else{
+                        step9Txt.setText("Complete");
+                    }
 
 
+                    JSONArray timeArr = loanDetails.getJSONArray("update_status_time");
+                    for (int i = 0; i < timeArr.length(); i++) {
+                        String[] dtStr = timeArr.getString(i).split(":");
+                        if (dtStr[0].equals("BL_SUBMIT")){
+                            setDate(step1Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_APPROVAED")){
+                            setDate(step2Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_ACCEPTED")){
+                            setDate(step3Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_EXTENDED")){
+                            setDate(step4Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_PROCESS_FEE_PAY")){
+                            setDate(step5Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_PHY_VERIFY")){
+                            setDate(step6Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_DOCUMENTS")){
+                            setDate(step7Date , dtStr[1]);
+                        }else if( dtStr[0].equals("BL_DISBURSE")){
+                            setDate(step8Date , dtStr[1]);
+                        }
+                    }
+
+
+//                    step1Txt.setText(c.getString("step1Status"));
+//                    if (c.getBoolean("step1Complete")){
+//                        step1Date.setText(c.getString("step1Date"));
+//                    }else {
+//                        step1Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//
+//                    step2Txt.setText(c.getString("step2Status"));
+//                    if (c.getBoolean("step2Complete")){
+//                        step2Date.setText(c.getString("step2Date"));
+//                    }else {
+//                        step2Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//
+//                    step3Txt.setText(c.getString("step3Status"));
+//                    if (c.getBoolean("step3Complete")){
+//                        step3Date.setText(c.getString("step3Date"));
+//                    }else {
+//                        step3Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//
+//                    step4Txt.setText(c.getString("step4Status"));
+//                    if (c.getBoolean("step4Complete")){
+//                        step4Date.setText(c.getString("step4Date"));
+//                    }else {
+//                        step4Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//
+//                    step5Txt.setText(c.getString("step5Status"));
+//                    if (c.getBoolean("step5Complete")){
+//                        step5Date.setText(c.getString("step5Date"));
+//                    }else {
+//                        step5Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//
+//                    step6Txt.setText(c.getString("step6Status"));
+//                    if (c.getBoolean("step6Complete")){
+//                        step6Date.setText(c.getString("step6Date"));
+//                    }else {
+//                        step6Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//
+//                    step7Txt.setText(c.getString("step7Status"));
+//                    if (c.getBoolean("step7Complete")){
+//                        step7Date.setText(c.getString("step7Date"));
+//                    }else {
+//                        step7Image.setVisibility(ImageView.GONE);
+//                    }
+//
+//                    step8Txt.setText(c.getString("step8Status"));
+//                    if (c.getBoolean("step8Complete")){
+//                        step8Date.setText(c.getString("step8Date"));
+//                    }else {
+//                        step8Image.setVisibility(ImageView.GONE);
+//                    }
 
                 }catch (JSONException e){
 
@@ -387,18 +575,13 @@ public class AccountActivity extends AppCompatActivity {
                 Toast.makeText(AccountActivity.this, "Cant get the loan details", Toast.LENGTH_SHORT).show();
             }
 
-
         });
-
-
-
-
 
         progress = new ProgressDialog(this);
         progress.setTitle("Please wait");
         progress.setMessage("Checkin login details...");
         progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
-        progress.show();
+        //progress.show();
 
         account_scroll = findViewById(R.id.account_scroll);
         promoCodeLayout = findViewById(R.id.promoCodeLayout);
@@ -421,6 +604,7 @@ public class AccountActivity extends AppCompatActivity {
 
                 if (promoCodeValid){
                     // make the post request
+                    postLoan(view);
                 }else{
                     // start payumoney
                     pay();
@@ -433,7 +617,7 @@ public class AccountActivity extends AppCompatActivity {
         accountView  = findViewById(R.id.accountView);
         continueView = findViewById(R.id.continueLayout);
 
-        accountView.setVisibility(LinearLayout.GONE);
+        //accountView.setVisibility(LinearLayout.GONE);
         continueView.setVisibility(LinearLayout.GONE);
 
 
@@ -542,17 +726,43 @@ public class AccountActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject c){
-                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(i);
+//                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+//                    startActivity(i);
                 }
 
             });
         }else {
-            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+//            startActivity(i);
 
         }
+        isStoragePermissionGranted();
+    }
 
+    public  boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.PROCESS_OUTGOING_CALLS) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG,"Permission is granted");
+                return true;
+            } else {
+                Log.v(TAG,"Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.CALL_PHONE , Manifest.permission.READ_PHONE_STATE , Manifest.permission.PROCESS_OUTGOING_CALLS,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.MODIFY_PHONE_STATE, Manifest.permission.SEND_SMS}, 1);
+                return false;
+            }
+        }
+        else { //permission is automatically granted on sdk<23 upon installation
+            Log.v(TAG,"Permission is granted");
+            return true;
+        }
     }
 
     public void continueRegistration(View view){
@@ -575,7 +785,91 @@ public class AccountActivity extends AppCompatActivity {
         }
 
     }
+    float floatRate;
+    public void postLoan(View view){
+        calendar1 = Calendar.getInstance();
+        c_year = calendar1.get(Calendar.YEAR);
+        c_month = calendar1.get(Calendar.MONTH);
+        c_day = calendar1.get(Calendar.DAY_OF_MONTH);
+        View v = getLayoutInflater().inflate(R.layout.post_loan_layout,null,false);
+        TextView loan_Id = v.findViewById(R.id.loan_id);
+        loan_Id.setText(""+loanID);
+        TextView loanAmount = v.findViewById(R.id.loan_amount);
+        loanAmount.setText(loanAmtApplied.getText().toString());
+        final TextView rateText = v.findViewById(R.id.rate_txt);
+        final TextView minRateText = v.findViewById(R.id.min_rate);
+        final SeekBar rateSeekBar = v.findViewById(R.id.rate_seek_bar);
+        final EditText postLoanDate = v.findViewById(R.id.post_loan_date);
+        final Button cancelButton = v.findViewById(R.id.cancel_button);
+        final Button postButton = v.findViewById(R.id.post_button);
 
+        Toast.makeText(this, ""+interestRate.getText(), Toast.LENGTH_SHORT).show();
+
+        String strRate = interestRate.getText().toString();
+        String[] s  = strRate.split("%");
+        Log.e("interestRate","=="+s[0]);
+
+        floatRate = Float.parseFloat(s[0]);
+        rateText.setText(strRate);
+        minRateText.setText(strRate);
+        rateSeekBar.setProgress((int)floatRate);
+        rateSeekBar.setMax(30);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            rateSeekBar.setMin((int)floatRate);
+        }
+
+        rateSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            float progress = 0;
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                float temp = i;
+                progress = interestRatePercentage(temp);
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                rateText.setText(progress+" %");
+            }
+        });
+
+        postLoanDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dpb = new DatePickerDialog(AccountActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        postLoanDate.setText(dayOfMonth+"/"+(month+1)+"/"+year);
+                    }
+                },c_year,c_month,c_day);
+                dpb.show();
+            }
+        });
+
+
+        final AlertDialog.Builder abd = new AlertDialog.Builder(this);
+        abd.setView(v).setCancelable(false);
+        final AlertDialog alertDialog =abd.create();
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+
+    }
+
+    float interestRatePercentage(float i){
+        float dis = 30-floatRate;
+        float temp = ((floatRate)+((i/30)*dis));
+        return temp;
+    }
 
     public boolean isJSONValid(String test) {
         try {
@@ -595,11 +889,13 @@ public class AccountActivity extends AppCompatActivity {
 
     public void checkpermission() {
         if (ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CALL_LOG)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED || !isLocationEnabled()) {
 
-            ActivityCompat.requestPermissions(AccountActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_MULTIPLE_REQUEST);
+            ActivityCompat.requestPermissions(AccountActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS,
+                    Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_MULTIPLE_REQUEST);
             checkLocation();
         } else {
 //            sl.setVisibility(View.VISIBLE); // check message below
@@ -610,24 +906,37 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSIONS_MULTIPLE_REQUEST: {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0) {
-                    if (ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_SMS)
-                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CALL_LOG)
-                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CONTACTS)
-                            == PackageManager.PERMISSION_GRANTED) {
-//                        sl.setVisibility(View.VISIBLE); // after getting the permissions , show a button to recieve the otp
-                    }
+        for (int i = 1; i < 8; i++) {
+            if (requestCode == i){
+                if (grantResults.length > 0
+                        && grantResults[i-1] == PackageManager.PERMISSION_GRANTED) {
+                    Log.v(TAG, "Permission: " + permissions[i-1] + "was " + grantResults[i-1]);
+                    //resume tasks needing this permission
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
         }
+//        switch (requestCode) {
+//            case PERMISSIONS_MULTIPLE_REQUEST: {
+//
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0) {
+//                    if (ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_SMS)
+//                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW)
+//                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CALL_LOG)
+//                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CONTACTS)
+//                            == PackageManager.PERMISSION_GRANTED) {
+////                        sl.setVisibility(View.VISIBLE); // after getting the permissions , show a button to recieve the otp
+//                    }
+//                }
+//                return;
+//            }
+//
+//            // other 'case' lines to check for other
+//            // permissions this app might request
+//        }
     }
     // CIOC : Call this success button to start initiating the verification
 
@@ -1893,6 +2202,15 @@ public class AccountActivity extends AppCompatActivity {
     }
 
 
+    private void setDate(TextView tv , String d){
+        Integer milSecs = Integer.parseInt(d);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milSecs*1000);
+        tv.setText(formatter.format(calendar.getTime()));
+
+    }
+
     private String merchantKey = "r9pHRt";
     private String userCredentials;
 
@@ -1930,29 +2248,100 @@ public class AccountActivity extends AppCompatActivity {
                         }).show();
 
 
+                String response = data.getStringExtra("payu_response");
                 sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
                 String session_id = sharedPreferences.getString("session_id" , null);
                 String csrf_token = sharedPreferences.getString("csrf_token" , null);
-
                 RequestParams params = new RequestParams();
-//                params.put("coupon", coupon);
 
-                client.post(backend.BASE_URL + "/api/v1/makePayment/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
+                try{
+                    JSONObject responseJson = new JSONObject(response);
+
+                    if (responseJson.getString("unmappedstatus").equals("failure")){
+                        return;
+                    }
+
+                    boolean status = false;
+                    if (responseJson.getString("status").equals("success")){
+                        status = true;
+                    }
+
+                    params.put("loan_id" , loanID);
+                    params.add("couponCode" , "");
+                    params.put("success" , status);
+                    params.add("mihpayid" , Integer.toString(responseJson.getInt("id")));
+                    params.add("status" , responseJson.getString("status"));
+                    params.add("unmappedstatus" , responseJson.getString("unmappedstatus"));
+                    params.add("key" , responseJson.getString("key"));
+                    params.add("txnid" ,responseJson.getString("txnid"));
+                    params.add("amount" , responseJson.getString("amount"));
+                    params.add("cardCategory" , responseJson.getString("cardCategory"));
+                    params.add("discount" , responseJson.getString("discount"));
+                    params.add("net_amount_debit" , responseJson.getString("amount"));
+                    params.add("addedon" , responseJson.getString("addedon"));
+                    params.add("productinfo" ,responseJson.getString("productinfo"));
+                    params.add("firstname" , responseJson.getString("firstname"));
+                    params.add("lastname" , "");
+                    params.add("email" , responseJson.getString("email"));
+                    params.add("phone" , responseJson.getString("phone"));
+                    params.add("address1" , "");
+                    params.add("address2" , "");
+                    params.add("city" , "");
+                    params.add("state" , "");
+                    params.add("country" , "");
+                    params.add("zipcode" , "");
+                    params.add("udf1" , "");
+                    params.add("udf2" , "");
+                    params.add("udf3" , "");
+                    params.add("udf4" , "");
+                    params.add("udf5" , "");
+                    params.add("udf6" , "");
+                    params.add("udf7" , "");
+                    params.add("udf8" , "");
+                    params.add("udf9" , "");
+                    params.add("udf10" , "");
+                    params.add("hash" , responseJson.getString("hash"));
+                    params.add("field1" , "");
+                    params.add("field2" , "");
+                    params.add("field3" , "");
+                    params.add("field4" , "");
+                    params.add("field5" , "");
+                    params.add("field6" , "");
+                    params.add("field7" , "");
+                    params.add("field8" , "");
+                    params.add("field9" , responseJson.getString("field9"));
+                    params.add("payment_source" , responseJson.getString("payment_source"));
+                    params.add("PG_TYPE" , responseJson.getString("PG_TYPE"));
+                    params.add("bank_ref_num" , responseJson.getString("bank_ref_no"));
+                    params.add("bankcode" , "");
+                    params.add("error" , responseJson.getString("error_code"));
+                    params.add("error_Message" , responseJson.getString("Error_Message"));
+                    params.add("name_on_card" , responseJson.getString("name_on_card"));
+                    params.add("cardnum" , responseJson.getString("card_no"));
+                    params.add("cardhash" , "");
+                    params.add("platform" , "mobile");
+
+                }catch (JSONException e){
+
+                }
+
+                client.post(backend.BASE_URL + "/borrower/overview/postloan/?csrf_token=" + csrf_token + "&session_id=" + session_id, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject c) {
                         super.onSuccess(statusCode, headers, c);
+                        Toast.makeText(AccountActivity.this, "in success", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), UserDetails.class);
+                        startActivity(i);
 
-                        try {
-                            if(c.getString("action") == "proceed"){
-                                Intent i = new Intent(getApplicationContext(), UserDetails.class);
-                                startActivity(i);
-                            }else {
-                                pay();
-                            }
-                        }catch(JSONException e){
+                    }
 
-                        }
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                        super.onFailure(statusCode, headers, throwable, errorResponse);
+                        Toast.makeText(AccountActivity.this, "in failure", Toast.LENGTH_SHORT).show();
+
+
 
                     }
 
@@ -2143,5 +2532,11 @@ public class AccountActivity extends AppCompatActivity {
         //Lets fetch all the one click card tokens first
         startActivityForResult(intent , PayuConstants.PAYU_REQUEST_CODE);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        startService(new Intent(mContext, BackgroundService.class));
     }
 }

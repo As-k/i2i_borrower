@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:windowBackground="@android:color/transparent"-->
+    <!--android:windowIsTranslucent="true"-->
+    <!--android:windowAnimationStyle="@android:style/Animation.Translucent"-->
+    <!--tools:context="in.co.cioc.i2i.backend.CallLogDetailsActivity">-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/mobile_text1"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:background="@color/white"-->
+        <!--android:text="8941256025"-->
+        <!--android:textAlignment="center"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+        android:minWidth="294dp"
+        android:minHeight="72dp"
+        android:updatePeriodMillis="86400000"
+        android:previewImage="@drawable/address_icon"
+        android:initialLayout="@layout/layout_call_barring"
+        android:configure="com.example.android.ExampleAppWidgetConfigure"
+        android:resizeMode="horizontal|vertical" android:layout_height="match_parent"
+     android:layout_width="match_parent">
+    </appwidget-provider>
+
+<!--</android.support.constraint.ConstraintLayout>-->

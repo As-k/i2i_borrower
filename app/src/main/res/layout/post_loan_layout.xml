@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:padding="20dp">
+            <TableRow
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Loan Id :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="#"
+                    android:id="@+id/loan_id"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Amount :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="#"
+                    android:id="@+id/loan_amount"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Rate :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/rate_txt"
+                    android:text=""
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_marginBottom="15dp">
+                <TextView
+                    android:layout_width="5dp"
+                    android:layout_height="wrap_content"
+                    android:text="12 %"
+                    android:id="@+id/min_rate"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+                <SeekBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/rate_seek_bar"
+                    android:thumbTint="@color/payu_blue"
+                    android:max="30"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/max_id"
+                    android:text="30 %"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    android:layout_marginRight="20dp"
+                    />
+            </TableRow>
+
+            <TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date :"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="Please Select a Date"
+                    android:id="@+id/post_loan_date"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/edit_text_size"
+                    android:backgroundTint="@color/white"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    />
+            </TableRow>
+
+        </TableLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:id="@+id/cancel_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@color/cb_errorRed"
+                android:text="@string/Cancel"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:layout_margin="2dp"/>
+
+            <Button
+                android:id="@+id/post_button"
+                style="?android:textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@color/com_facebook_button_background_color"
+                android:text="Post"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textStyle="bold"
+                android:layout_margin="2dp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

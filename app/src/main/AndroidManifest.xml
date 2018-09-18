@@ -18,9 +18,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <!-- Adding the permission -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SET_DEBUG_APP" />
@@ -32,6 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
         <receiver
             android:name=".SmsReceiver"
             android:exported="true">
@@ -48,30 +54,52 @@
             </intent-filter>
         </receiver>
 
+        <service
+            android:name=".backend.BackgroundService"
+            android:enabled="true" />
+
+        <receiver
+            android:name=".backend.BackgroundReceiver"
+            android:enabled="true"
+            android:exported="false"
+            android:label="BackgroundBroadcastReceiver">
+            <intent-filter android:priority="-1">
+                <action android:name="in.co.cioc.i2i.backend.backendreceiver" />
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.REBOOT" />
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+
+            </intent-filter>
+        </receiver>
+        <!--<receiver android:name=".backend.CallBarring">-->
+            <!--<intent-filter android:priority="100">-->
+                <!--<action android:name="android.intent.action.NEW_OUTGOING_CALL" />-->
+                <!--<action android:name="android.intent.action.PHONE_STATE" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
         <service android:name=".BackServicce" />
 
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity
             android:name=".RegistrationOTP"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RegistrationCheckEligibility"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -96,33 +124,23 @@
         <activity
             android:name=".PaymentActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".UserDetails"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".EmployementDetails"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".EducationalDetails"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".DocumentsActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
         <activity
             android:name=".AccountActivity"
             android:screenOrientation="portrait"
@@ -133,10 +151,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForgotPasswordActivity"
+        <activity
+            android:name=".ForgotPasswordActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".backend.CallLogDetailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

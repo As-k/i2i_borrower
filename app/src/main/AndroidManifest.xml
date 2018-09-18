@@ -99,7 +99,7 @@
         <activity
             android:name=".RegistrationCheckEligibility"
             android:screenOrientation="portrait"
-<<<<<<< HEAD
+
             android:windowSoftInputMode="stateHidden">
 
         </activity>
@@ -146,15 +146,13 @@
         <activity
             android:name=".DocumentsActivity"
             android:screenOrientation="portrait"
-<<<<<<< HEAD
+
             android:windowSoftInputMode="stateHidden"
             android:label=""
             android:launchMode="singleTop">
 
         </activity>
-=======
-            android:windowSoftInputMode="stateHidden"/>
->>>>>>> c0bdcffb0228824d708fc51580f0f83d248628cd
+
         <activity
             android:name=".AccountActivity"
             android:screenOrientation="portrait"
@@ -168,15 +166,12 @@
         <activity
             android:name=".ForgotPasswordActivity"
             android:screenOrientation="portrait"
-<<<<<<< HEAD
+
             android:windowSoftInputMode="stateHidden">
 
         </activity>
-=======
-            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".backend.CallLogDetailsActivity"
             android:screenOrientation="portrait"/>
->>>>>>> c0bdcffb0228824d708fc51580f0f83d248628cd
     </application>
 
 </manifest>

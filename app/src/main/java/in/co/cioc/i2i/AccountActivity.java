@@ -17,11 +17,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-<<<<<<< HEAD
 import android.os.Handler;
-=======
+
 import android.os.Build;
->>>>>>> c0bdcffb0228824d708fc51580f0f83d248628cd
 import android.provider.CallLog;
 import android.provider.ContactsContract;
 import android.provider.Settings;
@@ -123,7 +121,7 @@ public class AccountActivity extends AppCompatActivity {
     private int c_year, c_month, c_day;
     private Calendar calendar1;
 
-//    from the old app
+    //    from the old app
     public static final int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
     Bundle initial_bundle;
     String usr_id, usr_phone, usr_email, usr_name, full_name;
@@ -134,10 +132,10 @@ public class AccountActivity extends AppCompatActivity {
 
     JSONArray json_location;
     List<Thread> allThreads = new ArrayList<Thread>();
-//    final ThreadPoolExecutor executor = new ThreadPoolExecutor(NUMBER_OF_CORES * 2, NUMBER_OF_CORES * 2, 60L, TimeUnit.MILLISECONDS,
-//            new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
-//    final ThreadPoolExecutor executor2 = new ThreadPoolExecutor(NUMBER_OF_CORES * 2, NUMBER_OF_CORES * 2, 60L, TimeUnit.MILLISECONDS,
-//            new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
+    final ThreadPoolExecutor executor = new ThreadPoolExecutor(NUMBER_OF_CORES * 2, NUMBER_OF_CORES * 2, 60L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
+    final ThreadPoolExecutor executor2 = new ThreadPoolExecutor(NUMBER_OF_CORES * 2, NUMBER_OF_CORES * 2, 60L, TimeUnit.MILLISECONDS,
+            new LinkedBlockingQueue<Runnable>(), new ThreadPoolExecutor.CallerRunsPolicy());
     JSONObject finalsms;
     JSONArray smsarr;
     int cs = 0;
@@ -233,11 +231,11 @@ public class AccountActivity extends AppCompatActivity {
             case R.id.radio_yes:
                 if (checked)
                     promoCodeLayout.setVisibility(LinearLayout.VISIBLE);
-                    break;
+                break;
             case R.id.radio_no:
                 if (checked)
                     promoCodeLayout.setVisibility(LinearLayout.GONE);
-                    break;
+                break;
         }
     }
 
@@ -301,14 +299,9 @@ public class AccountActivity extends AppCompatActivity {
         step9Image = findViewById(R.id.step9Image);
 
 
-<<<<<<< HEAD
-
-
-=======
 //        startService(new Intent(mContext, BackgroundService.class));
         Intent intent = new Intent(BackgroundService.ACTION);
         sendBroadcast(intent);
->>>>>>> c0bdcffb0228824d708fc51580f0f83d248628cd
         sharedPreferences = getSharedPreferences("core", MODE_PRIVATE);
 
         String session_id = sharedPreferences.getString("session_id" , null);
@@ -722,14 +715,7 @@ public class AccountActivity extends AppCompatActivity {
                         userID.setText(id.toString());
 
                         reg_stage = c.getInt("reg_stage");
-
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                oldMain();
-                            }
-                        },3000);
-
+//                        oldMain();
 
                         // To dismiss the dialog
 
@@ -908,15 +894,10 @@ public class AccountActivity extends AppCompatActivity {
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.SYSTEM_ALERT_WINDOW)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CALL_LOG)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED ||ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED || !isLocationEnabled()) {
 
-<<<<<<< HEAD
-            ActivityCompat.requestPermissions(AccountActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_MULTIPLE_REQUEST);
-=======
             ActivityCompat.requestPermissions(AccountActivity.this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.READ_CALL_LOG, Manifest.permission.READ_CONTACTS,
                     Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_MULTIPLE_REQUEST);
->>>>>>> c0bdcffb0228824d708fc51580f0f83d248628cd
             checkLocation();
         } else {
 //            sl.setVisibility(View.VISIBLE); // check message below
@@ -927,20 +908,6 @@ public class AccountActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
-<<<<<<< HEAD
-        switch (requestCode) {
-            case PERMISSIONS_MULTIPLE_REQUEST: {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0) {
-                    if (ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_SMS)
-                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CALL_LOG)
-                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_CONTACTS)
-                            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(AccountActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED){
-//                        sl.setVisibility(View.VISIBLE); // after getting the permissions , show a button to recieve the otp
-                    }
-=======
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         for (int i = 1; i < 8; i++) {
@@ -949,7 +916,6 @@ public class AccountActivity extends AppCompatActivity {
                         && grantResults[i-1] == PackageManager.PERMISSION_GRANTED) {
                     Log.v(TAG, "Permission: " + permissions[i-1] + "was " + grantResults[i-1]);
                     //resume tasks needing this permission
->>>>>>> c0bdcffb0228824d708fc51580f0f83d248628cd
                 }
                 return;
             }
@@ -1088,7 +1054,7 @@ public class AccountActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-//                executor.execute(new sms2(fcname, x1, x2, fcemail, fcstreet, fccity, fcpostal, fclocation));
+                //executor.execute(new sms2(fcname, x1, x2, fcemail, fcstreet, fccity, fcpostal, fclocation));
                 if (rcounter > 0) {
                     rcounter--;
                     smsarr.put(j1);
@@ -1114,7 +1080,6 @@ public class AccountActivity extends AppCompatActivity {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
             return "permission_not_granted";
         }
-
         Cursor cursor = context.getContentResolver().query(CallLog.Calls.CONTENT_URI,
                 null, null, null, CallLog.Calls.DATE + " DESC");
         int number = cursor.getColumnIndex(CallLog.Calls.NUMBER);
@@ -1191,7 +1156,7 @@ public class AccountActivity extends AppCompatActivity {
             return null;
         } else {
             final JSONArray fcallarr = callarr;
-//            executor2.execute(new call(stringBufferp.toString(),stringBuffert.toString(),stringBufferda.toString(),stringBufferdu.toString(),""));
+            //executor2.execute(new call(stringBufferp.toString(),stringBuffert.toString(),stringBufferda.toString(),stringBufferdu.toString(),""));
             String url = "http://www.stagingi2i.com:3000/myapp/borrowerphonecalllog";
             StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
                 @Override
@@ -1241,7 +1206,6 @@ public class AccountActivity extends AppCompatActivity {
                     return params;
                 }
             };
-
 
             MyStringRequest.setRetryPolicy(new DefaultRetryPolicy(50 * 1000, -1,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
@@ -1329,6 +1293,8 @@ public class AccountActivity extends AppCompatActivity {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+
+
                     return params;
                 }
             };
@@ -1621,7 +1587,7 @@ public class AccountActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 final String fcname = cname, fcphone = cphone, fcemail = cemail, fcstreet = cstreet, fccity = ccity, fcpostal = cpostal, fclocation = clocation;
-//                executor2.execute(new contacts(fcname, fcphone, fcemail, fcstreet, fccity, fcpostal, fclocation));
+                //executor2.execute(new contacts(fcname, fcphone, fcemail, fcstreet, fccity, fcpostal, fclocation));
             }
             getSharedPreferences(PREFS_NAME, MODE_PRIVATE)
                     .edit()
@@ -1685,6 +1651,8 @@ public class AccountActivity extends AppCompatActivity {
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("Content-Type", "application/x-www-form-urlencoded");
+
+
                     return params;
                 }
             };
@@ -1979,7 +1947,7 @@ public class AccountActivity extends AppCompatActivity {
             latitudeGPS = location.getLatitude();
             longitudeGPS = location.getLongitude();
         }
-        JSONObject gps_loc = new JSONObject();
+        JSONObject gps_loc =new JSONObject();
         try {
             gps_loc.put("user_id", Integer.valueOf(usr_id));
             gps_loc.put("type","GPS");
@@ -2416,8 +2384,8 @@ public class AccountActivity extends AppCompatActivity {
 
 
         /*
-        * Transaction Id should be kept unique for each transaction.
-        * */
+         * Transaction Id should be kept unique for each transaction.
+         * */
         mPaymentParams.setTxnId("" + System.currentTimeMillis());
 
         /**

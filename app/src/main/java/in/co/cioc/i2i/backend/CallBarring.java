@@ -69,7 +69,7 @@ public class CallBarring extends BroadcastReceiver {
             try {
                 System.out.println("Receiver start");
                 String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
-                String incomingNo = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+                final String incomingNo = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
                 if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)||state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                     Toast.makeText(context, "Incoming Call State"+ incomingNo, Toast.LENGTH_SHORT).show();
                     intent1.putExtra("cno", incomingNo);

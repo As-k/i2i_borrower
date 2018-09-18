@@ -129,7 +129,8 @@ public class BackServicce extends Service {
         json_location =new JSONArray();
         //locationManager.requestLocationUpdates(
         //		LocationManager.GPS_PROVIDER, 2 * 60 * 1000, 10, locationListenerGPS);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         if (isGPSLocationEnabled()) {
@@ -171,8 +172,7 @@ public class BackServicce extends Service {
         uploadlocation(json_location);
     }
 
-    private  void uploadlocation(final JSONArray location)
-    {
+    private  void uploadlocation(final JSONArray location) {
         String url = "http://www.stagingi2i.com:3000/myapp/borrowerphonelocation";
         com.android.volley.RequestQueue MyRequestQueue = Volley.newRequestQueue(this);
         StringRequest MyStringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -54,4 +55,5 @@ dependencies {
     implementation 'io.michaelrocks:libphonenumber-android:8.8.5'
     implementation 'com.github.joielechong:countrycodepicker:2.1.5'
     implementation 'io.crossbar.autobahn:autobahn-android:18.5.1'
+    compile 'com.android.support:multidex:1.0.0'
 }

@@ -19,9 +19,11 @@ import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ public class CallBarring extends BroadcastReceiver {
     Backend serverUrl;
     Intent intent1;
     private WindowManager wm;
+
     private static LinearLayout ly1;
     private WindowManager.LayoutParams params1;
 
@@ -58,6 +61,8 @@ public class CallBarring extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         cxt = context;
+
+
 //        serverUrl = new ServerUrl(context);
 //        asyncHttpClient = serverUrl.getHTTPClient();
         // If, the received action is not a type of "Phone_State", ignore it

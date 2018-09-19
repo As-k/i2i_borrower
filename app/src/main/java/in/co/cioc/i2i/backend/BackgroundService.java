@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.List;
@@ -55,6 +57,7 @@ public class BackgroundService extends Service implements View.OnTouchListener {
     //    boolean internetAvailable;
     Client client;
     CompletableFuture<ExitInfo> exitInfoCompletableFuture;
+    LinearLayout layout;
 
 
     @Nullable
@@ -72,6 +75,7 @@ public class BackgroundService extends Service implements View.OnTouchListener {
         else
             mTimer = new Timer(); // recreate new timer
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, INTERVAL); // schedule task
+//        addOverlayView();
 
     }
 
@@ -164,51 +168,49 @@ public class BackgroundService extends Service implements View.OnTouchListener {
                 new WindowManager.LayoutParams(
                         WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
-                        0,
+                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT |
+                    WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                         PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.CENTER | Gravity.START;
-        params.x = 0;
-        params.y = 0;
+        params.x = LinearLayout.LayoutParams.MATCH_PARENT;
+        params.y = LinearLayout.LayoutParams.WRAP_CONTENT;
+        layout = new LinearLayout(this);
+        layout.setBackgroundColor(Color.BLACK);
+        layout.setOrientation(LinearLayout.VERTICAL);
 
-        FrameLayout interceptorLayout = new FrameLayout(this) {
+//        FrameLayout interceptorLayout = new FrameLayout(this) {
+//            @Override
+//            public boolean dispatchKeyEvent(KeyEvent event) {
+//                // Only fire on the ACTION_DOWN event, or you'll get two events (one for _DOWN, one for _UP)
+//                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+//                    // Check if the HOME button is pressed
+//                    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//                        Log.v("Receiver", "BACK Button Pressed");
+//                        // As we've taken action, we'll return true to prevent other apps from consuming the event as well
+//                        return true;
+//                    }
+//                }
+//                // Otherwise don't intercept the event
+//                return super.dispatchKeyEvent(event);
+//            }
+//        };
+//
+//        floatyView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_call_barring, interceptorLayout);
+//        floatyView.setOnTouchListener(this);
 
-            @Override
-            public boolean dispatchKeyEvent(KeyEvent event) {
-
-                // Only fire on the ACTION_DOWN event, or you'll get two events (one for _DOWN, one for _UP)
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-
-                    // Check if the HOME button is pressed
-                    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-
-                        Log.v("Receiver", "BACK Button Pressed");
-
-                        // As we've taken action, we'll return true to prevent other apps from consuming the event as well
-                        return true;
-                    }
-                }
-
-                // Otherwise don't intercept the event
-                return super.dispatchKeyEvent(event);
-            }
-        };
-
-        floatyView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_call_barring, interceptorLayout);
-
-        floatyView.setOnTouchListener(this);
-
-        windowManager.addView(floatyView, params);
+        windowManager.addView(layout, params);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Toast.makeText(this, "destroy", Toast.LENGTH_SHORT).show();
-        if (floatyView != null) {
-            windowManager.removeView(floatyView);
-            floatyView = null;
+        if (layout != null) {
+            windowManager.removeView(layout);
+            layout = null;
         }
         Intent intent = new Intent(ACTION);
         sendBroadcast(intent);

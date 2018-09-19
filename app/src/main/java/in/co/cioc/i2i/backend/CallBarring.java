@@ -53,9 +53,7 @@ public class CallBarring extends BroadcastReceiver {
     Backend serverUrl;
     Intent intent1;
     private WindowManager wm;
-
-    private static LinearLayout ly1;
-    private WindowManager.LayoutParams params1;
+    private static LinearLayout ly;
 
 
     @Override
@@ -97,14 +95,7 @@ public class CallBarring extends BroadcastReceiver {
 //                                        obj = response.getJSONObject(i);
 //                                        final String removePk = obj.getString("pk");
 //                                        ContactLite lite = new ContactLite(obj);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Alerts.displayError(context, ""+incomingNo);
-                            }
-                        }, 500);
-//                        context.startService(new Intent(context, BackgroundService.class));
-                                        context.startActivity(intent1);
+                        context.startService(new Intent(context, BackgroundService.class));
 //                                    } catch (JSONException e) {
 //                                        e.printStackTrace();
 //                                    }
@@ -141,7 +132,7 @@ public class CallBarring extends BroadcastReceiver {
 //
 //        // Adds a view on top of the dialer app when it launches.
 //        if(state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)){
-//            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+//            wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
 //
 //            WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 //                    LinearLayout.LayoutParams.MATCH_PARENT,
@@ -157,7 +148,7 @@ public class CallBarring extends BroadcastReceiver {
 //
 //            params.gravity = Gravity.TOP;
 //
-//            LinearLayout ly = new LinearLayout(context);
+//            ly = new LinearLayout(context);
 //            ly.setBackgroundColor(Color.RED);
 //            ly.setOrientation(LinearLayout.VERTICAL);
 //
@@ -168,17 +159,15 @@ public class CallBarring extends BroadcastReceiver {
 //        if(intent.getAction().equals("android.intent.action.PHONE_STATE")){
 //            String state1 = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
 //            if(state1.equals(TelephonyManager.EXTRA_STATE_IDLE)){
-//                WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-//                if(ly1!=null) {
-//                    wm.removeView(ly1);
-//                    ly1 = null;
+//                wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+//                if(ly!=null) {
+//                    wm.removeView(ly);
+//                    ly = null;
 //                }
 //            }
 //        }
 
     }
-
-
 
     private void getCalldetailsNow() {
         // TODO Auto-generated method stub

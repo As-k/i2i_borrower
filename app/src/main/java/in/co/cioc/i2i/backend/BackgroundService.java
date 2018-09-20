@@ -25,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -32,6 +33,8 @@ import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 
 import in.co.cioc.i2i.R;
+import in.co.cioc.i2i.SmsListener;
+import in.co.cioc.i2i.SmsReceiver;
 import io.crossbar.autobahn.wamp.Client;
 import io.crossbar.autobahn.wamp.Session;
 import io.crossbar.autobahn.wamp.types.EventDetails;
@@ -43,7 +46,7 @@ import io.crossbar.autobahn.wamp.types.Subscription;
  * Created by Ashish on 17/09/18.
  */
 
-public class BackgroundService extends Service implements View.OnTouchListener {
+public class BackgroundService extends Service {
     public static final String ACTION = "in.co.cioc.i2i.backend.backendreceiver";
     public static final String TAG = "BackgroundService";
     Session session;
@@ -52,13 +55,9 @@ public class BackgroundService extends Service implements View.OnTouchListener {
     private Handler mHandler = new Handler(); // run on another Thread to avoid crash
     private Timer mTimer = null;// timer handling
     TimerTask timerTask;
-    private View floatyView;
-    private WindowManager windowManager;
-    //    boolean internetAvailable;
+    String mob;
     Client client;
     CompletableFuture<ExitInfo> exitInfoCompletableFuture;
-    LinearLayout layout;
-
 
     @Nullable
     @Override
@@ -69,25 +68,13 @@ public class BackgroundService extends Service implements View.OnTouchListener {
     @Override
     public void onCreate() {
         sessionManager = new SessionManager(this);
-        windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         if (mTimer != null)
             mTimer.cancel();
         else
             mTimer = new Timer(); // recreate new timer
         mTimer.scheduleAtFixedRate(new TimeDisplayTimerTask(), 0, INTERVAL); // schedule task
-//        addOverlayView();
 
     }
-
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        Log.v(TAG, "onTouch...");
-
-        // Kill service
-        onDestroy();
-        return true;
-    }
-
 
     //inner class of TimeDisplayTimerTask
     private class TimeDisplayTimerTask extends TimerTask {
@@ -115,103 +102,64 @@ public class BackgroundService extends Service implements View.OnTouchListener {
                     }
                 }
 
-
                 public void demonstrateSubscribe(Session session, SessionDetails details) {
-
                     String usrname = sessionManager.getUsername();
-
-                    CompletableFuture<Subscription> subFuture = session.subscribe("service.self." + "admin",
-                            this::onEvent);
-                    subFuture.whenComplete((subscription, throwable) -> {
-                        if (throwable == null) {
-                            System.out.println("Subscribed to topic " + subscription.topic);
-                            Toast.makeText(getApplicationContext(), "wapm server Connected", Toast.LENGTH_SHORT).show();
-                        } else {
-                            throwable.printStackTrace();
-                        }
-                    });
+//                    CompletableFuture<Subscription> subFuture = session.subscribe("service.self." + "agent",
+//                            this::onEvent);
+//                    subFuture.whenComplete((subscription, throwable) -> {
+//                        if (throwable == null) {
+//                            System.out.println("Subscribed to topic " + subscription.topic);
+                            Toast.makeText(getApplicationContext(), "wamp server connected", Toast.LENGTH_SHORT).show();
+//
+//                        } else {
+//                            throwable.printStackTrace();
+//                        }
+//                    });
                 }
 
                 private void onEvent(List<Object> args, Map<String, Object> kwargs, EventDetails details) {
                     System.out.println(String.format("Got event: %s", args.get(0)));
-
                     Toast.makeText(BackgroundService.this, args.toString(), Toast.LENGTH_SHORT).show();
-
                     // add a notification strip here
-
                 }
             });
+
+
+            CallBarring.bindListener(new SmsListener() {
+                @Override
+                public void messageReceived(String messageText) {
+                    Toast.makeText(BackgroundService.this, ""+messageText, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
         }
     }
 
-    @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        //create a intent that you want to start again..
-        String manufacturer = "xiaomi";
-        if(manufacturer.equalsIgnoreCase(android.os.Build.MANUFACTURER)) {
-            //this will open auto start screen where user can enable permission for your app
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
-            startActivity(intent);
-        } else {
-            Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
-            PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
-            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
-        }
-        super.onTaskRemoved(rootIntent);
-    }
+//    @Override
+//    public void onTaskRemoved(Intent rootIntent) {
+//        //create a intent that you want to start again..
+//        String manufacturer = "xiaomi";
+//        if(manufacturer.equalsIgnoreCase(android.os.Build.MANUFACTURER)) {
+//            //this will open auto start screen where user can enable permission for your app
+//            Intent intent = new Intent();
+//            intent.setComponent(new ComponentName("com.miui.securitycenter", "com.miui.permcenter.autostart.AutoStartManagementActivity"));
+//            startActivity(intent);
+//        } else {
+//            Intent intent = new Intent(getApplicationContext(), BackgroundService.class);
+//            PendingIntent pendingIntent = PendingIntent.getService(this, 1, intent, PendingIntent.FLAG_ONE_SHOT);
+//            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+//            alarmManager.set(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime() + 5000, pendingIntent);
+//        }
+//        super.onTaskRemoved(rootIntent);
+//    }
 
-    private void addOverlayView() {
 
-        final WindowManager.LayoutParams params =
-                new WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT |
-                    WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL |
-                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                        PixelFormat.TRANSLUCENT);
-
-        params.gravity = Gravity.CENTER | Gravity.START;
-        params.x = LinearLayout.LayoutParams.MATCH_PARENT;
-        params.y = LinearLayout.LayoutParams.WRAP_CONTENT;
-        layout = new LinearLayout(this);
-        layout.setBackgroundColor(Color.BLACK);
-        layout.setOrientation(LinearLayout.VERTICAL);
-
-//        FrameLayout interceptorLayout = new FrameLayout(this) {
-//            @Override
-//            public boolean dispatchKeyEvent(KeyEvent event) {
-//                // Only fire on the ACTION_DOWN event, or you'll get two events (one for _DOWN, one for _UP)
-//                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    // Check if the HOME button is pressed
-//                    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-//                        Log.v("Receiver", "BACK Button Pressed");
-//                        // As we've taken action, we'll return true to prevent other apps from consuming the event as well
-//                        return true;
-//                    }
-//                }
-//                // Otherwise don't intercept the event
-//                return super.dispatchKeyEvent(event);
-//            }
-//        };
-//
-//        floatyView = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layout_call_barring, interceptorLayout);
-//        floatyView.setOnTouchListener(this);
-
-        windowManager.addView(layout, params);
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         Toast.makeText(this, "destroy", Toast.LENGTH_SHORT).show();
-        if (layout != null) {
-            windowManager.removeView(layout);
-            layout = null;
-        }
         Intent intent = new Intent(ACTION);
         sendBroadcast(intent);
     }
@@ -220,8 +168,11 @@ public class BackgroundService extends Service implements View.OnTouchListener {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        intent = new Intent(ACTION);
-        sendBroadcast(intent);
+        if(intent.getExtras()!=null)
+            mob = intent.getExtras().getString("mob");
+//        Toast.makeText(this, "service:  "+ mob, Toast.LENGTH_SHORT).show();
+        Intent intent1 = new Intent(ACTION);
+        sendBroadcast(intent1);
         return START_STICKY;
     }
 }

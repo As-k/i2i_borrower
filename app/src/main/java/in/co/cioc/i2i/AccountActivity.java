@@ -754,14 +754,16 @@ public class AccountActivity extends AppCompatActivity {
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.SYSTEM_ALERT_WINDOW) == PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(this, Manifest.permission.MODIFY_PHONE_STATE) == PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
                 Log.v(TAG,"Permission is granted");
                 return true;
             } else {
                 Log.v(TAG,"Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.CALL_PHONE , Manifest.permission.READ_PHONE_STATE , Manifest.permission.PROCESS_OUTGOING_CALLS,
-                        Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.MODIFY_PHONE_STATE, Manifest.permission.SEND_SMS}, 1);
+                        Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.MODIFY_PHONE_STATE,
+                        Manifest.permission.SEND_SMS, Manifest.permission.SEND_SMS}, 1);
                 return false;
             }
         }
@@ -914,7 +916,7 @@ public class AccountActivity extends AppCompatActivity {
                                            String permissions[], int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        for (int i = 1; i < 8; i++) {
+        for (int i = 1; i < 9; i++) {
             if (requestCode == i){
                 if (grantResults.length > 0
                         && grantResults[i-1] == PackageManager.PERMISSION_GRANTED) {

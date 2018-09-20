@@ -61,24 +61,25 @@
         <receiver
             android:name=".backend.BackgroundReceiver"
             android:enabled="true"
-            android:exported="false"
+            android:exported="true"
             android:label="BackgroundBroadcastReceiver">
-            <intent-filter android:priority="-1">
+            <intent-filter >
                 <action android:name="in.co.cioc.i2i.backend.backendreceiver" />
                 <action android:name="android.intent.action.PHONE_STATE" />
-                <action android:name="android.intent.action.REBOOT" />
                 <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+                <action android:name="android.intent.action.REBOOT" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
 
             </intent-filter>
         </receiver>
-        <!--<receiver android:name=".backend.CallBarring">-->
-            <!--<intent-filter android:priority="100">-->
-                <!--<action android:name="android.intent.action.NEW_OUTGOING_CALL" />-->
-                <!--<action android:name="android.intent.action.PHONE_STATE" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <receiver android:name=".backend.CallBarring"
+            android:exported="true">
+            <intent-filter android:priority="100"
+                >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
         <service android:name=".BackServicce" />
 
